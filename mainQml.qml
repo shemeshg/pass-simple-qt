@@ -51,7 +51,7 @@ import QtQuick.Layouts
 
                 Button {
                     text: "Hide/Show treeview"
-                    onClicked: {mainqmltype.filePath = "p"; mainqmltype.toggleFilepan();}
+                    onClicked: { mainqmltype.toggleFilepan();}
                 }
             }
 

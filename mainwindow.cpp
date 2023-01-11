@@ -62,8 +62,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_treeView_entered(const QModelIndex &index)
 {
-    auto idx = index.model()->index(index.row(), 0, index.parent());
-    mainqmltype->setFilePath(filesystemModel.filePath(idx));
 }
 
 
@@ -73,5 +71,13 @@ void MainWindow::on_splitter_splitterMoved(int pos, int index)
         mainqmltype->setFilePanSize(pos);
     }
 
+}
+
+
+void MainWindow::on_treeView_clicked(const QModelIndex &index)
+{
+    qDebug()<<index<<"\n";
+    auto idx = index.model()->index(index.row(), 0, index.parent());
+    mainqmltype->setFilePath(filesystemModel.filePath(idx));
 }
 
