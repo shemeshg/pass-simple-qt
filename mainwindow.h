@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileSystemModel>
+#include <QFileIconProvider>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,5 +19,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QFileSystemModel filesystemModel;
+    QFileIconProvider iconProvider;
 };
 #endif // MAINWINDOW_H
