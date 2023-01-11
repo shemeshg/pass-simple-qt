@@ -4,22 +4,36 @@
 
 
 
-MainQmlType::MainQmlType(QObject *parent) :
-    QObject(parent)
+MainQmlType::MainQmlType(QSplitter *s ,QObject *parent) :
+    QObject(parent), splitter{s}
 {
 }
-
-QString MainQmlType::userName()
+QString MainQmlType::filePath()
 {
-    return m_userName;
+    return m_filePath;
 }
 
-void MainQmlType::setUserName(const QString &userName)
+void MainQmlType::setFilePath(const QString &filePath)
 {
-    if (userName == m_userName)
+    if (filePath == m_filePath)
         return;
 
-    m_userName = userName;
-    emit userNameChanged();
+    m_filePath = filePath;
+    emit filePathChanged();
 }
+
+int MainQmlType::filePanSize()
+{
+    return m_filePanSize;
+}
+
+void MainQmlType::setFilePanSize(const int &filePanSize)
+{
+    if (filePanSize == m_filePanSize)
+        return;
+
+    m_filePanSize = filePanSize;
+    emit filePanSizeChanged();
+}
+
 

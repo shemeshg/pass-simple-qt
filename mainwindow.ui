@@ -67,16 +67,6 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </widget>

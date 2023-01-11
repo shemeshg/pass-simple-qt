@@ -11,9 +11,16 @@ import QtQuick.Layouts
         anchors.fill: parent
 
 
+        Text {
+            id: filepansizeId
+            text:"FilePanSize : " + mainqmltype.filePanSize
+
+
+        }
+
             Text {
                 id: nameId
-                text:mainqmltype.userName
+                text:"File : " + mainqmltype.filePath
 
 
             }
@@ -44,7 +51,7 @@ import QtQuick.Layouts
 
                 Button {
                     text: "Hide/Show treeview"
-                    onClicked: mainqmltype.userName = "p";
+                    onClicked: {mainqmltype.filePath = "p"; mainqmltype.toggleFilepan();}
                 }
             }
 

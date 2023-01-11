@@ -47,9 +47,10 @@ MainWindow::MainWindow(QWidget *parent)
         ui->quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
 
         QQmlContext *context = ui->quickWidget->rootContext();
-        mainqmltype = new MainQmlType(ui->quickWidget); //NOLINT
+        mainqmltype = new MainQmlType(ui->splitter, ui->quickWidget); //NOLINT
         context->setContextProperty(QStringLiteral("mainqmltype"),mainqmltype);
 
+        mainqmltype->setFilePanSize(150);
         ui->quickWidget->setSource(QUrl("qrc:/mainQml.qml"));
 }
 
@@ -62,13 +63,15 @@ MainWindow::~MainWindow()
 void MainWindow::on_treeView_entered(const QModelIndex &index)
 {
     auto idx = index.model()->index(index.row(), 0, index.parent());
-    ui->label_2->setText(filesystemModel.filePath(idx));
-    mainqmltype->setUserName(filesystemModel.filePath(idx));
+    mainqmltype->setFilePath(filesystemModel.filePath(idx));
 }
 
 
 void MainWindow::on_splitter_splitterMoved(int pos, int index)
 {
-    qDebug()<<"pos"<<pos<<"index"<<index<<"\n";
+    if (index == 1){
+        mainqmltype->setFilePanSize(pos);
+    }
+
 }
 

@@ -1,26 +1,44 @@
 #ifndef MAINQMLTYPE_H
 #define MAINQMLTYPE_H
 #include <qqmlregistration.h>
-
+#include <QSplitter>
 #include <QObject>
 
 class MainQmlType : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString userName READ userName WRITE setUserName NOTIFY userNameChanged)
+    Q_PROPERTY(QString filePath READ filePath WRITE setFilePath NOTIFY filePathChanged)
+    Q_PROPERTY(int filePanSize READ filePanSize WRITE setFilePanSize NOTIFY filePanSizeChanged)
     QML_ELEMENT
 
 public:
-    explicit MainQmlType(QObject *parent = nullptr);
+    explicit MainQmlType(QSplitter *s ,QObject *parent = nullptr);
 
-    QString userName();
-    void setUserName(const QString &userName);
+    QString filePath();
+    void setFilePath(const QString &filePath);
+
+    int filePanSize();
+    void setFilePanSize(const int &filePanSize);
+
+    Q_INVOKABLE void toggleFilepan(){
+        if (m_filePanSize == 0 ) {
+               splitter->setSizes(QList<int>({150  , 400}));
+               setFilePanSize(150);
+        } else {
+            splitter->setSizes(QList<int>({0  , 400}));
+            setFilePanSize(0);
+        }
+            ;
+    }
 
 signals:
-    void userNameChanged();
+    void filePathChanged();
+    void filePanSizeChanged();
 
 private:
-    QString m_userName;
+    QString m_filePath;
+    int m_filePanSize;
+    QSplitter *splitter;
 };
 
 #endif // MAINQMLTYPE_H
