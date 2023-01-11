@@ -41,6 +41,9 @@ MainWindow::MainWindow(QWidget *parent)
 
         ui->treeView->setWindowTitle(QObject::tr("Dir View"));
 
+        ui->quickWidget->setClearColor(Qt::transparent);
+        ui->quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
+
 }
 
 MainWindow::~MainWindow()

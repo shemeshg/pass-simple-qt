@@ -59,6 +59,9 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QQuickWidget" name="quickWidget">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
           <property name="resizeMode">
            <enum>QQuickWidget::SizeRootObjectToView</enum>
           </property>
