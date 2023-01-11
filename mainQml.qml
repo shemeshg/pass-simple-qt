@@ -11,7 +11,7 @@ import QtQuick.Layouts
         GroupBox {
             id: rowBox
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-            title: "Row layout"
+            title: "File selected"
             Layout.fillWidth: true
 
 
@@ -35,7 +35,7 @@ import QtQuick.Layouts
                 }
 
                 Button {
-                    text: "Button"
+                    text: "Hide/Show treeview"
                 }
             }
 
