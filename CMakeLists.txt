@@ -22,6 +22,7 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         qwidgetqrc.qrc
+        mainqmltype.h mainqmltype.cpp
         ${TS_FILES}
 )
 

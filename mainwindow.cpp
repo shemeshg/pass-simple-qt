@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include <QQmlContext>
 #include <QScroller>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -44,6 +46,11 @@ MainWindow::MainWindow(QWidget *parent)
         ui->quickWidget->setClearColor(Qt::transparent);
         ui->quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
 
+        QQmlContext *context = ui->quickWidget->rootContext();
+        mainqmltype = new MainQmlType(ui->quickWidget); //NOLINT
+        context->setContextProperty(QStringLiteral("mainqmltype"),mainqmltype);
+
+        ui->quickWidget->setSource(QUrl("qrc:/mainQml.qml"));
 }
 
 MainWindow::~MainWindow()
@@ -56,5 +63,12 @@ void MainWindow::on_treeView_entered(const QModelIndex &index)
 {
     auto idx = index.model()->index(index.row(), 0, index.parent());
     ui->label_2->setText(filesystemModel.filePath(idx));
+    mainqmltype->setUserName(filesystemModel.filePath(idx));
+}
+
+
+void MainWindow::on_splitter_splitterMoved(int pos, int index)
+{
+    qDebug()<<"pos"<<pos<<"index"<<index<<"\n";
 }
 

@@ -5,8 +5,19 @@ import QtQuick.Layouts
 
 
     ColumnLayout {
+
+
         id: mainLayout
         anchors.fill: parent
+
+
+            Text {
+                id: nameId
+                text:mainqmltype.userName
+
+
+            }
+
 
         GroupBox {
             id: rowBox
@@ -21,12 +32,9 @@ import QtQuick.Layouts
                 id: rowLayout
                 anchors.fill: parent
 
-                //TextField {
-                    //Layout.alignment: Qt.AlignLeft
-                    //Layout.fillHeight: false
-                    //placeholderText: "This wants to grow horizontally"
-                    //Layout.fillWidth: true
-                //}
+
+
+
 
 
                 TextField {
@@ -36,6 +44,7 @@ import QtQuick.Layouts
 
                 Button {
                     text: "Hide/Show treeview"
+                    onClicked: mainqmltype.userName = "p";
                 }
             }
 

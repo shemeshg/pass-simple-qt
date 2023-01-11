@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QFileSystemModel>
 #include <QFileIconProvider>
+#include "mainqmltype.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,9 +21,12 @@ public:
 private slots:
     void on_treeView_entered(const QModelIndex &index);
 
+    void on_splitter_splitterMoved(int pos, int index);
+
 private:
     Ui::MainWindow *ui;
     QFileSystemModel filesystemModel;
     QFileIconProvider iconProvider;
+    MainQmlType *mainqmltype;
 };
 #endif // MAINWINDOW_H
