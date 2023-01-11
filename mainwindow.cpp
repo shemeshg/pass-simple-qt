@@ -48,3 +48,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::on_treeView_entered(const QModelIndex &index)
+{
+    auto idx = index.model()->index(index.row(), 0, index.parent());
+
+
+    qDebug()<<filesystemModel.filePath(idx);
+}
+
