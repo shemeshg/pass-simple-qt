@@ -13,6 +13,8 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools QuickWid
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets)
 
 #find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
+add_subdirectory(QmlApp)
+
 
 set(TS_FILES pass-simple-qt_en_US.ts)
 
@@ -55,13 +57,14 @@ endif()
 
 target_link_libraries(pass-simple-qt PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::QuickWidgets
 #    Qt6::Quick
+    QmlApp
 )
 
 set_target_properties(pass-simple-qt PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
+    MACOSX_BUNDLE FALSE
     WIN32_EXECUTABLE TRUE
 )
 

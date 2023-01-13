@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-
+import QmlApp
 
 
     ColumnLayout {
@@ -9,6 +9,20 @@ import QtQuick.Layouts
 
         id: mainLayout
         anchors.fill: parent
+        QmlAppComponent {
+            id: qmlAppComponent
+        }
+
+        TextField {
+            id: textFieldHellowWorld
+            text: qmlAppComponent.alianHelloWorld
+        }
+        Binding {
+            target: qmlAppComponent
+            property: "alianHelloWorld"
+            value: textFieldHellowWorld.text
+        }
+
 
 
         Text {
