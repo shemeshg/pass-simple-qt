@@ -19,7 +19,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_treeView_entered(const QModelIndex &index);
 
     void on_splitter_splitterMoved(int pos, int index);
 
