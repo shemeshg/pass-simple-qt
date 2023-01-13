@@ -1,9 +1,9 @@
 import QtQuick
 import QmlApp
 
-Rectangle {
-
+Rectangle {  
     property alias alianHelloWorld: qmlAppType.helloWorld
+
 
     QmlAppType {
         id: qmlAppType
