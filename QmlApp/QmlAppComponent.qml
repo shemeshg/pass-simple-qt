@@ -1,20 +1,37 @@
 import QtQuick
 import QmlApp
+import QtQuick.Layouts
+import QtQuick.Controls
 
-Rectangle {  
+Item {
     property alias alianHelloWorld: qmlAppType.helloWorld
+    property int filePanSize: 0
+    property string filePath: ""
 
-
+    ColumnLayout {
     QmlAppType {
         id: qmlAppType
         helloWorld: "shalom olam 888"
     }
 
-    border.width: 2
-    border.color: "black"
+
     Text {
         id: textId
         text: qmlAppType.helloWorld
     }
 
+    Text {
+        id: filepansizeId
+        text:"FilePanSize : " + filePanSize
+    }
+    Text {
+        id: nameId
+        text:"File : " + filePath
+    }
+
+    Button {
+        text: "Hide/Show treeview"
+        onClicked: { mainLayout.toggleFilepan()}
+    }
+}
 }
