@@ -28,7 +28,10 @@ public:
             splitter->setSizes(QList<int>({0  , 400}));
             setFilePanSize(0);
         }
-            ;
+
+
+
+
     }
 
 signals:
@@ -39,6 +42,7 @@ private:
     QString m_filePath;
     int m_filePanSize;
     QSplitter *splitter;
+
 };
 
 #endif // MAINQMLTYPE_H
