@@ -31,10 +31,16 @@ public:
             setFilePanSize(0);
         }
 
-        std::unique_ptr<PassFile> pf = passHelper.getPassFile("/Users/osx/.password-store/develop/boboadsf.gpg");
-        //pf->isGpgFile()
-        pf->decrypt();
-        qDebug() << QString::fromStdString(pf->getDecrypted());
+
+    }
+
+    Q_INVOKABLE QString getDecrypted(){
+        std::unique_ptr<PassFile> pf = passHelper.getPassFile(m_filePath.toStdString());
+        if (pf->isGpgFile()){
+            pf->decrypt();
+            return QString::fromStdString(pf->getDecrypted());
+        }
+        else return "";
 
 
     }
