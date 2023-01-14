@@ -11,7 +11,7 @@ Item {
     onFilePathChanged: { decryptedTextId.text = mainLayout.getDecrypted() }
 
     ColumnLayout {
-
+        anchors.fill: parent
 
 
 
