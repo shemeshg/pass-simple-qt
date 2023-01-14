@@ -12,9 +12,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets)
 
-#find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 add_subdirectory(QmlApp)
 
+
+
+# LibGpgError bug must include_directories on root, but can be linked in subdirectory
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/gpgfactory/cmake)
+find_package(LibGpgError REQUIRED)
+include_directories(${LibGpgError_INCLUDE_DIRS})
+# End LibGpgError
+add_subdirectory(gpgfactory/libpgpfactory)
 
 set(TS_FILES pass-simple-qt_en_US.ts)
 
@@ -56,8 +63,8 @@ else()
 endif()
 
 target_link_libraries(pass-simple-qt PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::QuickWidgets
-#    Qt6::Quick
     QmlApp
+    libpgpfactory
 )
 
 set_target_properties(pass-simple-qt PROPERTIES

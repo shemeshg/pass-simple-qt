@@ -4,11 +4,14 @@ import QtQuick.Layouts
 import QmlApp
 
 
-ColumnLayout {
+Item {
 
 
     id: mainLayout
-    anchors.fill: parent
+
+    function getDecrypted() {
+        return mainqmltype.getDecrypted();
+    }
 
     QmlAppComponent {
         id: qmlAppComponent

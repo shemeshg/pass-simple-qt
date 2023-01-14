@@ -4,6 +4,8 @@
 #include <QSplitter>
 #include <QObject>
 
+#include "libpasshelper.h"
+
 class MainQmlType : public QObject
 {
     Q_OBJECT
@@ -28,7 +30,19 @@ public:
             splitter->setSizes(QList<int>({0  , 400}));
             setFilePanSize(0);
         }
-            ;
+
+
+    }
+
+    Q_INVOKABLE QString getDecrypted(){
+        std::unique_ptr<PassFile> pf = passHelper.getPassFile(m_filePath.toStdString());
+        if (pf->isGpgFile()){
+            pf->decrypt();
+            return QString::fromStdString(pf->getDecrypted());
+        }
+        else return "";
+
+
     }
 
 signals:
@@ -39,6 +53,8 @@ private:
     QString m_filePath;
     int m_filePanSize;
     QSplitter *splitter;
+    PassHelper passHelper{};
+
 };
 
 #endif // MAINQMLTYPE_H
