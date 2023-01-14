@@ -8,8 +8,6 @@ Item {
 
 
     id: mainLayout
-    //anchors.fill: parent
-
 
     function getDecrypted() {
         return mainqmltype.getDecrypted();

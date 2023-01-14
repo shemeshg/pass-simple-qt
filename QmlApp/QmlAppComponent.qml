@@ -13,22 +13,15 @@ Item {
     ColumnLayout {
         anchors.fill: parent
 
-
-
-
-        Text {
-            id: decryptedTextId
-            text:"decrypted : " + decryptedText
-        }
-
-        Text {
-            id: filepansizeId
-            text:"FilePanSize : " + filePanSize
-        }
         Text {
             id: nameId
             text:"File : " + filePath
         }
+        Text {
+            id: decryptedTextId
+            text:""
+        }
+
 
         Button {
             text: "Hide/Show treeview"
