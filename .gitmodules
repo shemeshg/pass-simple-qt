@@ -1,3 +1,6 @@
 [submodule "_templates"]
 	path = _templates
 	url = https://github.com/shemeshg/hygen-templates.git
+[submodule "gpgfactory"]
+	path = gpgfactory
+	url = https://github.com/shemeshg/gpgme-cmake-example.git
