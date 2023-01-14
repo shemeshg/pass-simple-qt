@@ -4,6 +4,8 @@
 #include <QSplitter>
 #include <QObject>
 
+#include "libpasshelper.h"
+
 class MainQmlType : public QObject
 {
     Q_OBJECT
@@ -29,7 +31,10 @@ public:
             setFilePanSize(0);
         }
 
-
+        std::unique_ptr<PassFile> pf = passHelper.getPassFile("/Users/osx/.password-store/develop/boboadsf.gpg");
+        //pf->isGpgFile()
+        pf->decrypt();
+        qDebug() << QString::fromStdString(pf->getDecrypted());
 
 
     }
@@ -42,6 +47,7 @@ private:
     QString m_filePath;
     int m_filePanSize;
     QSplitter *splitter;
+    PassHelper passHelper{};
 
 };
 
