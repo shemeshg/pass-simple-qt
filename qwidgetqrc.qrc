@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>mainQml.qml</file>
+        <file alias="QmlAppComponent.qml">QmlApp/QmlAppComponent.qml</file>
     </qresource>
 </RCC>
