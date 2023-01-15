@@ -6,14 +6,13 @@ import QtQuick.Controls
 Item {
     property int filePanSize: 0
     property string filePath: ""
-    property string decryptedText: ""
-    property string nearestGit: ""
-    property string nearestGpgId: ""
+
 
     onFilePathChanged: {
         decryptedTextId.text = mainLayout.getDecrypted();
         nearestGitId.text = "Git : " + mainLayout.getNearestGit();
         nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
+        getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
     }
 
     ColumnLayout {
@@ -25,11 +24,15 @@ Item {
         }
         Text {
             id: nearestGitId
-            text:"Git : " + nearestGit
+            text:"Git : "
         }
         Text {
             id: nearestGpgIdId
-            text:"GpgId : " + nearestGpgId
+            text:"GpgId : "
+        }
+        Text {
+            id: getDecryptedSignedById
+            text:"DecryptedSignedBy : "
         }
         Text {
             id: decryptedTextId

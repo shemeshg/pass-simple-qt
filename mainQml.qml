@@ -21,6 +21,10 @@ Item {
         return mainqmltype.getNearestGpgId();
     }
 
+    function getDecryptedSignedBy() {
+        return mainqmltype.getDecryptedSignedBy();
+    }
+
     QmlAppComponent {
         id: qmlAppComponent
     }

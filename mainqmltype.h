@@ -42,6 +42,14 @@ public:
         else return "";
     }
 
+    Q_INVOKABLE QString getDecryptedSignedBy(){
+        if (passFile->isGpgFile()){
+            passFile->decrypt();
+            return QString::fromStdString(passFile->getDecryptedSignedBy());
+        }
+        else return "";
+    }
+
     Q_INVOKABLE QString getNearestGit(){
 
         if (passFile->isGpgFile()){
