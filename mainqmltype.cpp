@@ -19,6 +19,7 @@ void MainQmlType::setFilePath(const QString &filePath)
         return;
 
     m_filePath = filePath;
+    passFile = passHelper.getPassFile(m_filePath.toStdString());
     emit filePathChanged();
 }
 

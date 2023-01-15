@@ -7,8 +7,14 @@ Item {
     property int filePanSize: 0
     property string filePath: ""
     property string decryptedText: ""
+    property string nearestGit: ""
+    property string nearestGpgId: ""
 
-    onFilePathChanged: { decryptedTextId.text = mainLayout.getDecrypted() }
+    onFilePathChanged: {
+        decryptedTextId.text = mainLayout.getDecrypted();
+        nearestGitId.text = "Git : " + mainLayout.getNearestGit();
+        nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -16,6 +22,14 @@ Item {
         Text {
             id: nameId
             text:"File : " + filePath
+        }
+        Text {
+            id: nearestGitId
+            text:"Git : " + nearestGit
+        }
+        Text {
+            id: nearestGpgIdId
+            text:"GpgId : " + nearestGpgId
         }
         Text {
             id: decryptedTextId

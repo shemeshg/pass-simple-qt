@@ -34,15 +34,28 @@ public:
 
     }
 
-    Q_INVOKABLE QString getDecrypted(){
-        std::unique_ptr<PassFile> pf = passHelper.getPassFile(m_filePath.toStdString());
-        if (pf->isGpgFile()){
-            pf->decrypt();
-            return QString::fromStdString(pf->getDecrypted());
+    Q_INVOKABLE QString getDecrypted(){        
+        if (passFile->isGpgFile()){
+            passFile->decrypt();
+            return QString::fromStdString(passFile->getDecrypted());
         }
         else return "";
+    }
 
+    Q_INVOKABLE QString getNearestGit(){
 
+        if (passFile->isGpgFile()){
+            return QString::fromStdString(passHelper.getNearestGit(passFile->getFullPath(), "/Users/osx/.password-store"));
+        }
+        else return "";
+    }
+
+    Q_INVOKABLE QString getNearestGpgId(){
+
+        if (passFile->isGpgFile()){            
+            return QString::fromStdString(passHelper.getNearestGpgId(passFile->getFullPath(), "/Users/osx/.password-store"));
+        }
+        else return "";
     }
 
 signals:
@@ -54,6 +67,7 @@ private:
     int m_filePanSize;
     QSplitter *splitter;
     PassHelper passHelper{};
+    std::unique_ptr<PassFile> passFile;
 
 };
 

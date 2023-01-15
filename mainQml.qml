@@ -13,6 +13,14 @@ Item {
         return mainqmltype.getDecrypted();
     }
 
+    function getNearestGit() {
+        return mainqmltype.getNearestGit();
+    }
+
+    function getNearestGpgId() {
+        return mainqmltype.getNearestGpgId();
+    }
+
     QmlAppComponent {
         id: qmlAppComponent
     }
