@@ -17,15 +17,14 @@ Item {
     }
 
 
+    DropdownWithListComponent {
+        id: asdfasdf
+    }
 
 
+    /*
     ColumnLayout {
         anchors.fill: parent
-
-        DropdownWithListComponent {
-            id: asdfasdf
-        }
-
 
         Text {
             id: nameId
@@ -54,4 +53,5 @@ Item {
             onClicked: { mainLayout.toggleFilepan()}
         }
     }
+    */
 }

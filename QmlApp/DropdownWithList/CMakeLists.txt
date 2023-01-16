@@ -5,5 +5,5 @@ qt6_add_qml_module(DropdownWithList
             DropdownWithListType.h 
             DropdownWithListType.cpp
         QML_FILES
-            DropdownWithListComponent.qml        
+            DropdownWithListComponent.qml
               )
