@@ -2,6 +2,7 @@ import QtQuick
 import QmlApp
 import QtQuick.Layouts
 import QtQuick.Controls
+import DropdownWithList
 
 Item {
     property int filePanSize: 0
@@ -15,8 +16,16 @@ Item {
         getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
     }
 
+
+
+
     ColumnLayout {
         anchors.fill: parent
+
+        DropdownWithListComponent {
+            id: asdfasdf
+        }
+
 
         Text {
             id: nameId

@@ -6,7 +6,6 @@ import QmlApp
 
 Item {
 
-
     id: mainLayout
 
     function getDecrypted() {

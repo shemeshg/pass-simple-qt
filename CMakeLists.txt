@@ -64,8 +64,8 @@ else()
 endif()
 
 target_link_libraries(pass-simple-qt PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::QuickWidgets
-    QmlApp
-    libpgpfactory
+    QmlApp    
+    libpgpfactory    
 )
 
 set_target_properties(pass-simple-qt PROPERTIES
