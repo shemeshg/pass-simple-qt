@@ -5,33 +5,47 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 
-    ColumnLayout {
-        DropdownWithListType {
-            id:   dropdownWithListTypeId
-         }
-
-        ComboBox {
-            id: editableCombo
-            editable: true
-
-            //width: 200
-            model: [ "Banana", "Apple", "Coconut" ]
-            onActivated: console.log(currentValue)
-            inputMethodHints: Qt.ImhNoAutoUppercase
-            onAccepted: {
-                if (find(editText) !== -1)
-                           activated(find(editText))
-            }
-
-        }
-
-        ComboBox {
-            //width: 200
-            model: [ "Banana", "Apple", "Coconut" ]
-
-        }
-
+ColumnLayout {
+    DropdownWithListType {
+        id:   dropdownWithListTypeId
     }
+
+    Label {
+        text:  "<h1>Group members</h1>"
+    }
+
+    Repeater {
+        model: dropdownWithListTypeId.selectedItems
+        RowLayout{
+            Label {
+                text:  modelData
+            }
+            Button {
+                text: "remove"
+                onClicked: dropdownWithListTypeId.addNotSelectedItem(modelData)
+            }
+        }
+    }
+
+
+    Label {
+        text:  "<h1>Select member to add</h1>"
+    }
+
+    Repeater {
+        model: dropdownWithListTypeId.notSelectedItems
+        RowLayout{
+            Label {
+                text:  modelData
+            }
+            Button {
+                text: "add"
+                onClicked: dropdownWithListTypeId.addSelectedItem(modelData)
+            }
+        }
+    }
+
+}
 
 
 

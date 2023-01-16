@@ -17,14 +17,21 @@ Item {
     }
 
 
-    DropdownWithListComponent {
-        id: asdfasdf
-    }
 
 
-    /*
+
     ColumnLayout {
         anchors.fill: parent
+
+        DropdownWithListComponent {
+            id: asdfasdf
+        }
+
+
+        Button {
+            text: "Hide/Show treeview"
+            onClicked: { mainLayout.toggleFilepan()}
+        }
 
         Text {
             id: nameId
@@ -48,10 +55,6 @@ Item {
         }
 
 
-        Button {
-            text: "Hide/Show treeview"
-            onClicked: { mainLayout.toggleFilepan()}
-        }
     }
-    */
+
 }
