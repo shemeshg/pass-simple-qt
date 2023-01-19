@@ -20,6 +20,14 @@ void MainQmlType::setFilePath(const QString &filePath)
 
     m_filePath = filePath;
     passFile = passHelper.getPassFile(m_filePath.toStdString());
+    try {
+      m_gpgIdManageType.init(m_filePath.toStdString(), "/Users/osx/.password-store",&passHelper);
+    }
+    catch (...) {
+     qDebug()<<"Just failed \n"; // Block of code to handle errors
+    }
+
+
     emit filePathChanged();
 }
 

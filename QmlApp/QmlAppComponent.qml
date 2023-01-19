@@ -7,6 +7,7 @@ import DropdownWithList
 Item {
     property int filePanSize: 0
     property string filePath: ""
+    property string tmpShalom: ""
 
 
     onFilePathChanged: {
@@ -14,6 +15,7 @@ Item {
         nearestGitId.text = "Git : " + mainLayout.getNearestGit();
         nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
         getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
+        tmpShalomId.text = "********** Main Layout shalom *******" + mainLayout.getGpgIdManageType().currentPath
     }
 
 
@@ -22,6 +24,12 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
+
+        Text {
+            id: tmpShalomId
+            text: "********** Main Layout shalom *******" + tmpShalom
+        }
+
 
         DropdownWithListComponent {
             id: asdfasdf

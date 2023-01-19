@@ -24,6 +24,10 @@ Item {
         return mainqmltype.getDecryptedSignedBy();
     }
 
+    function getGpgIdManageType() {
+        return mainqmltype.gpgIdManageType;
+    }
+
     QmlAppComponent {
         id: qmlAppComponent
     }

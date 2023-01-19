@@ -33,6 +33,7 @@ set(PROJECT_SOURCES
         mainwindow.ui
         qwidgetqrc.qrc
         mainqmltype.h mainqmltype.cpp
+        GpgIdManageType.h GpgIdManageType.cpp
         ${TS_FILES}
 )
 

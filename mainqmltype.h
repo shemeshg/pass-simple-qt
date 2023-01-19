@@ -5,12 +5,14 @@
 #include <QObject>
 
 #include "libpasshelper.h"
+#include "GpgIdManageType.h"
 
 class MainQmlType : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString filePath READ filePath WRITE setFilePath NOTIFY filePathChanged)
     Q_PROPERTY(int filePanSize READ filePanSize WRITE setFilePanSize NOTIFY filePanSizeChanged)
+    Q_PROPERTY(GpgIdManageType* gpgIdManageType READ gpgIdManageType CONSTANT)
     QML_ELEMENT
 
 public:
@@ -21,6 +23,10 @@ public:
 
     int filePanSize();
     void setFilePanSize(const int &filePanSize);
+
+    GpgIdManageType* gpgIdManageType(){
+        return &m_gpgIdManageType;
+    }
 
     Q_INVOKABLE void toggleFilepan(){
         if (m_filePanSize == 0 ) {
@@ -66,6 +72,7 @@ public:
         else return "";
     }
 
+
 signals:
     void filePathChanged();
     void filePanSizeChanged();
@@ -76,6 +83,7 @@ private:
     QSplitter *splitter;
     PassHelper passHelper{};
     std::unique_ptr<PassFile> passFile;
+    GpgIdManageType m_gpgIdManageType;
 
 };
 
