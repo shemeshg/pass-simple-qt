@@ -51,11 +51,25 @@ MainWindow::MainWindow(QWidget *parent)
 
         mainqmltype->setFilePanSize(150);
         ui->quickWidget->setSource(QUrl("qrc:/mainQml.qml"));
+
+        //selection changes shall trigger a slot
+       QItemSelectionModel *selectionModel= ui->treeView->selectionModel();
+       connect(selectionModel, SIGNAL(selectionChanged (const QItemSelection &, const QItemSelection &)),
+               this, SLOT(selectionChangedSlot(const QItemSelection &, const QItemSelection &)));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::selectionChangedSlot(const QItemSelection & /*newSelection*/, const QItemSelection & /*oldSelection*/)
+{
+    //get the text of the selected item
+    const QModelIndex index = ui->treeView->selectionModel()->currentIndex();
+    auto idx = index.model()->index(index.row(), 0, index.parent());
+    mainqmltype->setFilePath(filesystemModel.filePath(idx));
+
 }
 
 
@@ -67,10 +81,4 @@ void MainWindow::on_splitter_splitterMoved(int pos, int index)
 
 }
 
-
-void MainWindow::on_treeView_clicked(const QModelIndex &index)
-{    
-    auto idx = index.model()->index(index.row(), 0, index.parent());
-    mainqmltype->setFilePath(filesystemModel.filePath(idx));
-}
 
