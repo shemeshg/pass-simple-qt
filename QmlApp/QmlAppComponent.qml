@@ -4,9 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import DropdownWithList
 
-Item {
-
-
+ScrollView {
     property int filePanSize: 0
     property string filePath: ""
     property string tmpShalom: ""
@@ -16,20 +14,24 @@ Item {
         decryptedTextId.text = mainLayout.getDecrypted();
         nearestGitId.text = "Git : " + mainLayout.getNearestGit();
         nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
-        getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()        
+        getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
         badEntriesRepeater.model = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
         dropdownWithListComponentId.allItems = mainLayout.getGpgIdManageType().allKeys
         dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
     }
 
+    anchors.fill: parent
+    width: parent.width
+    height : parent.height
+    contentWidth: column.width    // The important part
+    contentHeight: column.height  // Same
+    clip : true                   // Prevent drawing column outside the scrollview borders
 
 
-
-
-
-
-    ColumnLayout {
-        anchors.fill: parent
+    Column {
+        id: column
+        //anchors.fill: parent
+        width: parent.width
         Button {
             text: "Hide/Show treeview"
             onClicked: { mainLayout.toggleFilepan()}
@@ -39,7 +41,7 @@ Item {
             text: "<h1>Manage .gpg-id<h1>"
         }
 
-        Text {            
+        Text {
             text: "<h2>Bad .gpg-id entries<h2>"
         }
 
@@ -86,9 +88,6 @@ Item {
             id: decryptedTextId
             text:""
         }
-
-
     }
-
-
 }
+
