@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>mainQml.qml</file>
+        <file>DropdownWithListComponent.qml</file>
     </qresource>
 </RCC>
