@@ -14,8 +14,8 @@ Item {
         decryptedTextId.text = mainLayout.getDecrypted();
         nearestGitId.text = "Git : " + mainLayout.getNearestGit();
         nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
-        getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
-        tmpShalomId.text = "********** Main Layout shalom *******" + mainLayout.getGpgIdManageType().currentPath
+        getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()        
+        badEntriesRepeater.model = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
     }
 
 
@@ -25,14 +25,23 @@ Item {
     ColumnLayout {
         anchors.fill: parent
 
-        Text {
-            id: tmpShalomId
-            text: "********** Main Layout shalom *******" + tmpShalom
+        Text {            
+            text: "<h1>Bad .gpg-id entries<h1>"
+        }
+
+        Repeater {
+            id: badEntriesRepeater
+            model: []
+            RowLayout{
+                Label {
+                    text:  modelData
+                }
+            }
         }
 
 
         DropdownWithListComponent {
-            id: asdfasdf
+            id: dropdownWithListComponentId
         }
 
 
