@@ -5,13 +5,19 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 
+
+
 ColumnLayout {
+    property alias selectedItems: dropdownWithListTypeId.selectedItems
+    property alias notSelectedItems: dropdownWithListTypeId.notSelectedItems
+    property alias allItems: dropdownWithListTypeId.allItems
+
     DropdownWithListType {
         id:   dropdownWithListTypeId
     }
 
     Label {
-        text:  "<h1>Group members</h1>"
+        text:  "<h2>Group members</h2>"
     }
 
     Repeater {
@@ -29,7 +35,7 @@ ColumnLayout {
 
 
     Label {
-        text:  "<h1>Select member to add</h1>"
+        text:  "<h2>Select member to add</h2>"
     }
 
     Repeater {

@@ -5,6 +5,8 @@ import QtQuick.Controls
 import DropdownWithList
 
 Item {
+
+
     property int filePanSize: 0
     property string filePath: ""
     property string tmpShalom: ""
@@ -16,7 +18,11 @@ Item {
         nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
         getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()        
         badEntriesRepeater.model = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
+        dropdownWithListComponentId.allItems = mainLayout.getGpgIdManageType().allKeys
+        dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
     }
+
+
 
 
 
@@ -24,9 +30,17 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
+        Button {
+            text: "Hide/Show treeview"
+            onClicked: { mainLayout.toggleFilepan()}
+        }
+
+        Text {
+            text: "<h1>Manage .gpg-id<h1>"
+        }
 
         Text {            
-            text: "<h1>Bad .gpg-id entries<h1>"
+            text: "<h2>Bad .gpg-id entries<h2>"
         }
 
         Repeater {
@@ -45,9 +59,8 @@ Item {
         }
 
 
-        Button {
-            text: "Hide/Show treeview"
-            onClicked: { mainLayout.toggleFilepan()}
+        Text {
+            text: "<h1>Meta data<h1>"
         }
 
         Text {
@@ -67,11 +80,15 @@ Item {
             text:"DecryptedSignedBy : "
         }
         Text {
+            text: "<h1>Encrypted text<h1>"
+        }
+        Text {
             id: decryptedTextId
             text:""
         }
 
 
     }
+
 
 }

@@ -15,8 +15,8 @@ class DropdownWithListType : public QObject
 
 public:
   explicit DropdownWithListType(QObject *parent = nullptr) : QObject(parent){
-        setAllItems({"apple","banana","coco","delta","echo"});
-        setSelectedItems({"coco","delta"});
+        setAllItems({});
+        setSelectedItems({});
     };
   QStringList allItems()
   {
