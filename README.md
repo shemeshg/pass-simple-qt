@@ -1,4 +1,4 @@
-# pass simple
+# Pass Simple
 
 Multi-platform GUI for pass, the standard unix password manager
 
