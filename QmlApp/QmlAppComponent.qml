@@ -11,8 +11,9 @@ ScrollView {
     property string filePath: ""
     property string tmpShalom: ""
     property bool classInitialized: false
+    property bool gpgPubKeysFolderExists: false
 
-    onFilePathChanged: {
+    function initOnFileChanged(){
         decryptedTextId.text = mainLayout.getDecrypted();
         nearestGitId.text = "Git : " + mainLayout.getNearestGit();
         nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
@@ -21,6 +22,11 @@ ScrollView {
         dropdownWithListComponentId.allItems = mainLayout.getGpgIdManageType().allKeys
         dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
         classInitialized = mainLayout.getGpgIdManageType().classInitialized
+        gpgPubKeysFolderExists = mainLayout.getGpgIdManageType().gpgPubKeysFolderExists
+    }
+
+    onFilePathChanged: {
+      initOnFileChanged();
     }
 
     anchors.fill: parent
@@ -33,20 +39,12 @@ ScrollView {
     FileDialog {
         id: fileDialogImportAndTrustId
         title: "Please choose a .pub file to import and trust"
-        onAccepted: {
-            //console.log("Selected" + fileDialogImportAndTrustId.selectedFile )
+        onAccepted: {            
             mainLayout.getGpgIdManageType().importPublicKeyAndTrust(fileDialogImportAndTrustId.selectedFile);
-            /*
-             1. Import
-             2.
-            badEntriesRepeater.model = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
-            dropdownWithListComponentId.allItems = mainLayout.getGpgIdManageType().allKeys
-            dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
-             */
+            initOnFileChanged();
         }
         onRejected: {
         }
-        //Component.onCompleted: visible = true
     }
 
     Column {
@@ -69,9 +67,15 @@ ScrollView {
         }
         Button {
             text: "Import all public keys in .gpg-pub-keys/"
+            enabled: classInitialized && gpgPubKeysFolderExists
+            onClicked: {
+                mainLayout.getGpgIdManageType().importAllGpgPubKeysFolder();
+                initOnFileChanged();
+            }
         }
         Button {
-            text: "Recreate.gpg-pub-keys/ \n Save changes to .gpg-id \n Re-encrypt all .gpg-id related files"
+            enabled: classInitialized && gpgPubKeysFolderExists && badEntriesRepeater.model.length === 0
+            text: "Save changes to .gpg-id \n Recreate.gpg-pub-keys/ \n Re-encrypt all .gpg-id related files"
         }
         Text {
             text: "<h2>Bad .gpg-id entries<h2>"

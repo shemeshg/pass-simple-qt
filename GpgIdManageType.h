@@ -111,6 +111,14 @@ public:
       }
   }
 
+  Q_INVOKABLE void importAllGpgPubKeysFolder(){
+        try {
+         m_gpgIdManage.importAllGpgPubKeysFolder();
+        } catch (const std::exception& e) {
+                qDebug()<<QString(e.what());
+        }
+      qDebug()<<"Finished importAllGpgPubKeysFolder\n";
+  }
 
 signals:
 
