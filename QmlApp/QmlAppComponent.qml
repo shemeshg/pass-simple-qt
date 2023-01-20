@@ -80,11 +80,19 @@ ScrollView {
             Button {
                 text: "Save"
                 onClicked: {
+                }                
+                visible: isShowPreview
+            }
+            Button {
+                text: "Open"
+                onClicked: {
                 }
+                visible: !isShowPreview
             }
             ComboBox {
-                model: ["Internal", "External", "External No Wait"]
+                model: ["External", "External No Wait"]
                 width: 200
+                visible: !isShowPreview
             }
         }
         TextArea {
