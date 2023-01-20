@@ -12,9 +12,14 @@ ScrollView {
     property string tmpShalom: ""
     property bool classInitialized: false
     property bool gpgPubKeysFolderExists: false
+    property bool isShowPreview: false
 
     function initOnFileChanged(){
-        decryptedTextId.text = mainLayout.getDecrypted();
+        if (isShowPreview){
+            decryptedTextId.text = mainLayout.getDecrypted();
+        }
+
+
         nearestGitId.text = "Git : " + mainLayout.getNearestGit();
         nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
         getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
@@ -54,6 +59,28 @@ ScrollView {
         Button {
             text: "Hide/Show treeview"
             onClicked: { mainLayout.toggleFilepan()}
+        }
+
+        Text {
+            text: "<h1>Encrypted text<h1>"
+        }
+        Row{
+            Switch {
+                id: isPreviewId
+                text: qsTr("Preview")
+                checked: isShowPreview
+                onCheckedChanged: isShowPreview = isPreviewId.checked
+            }
+            Button {
+                text: "Edit"
+            }
+            ComboBox {
+                model: ["Internal", "External", "External No Wait"]
+            }
+        }
+        Text {
+            id: decryptedTextId
+            text:""
         }
 
         Text {
@@ -122,13 +149,7 @@ ScrollView {
             id: getDecryptedSignedById
             text:"DecryptedSignedBy : "
         }
-        Text {
-            text: "<h1>Encrypted text<h1>"
-        }
-        Text {
-            id: decryptedTextId
-            text:""
-        }
+
     }
 }
 
