@@ -4,6 +4,8 @@
 #include <qqmlregistration.h>
 
 #include "GpgIdManage.h"
+#include "QtCore/qdebug.h"
+#include <QUrl>
 
 class GpgIdManageType : public QObject
 {
@@ -16,6 +18,10 @@ class GpgIdManageType : public QObject
   Q_PROPERTY(QStringList  keysNotFoundInGpgIdFile READ keysNotFoundInGpgIdFile CONSTANT)
   Q_PROPERTY(QStringList  keysFoundInGpgIdFile READ keysFoundInGpgIdFile CONSTANT)
   Q_PROPERTY(QStringList  allKeys READ allKeys CONSTANT)
+  Q_PROPERTY(bool  gpgPubKeysFolderExists READ gpgPubKeysFolderExists CONSTANT)
+  Q_PROPERTY(bool  classInitialized READ classInitialized CONSTANT)
+
+
   // hygen Q_PROPERTY
   QML_ELEMENT
 
@@ -55,6 +61,17 @@ public:
     return QString::fromStdString(m_gpgIdManage.nearestGpgIdFile);
   };
 
+  bool gpgPubKeysFolderExists()
+  {
+    return m_gpgIdManage.gpgPubKeysFolderExists;
+  };
+
+  bool classInitialized()
+  {
+    return m_gpgIdManage.classInitialized;
+  };
+
+
 
   QStringList  keysNotFoundInGpgIdFile()
   {
@@ -84,11 +101,19 @@ public:
       return l;
   };
 
+  Q_INVOKABLE void importPublicKeyAndTrust(const QString &urlString){
+    const QUrl url(urlString);
+    const QString localpath = url.toLocalFile();
+      try {
+       m_gpgIdManage.importPublicKeyAndTrust(localpath.toStdString());
+      } catch (const std::exception& e) {
+              qDebug()<<QString(e.what());
+      }
+  }
+
 
 signals:
-  void keysNotFoundInGpgIdFileChanged();
-  void keysFoundInGpgIdFileChanged();
-  void allKeysChanged();
+
   // hygen signals
 
 private:

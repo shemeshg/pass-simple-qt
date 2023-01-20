@@ -10,7 +10,7 @@ ScrollView {
     property int filePanSize: 0
     property string filePath: ""
     property string tmpShalom: ""
-
+    property bool classInitialized: false
 
     onFilePathChanged: {
         decryptedTextId.text = mainLayout.getDecrypted();
@@ -20,6 +20,7 @@ ScrollView {
         badEntriesRepeater.model = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
         dropdownWithListComponentId.allItems = mainLayout.getGpgIdManageType().allKeys
         dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
+        classInitialized = mainLayout.getGpgIdManageType().classInitialized
     }
 
     anchors.fill: parent
@@ -30,10 +31,11 @@ ScrollView {
     clip : true                   // Prevent drawing column outside the scrollview borders
 
     FileDialog {
-        id: fileDialog
-        title: "Please choose a file"
+        id: fileDialogImportAndTrustId
+        title: "Please choose a .pub file to import and trust"
         onAccepted: {
-            console.log("Selected" + fileDialog.selectedFile )
+            //console.log("Selected" + fileDialogImportAndTrustId.selectedFile )
+            mainLayout.getGpgIdManageType().importPublicKeyAndTrust(fileDialogImportAndTrustId.selectedFile);
             /*
              1. Import
              2.
@@ -62,7 +64,8 @@ ScrollView {
 
         Button {
             text: "Import and trust a new public key"
-            onClicked: { fileDialog.open()}
+            enabled: classInitialized
+            onClicked: { fileDialogImportAndTrustId.open()}
         }
         Button {
             text: "Import all public keys in .gpg-pub-keys/"

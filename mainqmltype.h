@@ -42,8 +42,13 @@ public:
 
     Q_INVOKABLE QString getDecrypted(){        
         if (passFile->isGpgFile()){
-            passFile->decrypt();
-            return QString::fromStdString(passFile->getDecrypted());
+            try {
+                passFile->decrypt();
+                return QString::fromStdString(passFile->getDecrypted());
+            } catch (const std::exception& e) {
+                qDebug()<<e.what();
+            }
+
         }
         else return "";
     }
@@ -71,6 +76,7 @@ public:
         }
         else return "";
     }
+    
 
 
 signals:

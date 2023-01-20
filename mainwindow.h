@@ -24,7 +24,6 @@ private slots:
     void on_splitter_splitterMoved(int pos, int index);
 
     void selectionChangedSlot(const QItemSelection & /*newSelection*/, const QItemSelection & /*oldSelection*/);
-    //void on_treeView_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
