@@ -2,6 +2,8 @@ import QtQuick
 import QmlApp
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Dialogs
+
 import DropdownWithList
 
 ScrollView {
@@ -27,6 +29,23 @@ ScrollView {
     contentHeight: column.height  // Same
     clip : true                   // Prevent drawing column outside the scrollview borders
 
+    FileDialog {
+        id: fileDialog
+        title: "Please choose a file"
+        onAccepted: {
+            console.log("Selected" + fileDialog.selectedFile )
+            /*
+             1. Import
+             2.
+            badEntriesRepeater.model = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
+            dropdownWithListComponentId.allItems = mainLayout.getGpgIdManageType().allKeys
+            dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
+             */
+        }
+        onRejected: {
+        }
+        //Component.onCompleted: visible = true
+    }
 
     Column {
         id: column
@@ -41,6 +60,16 @@ ScrollView {
             text: "<h1>Manage .gpg-id<h1>"
         }
 
+        Button {
+            text: "Import and trust a new public key"
+            onClicked: { fileDialog.open()}
+        }
+        Button {
+            text: "Import all public keys in .gpg-pub-keys/"
+        }
+        Button {
+            text: "Recreate.gpg-pub-keys/ \n Save changes to .gpg-id \n Re-encrypt all .gpg-id related files"
+        }
         Text {
             text: "<h2>Bad .gpg-id entries<h2>"
         }
