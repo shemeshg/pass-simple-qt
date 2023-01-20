@@ -14,6 +14,7 @@ ScrollView {
     property bool gpgPubKeysFolderExists: false
     property bool isShowPreview: false
 
+
     function initOnFileChanged(){
         if (isShowPreview){
             decryptedTextId.text = mainLayout.getDecrypted();
@@ -69,20 +70,27 @@ ScrollView {
                 id: isPreviewId
                 text: qsTr("Preview")
                 checked: isShowPreview
-                onCheckedChanged: isShowPreview = isPreviewId.checked
+                onCheckedChanged: {
+                    isShowPreview = isPreviewId.checked
+                    initOnFileChanged();
+                }
             }
             Button {
-                text: "Edit"
+                text: "Save"
+                onClicked: {
+                }
             }
             ComboBox {
                 model: ["Internal", "External", "External No Wait"]
             }
         }
-        Text {
+        TextArea {
             id: decryptedTextId
             text:""
-        }
+            visible: isShowPreview
 
+
+        }
         Text {
             text: "<h1>Manage .gpg-id<h1>"
         }
