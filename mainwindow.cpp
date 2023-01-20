@@ -65,14 +65,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::selectionChangedSlot(const QItemSelection & /*newSelection*/, const QItemSelection & /*oldSelection*/)
 {
+    UiGuard guard(this);
     //get the text of the selected item
     const QModelIndex index = ui->treeView->selectionModel()->currentIndex();
     auto idx = index.model()->index(index.row(), 0, index.parent());
     try {
-        mainqmltype->setFilePath(filesystemModel.filePath(idx));
+
+        mainqmltype->setFilePath(filesystemModel.filePath(idx));        
     } catch (const std::exception& e) {
         qDebug()<<e.what();
     }
+
 
 
 }
