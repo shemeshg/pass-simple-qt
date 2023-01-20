@@ -53,7 +53,7 @@ ScrollView {
         }
     }
 
-    Column {
+    ColumnLayout {
         id: column
         //anchors.fill: parent
         width: parent.width
@@ -72,7 +72,9 @@ ScrollView {
                 checked: isShowPreview
                 onCheckedChanged: {
                     isShowPreview = isPreviewId.checked
-                    initOnFileChanged();
+                    if(classInitialized){
+                        initOnFileChanged();
+                    }
                 }
             }
             Button {
@@ -82,12 +84,15 @@ ScrollView {
             }
             ComboBox {
                 model: ["Internal", "External", "External No Wait"]
+                width: 200
             }
         }
         TextArea {
             id: decryptedTextId
             text:""
             visible: isShowPreview
+
+            Layout.fillWidth: true
 
 
         }
