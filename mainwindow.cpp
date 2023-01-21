@@ -2,6 +2,8 @@
 #include "./ui_mainwindow.h"
 #include <QQmlContext>
 #include <QScroller>
+#include <QTimer>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -65,19 +67,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::selectionChangedSlot(const QItemSelection & /*newSelection*/, const QItemSelection & /*oldSelection*/)
 {
-    UiGuard guard(this);
-    //get the text of the selected item
-    const QModelIndex index = ui->treeView->selectionModel()->currentIndex();
-    auto idx = index.model()->index(index.row(), 0, index.parent());
-    try {
-
-        mainqmltype->setFilePath(filesystemModel.filePath(idx));        
-    } catch (const std::exception& e) {
-        qDebug()<<e.what();
-    }
-
-
-
+    treeIndex = ui->treeView->selectionModel()->currentIndex();
+    QTimer::singleShot(10, this, SLOT(indexHasChanged()));
 }
 
 
