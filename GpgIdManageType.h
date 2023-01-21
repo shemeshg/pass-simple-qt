@@ -33,6 +33,10 @@ public:
 
     }
 
+    std::vector<std::string> &getEncryptTo(){
+        return m_gpgIdManage.encryptTo;
+    }
+
     QString currentPath()
     {
         return QString::fromStdString(m_gpgIdManage.currentPath);

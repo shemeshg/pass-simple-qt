@@ -67,6 +67,13 @@ public:
 
     }
 
+    Q_INVOKABLE void encrypt(QString s){
+        if (passFile->isGpgFile()){
+            passFile->encrypt(s.toStdString(),m_gpgIdManageType.getEncryptTo());
+            qDebug()<<"File Encrypted and saved/n";
+        }
+    }
+
     Q_INVOKABLE QString getDecrypted(){        
         if (passFile->isGpgFile()){
             try {

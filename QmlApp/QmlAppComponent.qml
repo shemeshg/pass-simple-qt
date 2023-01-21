@@ -32,7 +32,7 @@ ScrollView {
     }
 
     onFilePathChanged: {
-      initOnFileChanged();
+        initOnFileChanged();
     }
 
     anchors.fill: parent
@@ -45,7 +45,7 @@ ScrollView {
     FileDialog {
         id: fileDialogImportAndTrustId
         title: "Please choose a .pub file to import and trust"
-        onAccepted: {            
+        onAccepted: {
             mainLayout.getGpgIdManageType().importPublicKeyAndTrust(fileDialogImportAndTrustId.selectedFile);
             initOnFileChanged();
         }
@@ -79,8 +79,9 @@ ScrollView {
             }
             Button {
                 text: "Save"
-                onClicked: {
-                }                
+                onClicked:{
+                    mainLayout.encrypt(decryptedTextId.text)
+                }
                 visible: isShowPreview
             }
             Button {
@@ -123,7 +124,7 @@ ScrollView {
         }
         Button {
             enabled: classInitialized && gpgPubKeysFolderExists && badEntriesRepeater.model.length === 0
-                        && dropdownWithListComponentId.selectedItems.length > 0
+                     && dropdownWithListComponentId.selectedItems.length > 0
             text: "Save changes to .gpg-id \n Recreate.gpg-pub-keys/ \n Re-encrypt all .gpg-id related files"
             onClicked: {
                 mainLayout.getGpgIdManageType().saveChanges(dropdownWithListComponentId.selectedItems);

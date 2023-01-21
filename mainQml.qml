@@ -28,6 +28,10 @@ Item {
         return mainqmltype.gpgIdManageType;
     }
 
+    function encrypt(s){
+        return mainqmltype.encrypt(s);
+    }
+
     QmlAppComponent {
         id: qmlAppComponent
     }

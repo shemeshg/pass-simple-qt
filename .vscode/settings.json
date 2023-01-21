@@ -89,5 +89,6 @@
     "stop_token": "cpp",
     "cinttypes": "cpp",
     "filesystem": "cpp"
-  }
+  },
+  "cSpell.enabled": false
 }
