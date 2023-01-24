@@ -78,7 +78,7 @@ public:
     Q_INVOKABLE void openExternalEncryptWait(){
         if (passFile->isGpgFile()){
 
-            passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo());
+            passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(), &watchWaitAndNoneWaitRunCmd);
             qDebug()<<"File Encrypted and saved/n";
         }
     }
@@ -134,6 +134,7 @@ private:
     PassHelper passHelper{};
     std::unique_ptr<PassFile> passFile;
     GpgIdManageType m_gpgIdManageType;
+    WatchWaitAndNoneWaitRunCmd watchWaitAndNoneWaitRunCmd{};
 
 };
 
