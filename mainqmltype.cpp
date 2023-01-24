@@ -1,12 +1,20 @@
 #include "mainqmltype.h"
 
-
+#include <qstring.h>
 
 
 
 MainQmlType::MainQmlType(QSplitter *s ,QObject *parent) :
     QObject(parent), splitter{s}
-{
+{    
+
+    watchWaitAndNoneWaitRunCmd.callback = [&](){
+        qDebug()<<"Opened files\n";
+        for (auto &itm : watchWaitAndNoneWaitRunCmd.waitItems) {
+            qDebug()<<QString::fromStdString( itm.uniqueId)<<"\n";
+        }
+
+    };
 }
 QString MainQmlType::filePath()
 {
