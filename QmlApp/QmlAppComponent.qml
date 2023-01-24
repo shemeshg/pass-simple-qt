@@ -87,6 +87,7 @@ ScrollView {
             Button {
                 text: "Open"
                 onClicked: {
+                    mainLayout.openExternalEncryptWait();
                 }
                 visible: !isShowPreview
             }

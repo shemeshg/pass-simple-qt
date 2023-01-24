@@ -74,6 +74,13 @@ public:
         }
     }
 
+    Q_INVOKABLE void openExternalEncryptWait(){
+        if (passFile->isGpgFile()){
+            passFile->openExternalEncryptWait(m_gpgIdManageType.getEncryptTo());
+            qDebug()<<"File Encrypted and saved/n";
+        }
+    }
+
     Q_INVOKABLE QString getDecrypted(){        
         if (passFile->isGpgFile()){
             try {
@@ -81,6 +88,7 @@ public:
                 return QString::fromStdString(passFile->getDecrypted());
             } catch (const std::exception& e) {
                 qDebug()<<e.what();
+                return "";
             }
 
         }
