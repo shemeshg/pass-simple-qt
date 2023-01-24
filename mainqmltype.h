@@ -41,6 +41,8 @@ class MainQmlType : public QObject
     Q_PROPERTY(QString filePath READ filePath WRITE setFilePath NOTIFY filePathChanged)
     Q_PROPERTY(int filePanSize READ filePanSize WRITE setFilePanSize NOTIFY filePanSizeChanged)
     Q_PROPERTY(GpgIdManageType* gpgIdManageType READ gpgIdManageType CONSTANT)
+    Q_PROPERTY(QStringList waitItems READ waitItems WRITE setWaitItems NOTIFY waitItemsChanged)
+    Q_PROPERTY(QStringList noneWaitItems READ noneWaitItems WRITE setNoneWaitItems NOTIFY noneWaitItemsChanged)
     // hygen Q_PROPERTY
     QML_ELEMENT
 
@@ -53,6 +55,32 @@ public:
     int filePanSize();
     void setFilePanSize(const int &filePanSize);
 
+  QStringList waitItems()
+  {
+    return m_waitItems;
+  };
+
+  void setWaitItems(const QStringList &waitItems)
+  {
+    if (waitItems == m_waitItems)
+      return;
+
+    m_waitItems = waitItems;
+    emit waitItemsChanged();
+  }
+  QStringList noneWaitItems()
+  {
+    return m_noneWaitItems;
+  };
+
+  void setNoneWaitItems(const QStringList &noneWaitItems)
+  {
+    if (noneWaitItems == m_noneWaitItems)
+      return;
+
+    m_noneWaitItems = noneWaitItems;
+    emit noneWaitItemsChanged();
+  }
     // hygen public
 
     GpgIdManageType* gpgIdManageType(){
@@ -129,6 +157,8 @@ public:
 signals:
     void filePathChanged();
     void filePanSizeChanged();
+  void waitItemsChanged();
+  void noneWaitItemsChanged();
     // hygen signals
 
 private:
@@ -139,6 +169,8 @@ private:
     std::unique_ptr<PassFile> passFile;
     GpgIdManageType m_gpgIdManageType;
     WatchWaitAndNoneWaitRunCmd watchWaitAndNoneWaitRunCmd{};
+  QStringList m_waitItems;
+  QStringList m_noneWaitItems;
     // hygen private
 
 };

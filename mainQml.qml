@@ -54,6 +54,19 @@ Item {
     }
 
 
+    Binding {
+        target: qmlAppComponent
+        property: "waitItems"
+        value: mainqmltype.waitItems
+    }
+
+    Binding {
+        target: qmlAppComponent
+        property: "noneWaitItems"
+        value: mainqmltype.noneWaitItems
+    }
+
+
     signal toggleFilepan()
     onToggleFilepan: mainqmltype.toggleFilepan();
 

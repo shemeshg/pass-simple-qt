@@ -9,11 +9,16 @@ MainQmlType::MainQmlType(QSplitter *s ,QObject *parent) :
 {    
 
     watchWaitAndNoneWaitRunCmd.callback = [&](){
-        qDebug()<<"Opened files\n";
-        for (auto &itm : watchWaitAndNoneWaitRunCmd.waitItems) {
-            qDebug()<<QString::fromStdString( itm.uniqueId)<<"\n";
-        }
+        QStringList waitString, noneWaitString;
 
+        for (auto &itm : watchWaitAndNoneWaitRunCmd.waitItems) {
+            waitString.push_back(QString::fromStdString( itm.uniqueId));
+        }
+        for (auto &itm : watchWaitAndNoneWaitRunCmd.noneWaitItems) {
+            noneWaitString.push_back(QString::fromStdString( itm.uniqueId));
+        }
+        setWaitItems(waitString);
+        setNoneWaitItems(noneWaitString);
     };
 }
 QString MainQmlType::filePath()

@@ -14,6 +14,9 @@ ScrollView {
     property bool gpgPubKeysFolderExists: false
     property bool isShowPreview: false
 
+    property var waitItems: []
+    property var noneWaitItems: []
+
 
     function initOnFileChanged(){
         if (isShowPreview){
@@ -172,7 +175,14 @@ ScrollView {
             id: getDecryptedSignedById
             text:"DecryptedSignedBy : "
         }
-
+        Text {
+            id: waitItemsId
+            text:"waitItems" + JSON.stringify(waitItems)
+        }
+        Text {
+            id: noneWaitItemsId
+            text:"noneWaitItems" + JSON.stringify(noneWaitItems)
+        }
     }
 }
 
