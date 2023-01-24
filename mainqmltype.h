@@ -41,6 +41,7 @@ class MainQmlType : public QObject
     Q_PROPERTY(QString filePath READ filePath WRITE setFilePath NOTIFY filePathChanged)
     Q_PROPERTY(int filePanSize READ filePanSize WRITE setFilePanSize NOTIFY filePanSizeChanged)
     Q_PROPERTY(GpgIdManageType* gpgIdManageType READ gpgIdManageType CONSTANT)
+    // hygen Q_PROPERTY
     QML_ELEMENT
 
 public:
@@ -51,6 +52,8 @@ public:
 
     int filePanSize();
     void setFilePanSize(const int &filePanSize);
+
+    // hygen public
 
     GpgIdManageType* gpgIdManageType(){
         return &m_gpgIdManageType;
@@ -126,6 +129,7 @@ public:
 signals:
     void filePathChanged();
     void filePanSizeChanged();
+    // hygen signals
 
 private:
     QString m_filePath;
@@ -135,6 +139,7 @@ private:
     std::unique_ptr<PassFile> passFile;
     GpgIdManageType m_gpgIdManageType;
     WatchWaitAndNoneWaitRunCmd watchWaitAndNoneWaitRunCmd{};
+    // hygen private
 
 };
 
