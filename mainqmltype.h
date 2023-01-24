@@ -8,6 +8,7 @@
 #include "GpgIdManageType.h"
 
 #include <QInputEvent>
+
 class UiGuard : public QObject
 {
 public:
@@ -76,7 +77,8 @@ public:
 
     Q_INVOKABLE void openExternalEncryptWait(){
         if (passFile->isGpgFile()){
-            passFile->openExternalEncryptWait(m_gpgIdManageType.getEncryptTo());
+
+            passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo());
             qDebug()<<"File Encrypted and saved/n";
         }
     }
