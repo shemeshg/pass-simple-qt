@@ -91,7 +91,7 @@ ScrollView {
                 visible: !isShowPreview
             }
             ComboBox {
-                model: ["External", "External No Wait"]
+                model: ["code --wait", "code"]
                 width: 200
                 visible: !isShowPreview
             }
