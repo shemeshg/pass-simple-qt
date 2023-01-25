@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>QmlAppComponent.qml</file>
         <file>icons/icons8-tree-structure-80.png</file>
+        <file>EditComponent.qml</file>
+        <file>ManageGpgIdComponent.qml</file>
+        <file>MetaDataComponent.qml</file>
     </qresource>
 </RCC>
