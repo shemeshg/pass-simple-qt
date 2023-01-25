@@ -37,6 +37,7 @@ ColumnLayout {
     }
     Text {
         text: "<h2>Bad .gpg-id entries<h2>"
+        visible: badEntriesRepeater.model.length > 0
     }
 
     Repeater {

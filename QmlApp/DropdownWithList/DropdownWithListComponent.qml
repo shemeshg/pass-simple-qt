@@ -18,6 +18,7 @@ ColumnLayout {
 
     Label {
         text:  "<h2>Group members</h2>"
+        visible: dropdownWithListTypeId.selectedItems.length > 0
     }
 
     Repeater {
@@ -36,6 +37,7 @@ ColumnLayout {
 
     Label {
         text:  "<h2>Select member to add</h2>"
+        visible: dropdownWithListTypeId.notSelectedItems.length > 0
     }
 
     Repeater {
