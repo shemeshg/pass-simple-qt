@@ -10,8 +10,8 @@ ScrollView {
 
     width: parent.width
     height : parent.height
-    contentWidth: column.width    // The important part
-    contentHeight: column.height  // Same
+    contentWidth: columnLayoutId.width    // The important part
+    contentHeight: columnLayoutId.height  // Same
     clip : true
 
     property int filePanSize: 0
@@ -29,7 +29,6 @@ ScrollView {
             editComponentId.decryptedTextId.text = mainLayout.getDecrypted();
         }
 
-
         metaDataComponentId.nearestGitId.text = "Git : " + mainLayout.getNearestGit();
         metaDataComponentId.nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
         metaDataComponentId.getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
@@ -44,7 +43,7 @@ ScrollView {
         initOnFileChanged();
     }
 
-                 // Prevent drawing column outside the scrollview borders
+    // Prevent drawing column outside the scrollview borders
 
     FileDialog {
         id: fileDialogImportAndTrustId
@@ -57,11 +56,8 @@ ScrollView {
         }
     }
 
-
-
-
     ColumnLayout {
-        id: column
+        id: columnLayoutId
         width: parent.width
         Button {
             onClicked: { mainLayout.toggleFilepan()}
