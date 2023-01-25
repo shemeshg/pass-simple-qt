@@ -120,6 +120,10 @@ public:
         }
     }
 
+    Q_INVOKABLE void openStoreInFileBrowser(){
+        QDesktopServices::openUrl(QUrl::fromLocalFile("/Users/osx/.password-store"));
+    }
+
     Q_INVOKABLE void closeExternalEncryptNoWait(){
         if (passFile->isGpgFile()){
             passFile->closeExternalEncryptNoWait(

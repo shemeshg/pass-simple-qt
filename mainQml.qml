@@ -41,6 +41,9 @@ Item {
     function closeExternalEncryptNoWait(){
         mainqmltype.closeExternalEncryptNoWait();
     }
+    function openStoreInFileBrowser(){
+        mainqmltype.openStoreInFileBrowser()
+    }
 
     QmlAppComponent {
         id: qmlAppComponent
