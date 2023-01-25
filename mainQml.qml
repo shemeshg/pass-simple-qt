@@ -35,6 +35,9 @@ Item {
     function openExternalEncryptWait(){
         return mainqmltype.openExternalEncryptWait();
     }
+    function openExternalEncryptNoWait(){
+        return mainqmltype.openExternalEncryptNoWait()
+    }
 
     QmlAppComponent {
         id: qmlAppComponent

@@ -94,6 +94,15 @@ ScrollView {
                 }
                 visible: !isShowPreview
             }
+            Button {
+                text: "openExternalEncryptNoWait"
+                onClicked: {
+                    mainLayout.openExternalEncryptNoWait();
+                }
+                visible: !isShowPreview
+            }
+
+
             ComboBox {
                 model: ["code --wait", "code"]
                 width: 200

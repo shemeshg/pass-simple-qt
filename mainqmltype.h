@@ -3,6 +3,7 @@
 #include <qqmlregistration.h>
 #include <QSplitter>
 #include <QObject>
+#include <QDesktopServices>
 
 #include "libpasshelper.h"
 #include "GpgIdManageType.h"
@@ -108,9 +109,17 @@ public:
 
     Q_INVOKABLE void openExternalEncryptWait(){
         if (passFile->isGpgFile()){
+            passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(), &watchWaitAndNoneWaitRunCmd);
+        }
+    }
 
+    Q_INVOKABLE void openExternalEncryptNoWait(){
+        if (passFile->isGpgFile()){
+            QDesktopServices::openUrl(QUrl::fromLocalFile("/Users/osx/.password-store"));
+            /*
             passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(), &watchWaitAndNoneWaitRunCmd);
             qDebug()<<"File Encrypted and saved/n";
+            */
         }
     }
 
@@ -166,7 +175,7 @@ private:
     int m_filePanSize;
     QSplitter *splitter;
     PassHelper passHelper{};
-    std::unique_ptr<PassFile> passFile;
+    std::unique_ptr<PassFile> passFile = passHelper.getPassFile("");
     GpgIdManageType m_gpgIdManageType;
     WatchWaitAndNoneWaitRunCmd watchWaitAndNoneWaitRunCmd{};
   QStringList m_waitItems;
