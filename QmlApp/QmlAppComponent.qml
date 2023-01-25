@@ -55,15 +55,20 @@ ScrollView {
         }
     }
 
+
+
+
     ColumnLayout {
         id: column
         //anchors.fill: parent
         width: parent.width
         Button {
-            text: "Hide/Show treeview"
             onClicked: { mainLayout.toggleFilepan()}
+            icon.name: "Hide/Show treeview"
+            icon.source: "icons/icons8-tree-structure-80.png"
+            ToolTip.visible: hovered
+            ToolTip.text: "Hide/Show treeview"
         }
-
         Text {
             text: "<h1>Encrypted text<h1>"
         }
@@ -90,7 +95,7 @@ ScrollView {
                 text: "Open"
                 onClicked: {
                     if (selectExternalEncryptDestinationId.currentValue === "code --wait"){
-                         mainLayout.openExternalEncryptWait();
+                        mainLayout.openExternalEncryptWait();
                     } else if (selectExternalEncryptDestinationId.editText === "File browser"){
                         mainLayout.openExternalEncryptNoWait();
                     }
@@ -125,8 +130,6 @@ ScrollView {
             visible: isShowPreview
 
             Layout.fillWidth: true
-
-
         }
         Text {
             text: "<h1>Manage .gpg-id<h1>"

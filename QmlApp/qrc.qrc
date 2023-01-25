@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>QmlAppComponent.qml</file>
+        <file>icons/icons8-tree-structure-80.png</file>
     </qresource>
 </RCC>
