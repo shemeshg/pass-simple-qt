@@ -17,7 +17,6 @@ ScrollView {
     property var waitItems: []
     property var noneWaitItems: []
 
-
     function initOnFileChanged(){
         if (isShowPreview){
             decryptedTextId.text = mainLayout.getDecrypted();
@@ -90,30 +89,34 @@ ScrollView {
             Button {
                 text: "Open"
                 onClicked: {
-                    mainLayout.openExternalEncryptWait();
+                    if (selectExternalEncryptDestinationId.currentValue === "code --wait"){
+                         mainLayout.openExternalEncryptWait();
+                    } else if (selectExternalEncryptDestinationId.editText === "File browser"){
+                        mainLayout.openExternalEncryptNoWait();
+                    }
+
+
                 }
-                visible: !isShowPreview
+                visible: !isShowPreview &&
+                         waitItems.indexOf(filePath) === -1 &&
+                         noneWaitItems.indexOf(filePath) === -1
             }
             Button {
-                text: "openExternalEncryptNoWait"
-                onClicked: {
-                    mainLayout.openExternalEncryptNoWait();
-                }
-                visible: !isShowPreview
-            }
-            Button {
-                text: "closeExternalEncryptNoWait"
+                text: "Close File browser item"
                 onClicked: {
                     mainLayout.closeExternalEncryptNoWait();
                 }
-                visible: !isShowPreview
+                visible: !isShowPreview && noneWaitItems.indexOf(filePath) > -1
             }
 
 
             ComboBox {
-                model: ["code --wait", "code"]
+                id: selectExternalEncryptDestinationId
+                model: ["code --wait", "File browser"]
                 width: 200
-                visible: !isShowPreview
+                visible: !isShowPreview &&
+                         waitItems.indexOf(filePath) === -1 &&
+                         noneWaitItems.indexOf(filePath) === -1
             }
         }
         TextArea {
