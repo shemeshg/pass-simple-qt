@@ -38,6 +38,9 @@ Item {
     function openExternalEncryptNoWait(){
         return mainqmltype.openExternalEncryptNoWait()
     }
+    function closeExternalEncryptNoWait(){
+        mainqmltype.closeExternalEncryptNoWait();
+    }
 
     QmlAppComponent {
         id: qmlAppComponent

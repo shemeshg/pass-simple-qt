@@ -115,11 +115,17 @@ public:
 
     Q_INVOKABLE void openExternalEncryptNoWait(){
         if (passFile->isGpgFile()){
-            QDesktopServices::openUrl(QUrl::fromLocalFile("/Users/osx/.password-store"));
-            /*
-            passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(), &watchWaitAndNoneWaitRunCmd);
-            qDebug()<<"File Encrypted and saved/n";
-            */
+            std::string subfolderPath = passFile->openExternalEncryptNoWait(&watchWaitAndNoneWaitRunCmd);
+            QDesktopServices::openUrl(QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
+        }
+    }
+
+    Q_INVOKABLE void closeExternalEncryptNoWait(){
+        if (passFile->isGpgFile()){
+            passFile->closeExternalEncryptNoWait(
+                        m_gpgIdManageType.getEncryptTo(),
+                        &watchWaitAndNoneWaitRunCmd);
+
         }
     }
 

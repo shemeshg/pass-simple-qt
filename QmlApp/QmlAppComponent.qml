@@ -101,6 +101,13 @@ ScrollView {
                 }
                 visible: !isShowPreview
             }
+            Button {
+                text: "closeExternalEncryptNoWait"
+                onClicked: {
+                    mainLayout.closeExternalEncryptNoWait();
+                }
+                visible: !isShowPreview
+            }
 
 
             ComboBox {
