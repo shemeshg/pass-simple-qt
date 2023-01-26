@@ -59,6 +59,7 @@ ScrollView {
     ColumnLayout {
         id: columnLayoutId
         width: parent.width
+        Layout.fillWidth: true
         RowLayout{
             Button {
                 onClicked: { mainLayout.toggleFilepan()}
@@ -75,18 +76,47 @@ ScrollView {
                 ToolTip.text: "Open store in file browser"
             }
         }
+        Row{
+            Rectangle {
+                id: rectId
+                color: "white"
+                width: scrollViewId.width - 20
+                height: 2
+            }
+        }
+        TabBar {
+            id: bar
+            Layout.fillWidth: true
 
-        EditComponent {
-            id: editComponentId
+
+            TabButton {
+                text: qsTr("Home")
+            }
+            TabButton {
+                text: qsTr("Manage .gpg-id")
+            }
+            TabButton {
+                text: qsTr("Meta")
+            }
         }
 
-        ManageGpgIdComponent {
-            id: manageGpgIdComponentId
+        StackLayout {
+            width: scrollViewId.width
+
+            currentIndex: bar.currentIndex
+            EditComponent {
+                id: editComponentId
+            }
+
+            ManageGpgIdComponent {
+                id: manageGpgIdComponentId
+            }
+
+            MetaDataComponent {
+                id: metaDataComponentId
+            }
         }
 
-        MetaDataComponent {
-            id: metaDataComponentId
-        }
     }
 }
 
