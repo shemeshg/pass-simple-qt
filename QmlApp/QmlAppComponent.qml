@@ -7,7 +7,7 @@ import QtQuick.Dialogs
 import DropdownWithList
 
 ScrollView {
-
+    id: scrollViewId
     width: parent.width
     height : parent.height
     contentWidth: columnLayoutId.width    // The important part

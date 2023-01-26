@@ -64,11 +64,23 @@ ColumnLayout {
                      noneWaitItems.indexOf(filePath) === -1
         }
     }
-    TextArea {
-        id: decryptedTextId
-        text:""
-        visible: isShowPreview
+    Row{
+        Rectangle {
+            visible: isShowPreview
+            id: rectId
+            color: "white"
+            width: scrollViewId.width - 20
+            height: decryptedTextId.height
+             TextEdit {
+                 id: decryptedTextId
+                 text:""
+                 width: parent.width
+             }
+        }
 
-        Layout.fillWidth: true
+
+
     }
+
+
 }
