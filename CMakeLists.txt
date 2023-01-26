@@ -32,8 +32,6 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         qwidgetqrc.qrc
-        mainqmltype.h mainqmltype.cpp
-        GpgIdManageType.h GpgIdManageType.cpp
         ${TS_FILES}
 )
 
@@ -79,8 +77,11 @@ set_target_properties(pass-simple-qt PROPERTIES
 )
 
 qt_add_qml_module(pass-simple-qt
-    URI mainQml
+    URI MainQml
     VERSION 1.0
+    SOURCES
+        mainqmltype.h mainqmltype.cpp
+        GpgIdManageType.h GpgIdManageType.cpp
     QML_FILES mainQml.qml
 )
 

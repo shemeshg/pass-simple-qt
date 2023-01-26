@@ -77,7 +77,8 @@ ScrollView {
         visible: isShowLog;
 
         Button {
-            text: "Exit exception"
+            id: navigateBackFromLogId
+            text: "Back"
             onClicked: { exceptionCounter = 0 ;isShowLog = false;}
 
         }
