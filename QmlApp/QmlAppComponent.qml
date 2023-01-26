@@ -24,6 +24,9 @@ ScrollView {
     property var waitItems: []
     property var noneWaitItems: []
 
+    property bool isShowLog: false
+    property string showLogText: ""
+
     function initOnFileChanged(){
         if (isShowPreview){
             editComponentId.decryptedTextId.text = mainLayout.getDecrypted();
@@ -55,11 +58,38 @@ ScrollView {
         onRejected: {
         }
     }
+    ColumnLayout {
+        id: exceptionAndLogId;
+        visible: isShowLog;
+
+        Button {
+            text: "Exit exception"
+            onClicked: isShowLog = !isShowLog
+
+        }
+        Row{
+        Rectangle {
+            color: "white"
+            width: scrollViewId.width - 20
+            height: logTextId.height
+
+             TextEdit {
+                 id: logTextId
+                 text: showLogText
+                 width: parent.width
+                 textFormat: TextEdit.AutoText
+
+             }
+        }
+        }
+
+    }
 
     ColumnLayout {
         id: columnLayoutId
         width: parent.width
         Layout.fillWidth: true
+        visible: !isShowLog;
         RowLayout{
             Button {
                 onClicked: { mainLayout.toggleFilepan()}
@@ -74,6 +104,13 @@ ScrollView {
                 icon.source: "icons/icons8-shop-80.png"
                 ToolTip.visible: hovered
                 ToolTip.text: "Open store in file browser"
+            }
+            Button {
+                text: "Simulate exception"
+                onClicked: {isShowLog = !isShowLog;
+                showLogText="<pre>shalom\n<b>nolam</b></pre>"
+                }
+
             }
         }
         Row{

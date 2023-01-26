@@ -67,7 +67,6 @@ ColumnLayout {
     Row{
         Rectangle {
             visible: isShowPreview
-            id: rectId
             color: "white"
             width: scrollViewId.width - 20
             height: decryptedTextId.height
