@@ -15,6 +15,8 @@ ScrollView {
     clip : true
 
     property int filePanSize: 0
+    property int exceptionCounter: 0
+    property string exceptionStr: ""
     property string filePath: ""
     property string tmpShalom: ""
     property bool classInitialized: false
@@ -46,6 +48,18 @@ ScrollView {
         initOnFileChanged();
     }
 
+    onExceptionCounterChanged: {
+        isShowLog = Boolean(exceptionCounter);
+        if (isShowLog){
+            showLogText = exceptionStr;
+        } else {
+            showLogText = "";
+        }
+
+
+
+    }
+
     // Prevent drawing column outside the scrollview borders
 
     FileDialog {
@@ -64,7 +78,7 @@ ScrollView {
 
         Button {
             text: "Exit exception"
-            onClicked: isShowLog = !isShowLog
+            onClicked: { exceptionCounter = 0 ;isShowLog = false;}
 
         }
         Row{

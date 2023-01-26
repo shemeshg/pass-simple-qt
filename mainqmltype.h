@@ -44,6 +44,8 @@ class MainQmlType : public QObject
     Q_PROPERTY(GpgIdManageType* gpgIdManageType READ gpgIdManageType CONSTANT)
     Q_PROPERTY(QStringList waitItems READ waitItems WRITE setWaitItems NOTIFY waitItemsChanged)
     Q_PROPERTY(QStringList noneWaitItems READ noneWaitItems WRITE setNoneWaitItems NOTIFY noneWaitItemsChanged)
+    Q_PROPERTY(int exceptionCounter READ exceptionCounter WRITE setExceptionCounter NOTIFY exceptionCounterChanged)
+    Q_PROPERTY(QString exceptionStr READ exceptionStr WRITE setExceptionStr NOTIFY exceptionStrChanged)
     // hygen Q_PROPERTY
     QML_ELEMENT
 
@@ -56,32 +58,58 @@ public:
     int filePanSize();
     void setFilePanSize(const int &filePanSize);
 
-  QStringList waitItems()
-  {
-    return m_waitItems;
-  };
+    QStringList waitItems()
+    {
+        return m_waitItems;
+    };
 
-  void setWaitItems(const QStringList &waitItems)
-  {
-    if (waitItems == m_waitItems)
-      return;
+    void setWaitItems(const QStringList &waitItems)
+    {
+        if (waitItems == m_waitItems)
+            return;
 
-    m_waitItems = waitItems;
-    emit waitItemsChanged();
-  }
-  QStringList noneWaitItems()
-  {
-    return m_noneWaitItems;
-  };
+        m_waitItems = waitItems;
+        emit waitItemsChanged();
+    }
+    QStringList noneWaitItems()
+    {
+        return m_noneWaitItems;
+    };
 
-  void setNoneWaitItems(const QStringList &noneWaitItems)
-  {
-    if (noneWaitItems == m_noneWaitItems)
-      return;
+    void setNoneWaitItems(const QStringList &noneWaitItems)
+    {
+        if (noneWaitItems == m_noneWaitItems)
+            return;
 
-    m_noneWaitItems = noneWaitItems;
-    emit noneWaitItemsChanged();
-  }
+        m_noneWaitItems = noneWaitItems;
+        emit noneWaitItemsChanged();
+    }
+    int exceptionCounter()
+    {
+        return m_exceptionCounter;
+    };
+
+    void setExceptionCounter(const int &exceptionCounter)
+    {
+        if (exceptionCounter == m_exceptionCounter)
+            return;
+
+        m_exceptionCounter = exceptionCounter;
+        emit exceptionCounterChanged();
+    }
+    QString exceptionStr()
+    {
+        return m_exceptionStr;
+    };
+
+    void setExceptionStr(const QString &exceptionStr)
+    {
+        if (exceptionStr == m_exceptionStr)
+            return;
+
+        m_exceptionStr = exceptionStr;
+        emit exceptionStrChanged();
+    }
     // hygen public
 
     GpgIdManageType* gpgIdManageType(){
@@ -90,8 +118,8 @@ public:
 
     Q_INVOKABLE void toggleFilepan(){
         if (m_filePanSize == 0 ) {
-               splitter->setSizes(QList<int>({150  , 400}));
-               setFilePanSize(150);
+            splitter->setSizes(QList<int>({150  , 400}));
+            setFilePanSize(150);
         } else {
             splitter->setSizes(QList<int>({0  , 400}));
             setFilePanSize(0);
@@ -115,8 +143,15 @@ public:
 
     Q_INVOKABLE void openExternalEncryptNoWait(){
         if (passFile->isGpgFile()){
-            std::string subfolderPath = passFile->openExternalEncryptNoWait(&watchWaitAndNoneWaitRunCmd);
-            QDesktopServices::openUrl(QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
+            try {
+                std::string subfolderPath = passFile->openExternalEncryptNoWait(&watchWaitAndNoneWaitRunCmd);
+                QDesktopServices::openUrl(QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
+            } catch (const std::exception& e) {
+                setExceptionStr(e.what());
+                setExceptionCounter(exceptionCounter()+1);
+                return ;
+            }
+
         }
     }
 
@@ -133,13 +168,14 @@ public:
         }
     }
 
-    Q_INVOKABLE QString getDecrypted(){        
+    Q_INVOKABLE QString getDecrypted(){
         if (passFile->isGpgFile()){
             try {
                 passFile->decrypt();
                 return QString::fromStdString(passFile->getDecrypted());
             } catch (const std::exception& e) {
-                qDebug()<<e.what();
+                setExceptionStr(e.what());
+                setExceptionCounter(exceptionCounter()+1);
                 return "";
             }
 
@@ -165,7 +201,7 @@ public:
 
     Q_INVOKABLE QString getNearestGpgId(){
 
-        if (passFile->isGpgFile()){            
+        if (passFile->isGpgFile()){
             return QString::fromStdString(passHelper.getNearestGpgId(passFile->getFullPath(), "/Users/osx/.password-store"));
         }
         else return "";
@@ -176,8 +212,10 @@ public:
 signals:
     void filePathChanged();
     void filePanSizeChanged();
-  void waitItemsChanged();
-  void noneWaitItemsChanged();
+    void waitItemsChanged();
+    void noneWaitItemsChanged();
+    void exceptionCounterChanged();
+    void exceptionStrChanged();
     // hygen signals
 
 private:
@@ -188,8 +226,10 @@ private:
     std::unique_ptr<PassFile> passFile = passHelper.getPassFile("");
     GpgIdManageType m_gpgIdManageType;
     WatchWaitAndNoneWaitRunCmd watchWaitAndNoneWaitRunCmd{};
-  QStringList m_waitItems;
-  QStringList m_noneWaitItems;
+    QStringList m_waitItems;
+    QStringList m_noneWaitItems;
+    int m_exceptionCounter = 0;
+    QString m_exceptionStr;
     // hygen private
 
 };

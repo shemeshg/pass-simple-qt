@@ -75,6 +75,18 @@ Item {
         value: mainqmltype.noneWaitItems
     }
 
+    Binding {
+        target: qmlAppComponent
+        property: "exceptionCounter"
+        value: mainqmltype.exceptionCounter
+    }
+    Binding {
+        target: qmlAppComponent
+        property: "exceptionStr"
+        value: mainqmltype.exceptionStr
+    }
+
+
 
     signal toggleFilepan()
     onToggleFilepan: mainqmltype.toggleFilepan();
