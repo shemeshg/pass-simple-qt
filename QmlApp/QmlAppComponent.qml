@@ -60,20 +60,20 @@ ScrollView {
         id: columnLayoutId
         width: parent.width
         RowLayout{
-        Button {
-            onClicked: { mainLayout.toggleFilepan()}
-            icon.name: "Hide/Show treeview"
-            icon.source: "icons/icons8-tree-structure-80.png"
-            ToolTip.visible: hovered
-            ToolTip.text: "Hide/Show treeview"
-        }
-        Button {
-            onClicked: { mainLayout.openStoreInFileBrowser()}
-            icon.name: "Open store in file browser"
-            icon.source: "icons/icons8-shop-80.png"
-            ToolTip.visible: hovered
-            ToolTip.text: "Open store in file browser"
-        }
+            Button {
+                onClicked: { mainLayout.toggleFilepan()}
+                icon.name: "Hide/Show treeview"
+                icon.source: "icons/icons8-tree-structure-80.png"
+                ToolTip.visible: hovered
+                ToolTip.text: "Hide/Show treeview"
+            }
+            Button {
+                onClicked: { mainLayout.openStoreInFileBrowser()}
+                icon.name: "Open store in file browser"
+                icon.source: "icons/icons8-shop-80.png"
+                ToolTip.visible: hovered
+                ToolTip.text: "Open store in file browser"
+            }
         }
 
         EditComponent {
