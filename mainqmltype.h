@@ -130,55 +130,60 @@ public:
 
     Q_INVOKABLE void encrypt(QString s){
         if (passFile->isGpgFile()){
-            passFile->encrypt(s.toStdString(),m_gpgIdManageType.getEncryptTo());
-            qDebug()<<"File Encrypted and saved/n";
+            runSafeFromException( [&](){
+                passFile->encrypt(s.toStdString(),m_gpgIdManageType.getEncryptTo());
+            });
         }
     }
 
     Q_INVOKABLE void openExternalEncryptWait(){
-        if (passFile->isGpgFile()){
-            passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(), &watchWaitAndNoneWaitRunCmd);
+        if (passFile->isGpgFile()){            
+            runSafeFromException( [&](){
+                passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(), &watchWaitAndNoneWaitRunCmd);
+            });
         }
     }
 
     Q_INVOKABLE void openExternalEncryptNoWait(){
-        if (passFile->isGpgFile()){
-            try {
+        if (passFile->isGpgFile()){            
+            runSafeFromException( [&](){
                 std::string subfolderPath = passFile->openExternalEncryptNoWait(&watchWaitAndNoneWaitRunCmd);
                 QDesktopServices::openUrl(QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
-            } catch (const std::exception& e) {
-                setExceptionStr(e.what());
-                setExceptionCounter(exceptionCounter()+1);
-                return ;
-            }
+            });
 
         }
     }
 
     Q_INVOKABLE void openStoreInFileBrowser(){
-        QDesktopServices::openUrl(QUrl::fromLocalFile("/Users/osx/.password-store"));
+        runSafeFromException( [&](){
+             QDesktopServices::openUrl(QUrl::fromLocalFile("/Users/osx/.password-store"));
+        });
     }
 
     Q_INVOKABLE void closeExternalEncryptNoWait(){
         if (passFile->isGpgFile()){
-            passFile->closeExternalEncryptNoWait(
-                        m_gpgIdManageType.getEncryptTo(),
-                        &watchWaitAndNoneWaitRunCmd);
+
+            runSafeFromException( [&](){
+                passFile->closeExternalEncryptNoWait(
+                            m_gpgIdManageType.getEncryptTo(),
+                            &watchWaitAndNoneWaitRunCmd);
+            });
+
+
 
         }
     }
 
     Q_INVOKABLE QString getDecrypted(){
         if (passFile->isGpgFile()){
-            try {
-                passFile->decrypt();
-                return QString::fromStdString(passFile->getDecrypted());
-            } catch (const std::exception& e) {
-                setExceptionStr(e.what());
-                setExceptionCounter(exceptionCounter()+1);
-                return "";
-            }
 
+
+            QString ret = "";
+            runSafeFromException( [&](){
+                passFile->decrypt();
+                ret = QString::fromStdString(passFile->getDecrypted());
+            });
+            return ret;
         }
         else return "";
     }
@@ -186,7 +191,12 @@ public:
     Q_INVOKABLE QString getDecryptedSignedBy(){
         if (passFile->isGpgFile()){
             passFile->decrypt();
-            return QString::fromStdString(passFile->getDecryptedSignedBy());
+
+            QString ret = "";
+            runSafeFromException( [&](){
+                ret = QString::fromStdString(passFile->getDecryptedSignedBy());
+            });
+            return ret;
         }
         else return "";
     }
@@ -194,7 +204,11 @@ public:
     Q_INVOKABLE QString getNearestGit(){
 
         if (passFile->isGpgFile()){
-            return QString::fromStdString(passHelper.getNearestGit(passFile->getFullPath(), "/Users/osx/.password-store"));
+            QString ret = "";
+            runSafeFromException( [&](){
+                ret = QString::fromStdString(passHelper.getNearestGit(passFile->getFullPath(), "/Users/osx/.password-store"));
+            });
+            return ret;
         }
         else return "";
     }
@@ -202,7 +216,12 @@ public:
     Q_INVOKABLE QString getNearestGpgId(){
 
         if (passFile->isGpgFile()){
-            return QString::fromStdString(passHelper.getNearestGpgId(passFile->getFullPath(), "/Users/osx/.password-store"));
+
+            QString ret = "";
+            runSafeFromException( [&](){
+                ret = QString::fromStdString(passHelper.getNearestGpgId(passFile->getFullPath(), "/Users/osx/.password-store"));
+            });
+            return ret;
         }
         else return "";
     }
@@ -231,6 +250,19 @@ private:
     int m_exceptionCounter = 0;
     QString m_exceptionStr;
     // hygen private
+
+    void runSafeFromException(std::function<void()> callback){
+        try {
+            callback();
+        } catch (const std::exception& e) {
+            setExceptionStr(e.what());
+            setExceptionCounter(exceptionCounter()+1);
+        } catch (...) {
+            QString asdfasdf;
+        }
+    }
+
+
 
 };
 
