@@ -257,8 +257,7 @@ private:
         } catch (const std::exception& e) {
             setExceptionStr(e.what());
             setExceptionCounter(exceptionCounter()+1);
-        } catch (...) {
-            QString asdfasdf;
+        } catch (...) {            
         }
     }
 
