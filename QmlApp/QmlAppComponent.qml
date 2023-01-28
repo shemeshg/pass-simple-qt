@@ -120,12 +120,12 @@ ScrollView {
                 ToolTip.visible: hovered
                 ToolTip.text: "Open store in file browser"
             }
-            Button {
-                text: "Simulate exception"
-                onClicked: {isShowLog = !isShowLog;
-                showLogText="<pre>shalom\n<b>nolam</b></pre>"
-                }
-
+            Button {                
+                onClicked: {}
+                icon.name: "Settings"
+                icon.source: "icons/icons8-automation-50.png"
+                ToolTip.visible: hovered
+                ToolTip.text: "Settings"
             }
         }
         Row{

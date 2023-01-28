@@ -6,5 +6,6 @@
         <file>ManageGpgIdComponent.qml</file>
         <file>MetaDataComponent.qml</file>
         <file>icons/icons8-shop-80.png</file>
+        <file>icons/icons8-automation-50.png</file>
     </qresource>
 </RCC>
