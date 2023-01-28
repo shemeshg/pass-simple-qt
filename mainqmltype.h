@@ -4,11 +4,14 @@
 #include <QSplitter>
 #include <QObject>
 #include <QDesktopServices>
+#include <QTreeView>
 
 #include "libpasshelper.h"
 #include "GpgIdManageType.h"
 
 #include <QInputEvent>
+#include <QFileSystemModel>
+#include <QModelIndex>
 #include "AppSettings.h"
 
 
@@ -27,7 +30,7 @@ class MainQmlType : public QObject
     QML_ELEMENT
 
 public:
-    explicit MainQmlType(QSplitter *s ,QObject *parent = nullptr);
+    explicit MainQmlType(QFileSystemModel *filesystemModel,QTreeView *treeView, QSplitter *s ,QObject *parent = nullptr);
 
     QString filePath();
     void setFilePath(const QString &filePath);
@@ -92,11 +95,7 @@ public:
     return &appSettings;
   };
 
-  Q_INVOKABLE void submit_AppSettingsType(QString passwordStorePath, QString tmpFolderPath){
-      appSettings.setPasswordStorePath( passwordStorePath);
-      appSettings.setTmpFolderPath( tmpFolderPath );
-      emit appSettingsTypeChanged();
-  }
+
 
   void setAppSettingsType(AppSettings* appSettingsType)
   {
@@ -110,6 +109,13 @@ public:
 
     GpgIdManageType* gpgIdManageType(){
         return &m_gpgIdManageType;
+    }
+
+    Q_INVOKABLE void submit_AppSettingsType(QString passwordStorePath, QString tmpFolderPath){
+        appSettings.setPasswordStorePath( passwordStorePath);
+        appSettings.setTmpFolderPath( tmpFolderPath );
+        loadTreeView();
+        emit appSettingsTypeChanged();
     }
 
     Q_INVOKABLE void toggleFilepan(){
@@ -247,6 +253,8 @@ private:
     QStringList m_noneWaitItems;
     int m_exceptionCounter = 0;
     QString m_exceptionStr;
+    QTreeView *treeView;
+    QFileSystemModel *filesystemModel;
 
     // hygen private
 
@@ -260,7 +268,15 @@ private:
         }
     }
 
+    void loadTreeView(){
+        QString rootPath = appSettings.passwordStorePath();
 
+        if (!rootPath.isEmpty()) {
+            const QModelIndex rootIndex = filesystemModel->index(QDir::cleanPath(rootPath));
+            if (rootIndex.isValid())
+                treeView->setRootIndex(rootIndex);
+        }
+    }
 
 };
 

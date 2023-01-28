@@ -4,8 +4,8 @@
 
 
 
-MainQmlType::MainQmlType(QSplitter *s ,QObject *parent) :
-    QObject(parent), splitter{s}
+MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,QTreeView *treeView, QSplitter *s ,QObject *parent) :
+    QObject(parent), splitter{s}, treeView{treeView},filesystemModel{filesystemModel}
 {    
 
     watchWaitAndNoneWaitRunCmd.callback = [&](){
@@ -18,8 +18,9 @@ MainQmlType::MainQmlType(QSplitter *s ,QObject *parent) :
             noneWaitString.push_back(QString::fromStdString( itm.uniqueId));
         }
         setWaitItems(waitString);
-        setNoneWaitItems(noneWaitString);
+        setNoneWaitItems(noneWaitString);        
     };
+    loadTreeView();
 }
 QString MainQmlType::filePath()
 {
