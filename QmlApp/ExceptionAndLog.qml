@@ -9,6 +9,7 @@ import DropdownWithList
 ColumnLayout {
     id: exceptionAndLogId;
     visible: isShowLog;
+    property alias logTextId: logTextId
 
     Button {
         id: navigateBackFromLogId
@@ -17,19 +18,12 @@ ColumnLayout {
 
     }
     Row{
-        Rectangle {
-            color: "white"
-            width: scrollViewId.width - 20
-            height: logTextId.height
-
-            TextEdit {
-                id: logTextId
-                text: showLogText
-                width: parent.width
-                textFormat: TextEdit.AutoText
-
-            }
+        TextEditComponent {
+            id: logTextId
+            visible: isShowLog
+             width: scrollViewId.width - 20
         }
+
     }
 
 }

@@ -31,7 +31,7 @@ ScrollView {
 
     function initOnFileChanged(){
         if (isShowPreview){
-            editComponentId.decryptedTextId.text = mainLayout.getDecrypted();
+            columnLayoutHomeId.editComponentId.decryptedTextId.textEdit.text = mainLayout.getDecrypted();
         }
 
         columnLayoutHomeId.metaDataComponentId.nearestGitId.text = "Git : " + mainLayout.getNearestGit();
@@ -51,9 +51,9 @@ ScrollView {
     onExceptionCounterChanged: {
         isShowLog = Boolean(exceptionCounter);
         if (isShowLog){
-            showLogText = exceptionStr;
+           exceptionAndLogId.logTextId.textEdit.text = exceptionStr;
         } else {
-            showLogText = "";
+            exceptionAndLogId.logTextId.textEdit.text = "";
         }
     }
 

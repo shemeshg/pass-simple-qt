@@ -9,6 +9,7 @@ import DropdownWithList
 ColumnLayout {
     property alias metaDataComponentId: metaDataComponentId
     property alias manageGpgIdComponentId: manageGpgIdComponentId
+    property alias editComponentId: editComponentId
 
     id: columnLayoutHomeId
     width: parent.width

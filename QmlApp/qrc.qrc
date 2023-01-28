@@ -9,5 +9,6 @@
         <file>icons/icons8-automation-50.png</file>
         <file>ExceptionAndLog.qml</file>
         <file>ColumnLayoutHome.qml</file>
+        <file>TextEditComponent.qml</file>
     </qresource>
 </RCC>

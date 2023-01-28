@@ -27,7 +27,7 @@ ColumnLayout {
         Button {
             text: "Save"
             onClicked:{
-                mainLayout.encrypt(decryptedTextId.text)
+                mainLayout.encrypt(decryptedTextId.textEdit.text)
             }
             visible: isShowPreview
         }
@@ -65,16 +65,10 @@ ColumnLayout {
         }
     }
     Row{
-        Rectangle {
+        TextEditComponent {
+            id: decryptedTextId
             visible: isShowPreview
-            color: "white"
-            width: scrollViewId.width - 20
-            height: decryptedTextId.height
-             TextEdit {
-                 id: decryptedTextId
-                 text:""
-                 width: parent.width
-             }
+             width: scrollViewId.width - 20
         }
 
 
