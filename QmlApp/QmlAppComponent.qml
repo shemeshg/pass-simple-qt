@@ -60,17 +60,44 @@ ScrollView {
 
     ColumnLayout {
         visible: isShowSettings
-
-
-        Text{
-            text: mainLayout.getMainqmltype().appSettingsType.passwordStorePath;
+        width: parent.width
+        RowLayout {
+            Button {
+                text: "Back"
+                onClicked: isShowSettings = false
+            }
+            Button {
+                text: "Save"
+                onClicked: mainLayout.getMainqmltype().submit_AppSettingsType(passwordStorePath.text,tmpFolderPath.text)
+            }
         }
-        Text{
-            text: mainLayout.getMainqmltype().appSettingsType.tmpFolderPath
+        Row{
+            Rectangle {
+                color: "white"
+                width: scrollViewId.width - 20
+                height: 2
+            }
         }
-        Button {
-            text: "test"
-            onClicked: mainLayout.getMainqmltype().submit_AppSettingsType("","")
+        RowLayout {
+            Label {
+                text: "Password Store Path"
+            }
+            TextField {
+                id: passwordStorePath
+                text: mainLayout.getMainqmltype().appSettingsType.passwordStorePath;
+                Layout.fillWidth: true
+            }
+        }
+        RowLayout {
+            Layout.fillWidth: true
+            Label {
+                text: "Tmp Folder Path"
+            }
+            TextField {
+                id: tmpFolderPath
+                text: mainLayout.getMainqmltype().appSettingsType.tmpFolderPath
+                Layout.fillWidth: true
+            }
         }
     }
 
@@ -106,7 +133,6 @@ ScrollView {
         }
         Row{
             Rectangle {
-                id: rectId
                 color: "white"
                 width: scrollViewId.width - 20
                 height: 2
