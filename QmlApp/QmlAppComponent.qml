@@ -27,6 +27,7 @@ ScrollView {
     property var noneWaitItems: []
 
     property bool isShowLog: false
+    property bool isShowSettings: false
     property string showLogText: ""
 
     function initOnFileChanged(){
@@ -57,11 +58,26 @@ ScrollView {
         }
     }
 
+    ColumnLayout {
+        visible: isShowSettings
+
+
+        Text{
+            text: mainLayout.getMainqmltype().appSettingsType.passwordStorePath;
+        }
+        Text{
+            text: mainLayout.getMainqmltype().appSettingsType.tmpFolderPath
+        }
+        Button {
+            text: "test"
+            onClicked: mainLayout.getMainqmltype().submit_AppSettingsType("","")
+        }
+    }
 
     ColumnLayout {
         width: parent.width
         Layout.fillWidth: true
-        visible: !isShowLog;
+        visible: !isShowLog & !isShowSettings;
         RowLayout{
             Button {
                 onClicked: { mainLayout.toggleFilepan()}
@@ -78,7 +94,10 @@ ScrollView {
                 ToolTip.text: "Open store in file browser"
             }
             Button {
-                onClicked: {}
+                onClicked: {
+                    isShowSettings = true
+
+                }
                 icon.name: "Settings"
                 icon.source: "icons/icons8-automation-50.png"
                 ToolTip.visible: hovered

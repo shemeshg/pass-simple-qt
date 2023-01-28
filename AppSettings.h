@@ -2,25 +2,30 @@
 #include <QString>
 #include <QSettings>
 #include <QDir>
+#include <qqmlregistration.h>
 
-class AppSettings
+class AppSettings : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(QString passwordStorePath READ passwordStorePath WRITE setPasswordStorePath NOTIFY passwordStorePathChanged)
+    Q_PROPERTY(QString tmpFolderPath READ tmpFolderPath WRITE setTmpFolderPath NOTIFY tmpFolderPathChanged)
+    // hygen Q_PROPERTY
+    QML_ELEMENT
 public:
-    AppSettings(){
-        m_passwordStorePath = settings.value("passwordStorePath", QDir::homePath() + "/.password-store").toString();
-        m_tmpFolderPath = settings.value("tmpFolderPath",QDir::tempPath()).toString();
-        QString s{};
+    AppSettings(QObject *parent = nullptr) : QObject(parent){
+
+        m_passwordStorePath = settings.value("passwordStorePath", "").toString();
+        m_tmpFolderPath = settings.value("tmpFolderPath","").toString();
     }
 
-  AppSettings(AppSettings const &) = delete;
-  AppSettings &operator=(AppSettings const &) = delete;
-  AppSettings(AppSettings &&) = delete;
-  AppSettings &operator=(AppSettings &&) = delete;
 
-  ~AppSettings(){};
+
 
   QString passwordStorePath()
   {
+      QString passwordStorePathDefault = QDir::homePath() + "/.password-store";
+     if(m_passwordStorePath.isEmpty()){return passwordStorePathDefault;}
+
     return m_passwordStorePath;
   };
 
@@ -35,6 +40,8 @@ public:
   
   QString tmpFolderPath()
   {
+    QString tmpFolderPathDefault = QDir::tempPath();
+    if(m_tmpFolderPath.isEmpty()){return tmpFolderPathDefault;}
     return m_tmpFolderPath;
   };
 
@@ -48,6 +55,12 @@ public:
   }
   
   // hygen public
+
+  signals:
+  void passwordStorePathChanged();
+  void tmpFolderPathChanged();
+    // hygen signals
+
   private:
   QSettings settings{"shemeshg", "PassSimple"};
   QString m_passwordStorePath;

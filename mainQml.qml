@@ -8,6 +8,10 @@ Item {
 
     id: mainLayout
 
+    function getMainqmltype(){
+        return mainqmltype;
+    }
+
     function getDecrypted() {
         return mainqmltype.getDecrypted();
     }
@@ -85,8 +89,6 @@ Item {
         property: "exceptionStr"
         value: mainqmltype.exceptionStr
     }
-
-
 
     signal toggleFilepan()
     onToggleFilepan: mainqmltype.toggleFilepan();

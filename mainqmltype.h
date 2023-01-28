@@ -22,6 +22,7 @@ class MainQmlType : public QObject
     Q_PROPERTY(QStringList noneWaitItems READ noneWaitItems WRITE setNoneWaitItems NOTIFY noneWaitItemsChanged)
     Q_PROPERTY(int exceptionCounter READ exceptionCounter WRITE setExceptionCounter NOTIFY exceptionCounterChanged)
     Q_PROPERTY(QString exceptionStr READ exceptionStr WRITE setExceptionStr NOTIFY exceptionStrChanged)
+  Q_PROPERTY(AppSettings* appSettingsType READ appSettingsType WRITE setAppSettingsType NOTIFY appSettingsTypeChanged)
     // hygen Q_PROPERTY
     QML_ELEMENT
 
@@ -86,6 +87,25 @@ public:
         m_exceptionStr = exceptionStr;
         emit exceptionStrChanged();
     }
+  AppSettings* appSettingsType()
+  {
+    return &appSettings;
+  };
+
+  Q_INVOKABLE void submit_AppSettingsType(QString passwordStorePath, QString tmpFolderPath){
+      appSettings.setPasswordStorePath( passwordStorePath);
+      appSettings.setTmpFolderPath( tmpFolderPath );
+      emit appSettingsTypeChanged();
+  }
+
+  void setAppSettingsType(AppSettings* appSettingsType)
+  {
+
+    appSettings.setPasswordStorePath( appSettingsType->passwordStorePath() );
+    appSettings.setTmpFolderPath( appSettingsType->tmpFolderPath() );
+    emit appSettingsTypeChanged();
+    qDebug() <<"Yes subbmited";
+  }
     // hygen public
 
     GpgIdManageType* gpgIdManageType(){
@@ -211,6 +231,7 @@ signals:
     void noneWaitItemsChanged();
     void exceptionCounterChanged();
     void exceptionStrChanged();
+  void appSettingsTypeChanged();
     // hygen signals
 
 private:
@@ -226,6 +247,7 @@ private:
     QStringList m_noneWaitItems;
     int m_exceptionCounter = 0;
     QString m_exceptionStr;
+
     // hygen private
 
     void runSafeFromException(std::function<void()> callback){
