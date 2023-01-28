@@ -42,7 +42,7 @@ Open project in QtCreate and compile and qtdeploy.
 - Gpgmepp
 - LibGpgError
 - pinentry-mac (Mac only)
-
+- Icons https://icons8.com/icons/ 
 
 
 
