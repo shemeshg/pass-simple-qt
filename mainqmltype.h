@@ -152,7 +152,7 @@ public:
 
     Q_INVOKABLE void openStoreInFileBrowser(){
         runSafeFromException( [&](){
-             QDesktopServices::openUrl(QUrl::fromLocalFile("/Users/osx/.password-store"));
+             QDesktopServices::openUrl(QUrl::fromLocalFile(appSettings.passwordStorePath()));
         });
     }
 
@@ -202,7 +202,7 @@ public:
         if (passFile->isGpgFile()){
             QString ret = "";
             runSafeFromException( [&](){
-                ret = QString::fromStdString(passHelper.getNearestGit(passFile->getFullPath(), "/Users/osx/.password-store"));
+                ret = QString::fromStdString(passHelper.getNearestGit(passFile->getFullPath(), appSettings.passwordStorePath().toStdString()));
             });
             return ret;
         }
@@ -215,7 +215,7 @@ public:
 
             QString ret = "";
             runSafeFromException( [&](){
-                ret = QString::fromStdString(passHelper.getNearestGpgId(passFile->getFullPath(), "/Users/osx/.password-store"));
+                ret = QString::fromStdString(passHelper.getNearestGpgId(passFile->getFullPath(), appSettings.passwordStorePath().toStdString()));
             });
             return ret;
         }

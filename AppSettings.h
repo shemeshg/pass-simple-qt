@@ -24,7 +24,7 @@ public:
   QString passwordStorePath()
   {
       QString passwordStorePathDefault = QDir::homePath() + "/.password-store";
-     if(m_passwordStorePath.isEmpty()){return passwordStorePathDefault;}
+     if(m_passwordStorePath.isEmpty() || !QDir( m_passwordStorePath).exists()){return passwordStorePathDefault;}
 
     return m_passwordStorePath;
   };
@@ -40,8 +40,9 @@ public:
   
   QString tmpFolderPath()
   {
+
     QString tmpFolderPathDefault = QDir::tempPath();
-    if(m_tmpFolderPath.isEmpty()){return tmpFolderPathDefault;}
+    if(m_tmpFolderPath.isEmpty() || !QDir( m_tmpFolderPath).exists() ){return tmpFolderPathDefault;}
     return m_tmpFolderPath;
   };
 
