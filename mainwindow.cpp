@@ -15,15 +15,6 @@ MainWindow::MainWindow(QWidget *parent)
     filesystemModel.setFilter(QDir::Hidden | QDir::NoDotAndDotDot | QDir::AllDirs | QDir::AllEntries);
 
     ui->treeView->setModel(&filesystemModel);
-    /*
-    QString rootPath = QDir::homePath() + "/.password-store";
-
-    if (!rootPath.isEmpty()) {
-        const QModelIndex rootIndex = filesystemModel.index(QDir::cleanPath(rootPath));
-        if (rootIndex.isValid())
-            ui->treeView->setRootIndex(rootIndex);
-    }
-    */
     ui->splitter->setSizes(QList<int>({150  , 400}));//INT_MAX
 
     // Demonstrating look and feel features
