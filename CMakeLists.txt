@@ -82,6 +82,7 @@ qt_add_qml_module(pass-simple-qt
     SOURCES
         mainqmltype.h mainqmltype.cpp
         GpgIdManageType.h GpgIdManageType.cpp
+        UiGuard.h UiGuard.cpp
     QML_FILES mainQml.qml
 )
 
