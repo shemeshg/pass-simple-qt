@@ -9,8 +9,7 @@
 #include "GpgIdManageType.h"
 
 #include <QInputEvent>
-#include "UiGuard.h"
-
+#include "AppSettings.h"
 
 
 class MainQmlType : public QObject
@@ -215,6 +214,7 @@ signals:
     // hygen signals
 
 private:
+    AppSettings appSettings{};
     QString m_filePath;
     int m_filePanSize;
     QSplitter *splitter;

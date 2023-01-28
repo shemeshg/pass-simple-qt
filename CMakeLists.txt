@@ -83,6 +83,8 @@ qt_add_qml_module(pass-simple-qt
         mainqmltype.h mainqmltype.cpp
         GpgIdManageType.h GpgIdManageType.cpp
         UiGuard.h UiGuard.cpp
+  AppSettings.cpp AppSettings.h
+        # hygen srcs
     QML_FILES mainQml.qml
 )
 

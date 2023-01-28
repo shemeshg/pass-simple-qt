@@ -7,6 +7,7 @@
 #include "mainqmltype.h"
 #include <QTreeView>
 #include <QModelIndex>
+#include "UiGuard.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
