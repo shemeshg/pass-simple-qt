@@ -12,46 +12,56 @@ ColumnLayout {
     property alias notSelectedItems: dropdownWithListTypeId.notSelectedItems
     property alias allItems: dropdownWithListTypeId.allItems
 
+
     DropdownWithListType {
         id:   dropdownWithListTypeId
     }
 
-    Label {
-        text:  "<h2>Group members</h2>"
-        visible: dropdownWithListTypeId.selectedItems.length > 0
-    }
 
-    Repeater {
-        model: dropdownWithListTypeId.selectedItems
-        RowLayout{
+    Column{
+        Row{
             Label {
-                text:  modelData
+                text:  "<h2>Group members</h2>"
+                visible: dropdownWithListTypeId.selectedItems.length > 0
             }
-            Button {
-                text: "remove"
-                onClicked: dropdownWithListTypeId.addNotSelectedItem(modelData)
+
+        }
+        Repeater {
+            model: dropdownWithListTypeId.selectedItems
+            RowLayout{
+                Label {
+                    text:  modelData
+                }
+                Button {
+                    text: "remove"
+                    onClicked: dropdownWithListTypeId.addNotSelectedItem(modelData)
+                }
+            }
+        }
+        Row{
+            Label {
+                text:  "<h2>Select member to add</h2>"
+                visible: dropdownWithListTypeId.notSelectedItems.length > 0
+            }
+        }
+        Column{
+            Repeater {
+                model: dropdownWithListTypeId.notSelectedItems
+                RowLayout{
+                    Label {
+                        text:  modelData
+                    }
+                    Button {
+                        text: "add"
+                        onClicked: dropdownWithListTypeId.addSelectedItem(modelData)
+                    }
+                }
             }
         }
     }
 
 
-    Label {
-        text:  "<h2>Select member to add</h2>"
-        visible: dropdownWithListTypeId.notSelectedItems.length > 0
-    }
 
-    Repeater {
-        model: dropdownWithListTypeId.notSelectedItems
-        RowLayout{
-            Label {
-                text:  modelData
-            }
-            Button {
-                text: "add"
-                onClicked: dropdownWithListTypeId.addSelectedItem(modelData)
-            }
-        }
-    }
 
 }
 

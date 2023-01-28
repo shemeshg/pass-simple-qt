@@ -38,7 +38,7 @@ ColumnLayout {
         }
     }
     Button {
-        enabled: classInitialized && gpgPubKeysFolderExists && badEntriesRepeater.model.length === 0
+        enabled: classInitialized  && badEntriesRepeater.model.length === 0
                  && dropdownWithListComponentId.selectedItems.length > 0
         text: "Save changes to .gpg-id \n Recreate.gpg-pub-keys/ \n Re-encrypt all .gpg-id related files"
         onClicked: {

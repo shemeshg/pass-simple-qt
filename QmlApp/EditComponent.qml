@@ -9,10 +9,13 @@ import DropdownWithList
 ColumnLayout {
     property alias decryptedTextId: decryptedTextId
 
+
     Text {
+        visible: isGpgFile
         text: "<h1>Encrypted text<h1>"
     }
     Row{
+        visible: isGpgFile
         Switch {
             id: isPreviewId
             text: qsTr("Preview")
@@ -26,6 +29,7 @@ ColumnLayout {
         }
         Button {
             text: "Save"
+            enabled: hasEffectiveGpgIdFile;
             onClicked:{
                 mainLayout.encrypt(decryptedTextId.textEdit.text)
             }
@@ -33,6 +37,7 @@ ColumnLayout {
         }
         Button {
             text: "Open"
+            enabled: hasEffectiveGpgIdFile;
             onClicked: {
                 if (selectExternalEncryptDestinationId.currentValue === "code --wait"){
                     mainLayout.openExternalEncryptWait();

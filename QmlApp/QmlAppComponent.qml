@@ -22,6 +22,8 @@ ScrollView {
     property bool classInitialized: false
     property bool gpgPubKeysFolderExists: false
     property bool isShowPreview: false
+    property bool hasEffectiveGpgIdFile: false
+    property bool isGpgFile: false
 
     property var waitItems: []
     property var noneWaitItems: []
@@ -37,6 +39,8 @@ ScrollView {
 
         columnLayoutHomeId.metaDataComponentId.nearestGitId.text = "Git : " + mainLayout.getNearestGit();
         columnLayoutHomeId.metaDataComponentId.nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
+        hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId());
+        isGpgFile = filePath.slice(-4)===".gpg";
         columnLayoutHomeId.metaDataComponentId.getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
         columnLayoutHomeId.manageGpgIdComponentId.badEntriesRepeater.model = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.allItems = mainLayout.getGpgIdManageType().allKeys

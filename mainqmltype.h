@@ -178,8 +178,6 @@ public:
 
     Q_INVOKABLE QString getDecrypted(){
         if (passFile->isGpgFile()){
-
-
             QString ret = "";
             runSafeFromException( [&](){
                 passFile->decrypt();

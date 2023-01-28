@@ -38,8 +38,7 @@ public:
 
   void setSelectedItems(const QStringList &selectedItems)
   {
-    if (selectedItems == m_selectedItems)
-      return;
+
 
     m_selectedItems = selectedItems;
     emit selectedItemsChanged();
