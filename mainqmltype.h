@@ -141,7 +141,7 @@ public:
     Q_INVOKABLE void openExternalEncryptWait(){
         if (passFile->isGpgFile()){            
             runSafeFromException( [&](){
-                passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(), &watchWaitAndNoneWaitRunCmd);
+                passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(), &watchWaitAndNoneWaitRunCmd,appSettings.tmpFolderPath().toStdString());
             });
         }
     }
@@ -149,7 +149,7 @@ public:
     Q_INVOKABLE void openExternalEncryptNoWait(){
         if (passFile->isGpgFile()){            
             runSafeFromException( [&](){
-                std::string subfolderPath = passFile->openExternalEncryptNoWait(&watchWaitAndNoneWaitRunCmd);
+                std::string subfolderPath = passFile->openExternalEncryptNoWait(&watchWaitAndNoneWaitRunCmd,appSettings.tmpFolderPath().toStdString());
                 QDesktopServices::openUrl(QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
             });
 
