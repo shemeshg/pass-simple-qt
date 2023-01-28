@@ -10,8 +10,8 @@ ScrollView {
     id: scrollViewId
     width: parent.width
     height : parent.height
-    contentWidth: columnLayoutId.width    // The important part
-    contentHeight: columnLayoutId.height  // Same
+    contentWidth: columnLayoutHomeId.width    // The important part
+    contentHeight: columnLayoutHomeId.height  // Same
     clip : true
 
     property int filePanSize: 0
@@ -60,115 +60,15 @@ ScrollView {
 
     }
 
-    // Prevent drawing column outside the scrollview borders
 
-    FileDialog {
-        id: fileDialogImportAndTrustId
-        title: "Please choose a .pub file to import and trust"
-        onAccepted: {
-            mainLayout.getGpgIdManageType().importPublicKeyAndTrust(fileDialogImportAndTrustId.selectedFile);
-            initOnFileChanged();
-        }
-        onRejected: {
-        }
-    }
-    ColumnLayout {
-        id: exceptionAndLogId;
-        visible: isShowLog;
 
-        Button {
-            id: navigateBackFromLogId
-            text: "Back"
-            onClicked: { exceptionCounter = 0 ;isShowLog = false;}
 
-        }
-        Row{
-        Rectangle {
-            color: "white"
-            width: scrollViewId.width - 20
-            height: logTextId.height
-
-             TextEdit {
-                 id: logTextId
-                 text: showLogText
-                 width: parent.width
-                 textFormat: TextEdit.AutoText
-
-             }
-        }
-        }
-
+    ExceptionAndLog {
+        id: exceptionAndLogId
     }
 
-    ColumnLayout {
-        id: columnLayoutId
-        width: parent.width
-        Layout.fillWidth: true
-        visible: !isShowLog;
-        RowLayout{
-            Button {
-                onClicked: { mainLayout.toggleFilepan()}
-                icon.name: "Hide/Show treeview"
-                icon.source: "icons/icons8-tree-structure-80.png"
-                ToolTip.visible: hovered
-                ToolTip.text: "Hide/Show treeview"
-            }
-            Button {
-                onClicked: { mainLayout.openStoreInFileBrowser()}
-                icon.name: "Open store in file browser"
-                icon.source: "icons/icons8-shop-80.png"
-                ToolTip.visible: hovered
-                ToolTip.text: "Open store in file browser"
-            }
-            Button {                
-                onClicked: {}
-                icon.name: "Settings"
-                icon.source: "icons/icons8-automation-50.png"
-                ToolTip.visible: hovered
-                ToolTip.text: "Settings"
-            }
-        }
-        Row{
-            Rectangle {
-                id: rectId
-                color: "white"
-                width: scrollViewId.width - 20
-                height: 2
-            }
-        }
-        TabBar {
-            id: bar
-            Layout.fillWidth: true
-
-
-            TabButton {
-                text: qsTr("Home")
-            }
-            TabButton {
-                text: qsTr("Manage .gpg-id")
-            }
-            TabButton {
-                text: qsTr("Meta")
-            }
-        }
-
-        StackLayout {
-            width: scrollViewId.width
-
-            currentIndex: bar.currentIndex
-            EditComponent {
-                id: editComponentId
-            }
-
-            ManageGpgIdComponent {
-                id: manageGpgIdComponentId
-            }
-
-            MetaDataComponent {
-                id: metaDataComponentId
-            }
-        }
-
+    ColumnLayoutHome {
+        id: columnLayoutHomeId
     }
 }
 

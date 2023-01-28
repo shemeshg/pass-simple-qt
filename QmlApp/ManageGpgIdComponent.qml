@@ -10,6 +10,17 @@ ColumnLayout {
     property alias badEntriesRepeater: badEntriesRepeater
     property alias dropdownWithListComponentId: dropdownWithListComponentId
 
+    FileDialog {
+        id: fileDialogImportAndTrustId
+        title: "Please choose a .pub file to import and trust"
+        onAccepted: {
+            mainLayout.getGpgIdManageType().importPublicKeyAndTrust(fileDialogImportAndTrustId.selectedFile);
+            initOnFileChanged();
+        }
+        onRejected: {
+        }
+    }
+
     Text {
         text: "<h1>Manage .gpg-id<h1>"
     }
