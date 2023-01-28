@@ -34,12 +34,12 @@ ScrollView {
             editComponentId.decryptedTextId.text = mainLayout.getDecrypted();
         }
 
-        metaDataComponentId.nearestGitId.text = "Git : " + mainLayout.getNearestGit();
-        metaDataComponentId.nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
-        metaDataComponentId.getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
-        manageGpgIdComponentId.badEntriesRepeater.model = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
-        manageGpgIdComponentId.dropdownWithListComponentId.allItems = mainLayout.getGpgIdManageType().allKeys
-        manageGpgIdComponentId.dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
+        columnLayoutHomeId.metaDataComponentId.nearestGitId.text = "Git : " + mainLayout.getNearestGit();
+        columnLayoutHomeId.metaDataComponentId.nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
+        columnLayoutHomeId.metaDataComponentId.getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
+        columnLayoutHomeId.manageGpgIdComponentId.badEntriesRepeater.model = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
+        columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.allItems = mainLayout.getGpgIdManageType().allKeys
+        columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
         classInitialized = mainLayout.getGpgIdManageType().classInitialized
         gpgPubKeysFolderExists = mainLayout.getGpgIdManageType().gpgPubKeysFolderExists
     }
@@ -55,20 +55,55 @@ ScrollView {
         } else {
             showLogText = "";
         }
-
-
-
     }
 
 
-
+    ColumnLayout {
+        width: parent.width
+        Layout.fillWidth: true
+        visible: !isShowLog;
+        RowLayout{
+            Button {
+                onClicked: { mainLayout.toggleFilepan()}
+                icon.name: "Hide/Show treeview"
+                icon.source: "icons/icons8-tree-structure-80.png"
+                ToolTip.visible: hovered
+                ToolTip.text: "Hide/Show treeview"
+            }
+            Button {
+                onClicked: { mainLayout.openStoreInFileBrowser()}
+                icon.name: "Open store in file browser"
+                icon.source: "icons/icons8-shop-80.png"
+                ToolTip.visible: hovered
+                ToolTip.text: "Open store in file browser"
+            }
+            Button {
+                onClicked: {}
+                icon.name: "Settings"
+                icon.source: "icons/icons8-automation-50.png"
+                ToolTip.visible: hovered
+                ToolTip.text: "Settings"
+            }
+        }
+        Row{
+            Rectangle {
+                id: rectId
+                color: "white"
+                width: scrollViewId.width - 20
+                height: 2
+            }
+        }
+        ColumnLayoutHome {
+            id: columnLayoutHomeId
+        }
+    }
 
     ExceptionAndLog {
         id: exceptionAndLogId
     }
 
-    ColumnLayoutHome {
-        id: columnLayoutHomeId
-    }
+
+
+
 }
 
