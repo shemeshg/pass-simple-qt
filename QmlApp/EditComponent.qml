@@ -12,7 +12,7 @@ ColumnLayout {
 
     Text {
         visible: isGpgFile
-        text: "<h1>Encrypted text<h1>"
+        text: "<h1>Edit<h1>"
     }
     Row{
         visible: isGpgFile

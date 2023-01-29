@@ -24,7 +24,10 @@ ColumnLayout {
             text: qsTr("Edit")
         }
         TabButton {
-            text: qsTr("Manage .gpg-id")
+            text: qsTr("Add")
+        }
+        TabButton {
+            text: qsTr("Manage")
         }
         TabButton {
             text: qsTr("Meta")
@@ -37,6 +40,9 @@ ColumnLayout {
         currentIndex: bar.currentIndex
         EditComponent {
             id: editComponentId
+        }
+        AddComponent {
+            id: addComponentId
         }
 
         ManageGpgIdComponent {

@@ -10,5 +10,6 @@
         <file>ExceptionAndLog.qml</file>
         <file>ColumnLayoutHome.qml</file>
         <file>TextEditComponent.qml</file>
+        <file>AddComponent.qml</file>
     </qresource>
 </RCC>
