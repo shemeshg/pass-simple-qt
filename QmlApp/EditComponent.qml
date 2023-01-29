@@ -70,6 +70,7 @@ ColumnLayout {
         }
     }
     Row{
+        visible: isGpgFile
         TextEditComponent {
             id: decryptedTextId
             visible: isShowPreview

@@ -21,7 +21,7 @@ ColumnLayout {
 
 
         TabButton {
-            text: qsTr("Home")
+            text: qsTr("Edit")
         }
         TabButton {
             text: qsTr("Manage .gpg-id")
