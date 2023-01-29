@@ -8,7 +8,6 @@ import DropdownWithList
 
 ColumnLayout {
     property alias nearestGitId: nearestGitId
-    property alias nearestGpgIdId: nearestGpgIdId
     property alias getDecryptedSignedById: getDecryptedSignedById
     property alias waitItemsId: waitItemsId
     property alias noneWaitItemsId: noneWaitItemsId
@@ -27,7 +26,7 @@ ColumnLayout {
     }
     Text {
         id: nearestGpgIdId
-        text:"GpgId : "
+        text:"GpgId : " + nearestGpg
     }
     Text {
         id: getDecryptedSignedById

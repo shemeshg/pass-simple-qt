@@ -30,12 +30,14 @@ ColumnLayout {
             text: "File name"
         }
         TextField {
+            id: createEmptyFileNameId
             text: ""
             placeholderText: "FileName.txt"
             Layout.fillWidth: true
         }
         Button {
-            text: "add"
+            text: "add";
+            enabled: Boolean(nearestGpg) && Boolean( createEmptyFileNameId.text)
         }
     }
     RowLayout{
@@ -46,6 +48,7 @@ ColumnLayout {
     RowLayout {
         Button {
             text: "upload"
+            enabled: Boolean(nearestGpg)
         }
     }
 }

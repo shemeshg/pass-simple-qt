@@ -31,6 +31,7 @@ ScrollView {
     property bool isShowLog: false
     property bool isShowSettings: false
     property string showLogText: ""
+    property string nearestGpg: ""
 
     function initOnFileChanged(){
         if (isShowPreview){
@@ -38,7 +39,7 @@ ScrollView {
         }
 
         columnLayoutHomeId.metaDataComponentId.nearestGitId.text = "Git : " + mainLayout.getNearestGit();
-        columnLayoutHomeId.metaDataComponentId.nearestGpgIdId.text = "GpgId : " + mainLayout.getNearestGpgId();
+        nearestGpg = mainLayout.getNearestGpgId();
         columnLayoutHomeId.addComponentId.fullPathFolder = getMainqmltype().getFullPathFolder();
         hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId());
         isGpgFile = filePath.slice(-4)===".gpg";
