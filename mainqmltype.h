@@ -202,30 +202,29 @@ public:
     }
 
     Q_INVOKABLE QString getNearestGit(){
-
-        if (passFile->isGpgFile()){
             QString ret = "";
             runSafeFromException( [&](){
                 ret = QString::fromStdString(passHelper.getNearestGit(passFile->getFullPath(), appSettings.passwordStorePath().toStdString()));
             });
             return ret;
-        }
-        else return "";
     }
 
     Q_INVOKABLE QString getNearestGpgId(){
-
-        if (passFile->isGpgFile()){
-
             QString ret = "";
             runSafeFromException( [&](){
                 ret = QString::fromStdString(passHelper.getNearestGpgId(passFile->getFullPath(), appSettings.passwordStorePath().toStdString()));
             });
             return ret;
-        }
-        else return "";
     }
     
+    Q_INVOKABLE QString getFullPathFolder(){
+        QString ret = "";
+        runSafeFromException( [&](){
+            ret =  QString::fromStdString( passFile->getFullPathFolder() );
+        });
+        return ret;
+    }
+
 
 
 signals:

@@ -10,6 +10,7 @@ ColumnLayout {
     property alias metaDataComponentId: metaDataComponentId
     property alias manageGpgIdComponentId: manageGpgIdComponentId
     property alias editComponentId: editComponentId
+    property alias addComponentId: addComponentId
 
     id: columnLayoutHomeId
     width: parent.width

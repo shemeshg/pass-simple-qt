@@ -7,6 +7,8 @@ import QtQuick.Dialogs
 import DropdownWithList
 
 ColumnLayout {
+    property string fullPathFolder: ""
+
     id: addComponentId
     RowLayout{
         Label {
@@ -15,7 +17,7 @@ ColumnLayout {
     }
     RowLayout{
         Label {
-            text: "Destination folder: /asdfd/asdfasdf"
+            text: "Destination folder: " + fullPathFolder
         }
     }
     RowLayout{
