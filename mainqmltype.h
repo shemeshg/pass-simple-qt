@@ -225,7 +225,16 @@ public:
         return ret;
     }
 
+    Q_INVOKABLE void createEmptyEncryptedFile(QString fullPathFolder, QString fileName){
+        std::filesystem::path p = fullPathFolder.toStdString();
+        fileName = fileName + ".gpg";
+        p = p / fileName.toStdString();
 
+        runSafeFromException( [&](){
+            passFile->encryptStringToFile("",p,m_gpgIdManageType.getEncryptTo());
+        });
+
+    }
 
 signals:
     void filePathChanged();

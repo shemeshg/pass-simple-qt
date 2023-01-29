@@ -38,6 +38,7 @@ ColumnLayout {
         Button {
             text: "add";
             enabled: Boolean(nearestGpg) && Boolean( createEmptyFileNameId.text)
+            onClicked: getMainqmltype().createEmptyEncryptedFile(fullPathFolder, createEmptyFileNameId.text)
         }
     }
     RowLayout{
