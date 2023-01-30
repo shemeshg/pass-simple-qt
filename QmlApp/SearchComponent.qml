@@ -14,6 +14,13 @@ ColumnLayout {
             text: "Back"
             onClicked: isShowSearch = false
         }
+        Button {
+            text: "Show regex"
+            onClicked: {
+                textFindRegexId.visible = !textFindRegexId.visible
+                textSearchRegexId.visible = !textSearchRegexId.visible
+            }
+        }
     }
     Row{
         Rectangle {
@@ -23,12 +30,50 @@ ColumnLayout {
         }
     }
     RowLayout {
+        Label {
+            text: "File name"
+        }
         TextField {
+            id: findTextId
             text: ""
             Layout.fillWidth: true
         }
         Button {
             text: "find"
+        }
+    }
+    RowLayout {
+        id: textFindRegexId
+        visible: false
+        Label {
+            text: "std::regex"
+        }
+        TextField {
+
+            text: ".*" + findTextId.text.replace(/\./g,"\\.").replace(/\*/g ,".*") +  ".*"
+            Layout.fillWidth: true
+        }
+    }
+    RowLayout {
+        Label {
+            text: "Contain"
+        }
+        TextField {
+            id: searchTextId
+            text: ""
+            Layout.fillWidth: true
+        }
+    }
+    RowLayout {
+        id: textSearchRegexId
+        visible: false
+        Label {
+            text: "std::regex"
+        }
+        TextField {
+
+            text: ".*" + searchTextId.text.replace(/\./g,"\\.").replace(/\*/g ,".*") +  ".*"
+            Layout.fillWidth: true
         }
     }
 }
