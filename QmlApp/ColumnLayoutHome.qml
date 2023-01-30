@@ -13,13 +13,13 @@ ColumnLayout {
     property alias addComponentId: addComponentId
 
     id: columnLayoutHomeId
-    width: parent.width
-    Layout.fillWidth: true
+
+    width: scrollViewId.width
     visible: !isShowLog;
     TabBar {
         id: bar
         Layout.fillWidth: true
-
+        width: scrollViewId.width
 
         TabButton {
             text: qsTr("Edit")
