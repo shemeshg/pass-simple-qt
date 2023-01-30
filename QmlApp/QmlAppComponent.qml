@@ -30,6 +30,8 @@ ScrollView {
 
     property bool isShowLog: false
     property bool isShowSettings: false
+    property bool isShowSearch: false
+
     property string showLogText: ""
     property string nearestGpg: ""
     property string fullPathFolder: ""
@@ -59,9 +61,37 @@ ScrollView {
     onExceptionCounterChanged: {
         isShowLog = Boolean(exceptionCounter);
         if (isShowLog){
-           exceptionAndLogId.logTextId.textEdit.text = exceptionStr;
+            exceptionAndLogId.logTextId.textEdit.text = exceptionStr;
         } else {
             exceptionAndLogId.logTextId.textEdit.text = "";
+        }
+    }
+
+
+    ColumnLayout {
+        visible: isShowSearch
+        width: parent.width
+        RowLayout {
+            Button {
+                text: "Back"
+                onClicked: isShowSearch = false
+            }
+        }
+        Row{
+            Rectangle {
+                color: "white"
+                width: scrollViewId.width - 20
+                height: 2
+            }
+        }
+        RowLayout {
+            TextField {
+                text: ""
+                Layout.fillWidth: true
+            }
+            Button {
+                text: "find"
+            }
         }
     }
 
@@ -111,7 +141,7 @@ ScrollView {
     ColumnLayout {
         width: parent.width
         Layout.fillWidth: true
-        visible: !isShowLog & !isShowSettings;
+        visible: !isShowLog && !isShowSettings && !isShowSearch;
         RowLayout{
             Button {
                 onClicked: { mainLayout.toggleFilepan()}
@@ -136,6 +166,18 @@ ScrollView {
                 icon.source: "icons/icons8-automation-50.png"
                 ToolTip.visible: hovered
                 ToolTip.text: "Settings"
+            }
+            Button {
+                onClicked: {
+                    isShowSearch = true
+
+                }
+
+                icon.name: "search"
+                icon.source: "icons/icons8-search-more-50"
+                ToolTip.visible: hovered
+                ToolTip.text: "search"
+
             }
         }
         Row{

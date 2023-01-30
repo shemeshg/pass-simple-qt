@@ -11,5 +11,6 @@
         <file>ColumnLayoutHome.qml</file>
         <file>TextEditComponent.qml</file>
         <file>AddComponent.qml</file>
+        <file>icons/icons8-search-more-50.png</file>
     </qresource>
 </RCC>
