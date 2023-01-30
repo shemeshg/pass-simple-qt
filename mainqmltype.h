@@ -141,10 +141,13 @@ public:
     }
   }
 
-  Q_INVOKABLE void openStoreInFileBrowser() {
-    runSafeFromException([&]() {
+  Q_INVOKABLE void openStoreInFileBrowser(QString fullPathFolder) {
+    if (fullPathFolder.isEmpty()){
+        fullPathFolder = appSettings.passwordStorePath();
+    }
+      runSafeFromException([&]() {
       QDesktopServices::openUrl(
-          QUrl::fromLocalFile(appSettings.passwordStorePath()));
+          QUrl::fromLocalFile(fullPathFolder));
     });
   }
 

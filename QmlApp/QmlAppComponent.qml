@@ -32,6 +32,7 @@ ScrollView {
     property bool isShowSettings: false
     property string showLogText: ""
     property string nearestGpg: ""
+    property string fullPathFolder: ""
 
     function initOnFileChanged(){
         if (isShowPreview){
@@ -40,7 +41,7 @@ ScrollView {
 
         columnLayoutHomeId.metaDataComponentId.nearestGitId.text = "Git : " + mainLayout.getNearestGit();
         nearestGpg = mainLayout.getNearestGpgId();
-        columnLayoutHomeId.addComponentId.fullPathFolder = getMainqmltype().getFullPathFolder();
+        fullPathFolder = getMainqmltype().getFullPathFolder();
         hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId());
         isGpgFile = filePath.slice(-4)===".gpg";
         columnLayoutHomeId.metaDataComponentId.getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
@@ -120,7 +121,7 @@ ScrollView {
                 ToolTip.text: "Hide/Show treeview"
             }
             Button {
-                onClicked: { mainLayout.openStoreInFileBrowser()}
+                onClicked: { mainLayout.getMainqmltype().openStoreInFileBrowser(fullPathFolder)}
                 icon.name: "Open store in file browser"
                 icon.source: "icons/icons8-shop-80.png"
                 ToolTip.visible: hovered

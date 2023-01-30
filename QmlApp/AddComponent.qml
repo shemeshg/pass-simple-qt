@@ -7,7 +7,6 @@ import QtQuick.Dialogs
 import DropdownWithList
 
 ColumnLayout {
-    property string fullPathFolder: ""
 
     FileDialog {
         id: fileDialogUpload
