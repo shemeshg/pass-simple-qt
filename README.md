@@ -1,6 +1,6 @@
 # Pass Simple
 
-Multi-platform GUI for pass, the standard unix password manager
+Multi-platform GUI for [pass](https://www.passwordstore.org/), the standard unix password manager
 
 
 
@@ -43,6 +43,8 @@ Open project in QtCreate and compile and qtdeploy.
 - LibGpgError
 - pinentry-mac (Mac only)
 - Icons by https://icons8.com/icons/ 
+
+
 
 
 
