@@ -104,9 +104,21 @@ public:
 
   GpgIdManageType *gpgIdManageType() { return &m_gpgIdManageType; }
 
-  Q_INVOKABLE void doSearch(){
-      m_searchResult.push_back("More line");
-      emit searchResultChanged();
+  Q_INVOKABLE void doSearch(QString FolderToSearch, QString fileRegExStr){
+
+        m_searchResult.clear();
+        emit searchResultChanged();
+      passHelper.searchDown(appSettings.passwordStorePath().toStdString(),
+                            FolderToSearch.toStdString(),
+                            fileRegExStr.toStdString(),
+                            [&](std::string path)
+                              {
+                m_searchResult.push_back(QString::fromStdString(path));
+                emit searchResultChanged();
+      });
+
+
+
   }
 
   Q_INVOKABLE void submit_AppSettingsType(QString passwordStorePath,

@@ -40,7 +40,7 @@ ColumnLayout {
         }
         Button {
             text: "find"
-            onClicked: getMainqmltype().doSearch()
+            onClicked: getMainqmltype().doSearch(textFieldFileSearch.text,textFieldContentSearch.text)
         }
     }
     RowLayout {
@@ -50,7 +50,7 @@ ColumnLayout {
             text: "std::regex"
         }
         TextField {
-
+            id: textFieldFileSearch
             text: ".*" + findTextId.text.replace(/\./g,"\\.").replace(/\*/g ,".*") +  ".*"
             Layout.fillWidth: true
         }
@@ -72,7 +72,7 @@ ColumnLayout {
             text: "std::regex"
         }
         TextField {
-
+            id: textFieldContentSearch
             text: ".*" + searchTextId.text.replace(/\./g,"\\.").replace(/\*/g ,".*") +  ".*"
             Layout.fillWidth: true
         }
