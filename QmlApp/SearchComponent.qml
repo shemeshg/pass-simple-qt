@@ -83,7 +83,13 @@ ColumnLayout {
         RowLayout{
             Label {
                 text:  modelData
+
             }
+            Button {
+                text: "select"
+                onClicked: getMainqmltype().setTreeViewSelected(modelData)
+            }
+
         }
     }
 }

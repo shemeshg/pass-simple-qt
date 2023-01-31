@@ -129,6 +129,10 @@ public:
     emit appSettingsTypeChanged();
   }
 
+  Q_INVOKABLE void setTreeViewSelected(QString path){
+      treeView->setCurrentIndex(filesystemModel->index(path));
+  }
+
   Q_INVOKABLE void toggleFilepan() {
     if (m_filePanSize == 0) {
       splitter->setSizes(QList<int>({150, 400}));
