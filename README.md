@@ -10,7 +10,7 @@ Multi-platform GUI for [pass](https://www.passwordstore.org/), the standard unix
 
 #### On Macos
 ```
-brew install pass gpgme libgpg-error pinentry-mac
+brew install pass gpgme libgpg-error pinentry-mac yaml-cpp
 
 echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
 gpgconf --kill gpg-agent
@@ -42,6 +42,7 @@ Open project in QtCreate and compile and qtdeploy.
 - Gpgmepp
 - LibGpgError
 - pinentry-mac (Mac only)
+- https://github.com/jbeder/yaml-cpp/
 - Icons by https://icons8.com/icons/ 
 
 
