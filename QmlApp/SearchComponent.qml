@@ -40,6 +40,7 @@ ColumnLayout {
         }
         Button {
             text: "find"
+            onClicked: getMainqmltype().doSearch()
         }
     }
     RowLayout {
@@ -74,6 +75,15 @@ ColumnLayout {
 
             text: ".*" + searchTextId.text.replace(/\./g,"\\.").replace(/\*/g ,".*") +  ".*"
             Layout.fillWidth: true
+        }
+    }
+
+    Repeater {
+        model: getMainqmltype().searchResult
+        RowLayout{
+            Label {
+                text:  modelData
+            }
         }
     }
 }

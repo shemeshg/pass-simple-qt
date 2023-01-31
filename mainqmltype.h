@@ -31,6 +31,7 @@ class MainQmlType : public QObject {
                  exceptionStrChanged)
   Q_PROPERTY(AppSettings *appSettingsType READ appSettingsType WRITE
                  setAppSettingsType NOTIFY appSettingsTypeChanged)
+  Q_PROPERTY(QStringList searchResult READ searchResult WRITE setSearchResult NOTIFY searchResultChanged)
   // hygen Q_PROPERTY
   QML_ELEMENT
 
@@ -89,9 +90,24 @@ public:
     emit appSettingsTypeChanged();
     qDebug() << "Yes subbmited";
   }
+  QStringList &searchResult()
+  {
+    return m_searchResult;
+  };
+
+  void setSearchResult(const QStringList &searchResult)
+  {
+    m_searchResult = searchResult;
+    emit searchResultChanged();
+  }
   // hygen public
 
   GpgIdManageType *gpgIdManageType() { return &m_gpgIdManageType; }
+
+  Q_INVOKABLE void doSearch(){
+      m_searchResult.push_back("More line");
+      emit searchResultChanged();
+  }
 
   Q_INVOKABLE void submit_AppSettingsType(QString passwordStorePath,
                                           QString tmpFolderPath) {
@@ -253,6 +269,7 @@ signals:
   void exceptionCounterChanged();
   void exceptionStrChanged();
   void appSettingsTypeChanged();
+  void searchResultChanged();
   // hygen signals
 
 private:
@@ -271,6 +288,7 @@ private:
   QTreeView *treeView;
   QFileSystemModel *filesystemModel;
 
+  QStringList m_searchResult;
   // hygen private
 
   void runSafeFromException(std::function<void()> callback) {
