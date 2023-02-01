@@ -19,17 +19,7 @@ ColumnLayout {
         }
     }
 
-    FileDialog {
-        id: fileDialogDownload
-        title: "Choose folder to download"
-        onAccepted: {
-            getMainqmltype().decryptDownload(fileDialogDownload.selectedFile)
-        }
-        onRejected: {
-        }
-        fileMode: FileDialog.SaveFile
 
-    }
 
     id: addComponentId
     RowLayout{
@@ -75,19 +65,5 @@ ColumnLayout {
             onClicked: fileDialogUpload.open()
         }
     }
-    RowLayout{
-        Label {
-            text: "<h2>Download selected file</h2>"
-        }
-    }
-    Text {
-        text:"File : " + filePath
-    }
-    RowLayout {
-        Button {
-            text: "download"
-            enabled: isGpgFile
-            onClicked: fileDialogDownload.open()
-        }
-    }
+
 }

@@ -5,10 +5,22 @@ import QtQuick.Controls
 import QtQuick.Dialogs
 
 import DropdownWithList
+import EditYaml
 
 ColumnLayout {
     property alias decryptedTextId: decryptedTextId
 
+    FileDialog {
+        id: fileDialogDownload
+        title: "Choose folder to download"
+        onAccepted: {
+            getMainqmltype().decryptDownload(fileDialogDownload.selectedFile)
+        }
+        onRejected: {
+        }
+        fileMode: FileDialog.SaveFile
+
+    }
 
     Text {
         visible: isGpgFile
@@ -68,6 +80,11 @@ ColumnLayout {
                      waitItems.indexOf(filePath) === -1 &&
                      noneWaitItems.indexOf(filePath) === -1
         }
+        Button {
+            text: "download"
+            enabled: isGpgFile
+            onClicked: fileDialogDownload.open()
+        }
     }
     Row{
         visible: isGpgFile
@@ -80,6 +97,8 @@ ColumnLayout {
 
 
     }
-
+    Row {
+        EditYamlComponent {}
+    }
 
 }

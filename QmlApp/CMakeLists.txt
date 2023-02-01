@@ -1,5 +1,10 @@
 add_subdirectory(DropdownWithList)
-link_libraries( DropdownWithList )
+add_subdirectory(EditYaml)
+# hygen add_subdirectory
+link_libraries( DropdownWithList 
+EditYaml
+# hygen target_link_libraries
+)
 
 qt6_add_qml_module(QmlApp
         URI QmlApp
