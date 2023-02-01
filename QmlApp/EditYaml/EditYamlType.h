@@ -16,30 +16,20 @@ public:
 
     // hygen public
 
-    Q_INVOKABLE QString getYamlFields() {
-        std::string ret = "";
-        try {
-            YAML::Node config = YAML::Load(exampleText);
-            if (config["username"]) {
-                ret = config["username"].as<std::string>();
-            }
-            return QString::fromStdString(ret);
-        } catch (const YAML::ParserException &ex) {
-            return ex.what();
-        }
-    }
-
     Q_INVOKABLE QVariantList getYamlFmodel() {
         QVariantList list;
         try {
             YAML::Node content = YAML::Load(exampleText);
+            if(!content.IsMap()){return list;}
             for(YAML::const_iterator it=content.begin();it != content.end();++it) {
-               std::string key = it->first.as<std::string>();       // <- key
-               std::string val = it->second.as<std::string>();       // <- key
-               QVariantMap map;
-               map.insert("key",QString::fromStdString( key));
-               map.insert("val", QString::fromStdString( val));
-               list<<map;
+                if (!it->first.IsScalar()){continue;}
+                if (!it->second.IsScalar()){continue;}
+                std::string key = it->first.as<std::string>();
+                std::string val = it->second.as<std::string>();
+                QVariantMap map;
+                map.insert("key",QString::fromStdString( key));
+                map.insert("val", QString::fromStdString( val));
+                list<<map;
             }
 
         } catch (const std::exception &ex) {
