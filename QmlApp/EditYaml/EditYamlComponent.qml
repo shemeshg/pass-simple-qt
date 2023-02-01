@@ -1,5 +1,10 @@
 import QtQuick
+import EditYaml
 
 Text {
-    text: "shalom yaml"
+    EditYamlType {
+        id: editYamlType
+    }
+
+    text: editYamlType.getYamlFields()
 }
