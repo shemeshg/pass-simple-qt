@@ -73,7 +73,7 @@ ColumnLayout {
         }
         TextField {
             id: textFieldContentSearch
-            text: ".*" + searchTextId.text.replace(/\./g,"\\.").replace(/\*/g ,".*") +  ".*"
+            text: ".*" + searchTextId.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') +  ".*"
             Layout.fillWidth: true
         }
     }
