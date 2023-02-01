@@ -33,6 +33,9 @@ public:
 
         setIsYamlValid(true);
         setYamlErrorMsg("");
+        QVariantList list;
+        m_yamlModel = list;
+        emit yamlModelChanged();
 
         try {
             yamlContent = YAML::Load(m_text.toStdString());
@@ -46,8 +49,7 @@ public:
             setIsYamlValid(false);
             setYamlErrorMsg("YAML Expected MAP format");
             return;
-        }
-        QVariantList list;
+        }        
         for(YAML::const_iterator it=yamlContent.begin();it != yamlContent.end();++it) {
             if (!it->first.IsScalar()){
                 setIsYamlValid(false);

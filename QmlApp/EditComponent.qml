@@ -9,6 +9,7 @@ import EditYaml
 
 ColumnLayout {
     property alias decryptedTextId: decryptedTextId
+    property bool showYamlEdit: false
 
     FileDialog {
         id: fileDialogDownload
@@ -39,6 +40,16 @@ ColumnLayout {
                 }
             }
         }
+        Switch {
+            visible: isShowPreview
+            text: qsTr("YAML")
+            checked: showYamlEdit
+            onCheckedChanged: {
+                showYamlEdit = checked
+            }
+        }
+
+
         Button {
             text: "Save"
             enabled: hasEffectiveGpgIdFile;
@@ -90,15 +101,14 @@ ColumnLayout {
         visible: isGpgFile
         TextEditComponent {
             id: decryptedTextId
-            visible: isShowPreview
-             width: scrollViewId.width - 20
+            visible: isShowPreview && !showYamlEdit
+            width: scrollViewId.width - 20
         }
-
-
-
     }
     Row {
+        visible: isGpgFile
         EditYamlComponent {
+            visible: isShowPreview && showYamlEdit
             text: decryptedTextId.textEdit.text
         }
     }
