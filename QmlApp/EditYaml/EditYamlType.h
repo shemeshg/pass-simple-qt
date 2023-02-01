@@ -3,6 +3,8 @@
 #include "yaml-cpp/yaml.h"
 #include <QObject>
 #include <qqmlregistration.h>
+#include <QVariantMap>
+
 
 class EditYamlType : public QObject {
     Q_OBJECT
@@ -27,6 +29,25 @@ public:
         }
     }
 
+    Q_INVOKABLE QVariantList getYamlFmodel() {
+        QVariantList list;
+        try {
+            YAML::Node content = YAML::Load(exampleText);
+            for(YAML::const_iterator it=content.begin();it != content.end();++it) {
+               std::string key = it->first.as<std::string>();       // <- key
+               std::string val = it->second.as<std::string>();       // <- key
+               QVariantMap map;
+               map.insert(QString::fromStdString( key), QString::fromStdString( val));
+               list<<map;
+            }
+
+        } catch (const std::exception &ex) {
+            throw;
+        }
+
+        return list;
+    }
+
 signals:
     // hygen signals
 
@@ -35,6 +56,8 @@ private:
     std::string exampleText = R"(
 username: shalomOlam
   This is line 2
-password: wqeroiuy123
+password:
+  wqeroiuy123
+
 )";
 };

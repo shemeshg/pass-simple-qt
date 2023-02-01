@@ -6,5 +6,5 @@ Text {
         id: editYamlType
     }
 
-    text: editYamlType.getYamlFields()
+    text: JSON.stringify( editYamlType.getYamlFmodel() )
 }
