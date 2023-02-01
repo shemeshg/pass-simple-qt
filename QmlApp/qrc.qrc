@@ -9,7 +9,6 @@
         <file>icons/icons8-automation-50.png</file>
         <file>ExceptionAndLog.qml</file>
         <file>ColumnLayoutHome.qml</file>
-        <file>TextEditComponent.qml</file>
         <file>AddComponent.qml</file>
         <file>icons/icons8-search-more-50.png</file>
         <file>SearchComponent.qml</file>

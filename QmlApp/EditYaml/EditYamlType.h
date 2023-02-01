@@ -37,7 +37,8 @@ public:
                std::string key = it->first.as<std::string>();       // <- key
                std::string val = it->second.as<std::string>();       // <- key
                QVariantMap map;
-               map.insert(QString::fromStdString( key), QString::fromStdString( val));
+               map.insert("key",QString::fromStdString( key));
+               map.insert("val", QString::fromStdString( val));
                list<<map;
             }
 
