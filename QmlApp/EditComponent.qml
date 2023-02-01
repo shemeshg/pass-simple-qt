@@ -46,7 +46,7 @@ ColumnLayout {
             checked: showYamlEdit
             onCheckedChanged: {
                 showYamlEdit = checked;
-                if (!showYamlEdit){
+                if (!showYamlEdit && editYamlComponent.editYamlType.isYamlValid){
                     decryptedTextId.textEdit.text = editYamlComponent.editYamlType.getUpdatedText()
                 }
             }
