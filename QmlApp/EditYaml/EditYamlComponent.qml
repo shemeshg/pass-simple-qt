@@ -7,15 +7,12 @@ import QtQuick.Layouts
 
 ColumnLayout {
     property alias text: editYamlType.text
+    property alias  editYamlType: editYamlType
 
     EditYamlType {
         id: editYamlType
     }
-    Button {
-        text:"TEST"
-        onClicked: {
-                    console.log( editYamlType.getUpdatedText() );}
-    }
+
 
     Row{
         Text { text:  Error + ": " + editYamlType.yamlErrorMsg }

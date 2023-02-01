@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QVariantMap>
 #include <qqmlregistration.h>
+#include <string>
 
 class EditYamlType : public QObject {
   Q_OBJECT
@@ -98,14 +99,21 @@ public:
   // hygen public
 
   Q_INVOKABLE QString getUpdatedText() {
+
       for (QVariantList::iterator hehe = m_yamlModel.begin();
            hehe != m_yamlModel.end(); hehe++) {
         QVariantMap test = hehe->toMap();
-        yamlContent[test["key"].toString().toStdString()] = test["val"].toString().toStdString();
+
+        std::string key = test["key"].toString().toStdString();
+
+        std::string val = test["val"].toString().toStdString();
+        yamlContent[key] = val;
+
       }
       std::stringstream ss;
       ss << yamlContent;
-      return QString::fromStdString(  ss.str());
+      return QString::fromStdString(  ss.str() );
+
   }
 
   Q_INVOKABLE void sendChange(QString key, QString val) {
