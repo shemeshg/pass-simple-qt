@@ -2,134 +2,137 @@
 
 #include "yaml-cpp/yaml.h"
 #include <QObject>
-#include <qqmlregistration.h>
 #include <QVariantMap>
-
+#include <qqmlregistration.h>
 
 class EditYamlType : public QObject {
-    Q_OBJECT
-    Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
-    Q_PROPERTY(bool isYamlValid READ isYamlValid WRITE setIsYamlValid NOTIFY isYamlValidChanged)
-    Q_PROPERTY(QString yamlErrorMsg READ yamlErrorMsg WRITE setYamlErrorMsg NOTIFY yamlErrorMsgChanged)
-    Q_PROPERTY(QVariantList yamlModel READ yamlModel WRITE setYamlModel NOTIFY yamlModelChanged)
-    // hygen Q_PROPERTY
-    QML_ELEMENT
+  Q_OBJECT
+  Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
+  Q_PROPERTY(bool isYamlValid READ isYamlValid WRITE setIsYamlValid NOTIFY
+                 isYamlValidChanged)
+  Q_PROPERTY(QString yamlErrorMsg READ yamlErrorMsg WRITE setYamlErrorMsg NOTIFY
+                 yamlErrorMsgChanged)
+  Q_PROPERTY(QVariantList yamlModel READ yamlModel WRITE setYamlModel NOTIFY
+                 yamlModelChanged)
+  // hygen Q_PROPERTY
+  QML_ELEMENT
 
 public:
-    explicit EditYamlType(QObject *parent = nullptr) : QObject(parent){};
+  explicit EditYamlType(QObject *parent = nullptr) : QObject(parent){};
 
-    QString text()
-    {
-        return m_text;
-    };
+  QString text() { return m_text; };
 
-    void setText(const QString &text)
-    {
-        if (text == m_text)
-            return;
+  void setText(const QString &text) {
+    if (text == m_text)
+      return;
 
-        m_text = text;
-        emit textChanged();
+    m_text = text;
+    emit textChanged();
 
-        setIsYamlValid(true);
-        setYamlErrorMsg("");
-        QVariantList list;
-        m_yamlModel = list;
-        emit yamlModelChanged();
+    setIsYamlValid(true);
+    setYamlErrorMsg("");
+    QVariantList list;
+    m_yamlModel = list;
+    emit yamlModelChanged();
 
-        try {
-            yamlContent = YAML::Load(m_text.toStdString());
-        }
-        catch (const std::exception &e) {
-            setIsYamlValid(false);
-            setYamlErrorMsg(e.what());
-            return;
-        }
-        if(!yamlContent.IsMap()){
-            setIsYamlValid(false);
-            setYamlErrorMsg("YAML Expected MAP format");
-            return;
-        }        
-        for(YAML::const_iterator it=yamlContent.begin();it != yamlContent.end();++it) {
-            if (!it->first.IsScalar()){
-                setIsYamlValid(false);
-                setYamlErrorMsg("YAML Expected MAP format");
-                return;
-            ;}
-            if (!it->second.IsScalar()){continue;}
-            std::string key = it->first.as<std::string>();
-            std::string val = it->second.as<std::string>();
-            QVariantMap map;
-            map.insert("key",QString::fromStdString( key));
-            map.insert("val", QString::fromStdString( val));
-            list<<map;
-        }
-        m_yamlModel = list;
-        emit yamlModelChanged();
+    try {
+      yamlContent = YAML::Load(m_text.toStdString());
+    } catch (const std::exception &e) {
+      setIsYamlValid(false);
+      setYamlErrorMsg(e.what());
+      return;
     }
-    bool isYamlValid()
-    {
-        return m_isYamlValid;
-    };
-
-    void setIsYamlValid(const bool &isYamlValid)
-    {
-        if (isYamlValid == m_isYamlValid)
-            return;
-
-        m_isYamlValid = isYamlValid;
-        emit isYamlValidChanged();
+    if (!yamlContent.IsMap()) {
+      setIsYamlValid(false);
+      setYamlErrorMsg("YAML Expected MAP format");
+      return;
     }
-    QString yamlErrorMsg()
-    {
-        return m_yamlErrorMsg;
-    };
-
-    void setYamlErrorMsg(const QString &yamlErrorMsg)
-    {
-        if (yamlErrorMsg == m_yamlErrorMsg)
-            return;
-
-        m_yamlErrorMsg = yamlErrorMsg;
-        emit yamlErrorMsgChanged();
-
+    for (YAML::const_iterator it = yamlContent.begin(); it != yamlContent.end();
+         ++it) {
+      if (!it->first.IsScalar()) {
+        setIsYamlValid(false);
+        setYamlErrorMsg("YAML Expected MAP format");
+        return;
+        ;
+      }
+      if (!it->second.IsScalar()) {
+        continue;
+      }
+      std::string key = it->first.as<std::string>();
+      std::string val = it->second.as<std::string>();
+      QVariantMap map;
+      map.insert("key", QString::fromStdString(key));
+      map.insert("val", QString::fromStdString(val));
+      list << map;
     }
-    QVariantList yamlModel()
-    {
-        return m_yamlModel;
-    };
+    m_yamlModel = list;
+    emit yamlModelChanged();
+  }
+  bool isYamlValid() { return m_isYamlValid; };
 
-    void setYamlModel(const QVariantList &yamlModel)
-    {
-        if (yamlModel == m_yamlModel)
-            return;
+  void setIsYamlValid(const bool &isYamlValid) {
+    if (isYamlValid == m_isYamlValid)
+      return;
 
-        m_yamlModel = yamlModel;
-        emit yamlModelChanged();
+    m_isYamlValid = isYamlValid;
+    emit isYamlValidChanged();
+  }
+  QString yamlErrorMsg() { return m_yamlErrorMsg; };
+
+  void setYamlErrorMsg(const QString &yamlErrorMsg) {
+    if (yamlErrorMsg == m_yamlErrorMsg)
+      return;
+
+    m_yamlErrorMsg = yamlErrorMsg;
+    emit yamlErrorMsgChanged();
+  }
+  QVariantList yamlModel() { return m_yamlModel; };
+
+  void setYamlModel(const QVariantList &yamlModel) {
+    if (yamlModel == m_yamlModel)
+      return;
+
+    m_yamlModel = yamlModel;
+    emit yamlModelChanged();
+  }
+  // hygen public
+
+  Q_INVOKABLE QString getUpdatedText() {
+      for (QVariantList::iterator hehe = m_yamlModel.begin();
+           hehe != m_yamlModel.end(); hehe++) {
+        QVariantMap test = hehe->toMap();
+        yamlContent[test["key"].toString().toStdString()] = test["val"].toString().toStdString();
+      }
+      std::stringstream ss;
+      ss << yamlContent;
+      return QString::fromStdString(  ss.str());
+  }
+
+  Q_INVOKABLE void sendChange(QString key, QString val) {
+
+    for (QVariantList::iterator hehe = m_yamlModel.begin();
+         hehe != m_yamlModel.end(); hehe++) {
+      QVariantMap test = hehe->toMap();
+      if (test["key"].toString() == key) {
+        test["val"].setValue(QVariant(val));
+        *hehe = test;
+      }
     }
-    // hygen public
-
-    Q_INVOKABLE QString getUpdatedText() {
-        for (const QVariant& v: m_yamlModel) {
-            qDebug()<<v<<"\n";
-        }
-        return "";
-    }
+  }
 
 signals:
-    void textChanged();
-    void isYamlValidChanged();
-    void yamlErrorMsgChanged();
-    void yamlModelChanged();
-    // hygen signals
+  void textChanged();
+  void isYamlValidChanged();
+  void yamlErrorMsgChanged();
+  void yamlModelChanged();
+  // hygen signals
 
 private:
-    QString m_text;
-    bool m_isYamlValid = true;
-    QString m_yamlErrorMsg;
-    QVariantList m_yamlModel;
-    // hygen private
+  QString m_text;
+  bool m_isYamlValid = true;
+  QString m_yamlErrorMsg;
+  QVariantList m_yamlModel;
+  // hygen private
 
-
-    YAML::Node yamlContent;
+  YAML::Node yamlContent;
 };
