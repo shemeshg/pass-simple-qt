@@ -4,14 +4,21 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 
+
 ColumnLayout {
+    property alias text: editYamlType.text
+
     EditYamlType {
         id: editYamlType
     }
-
+    Row{
+        Text { text:  Error + ": " + editYamlType.yamlErrorMsg }
+        visible: !editYamlType.isYamlValid
+    }
 
     Repeater {
-        model: editYamlType.getYamlFmodel()
+        visible: editYamlType.isYamlValid
+        model: editYamlType.yamlModel
         ColumnLayout {
             Row{
                 Text { text:  modelData.key + ": "}

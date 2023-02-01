@@ -98,7 +98,9 @@ ColumnLayout {
 
     }
     Row {
-        EditYamlComponent {}
+        EditYamlComponent {
+            text: decryptedTextId.textEdit.text
+        }
     }
 
 }
