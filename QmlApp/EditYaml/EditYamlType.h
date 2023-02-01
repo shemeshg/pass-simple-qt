@@ -109,6 +109,12 @@ public:
     }
     // hygen public
 
+    Q_INVOKABLE QString getUpdatedText() {
+        for (const QVariant& v: m_yamlModel) {
+            qDebug()<<v<<"\n";
+        }
+        return "";
+    }
 
 signals:
     void textChanged();

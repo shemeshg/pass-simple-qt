@@ -11,6 +11,12 @@ ColumnLayout {
     EditYamlType {
         id: editYamlType
     }
+    Button {
+        text:"TEST"
+        onClicked: { editYamlType.getUpdatedText();
+                    console.log( JSON.stringify(editYamlType.yamlModel) );}
+    }
+
     Row{
         Text { text:  Error + ": " + editYamlType.yamlErrorMsg }
         visible: !editYamlType.isYamlValid
@@ -27,6 +33,15 @@ ColumnLayout {
                 TextEditComponent {
                     width: scrollViewId.width - 20
                     textEdit.text: modelData.val
+                }
+            }
+            Row{
+                TextField {
+                    text: modelData.val
+                    Layout.fillWidth: true
+                    onTextChanged: {
+                        modelData.val = text
+                    }
                 }
             }
             Rectangle {
