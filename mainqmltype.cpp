@@ -33,7 +33,7 @@ void MainQmlType::setFilePath(const QString &filePath)
         return;
 
     m_filePath = filePath;
-    passFile = passHelper.getPassFile(m_filePath.toStdString());
+    passFile->setFullPath(m_filePath.toStdString());
     try {
       m_gpgIdManageType.init(m_filePath.toStdString(), appSettings.passwordStorePath().toStdString(),&passHelper);
     }
