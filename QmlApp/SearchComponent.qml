@@ -51,7 +51,7 @@ ColumnLayout {
         }
         TextField {
             id: textFieldFileSearch
-            text: ".*" + findTextId.text.replace(/\./g,"\\.").replace(/\*/g ,".*") +  ".*"
+            text: ".*" + findTextId.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') +  ".*"
             Layout.fillWidth: true
         }
     }
