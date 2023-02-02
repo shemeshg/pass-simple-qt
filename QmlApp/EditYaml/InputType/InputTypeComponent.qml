@@ -46,11 +46,6 @@ ColumnLayout {
                 visible: inputType === "totp"
             }
             Button {
-                text: "QR"
-                visible: inputType === "totp"
-
-            }
-            Button {
                 text: "@"
                 visible: inputType === "url"
                 onClicked: Qt.openUrlExternally(textField.text);

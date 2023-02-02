@@ -64,6 +64,14 @@ public:
       QVariantMap map;
       map.insert("key", QString::fromStdString(key));
       map.insert("val", QString::fromStdString(val));
+      QString inputType="";
+
+      if (yamlContent["fields type"] && yamlContent["fields type"][key]){
+         inputType   = QString::fromStdString( yamlContent["fields type"][key].as<std::string>());
+
+      }
+      map.insert("inputType", inputType);
+
       list << map;
     }
     m_yamlModel = list;

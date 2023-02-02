@@ -33,7 +33,7 @@ ColumnLayout {
                 InputTypeComponent {
                     width: scrollViewId.width - 20
                     inputText: modelData.val
-                    inputType: "text"
+                    inputType: modelData.inputType
                      onTextChangedSignal:  function(s){
                        editYamlType.sendChange(modelData.key,s);
                     }
