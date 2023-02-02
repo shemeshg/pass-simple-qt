@@ -50,6 +50,8 @@ MainWindow::MainWindow(QWidget *parent)
     QItemSelectionModel *selectionModel= ui->treeView->selectionModel();
     connect(selectionModel, SIGNAL(selectionChanged (const QItemSelection &, const QItemSelection &)),
             this, SLOT(selectionChangedSlot(const QItemSelection &, const QItemSelection &)));
+
+
 }
 
 MainWindow::~MainWindow()

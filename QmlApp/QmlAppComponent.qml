@@ -3,6 +3,7 @@ import QmlApp
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Dialogs
+import Qt.labs.platform
 
 import DropdownWithList
 
@@ -52,6 +53,35 @@ ScrollView {
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
         classInitialized = mainLayout.getGpgIdManageType().classInitialized
         gpgPubKeysFolderExists = mainLayout.getGpgIdManageType().gpgPubKeysFolderExists
+    }
+
+    SystemTrayIcon {
+        visible: true
+        icon.source: "qrc:/icons/icons8-locked-with-key-48.png"
+
+        menu: Menu {
+            Menu {
+                title: "auto type seq"
+               MenuItem {
+                  text: "user and password"
+               }
+            }
+
+            Menu {
+                title: "auto type field"
+               MenuItem {
+                  text: "user name"
+               }
+               MenuItem {
+                  text: "password"
+               }
+            }
+
+            MenuItem {
+                text: qsTr("Quit")
+                onTriggered: Qt.quit()
+            }
+        }
     }
 
     onFilePathChanged: {

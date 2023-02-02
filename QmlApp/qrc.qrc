@@ -13,5 +13,6 @@
         <file>icons/icons8-search-more-50.png</file>
         <file>SearchComponent.qml</file>
         <file>SHowSettingsComponent.qml</file>
+        <file>icons/icons8-locked-with-key-48.png</file>
     </qresource>
 </RCC>
