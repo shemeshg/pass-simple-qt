@@ -5,7 +5,7 @@ import InputType
 
 ColumnLayout {
     id: columnLayoutId
-    property string inputType: ""
+    property string inputType: "" //totp,url,text,textedit
     property string  inputText: ""
     signal textChangedSignal()
 
