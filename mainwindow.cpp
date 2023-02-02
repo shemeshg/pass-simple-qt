@@ -3,7 +3,7 @@
 #include <QQmlContext>
 #include <QScroller>
 #include <QTimer>
-
+#include <QQmlApplicationEngine>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(selectionModel, SIGNAL(selectionChanged (const QItemSelection &, const QItemSelection &)),
             this, SLOT(selectionChangedSlot(const QItemSelection &, const QItemSelection &)));
 
-
+    QObject::connect(ui->quickWidget->engine(), &QQmlApplicationEngine::quit, this, &QGuiApplication::quit);
 }
 
 MainWindow::~MainWindow()
