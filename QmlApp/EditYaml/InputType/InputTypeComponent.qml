@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import InputType
 
 ColumnLayout {
     id: columnLayoutId
@@ -24,6 +25,14 @@ ColumnLayout {
     Component {
         id: textFieldComponen
         RowLayout {
+            InputTypeType {
+                id: inputTypeType
+            }
+            Timer {
+                interval: 500; running: inputType === "totp"; repeat: true
+                onTriggered: totpId.text = inputTypeType.getTotp(textField.text)
+            }
+
             TextField {
                 id: textField
                 text: inputText
@@ -32,7 +41,7 @@ ColumnLayout {
             }
             TextField {
                 id: totpId
-                text: "897654"
+                text: ""
                 readOnly: true
                 visible: inputType === "totp"
             }
