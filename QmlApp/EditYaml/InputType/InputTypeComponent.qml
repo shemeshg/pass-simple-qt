@@ -38,6 +38,7 @@ ColumnLayout {
                 text: inputText
                 onTextChanged: textChangedSignal(text)
                 Layout.fillWidth: true
+                echoMode: (inputType === "totp" || inputType === "password") ? TextInput.Password : TextInput.Normal
             }
             TextField {
                 id: totpId
@@ -54,6 +55,18 @@ ColumnLayout {
                         textField.text.startsWith("https://")
 
             }
+            Button {
+              text: "*"
+              visible: inputType === "totp" ||
+                    inputType === "password"
+              onClicked: {
+                  if (textField.echoMode === TextInput.Normal) {
+                      textField.echoMode = TextInput.Password
+                  } else {
+                      textField.echoMode = TextInput.Normal
+                  }
+              }
+            }
         }
 
     }
@@ -61,7 +74,8 @@ ColumnLayout {
         id: loader
         sourceComponent: ( inputType === "text" ||
                            inputType === "url" ||
-                           inputType === "totp"
+                           inputType === "totp" ||
+                           inputType === "password"
                           ) ?  textFieldComponen :  textAreaComponent
         Layout.fillWidth: true
         width: parent.width
