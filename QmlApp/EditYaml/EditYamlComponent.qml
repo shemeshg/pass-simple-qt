@@ -18,7 +18,14 @@ ColumnLayout {
         inputText:" One line text"
         inputType: "text"
     }
-
+    InputTypeComponent {
+        inputText:"https://google.com"
+        inputType: "url"
+    }
+    InputTypeComponent {
+        inputText:"fasdfhdkjslhdsawe"
+        inputType: "totp"
+    }
 
     EditYamlType {
         id: editYamlType
