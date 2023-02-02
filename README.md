@@ -44,6 +44,7 @@ Open project in QtCreate and compile and qtdeploy.
 - pinentry-mac (Mac only)
 - https://github.com/jbeder/yaml-cpp/
 - Icons by https://icons8.com/icons/ 
+- [keepassxc totp](https://github.com/keepassxreboot/keepassxc/tree/develop/src/totp)
 
 
 
