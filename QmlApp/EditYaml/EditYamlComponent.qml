@@ -10,22 +10,7 @@ ColumnLayout {
     property alias  editYamlType: editYamlType
 
 
-    InputTypeComponent {
-        inputText:"Text\nEdit\nField"
-        inputType: "textedit"
-    }
-    InputTypeComponent {
-        inputText:" One line text"
-        inputType: "text"
-    }
-    InputTypeComponent {
-        inputText:"https://google.com"
-        inputType: "url"
-    }
-    InputTypeComponent {
-        inputText:"fasdfhdkjslhdsawe"
-        inputType: "totp"
-    }
+
 
     EditYamlType {
         id: editYamlType
@@ -45,11 +30,12 @@ ColumnLayout {
                 Text { text:  modelData.key + ": "}
             }
             Row{
-                TextEditComponent {
+                InputTypeComponent {
                     width: scrollViewId.width - 20
-                    textEdit.text: modelData.val
-                    onTextChanged: {
-                       editYamlType.sendChange(modelData.key,textEdit.text);
+                    inputText: modelData.val
+                    inputType: "text"
+                     onTextChangedSignal:  function(s){
+                       editYamlType.sendChange(modelData.key,s);
                     }
                 }
             }

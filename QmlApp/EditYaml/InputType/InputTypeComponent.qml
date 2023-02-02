@@ -7,7 +7,7 @@ ColumnLayout {
     id: columnLayoutId
     property string inputType: "" //totp,url,text,textedit
     property string  inputText: ""
-    signal textChangedSignal()
+    signal textChangedSignal(s: string)
 
 
     Component {
@@ -16,7 +16,7 @@ ColumnLayout {
             TextArea {
                 id: textArea
                 text: inputText
-                onTextChanged: textChangedSignal()
+                onTextChanged: textChangedSignal(text)
                 Layout.fillWidth: true
             }
         }
@@ -36,7 +36,7 @@ ColumnLayout {
             TextField {
                 id: textField
                 text: inputText
-                onTextChanged: textChangedSignal()
+                onTextChanged: textChangedSignal(text)
                 Layout.fillWidth: true
             }
             TextField {
@@ -64,7 +64,10 @@ ColumnLayout {
     }
     Loader {
         id: loader
-        sourceComponent: inputType === "text" ? textAreaComponent : textFieldComponen
+        sourceComponent: ( inputType === "text" ||
+                           inputType === "url" ||
+                           inputType === "totp"
+                          ) ?  textFieldComponen :  textAreaComponent
         Layout.fillWidth: true
         width: parent.width
     }
