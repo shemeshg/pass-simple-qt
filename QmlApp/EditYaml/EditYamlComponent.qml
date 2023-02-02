@@ -2,12 +2,23 @@ import QtQuick
 import EditYaml
 import QtQuick.Controls
 import QtQuick.Layouts
-
+import InputType
 
 
 ColumnLayout {
     property alias text: editYamlType.text
     property alias  editYamlType: editYamlType
+
+
+    InputTypeComponent {
+        inputText:"Text\nEdit\nField"
+        inputType: "textedit"
+    }
+    InputTypeComponent {
+        inputText:" One line text"
+        inputType: "text"
+    }
+
 
     EditYamlType {
         id: editYamlType

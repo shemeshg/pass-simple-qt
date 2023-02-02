@@ -1,7 +1,8 @@
 add_subdirectory(DropdownWithList)
 add_subdirectory(EditYaml)
 # hygen add_subdirectory
-link_libraries( DropdownWithList 
+link_libraries(
+DropdownWithList
 EditYaml
 # hygen target_link_libraries
 )
