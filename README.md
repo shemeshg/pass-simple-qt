@@ -17,7 +17,10 @@ gpgconf --kill gpg-agent
 ```
 
 #### Ubuntu 
-????
+```
+suto apt-get install pass ydotool
+sudo chmod +s /usr/bin/ydotool
+```
 
 #### Windows 
 ????
