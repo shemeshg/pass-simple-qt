@@ -56,8 +56,8 @@ ColumnLayout {
             checked: showYamlEdit
             onCheckedChanged: {
                 showYamlEdit = checked;
-                if (!showYamlEdit && editYamlComponent.editYamlType.isYamlValid){
-                    decryptedTextId.textEdit.text = editYamlComponent.editYamlType.getUpdatedText()
+                if (!showYamlEdit && editYamlComponentId.editYamlType.isYamlValid){
+                    decryptedTextId.textEdit.text = editYamlComponentId.editYamlType.getUpdatedText()
                 }
             }
         }
@@ -65,10 +65,10 @@ ColumnLayout {
 
         Button {
             text: "Save"
-            enabled: hasEffectiveGpgIdFile && (!showYamlEdit || showYamlEdit && editYamlComponent.editYamlType.isYamlValid)
+            enabled: hasEffectiveGpgIdFile && (!showYamlEdit || showYamlEdit && editYamlComponentId.editYamlType.isYamlValid)
             onClicked:{
                 if (showYamlEdit){
-                    decryptedTextId.textEdit.text = editYamlComponent.editYamlType.getUpdatedText()
+                    decryptedTextId.textEdit.text = editYamlComponentId.editYamlType.getUpdatedText()
                 }
                 mainLayout.encrypt(decryptedTextId.textEdit.text)
             }
@@ -120,7 +120,7 @@ ColumnLayout {
     Row {
         visible: isGpgFile
         EditYamlComponent {
-            id: editYamlComponent
+            id: editYamlComponentId
             visible: isShowPreview && showYamlEdit
             text: decryptedTextId.textEdit.text
         }

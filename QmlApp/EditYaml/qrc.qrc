@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>EditYamlComponent.qml</file>
-    </qresource>
-</RCC>

@@ -1,16 +1,18 @@
-add_subdirectory(DropdownWithList)
-add_subdirectory(EditYaml)
+
+
+
 # hygen add_subdirectory
 link_libraries(
-DropdownWithList
-EditYaml
+
 # hygen target_link_libraries
 )
 
-set(QML_IMPORT_PATH 
-                ${CMAKE_SOURCE_DIR}/EditYaml
+set(QML_IMPORT_PATH
+              #  ${CMAKE_SOURCE_DIR}/EditYaml
                 ${CMAKE_SOURCE_DIR}/DropdownWithList
+                ${CMAKE_SOURCE_DIR}/InputType
                 CACHE STRING "" FORCE)
+
 
 qt6_add_qml_module(QmlApp
         URI QmlApp
@@ -37,3 +39,5 @@ qt6_add_qml_module(QmlApp
             icons/icons8-search-more-50.png
             icons/icons8-tree-structure-80.png
         )
+
+

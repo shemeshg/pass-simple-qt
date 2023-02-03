@@ -20,6 +20,9 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools Qui
 
 set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/rc.qrc")
 add_subdirectory(QmlApp)
+add_subdirectory(EditYaml)
+add_subdirectory(InputType)
+add_subdirectory(DropdownWithList)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -53,6 +56,9 @@ if(MACOSX)
 endif()
 
 set(QML_IMPORT_PATH ${CMAKE_SOURCE_DIR}/QmlApp
+                ${CMAKE_SOURCE_DIR}/EditYaml
+                ${CMAKE_SOURCE_DIR}/InputType
+                ${CMAKE_SOURCE_DIR}/DropdownWithList
                 CACHE STRING "" FORCE)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -102,7 +108,10 @@ set(TS_FILES pass-simple-qt_en_US.ts)
 
 target_link_libraries(pass-simple-qt PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::QuickWidgets
     Qt6::Concurrent
-    QmlApp    
+    QmlApp
+    EditYaml
+    InputType
+    DropdownWithList
     libpgpfactory    
 )
 
