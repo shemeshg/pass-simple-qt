@@ -8,6 +8,8 @@
 #include <QTreeView>
 #include <QModelIndex>
 #include "UiGuard.h"
+#include <QMessageBox>
+#include "config.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -39,12 +41,19 @@ public slots:
 
     }
 
+
+
 private slots:
 
     void on_splitter_splitterMoved(int pos, int index);
 
     void selectionChangedSlot(const QItemSelection & /*newSelection*/, const QItemSelection & /*oldSelection*/);
 
+    void about()
+    {
+        QMessageBox::about(this, tr("About Menu"),
+                tr("Version %1").arg(PROJECT_VER) );
+    }
 
 private:
     Ui::MainWindow *ui;

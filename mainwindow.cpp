@@ -4,12 +4,36 @@
 #include <QScroller>
 #include <QTimer>
 #include <QQmlApplicationEngine>
+#include <QMenu>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
+
+
+    QMenu *fileMenu = new QMenu("File");
+    QAction *aboutAct = new QAction(tr("About"), this);
+    aboutAct->setStatusTip(tr("Show the application's About box"));
+    connect(aboutAct, &QAction::triggered, this, &MainWindow::about);
+
+    QAction *aboutQtAct = new QAction(tr("About Qt"), this);
+    aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
+    connect(aboutQtAct, &QAction::triggered, this, &QApplication::aboutQt);
+
+    QAction *quitQtAct = new QAction(tr("Quit"), this);
+    quitQtAct->setStatusTip(tr("Quit"));
+    connect(quitQtAct, &QAction::triggered, this, &QApplication::quit);
+
+    fileMenu->addAction(aboutAct);
+    fileMenu->addAction(aboutQtAct);
+    fileMenu->addAction(quitQtAct);
+    ui->menubar->addMenu(fileMenu);
+
+
+
     filesystemModel.setIconProvider(&iconProvider);
     filesystemModel.setRootPath("");
     filesystemModel.setFilter(QDir::Hidden | QDir::NoDotAndDotDot | QDir::AllDirs | QDir::AllEntries);
