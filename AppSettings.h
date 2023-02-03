@@ -78,7 +78,7 @@ public:
 
   QString vscodeExecPath()
   {
-    if(m_vscodeExecPath.isEmpty() ){return "code";}
+    if(m_vscodeExecPath.isEmpty() ){return "/usr/local/bin/code";}
     return m_vscodeExecPath;
   };
 

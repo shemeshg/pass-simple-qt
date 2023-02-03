@@ -162,7 +162,8 @@ public:
       runSafeFromException([&]() {
         passFile->openExternalEncryptWaitAsync(
             m_gpgIdManageType.getEncryptTo(), &watchWaitAndNoneWaitRunCmd,
-            appSettings.tmpFolderPath().toStdString());
+            appSettings.tmpFolderPath().toStdString(),
+            appSettings.vscodeExecPath().toStdString()  );
       });
     }
   }
@@ -172,7 +173,8 @@ public:
       runSafeFromException([&]() {
         std::string subfolderPath = passFile->openExternalEncryptNoWait(
             &watchWaitAndNoneWaitRunCmd,
-            appSettings.tmpFolderPath().toStdString());
+            appSettings.tmpFolderPath().toStdString(),
+            appSettings.vscodeExecPath().toStdString()        );
         QDesktopServices::openUrl(
             QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
       });

@@ -29,7 +29,7 @@ ColumnLayout {
             text: "status"
             enabled: nearestGit
             onClicked: {
-                let s= getMainqmltype().runCmd(["git","-C",nearestGit,"status"]," 2>&1");
+                let s= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"status"]," 2>&1");
                 gitResponseId.text = s;
             }
         }
@@ -38,7 +38,7 @@ ColumnLayout {
             enabled: nearestGit
             onClicked: {
 
-                let commitAm= getMainqmltype().runCmd(["git","-C",nearestGit,"commit","-am","pass simple"]," 2>&1");
+                let commitAm= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"commit","-am","pass simple"]," 2>&1");
                 gitResponseId.text = "Commit:\n"+ commitAm;
             }
         }
@@ -47,8 +47,8 @@ ColumnLayout {
             enabled: nearestGit
             onClicked: {
 
-                let pull= getMainqmltype().runCmd(["git","-C",nearestGit,"pull"]," 2>&1");
-                let push= getMainqmltype().runCmd(["git","-C",nearestGit,"push"]," 2>&1");
+                let pull= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"pull"]," 2>&1");
+                let push= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"push"]," 2>&1");
                 gitResponseId.text = "Pull:\n"+ pull + "\nPush:\n" + push;
             }
         }
