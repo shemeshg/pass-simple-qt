@@ -10,7 +10,10 @@ ColumnLayout {
     property alias  editYamlType: editYamlType
 
 
-
+    Button {
+        text: "**************************"
+        onClicked: setSystemTrayIconEntries(["yuyu","bobo","pinpon"])
+    }
 
     EditYamlType {
         id: editYamlType

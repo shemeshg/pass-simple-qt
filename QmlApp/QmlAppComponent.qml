@@ -55,20 +55,33 @@ ScrollView {
         gpgPubKeysFolderExists = mainLayout.getGpgIdManageType().gpgPubKeysFolderExists
     }
 
+    Component {
+        id: menuItem
+        MenuItem {
+
+        }
+    }
+
+    function setSystemTrayIconEntries(et) {
+        menu.clear();
+        for(var idx in et){
+            menu.addItem(menuItem.createObject(menu, { text: et[idx] }))
+        }
+    }
+
+
+
     SystemTrayIcon {
         visible: true
         icon.source: "qrc:/icons/icons8-locked-with-key-48.png"
 
+
+
         menu: Menu {
 
             Menu {
+                id: menu
                 title: "auto type field"
-               MenuItem {
-                  text: "user name"
-               }
-               MenuItem {
-                  text: "password"
-               }
             }
 
             MenuItem {
