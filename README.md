@@ -29,6 +29,7 @@ install qt https://web.stanford.edu/dept/cs_edu/resources/qt/install-linux
 
 ```
 sudo apt install libyaml-cpp-dev libgpgme-dev
+sudo apt-get install -y libgpgmepp-dev
 ```
 
 
