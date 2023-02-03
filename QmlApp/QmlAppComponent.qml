@@ -60,12 +60,6 @@ ScrollView {
         icon.source: "qrc:/icons/icons8-locked-with-key-48.png"
 
         menu: Menu {
-            Menu {
-                title: "auto type seq"
-               MenuItem {
-                  text: "user and password"
-               }
-            }
 
             Menu {
                 title: "auto type field"

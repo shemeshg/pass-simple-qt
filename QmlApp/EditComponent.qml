@@ -23,9 +23,19 @@ ColumnLayout {
 
     }
 
-    Text {
-        visible: isGpgFile
-        text: "<h1>Edit<h1>"
+    RowLayout {
+        width: parent.width
+        Text {
+            visible: isGpgFile
+            text: "<h1>Edit<h1>"
+            Layout.fillWidth: true
+        }
+        Button {
+            visible: isGpgFile
+            text: "download"
+            enabled: isGpgFile
+            onClicked: fileDialogDownload.open()
+        }
     }
     Row{
         visible: isGpgFile
@@ -97,11 +107,6 @@ ColumnLayout {
             visible: !isShowPreview &&
                      waitItems.indexOf(filePath) === -1 &&
                      noneWaitItems.indexOf(filePath) === -1
-        }
-        Button {
-            text: "download"
-            enabled: isGpgFile
-            onClicked: fileDialogDownload.open()
         }
     }
     Row{
