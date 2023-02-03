@@ -10,13 +10,24 @@ ColumnLayout {
     property alias  editYamlType: editYamlType
 
 
-    Button {
-        text: "**************************"
-        onClicked: setSystemTrayIconEntries(["yuyu","bobo","pinpon"])
+
+    Component {
+        id: menuItem
+        MenuItem {
+
+        }
     }
+
 
     EditYamlType {
         id: editYamlType
+        onYamlModelChanged: {
+           clearSystemTrayIconEntries()
+           for(var idx in yamlModel){
+               addSystemTrayIconEntries(yamlModel[idx].key)
+           }
+        }
+
     }
 
 

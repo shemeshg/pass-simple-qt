@@ -38,6 +38,7 @@ ScrollView {
     property string fullPathFolder: ""
 
     function initOnFileChanged(){
+        clearSystemTrayIconEntries();
         if (isShowPreview){
             columnLayoutHomeId.editComponentId.decryptedTextId.textEdit.text = mainLayout.getDecrypted();
         }
@@ -62,14 +63,13 @@ ScrollView {
         }
     }
 
-    function setSystemTrayIconEntries(et) {
+    function clearSystemTrayIconEntries() {
         menu.clear();
-        for(var idx in et){
-            menu.addItem(menuItem.createObject(menu, { text: et[idx] }))
-        }
     }
 
-
+    function addSystemTrayIconEntries(txt) {
+            menu.addItem(menuItem.createObject(menu, { text: txt }))
+    }
 
     SystemTrayIcon {
         visible: true
