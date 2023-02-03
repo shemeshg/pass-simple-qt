@@ -25,6 +25,14 @@ suto apt-get install pass ydotool
 sudo chmod +s /usr/bin/ydotool
 ```
 
+install qt https://web.stanford.edu/dept/cs_edu/resources/qt/install-linux
+
+```
+sudo apt install libyaml-cpp-dev libgpgme-dev
+```
+
+
+
 #### Windows 
 ????
 
