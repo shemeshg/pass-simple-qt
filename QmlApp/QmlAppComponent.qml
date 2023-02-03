@@ -69,10 +69,11 @@ ScrollView {
 
              onTriggered: {
                  if (fieldType === "totp"){
-                    console.log(inputTypeTypeDecodeId.getTotp(passwd));
+                     inputTypeTypeDecodeId.autoType(inputTypeTypeDecodeId.getTotp(passwd))
                  } else {
-                    console.log("val for:" +text + " is " + passwd)
+                     inputTypeTypeDecodeId.autoType(passwd);
                  }
+
              }
 
         }
