@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
         <file>EditYamlComponent.qml</file>
-        <file>TextEditComponent.qml</file>
     </qresource>
 </RCC>

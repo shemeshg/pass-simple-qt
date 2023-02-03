@@ -10,6 +10,10 @@ InputType
 # hygen target_link_libraries
 )
 
+set(QML_IMPORT_PATH 
+                ${CMAKE_SOURCE_DIR}/InputType
+                CACHE STRING "" FORCE)
+
 qt6_add_qml_module(EditYaml
         URI EditYaml
         VERSION 1.0
