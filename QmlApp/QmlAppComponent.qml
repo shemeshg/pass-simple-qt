@@ -6,6 +6,7 @@ import QtQuick.Dialogs
 import Qt.labs.platform
 
 import DropdownWithList
+import InputType
 
 ScrollView {
     id: scrollViewId
@@ -56,6 +57,10 @@ ScrollView {
         gpgPubKeysFolderExists = mainLayout.getGpgIdManageType().gpgPubKeysFolderExists
     }
 
+    InputTypeType {
+        id: inputTypeTypeDecodeId
+    }
+
     Component {
         id: menuItem
         MenuItem {
@@ -63,7 +68,11 @@ ScrollView {
             property string fieldType: ""
 
              onTriggered: {
-                 console.log("val for:" +text + " is " + passwd)
+                 if (fieldType === "totp"){
+                    console.log(inputTypeTypeDecodeId.getTotp(passwd));
+                 } else {
+                    console.log("val for:" +text + " is " + passwd)
+                 }
              }
 
         }
