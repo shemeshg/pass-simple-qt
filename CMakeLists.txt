@@ -14,18 +14,12 @@ configure_file("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent )
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent )
 
+
+
+
+
+set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/rc.qrc")
 add_subdirectory(QmlApp)
-
-
-
-# LibGpgError bug must include_directories on root, but can be linked in subdirectory
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/gpgfactory/cmake)
-find_package(LibGpgError REQUIRED)
-include_directories(${LibGpgError_INCLUDE_DIRS})
-# End LibGpgError
-add_subdirectory(gpgfactory/libpgpfactory)
-
-set(TS_FILES pass-simple-qt_en_US.ts)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -34,12 +28,37 @@ set(PROJECT_SOURCES
         mainwindow.ui
         qwidgetqrc.qrc
         ${TS_FILES}
+        ${APP_ICON_RESOURCE_WINDOWS}
 )
+
+
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set(MACOSX TRUE)
+endif()
+if(UNIX AND NOT APPLE)
+    set(LINUX TRUE)
+endif()
+if(WIN32 OR MSVC OR MSYS OR MINGW)
+    set(WINDOWS TRUE)
+endif()
+
+
+if(MACOSX)
+    # Application icon
+    set(MACOSX_BUNDLE_ICON_FILE icon.icns)
+    set(APP_ICON_MACOSX ${CMAKE_CURRENT_SOURCE_DIR}/icon.icns)
+    set_source_files_properties(${APP_ICON_MACOSX} PROPERTIES
+           MACOSX_PACKAGE_LOCATION "Resources")
+endif()
+
+
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(pass-simple-qt
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${APP_ICON_MACOSX}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET pass-simple-qt APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -63,6 +82,23 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
+
+
+
+# LibGpgError bug must include_directories on root, but can be linked in subdirectory
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/gpgfactory/cmake)
+find_package(LibGpgError REQUIRED)
+include_directories(${LibGpgError_INCLUDE_DIRS})
+# End LibGpgError
+add_subdirectory(gpgfactory/libpgpfactory)
+
+set(TS_FILES pass-simple-qt_en_US.ts)
+
+
+
+
+
+
 target_link_libraries(pass-simple-qt PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::QuickWidgets
     Qt6::Concurrent
     QmlApp    
@@ -70,12 +106,15 @@ target_link_libraries(pass-simple-qt PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${
 )
 
 set_target_properties(pass-simple-qt PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+    MACOSX_BUNDLE_GUI_IDENTIFIER PassSimple.shemeshg.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
+    OUTPUT_NAME "Pass simple"
 )
+
+
 
 qt_add_qml_module(pass-simple-qt
     URI MainQml

@@ -13,7 +13,10 @@ Multi-platform GUI for [pass](https://www.passwordstore.org/), the standard unix
 brew install pass gpgme libgpg-error pinentry-mac yaml-cpp
 
 echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+
 gpgconf --kill gpg-agent
+
+ defaults write org.gpgtools.common UseKeychain -bool NO
 ```
 
 #### Ubuntu 
