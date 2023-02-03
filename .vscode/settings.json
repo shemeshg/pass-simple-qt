@@ -89,7 +89,8 @@
     "stop_token": "cpp",
     "cinttypes": "cpp",
     "filesystem": "cpp",
-    "future": "cpp"
+    "future": "cpp",
+    "regex": "cpp"
   },
   "cSpell.enabled": false
 }

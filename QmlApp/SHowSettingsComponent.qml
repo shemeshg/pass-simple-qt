@@ -16,7 +16,11 @@ ColumnLayout {
         }
         Button {
             text: "Save"
-            onClicked: mainLayout.getMainqmltype().submit_AppSettingsType(passwordStorePath.text,tmpFolderPath.text)
+            onClicked: mainLayout.getMainqmltype().submit_AppSettingsType(
+                           passwordStorePath.text,
+                           tmpFolderPath.text,
+                           gitExecPath.text,
+                           vscodeExecPath.text)
         }
     }
     Row{
@@ -44,6 +48,30 @@ ColumnLayout {
         TextField {
             id: tmpFolderPath
             text: mainLayout.getMainqmltype().appSettingsType.tmpFolderPath
+            Layout.fillWidth: true
+        }
+    }
+
+    RowLayout {
+        Layout.fillWidth: true
+        Label {
+            text: "git exec Path"
+        }
+        TextField {
+            id: gitExecPath
+            text: mainLayout.getMainqmltype().appSettingsType.gitExecPath
+            Layout.fillWidth: true
+        }
+    }
+
+    RowLayout {
+        Layout.fillWidth: true
+        Label {
+            text: "vscode execr Path"
+        }
+        TextField {
+            id: vscodeExecPath
+            text: mainLayout.getMainqmltype().appSettingsType.vscodeExecPath
             Layout.fillWidth: true
         }
     }

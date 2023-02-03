@@ -9,6 +9,8 @@ class AppSettings : public QObject
     Q_OBJECT
     Q_PROPERTY(QString passwordStorePath READ passwordStorePath WRITE setPasswordStorePath NOTIFY passwordStorePathChanged)
     Q_PROPERTY(QString tmpFolderPath READ tmpFolderPath WRITE setTmpFolderPath NOTIFY tmpFolderPathChanged)
+  Q_PROPERTY(QString gitExecPath READ gitExecPath WRITE setGitExecPath NOTIFY gitExecPathChanged)
+  Q_PROPERTY(QString vscodeExecPath READ vscodeExecPath WRITE setVscodeExecPath NOTIFY vscodeExecPathChanged)
     // hygen Q_PROPERTY
     QML_ELEMENT
 public:
@@ -16,6 +18,8 @@ public:
 
         m_passwordStorePath = settings.value("passwordStorePath", "").toString();
         m_tmpFolderPath = settings.value("tmpFolderPath","").toString();
+        m_gitExecPath = settings.value("gitExecPath","").toString();
+        m_vscodeExecPath = settings.value("vscodeExecPath","").toString();
     }
 
 
@@ -55,16 +59,53 @@ public:
     settings.setValue("tmpFolderPath", m_tmpFolderPath);
   }
   
+  QString gitExecPath()
+  {
+    if(m_gitExecPath.isEmpty() ){return "git";}
+    return m_gitExecPath;
+  };
+
+  void setGitExecPath(const QString &gitExecPath)
+  {
+    if (gitExecPath == m_gitExecPath)
+      return;
+
+    m_gitExecPath = gitExecPath;
+    settings.setValue("gitExecPath", m_gitExecPath);
+
+    emit gitExecPathChanged();
+  }
+
+  QString vscodeExecPath()
+  {
+    if(m_vscodeExecPath.isEmpty() ){return "code";}
+    return m_vscodeExecPath;
+  };
+
+  void setVscodeExecPath(const QString &vscodeExecPath)
+  {
+    if (vscodeExecPath == m_vscodeExecPath)
+      return;
+
+    m_vscodeExecPath = vscodeExecPath;
+    settings.setValue("vscodeExecPath", m_vscodeExecPath);
+
+    emit vscodeExecPathChanged();
+  }
   // hygen public
 
   signals:
   void passwordStorePathChanged();
   void tmpFolderPathChanged();
+  void gitExecPathChanged();
+  void vscodeExecPathChanged();
     // hygen signals
 
   private:
   QSettings settings{"shemeshg", "PassSimple"};
   QString m_passwordStorePath;
   QString m_tmpFolderPath;
+  QString m_gitExecPath;
+  QString m_vscodeExecPath;
   // hygen private
 };
