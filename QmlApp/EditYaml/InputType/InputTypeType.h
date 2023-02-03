@@ -6,6 +6,7 @@
 #include <QSharedPointer>
 #include <algorithm>
 #include <string>
+#include <qdebug.h>
 
 class InputTypeType : public QObject
 {
@@ -32,8 +33,8 @@ public:
 osascript -e 'tell application "System Events" to keystroke "sequence"'
 )V0G0N";
 
-          s = ReplaceAll(s,"sequence",sequence.toStdString());
-        system(s.c_str());
+          s = ReplaceAll(s,"sequence",escapeAppleScript(sequence.toStdString()));
+          system(s.c_str());
     }
 
 signals:
@@ -50,6 +51,17 @@ private:
         }
         return str;
     }
+
+    std::string escapeAppleScript(std::string str)
+    {
+      std::string ret = str;
+      ret = ReplaceAll(ret, "\\", "\\\\");
+      ret = ReplaceAll(ret, "'", "'\\''");
+      ret = ReplaceAll(ret, R"(")" , R"(\")");
+
+      return ret;
+    }
+
 };
 
 
