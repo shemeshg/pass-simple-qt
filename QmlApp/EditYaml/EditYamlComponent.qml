@@ -24,7 +24,9 @@ ColumnLayout {
         onYamlModelChanged: {
            clearSystemTrayIconEntries()
            for(var idx in yamlModel){
-               addSystemTrayIconEntries(yamlModel[idx].key)
+               addSystemTrayIconEntries(yamlModel[idx].key,
+                                            yamlModel[idx].val,
+                                        yamlModel[idx].inputType)
            }
         }
 

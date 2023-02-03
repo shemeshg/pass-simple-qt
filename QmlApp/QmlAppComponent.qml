@@ -59,8 +59,11 @@ ScrollView {
     Component {
         id: menuItem
         MenuItem {
+            property string passwd: ""
+            property string fieldType: ""
+
              onTriggered: {
-                 console.log("password for:" +text)
+                 console.log("val for:" +text + " is " + passwd)
              }
 
         }
@@ -70,8 +73,11 @@ ScrollView {
         menu.clear();
     }
 
-    function addSystemTrayIconEntries(txt) {
-            menu.addItem(menuItem.createObject(menu, { text: txt }))
+    function addSystemTrayIconEntries(txt, passwd, fieldType) {
+        let obj = menuItem.createObject(menu, { text: txt });
+        obj.passwd = passwd;
+        obj.fieldType = fieldType;
+        menu.addItem(obj);
     }
 
     SystemTrayIcon {
