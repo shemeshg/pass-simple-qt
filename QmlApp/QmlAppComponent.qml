@@ -59,6 +59,9 @@ ScrollView {
     Component {
         id: menuItem
         MenuItem {
+             onTriggered: {
+                 console.log("password for:" +text)
+             }
 
         }
     }
