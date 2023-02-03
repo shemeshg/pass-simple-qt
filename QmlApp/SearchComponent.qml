@@ -30,6 +30,13 @@ ColumnLayout {
         }
     }
     RowLayout {
+        id: searchStatusLabelId
+        visible: false
+        Label {
+            text: "Running..."
+        }
+    }
+    RowLayout {
         Label {
             text: "File name"
         }
@@ -39,10 +46,31 @@ ColumnLayout {
             Layout.fillWidth: true
         }
         Button {
+            Timer {
+                id: timer
+            }
+            function delay(delayTime, cb) {
+                timer.interval = delayTime;
+                timer.repeat = false;
+                timer.triggered.connect(cb);
+                timer.start();
+            }
+            id: btnFindId
             text: "find"
-            onClicked: getMainqmltype().doSearch(textFieldFileSearch.text,textFieldContentSearch.text)
+            onClicked: {
+                btnFindId.enabled = false
+                searchStatusLabelId.visible= true
+                delay(10, function() {
+                    getMainqmltype().doSearch(textFieldFileSearch.text,textFieldContentSearch.text)
+                    btnFindId.enabled = true
+                    searchStatusLabelId.visible=false;
+                })
+
+
+            }
         }
     }
+
     RowLayout {
         id: textFindRegexId
         visible: false

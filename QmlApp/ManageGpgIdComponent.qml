@@ -37,15 +37,40 @@ ColumnLayout {
             initOnFileChanged();
         }
     }
+
     Button {
+        Timer {
+            id: timer
+        }
+        function delay(delayTime, cb) {
+            timer.interval = delayTime;
+            timer.repeat = false;
+            timer.triggered.connect(cb);
+            timer.start();
+        }
+
+
+        id: reencryptBtnId
         enabled: classInitialized  && badEntriesRepeater.model.length === 0
                  && dropdownWithListComponentId.selectedItems.length > 0
         text: "Save changes to .gpg-id \n Recreate.gpg-pub-keys/ \n Re-encrypt all .gpg-id related files"
         onClicked: {
-            mainLayout.getGpgIdManageType().saveChanges(dropdownWithListComponentId.selectedItems);
-            initOnFileChanged();
+            reencryptBtnId.enabled = false;
+            eencryptTextId.text = "Running... This might take long, Please wait"
+            delay(1000, function() {
+                mainLayout.getGpgIdManageType().saveChanges(dropdownWithListComponentId.selectedItems);
+                initOnFileChanged();
+                reencryptBtnId.enabled = true;
+                eencryptTextId.text = ""
+              })
+
         }
     }
+    Text {
+        id: eencryptTextId
+        text: ""
+    }
+
     Text {
         text: "<h2>Bad .gpg-id entries<h2>"
         visible: badEntriesRepeater.model.length > 0

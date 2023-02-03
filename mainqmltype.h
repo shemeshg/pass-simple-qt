@@ -14,6 +14,7 @@
 #include <QInputEvent>
 #include <QModelIndex>
 
+
 class MainQmlType : public QObject {
   Q_OBJECT
   Q_PROPERTY(
@@ -275,6 +276,16 @@ public:
       const QUrl url(toFileName);
     runSafeFromException(
         [&]() { passFile->decryptToFile(url.toLocalFile().toStdString()); });
+  }
+
+  Q_INVOKABLE QString runCmd(QStringList keysFound, QString noEscaped){
+      RunShellCmd rsc;
+      std::vector<std::string> v{};
+      for (const QString &r : keysFound){
+          v.push_back(r.toStdString());
+      }
+      return QString::fromStdString( rsc.runCmd(v, noEscaped.toStdString()) );
+
   }
 
 signals:
