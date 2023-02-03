@@ -52,7 +52,11 @@ if(MACOSX)
            MACOSX_PACKAGE_LOCATION "Resources")
 endif()
 
-
+set(QML_IMPORT_PATH ${CMAKE_SOURCE_DIR}/QmlApp
+                ${CMAKE_SOURCE_DIR}/QmlApp/DropdownWithList
+                ${CMAKE_SOURCE_DIR}/QmlApp/EditYaml
+                ${CMAKE_SOURCE_DIR}/QmlApp/EditYaml/InputType
+                CACHE STRING "" FORCE)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(pass-simple-qt
