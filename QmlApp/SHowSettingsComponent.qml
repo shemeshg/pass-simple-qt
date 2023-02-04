@@ -75,4 +75,17 @@ ColumnLayout {
             Layout.fillWidth: true
         }
     }
+    RowLayout {
+        Layout.fillWidth: true
+        Label {
+            text: "Linux only autotype cmd"
+        }
+        TextField {
+            id: autoTypeCmd
+            text: mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
+            Layout.fillWidth: true
+        }
+    }
+
+
 }

@@ -383,9 +383,8 @@ private:
 
   void autoType (QString sequence){
       if (QString(PROJECT_OS) == "LINUX"){
-          std::string s = R"V0G0N(
-    ydotool type sequence
-    )V0G0N";
+          std::string s =appSettings.autoTypeCmd().toStdString();
+
           s = ReplaceAll(s,"sequence",escapeshellarg(sequence.toStdString()));
           system(s.c_str());
           return;

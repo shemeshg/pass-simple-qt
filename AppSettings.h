@@ -12,6 +12,8 @@ class AppSettings : public QObject
     Q_PROPERTY(QString tmpFolderPath READ tmpFolderPath WRITE setTmpFolderPath NOTIFY tmpFolderPathChanged)
   Q_PROPERTY(QString gitExecPath READ gitExecPath WRITE setGitExecPath NOTIFY gitExecPathChanged)
   Q_PROPERTY(QString vscodeExecPath READ vscodeExecPath WRITE setVscodeExecPath NOTIFY vscodeExecPathChanged)
+Q_PROPERTY(QString autoTypeCmd READ autoTypeCmd WRITE setAutoTypeCmd NOTIFY autoTypeCmdChanged)
+
     // hygen Q_PROPERTY
     QML_ELEMENT
 public:
@@ -21,6 +23,8 @@ public:
         m_tmpFolderPath = settings.value("tmpFolderPath","").toString();
         m_gitExecPath = settings.value("gitExecPath","").toString();
         m_vscodeExecPath = settings.value("vscodeExecPath","").toString();
+        m_autoTypeCmd = settings.value("autoTypeCmd","").toString();
+
     }
 
 
@@ -103,6 +107,30 @@ public:
 
     emit vscodeExecPathChanged();
   }
+
+  QString autoTypeCmd()
+  {
+    if(m_autoTypeCmd.isEmpty() ){
+        if (QString(PROJECT_OS) == "LINUX"){
+            return R"V0G0N(
+echo -n sequence | xclip -selection clipboard
+    )V0G0N";
+        }
+        return "";
+    }
+    return m_autoTypeCmd;
+  };
+
+  void setAutoTypeCmd(const QString &autoTypeCmd)
+  {
+    if (autoTypeCmd == m_autoTypeCmd)
+      return;
+
+    m_autoTypeCmd = autoTypeCmd;
+    settings.setValue("autoTypeCmd", m_autoTypeCmd);
+
+    emit autoTypeCmdChanged();
+  }
   // hygen public
 
   signals:
@@ -110,6 +138,7 @@ public:
   void tmpFolderPathChanged();
   void gitExecPathChanged();
   void vscodeExecPathChanged();
+  void autoTypeCmdChanged();;
     // hygen signals
 
   private:
@@ -118,5 +147,6 @@ public:
   QString m_tmpFolderPath;
   QString m_gitExecPath;
   QString m_vscodeExecPath;
+  QString m_autoTypeCmd;
   // hygen private
 };
