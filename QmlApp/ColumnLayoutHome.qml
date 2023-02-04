@@ -33,6 +33,9 @@ ColumnLayout {
         TabButton {
             text: qsTr("Meta")
         }
+        TabButton {
+            text: qsTr("About")
+        }
     }
 
     StackLayout {
@@ -52,6 +55,34 @@ ColumnLayout {
 
         MetaDataComponent {
             id: metaDataComponentId
+        }
+        ColumnLayout {
+
+            TextEdit {
+                readOnly: true
+                text: `
+Pass simple:
+    https://github.com/shemeshg/pass-simple-qt
+    https://sourceforge.net/projects/pass-simple/
+
+Example template:
+---
+user name:
+password:
+home page:
+totp:
+description: ""
+fields type:
+  user name: text
+  password: password
+  home page: url
+  totp: totp
+  description: textedit
+`
+
+        }
+
+
         }
     }
 
