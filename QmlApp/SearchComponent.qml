@@ -44,6 +44,9 @@ ColumnLayout {
             id: findTextId
             text: ""
             Layout.fillWidth: true
+            onAccepted: {
+                btnFindId.clicked()
+            }
         }
         Button {
             Timer {
@@ -81,6 +84,9 @@ ColumnLayout {
             id: textFieldFileSearch
             text: ".*" + findTextId.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') +  ".*"
             Layout.fillWidth: true
+            onAccepted: {
+                btnFindId.clicked()
+            }
         }
     }
     RowLayout {
@@ -91,6 +97,9 @@ ColumnLayout {
             id: searchTextId
             text: ""
             Layout.fillWidth: true
+            onAccepted: {
+                btnFindId.clicked()
+            }
         }
     }
     RowLayout {
@@ -103,6 +112,9 @@ ColumnLayout {
             id: textFieldContentSearch
             text: ".*" + searchTextId.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') +  ".*"
             Layout.fillWidth: true
+            onAccepted: {
+                btnFindId.clicked()
+            }
         }
     }
 
