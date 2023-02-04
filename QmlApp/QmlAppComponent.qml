@@ -91,7 +91,7 @@ ScrollView {
     }
 
     SystemTrayIcon {
-        visible: true
+        visible: false
         icon.source: "qrc:/icons/icons8-locked-with-key-48.png"
 
 

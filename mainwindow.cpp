@@ -5,6 +5,8 @@
 #include <QTimer>
 #include <QQmlApplicationEngine>
 #include <QMenu>
+#include <QSystemTrayIcon>
+#include <QAction>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,6 +14,21 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
     ui->setupUi(this);
+
+    QSystemTrayIcon *trayIcon = new QSystemTrayIcon(this);
+    QMenu *trayIconMenu = new QMenu(this);
+
+    QAction* restoreAction = new QAction(tr("&Restore"), this);
+
+
+    QAction*  quitAction = new QAction(tr("&Quit"), this);
+    connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
+    trayIconMenu->addAction(restoreAction);
+    trayIconMenu->addSeparator();
+    trayIconMenu->addAction(quitAction);
+    trayIcon->setContextMenu(trayIconMenu);
+    trayIcon->setIcon(QIcon(":/icon.png"));
+    trayIcon->show();
 
 
     QMenu *fileMenu = new QMenu("File");
