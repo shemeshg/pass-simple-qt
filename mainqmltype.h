@@ -127,12 +127,14 @@ public:
   Q_INVOKABLE void submit_AppSettingsType(QString passwordStorePath,
                                           QString tmpFolderPath,
                                           QString gitExecPath,
-                                          QString vscodeExecPath) {
+                                          QString vscodeExecPath,
+                                          QString autoTypeCmd) {
     appSettings.setPasswordStorePath(passwordStorePath);
     appSettings.setTmpFolderPath(tmpFolderPath);
 
     appSettings.setGitExecPath(gitExecPath);
     appSettings.setVscodeExecPath(vscodeExecPath);
+    appSettings.setAutoTypeCmd(autoTypeCmd);
     loadTreeView();
     emit appSettingsTypeChanged();
   }

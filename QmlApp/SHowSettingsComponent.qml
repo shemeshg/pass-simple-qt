@@ -20,7 +20,8 @@ ColumnLayout {
                            passwordStorePath.text,
                            tmpFolderPath.text,
                            gitExecPath.text,
-                           vscodeExecPath.text)
+                           vscodeExecPath.text,
+                           autoTypeCmd.text)
         }
     }
     Row{
