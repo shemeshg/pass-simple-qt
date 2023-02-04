@@ -89,15 +89,16 @@ public:
             QString inputType="";
 
 
-      if (hasFieldTypes){
-          if (yamlContent["fields type"][key]) {
+            if (hasFieldTypes){
+                try{
+                    if (yamlContent["fields type"][key]) {
+                        inputType   = QString::fromStdString( yamlContent["fields type"][key].as<std::string>());
+                    }
+                } catch (...){
 
-         inputType   = QString::fromStdString( yamlContent["fields type"][key].as<std::string>());
+                }
 
-
-        }
-
-      }
+            }
 
 
             map.insert("inputType", inputType);
