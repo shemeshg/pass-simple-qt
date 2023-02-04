@@ -26,6 +26,7 @@ fields type:
 ### Prerequisites
 
 #### On Macos for user
+1. Install pass
 ```
 brew install pass pinentry-mac
 
@@ -36,30 +37,41 @@ gpgconf --kill gpg-agent
 defaults write org.gpgtools.common UseKeychain -bool NO
 ```
 
-#### On Macos for developer
-```
-brew install pass gpgme libgpg-error pinentry-mac yaml-cpp
-
-echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
-
-gpgconf --kill gpg-agent
-
- defaults write org.gpgtools.common UseKeychain -bool NO
-```
-
-#### Ubuntu  for user
+Create a note with pass command line, ensure all well
 
 ```
-suto apt-get install pass ydotool
-sudo chmod +s /usr/bin/ydotool
+pass
+pass edit whatever
 ```
 
-test ydotool, or use clipboard
+2. Install pass-simple 
+```
+brew install --cask shemeshg/homebrew-tap/pass-simple
+```
+
+3. Ensure you can read and write the test note created on step 2.
 
 
-#### Ubuntu  for developer
+#### On Macos develop env
+```
+brew install gpgme libgpg-error pinentry-mac yaml-cpp
+
+```
+
+#### Ubuntu  
+
+
+No appImage yet, compile yourself
+
 
 install qt https://web.stanford.edu/dept/cs_edu/resources/qt/install-linux
+
+```
+suto apt-get install pass 
+```
+
+test ydotool, or use clipboard (by default)
+(in application settings)
 
 ```
 sudo apt install libyaml-cpp-dev libgpgme-dev
@@ -69,6 +81,8 @@ sudo apt-get install -y libgpgmepp-dev
 
 
 ### Installing
+
+
 
 
 
