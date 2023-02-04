@@ -9,7 +9,7 @@ import EditYaml
 
 ColumnLayout {
     property alias decryptedTextId: decryptedTextId
-    property bool showYamlEdit: false
+    property bool showYamlEdit: true
 
     FileDialog {
         id: fileDialogDownload

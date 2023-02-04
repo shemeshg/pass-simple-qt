@@ -22,7 +22,7 @@ ScrollView {
     property string tmpShalom: ""
     property bool classInitialized: false
     property bool gpgPubKeysFolderExists: false
-    property bool isShowPreview: false
+    property bool isShowPreview: true
     property bool hasEffectiveGpgIdFile: false
     property bool isGpgFile: false
 
