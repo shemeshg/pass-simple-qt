@@ -272,8 +272,8 @@ description: ""
 fields type:
   user name: text
   password: password
-  home page: url
   totp: totp
+  home page: url
   description: textedit)V0G0N";
       passFile->encryptStringToFile(s, p, m_gpgIdManageType.getEncryptTo());
     });
