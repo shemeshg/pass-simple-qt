@@ -37,9 +37,9 @@ ColumnLayout {
             text: "add commit all"
             enabled: nearestGit
             onClicked: {
-
+                let addAll= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"add","."]," 2>&1");
                 let commitAm= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"commit","-am","pass simple"]," 2>&1");
-                gitResponseId.text = "Commit:\n"+ commitAm;
+                gitResponseId.text = "Add:\n" + addAll + "\n" +"Commit:\n"+ commitAm;
             }
         }
         Button{
