@@ -61,54 +61,16 @@ ScrollView {
         id: inputTypeTypeDecodeId
     }
 
-    Component {
-        id: menuItem
-        MenuItem {
-            property string passwd: ""
-            property string fieldType: ""
-
-             onTriggered: {
-                 if (fieldType === "totp"){
-                     inputTypeTypeDecodeId.autoType(inputTypeTypeDecodeId.getTotp(passwd))
-                 } else {
-                     inputTypeTypeDecodeId.autoType(passwd);
-                 }
-
-             }
-
-        }
-    }
 
     function clearSystemTrayIconEntries() {
-        menu.clear();
+        mainLayout.getMainqmltype().trayMenuClear();
     }
 
     function addSystemTrayIconEntries(txt, passwd, fieldType) {
-        let obj = menuItem.createObject(menu, { text: txt });
-        obj.passwd = passwd;
-        obj.fieldType = fieldType;
-        menu.addItem(obj);
+        mainLayout.getMainqmltype().trayMenuAdd(txt, passwd, fieldType);
     }
 
-    SystemTrayIcon {
-        visible: false
-        icon.source: "qrc:/icons/icons8-locked-with-key-48.png"
 
-
-
-        menu: Menu {
-
-            Menu {
-                id: menu
-                title: "auto type field"
-            }
-
-            MenuItem {
-                text: qsTr("Quit")
-                onTriggered: Qt.quit()
-            }
-        }
-    }
 
     onFilePathChanged: {
         initOnFileChanged();

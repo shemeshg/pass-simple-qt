@@ -18,12 +18,12 @@ MainWindow::MainWindow(QWidget *parent)
     QSystemTrayIcon *trayIcon = new QSystemTrayIcon(this);
     QMenu *trayIconMenu = new QMenu(this);
 
-    QAction* restoreAction = new QAction(tr("&Restore"), this);
+    QMenu* autoTypeFields = new QMenu(tr("auto type field"), this);
 
 
     QAction*  quitAction = new QAction(tr("&Quit"), this);
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
-    trayIconMenu->addAction(restoreAction);
+    trayIconMenu->addMenu(autoTypeFields);
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(quitAction);
     trayIcon->setContextMenu(trayIconMenu);
@@ -81,7 +81,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
 
     QQmlContext *context = ui->quickWidget->rootContext();
-    mainqmltype = new MainQmlType(&filesystemModel, ui->treeView, ui->splitter, ui->quickWidget); //NOLINT
+    mainqmltype = new MainQmlType(&filesystemModel, ui->treeView, ui->splitter, autoTypeFields, ui->quickWidget); //NOLINT
     context->setContextProperty(QStringLiteral("mainqmltype"),mainqmltype);
 
     mainqmltype->setFilePanSize(150);

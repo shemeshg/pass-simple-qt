@@ -30,7 +30,7 @@ ColumnLayout {
             }
             Timer {
                 interval: 500; running: inputType === "totp"; repeat: true
-                onTriggered: totpId.text = inputTypeType.getTotp(textField.text)
+                onTriggered: totpId.text = getMainqmltype().getTotp(textField.text)
             }
 
             TextField {

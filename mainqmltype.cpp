@@ -4,8 +4,8 @@
 
 
 
-MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,QTreeView *treeView, QSplitter *s ,QObject *parent) :
-    QObject(parent), splitter{s}, treeView{treeView},filesystemModel{filesystemModel}
+MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,QTreeView *treeView, QSplitter *s, QMenu* autoTypeFields ,QObject *parent) :
+    QObject(parent), splitter{s}, treeView{treeView},filesystemModel{filesystemModel},autoTypeFields{autoTypeFields}
 {    
 
     watchWaitAndNoneWaitRunCmd.callback = [&](){
