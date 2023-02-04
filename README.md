@@ -2,7 +2,7 @@
 
 Multi-platform GUI for [pass](https://www.passwordstore.org/), the standard unix password manager
 
-
+https://sourceforge.net/projects/pass-simple/
 
 ## Getting Started
 
