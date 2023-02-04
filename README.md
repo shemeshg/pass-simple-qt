@@ -8,7 +8,18 @@ Multi-platform GUI for [pass](https://www.passwordstore.org/), the standard unix
 
 ### Prerequisites
 
-#### On Macos
+#### On Macos for user
+```
+brew install pass pinentry-mac
+
+echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+
+gpgconf --kill gpg-agent
+
+defaults write org.gpgtools.common UseKeychain -bool NO
+```
+
+#### On Macos for developer
 ```
 brew install pass gpgme libgpg-error pinentry-mac yaml-cpp
 
@@ -19,11 +30,17 @@ gpgconf --kill gpg-agent
  defaults write org.gpgtools.common UseKeychain -bool NO
 ```
 
-#### Ubuntu 
+#### Ubuntu  for user
+
 ```
 suto apt-get install pass ydotool
 sudo chmod +s /usr/bin/ydotool
 ```
+
+test ydotool, or use clipboard
+
+
+#### Ubuntu  for developer
 
 install qt https://web.stanford.edu/dept/cs_edu/resources/qt/install-linux
 
@@ -34,21 +51,10 @@ sudo apt-get install -y libgpgmepp-dev
 
 
 
-#### Windows 
-????
-
-
 ### Installing
 
 
-Pull origin
 
-```
-git clone  https://github.com/shemeshg/pass-simple-qt
-```
-
-
-Open project in QtCreate and compile and qtdeploy.
 
 
 ## Built With
