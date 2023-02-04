@@ -3,6 +3,7 @@
 #include <QSettings>
 #include <QDir>
 #include <qqmlregistration.h>
+#include "config.h"
 
 class AppSettings : public QObject
 {
@@ -46,6 +47,11 @@ public:
   {
 
     QString tmpFolderPathDefault = QDir::tempPath();
+
+    if (QString(PROJECT_OS) == "LINUX" && QDir( "/dev/shm").exists()){
+        tmpFolderPathDefault = "/dev/shm";
+    }
+
     if(m_tmpFolderPath.isEmpty() || !QDir( m_tmpFolderPath).exists() ){return tmpFolderPathDefault;}
     return m_tmpFolderPath;
   };
@@ -78,7 +84,12 @@ public:
 
   QString vscodeExecPath()
   {
-    if(m_vscodeExecPath.isEmpty() ){return "/usr/local/bin/code";}
+    if(m_vscodeExecPath.isEmpty() ){
+        if (QString(PROJECT_OS) == "LINUX"){
+            return "/usr/bin/code";
+        }
+        return "/usr/local/bin/code";
+    }
     return m_vscodeExecPath;
   };
 

@@ -9,7 +9,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-configure_file("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
+
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent )
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent )
@@ -38,14 +38,18 @@ set(PROJECT_SOURCES
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(MACOSX TRUE)
+    set(PROJECT_OS "MACOSX")
 endif()
 if(UNIX AND NOT APPLE)
     set(LINUX TRUE)
+    set(PROJECT_OS "LINUX")
 endif()
 if(WIN32 OR MSVC OR MSYS OR MINGW)
     set(WINDOWS TRUE)
+    set(PROJECT_OS "WINDOWS")
 endif()
 
+configure_file("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
 
 if(MACOSX)
     # Application icon
