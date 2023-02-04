@@ -46,11 +46,22 @@ ColumnLayout {
             text: ""
             placeholderText: "FileName.txt"
             Layout.fillWidth: true
+            onTextChanged: {
+                var makeEnabled = Boolean(nearestGpg) && Boolean( createEmptyFileNameId.text);
+                if (getMainqmltype().fileExists(fullPathFolder, createEmptyFileNameId.text)){
+                    makeEnabled = false;
+                }
+                addBtnId.enabled = makeEnabled
+            }
         }
         Button {
+            id: addBtnId
             text: "add";
             enabled: Boolean(nearestGpg) && Boolean( createEmptyFileNameId.text)
-            onClicked: getMainqmltype().createEmptyEncryptedFile(fullPathFolder, createEmptyFileNameId.text)
+            onClicked: {
+                getMainqmltype().createEmptyEncryptedFile(fullPathFolder, createEmptyFileNameId.text)
+                createEmptyFileNameId.text = ""
+            }
         }
     }
     RowLayout{

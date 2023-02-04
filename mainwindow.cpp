@@ -54,7 +54,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     filesystemModel.setIconProvider(&iconProvider);
     filesystemModel.setRootPath("");
-    filesystemModel.setFilter(QDir::Hidden | QDir::NoDotAndDotDot | QDir::AllDirs | QDir::AllEntries);
+    filesystemModel.setFilter(//QDir::Hidden |
+                              QDir::NoDotAndDotDot | QDir::AllDirs | QDir::AllEntries);
 
     ui->treeView->setModel(&filesystemModel);
     ui->splitter->setSizes(QList<int>({150  , 400}));//INT_MAX

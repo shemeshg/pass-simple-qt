@@ -264,9 +264,30 @@ public:
     p = p / fileName.toStdString();
 
     runSafeFromException([&]() {
-      passFile->encryptStringToFile("", p, m_gpgIdManageType.getEncryptTo());
+        std::string s = R"V0G0N(user name: ""
+password: ""
+home page: ""
+totp: ""
+description: ""
+fields type:
+  user name: text
+  password: password
+  home page: url
+  totp: totp
+  description: textedit)V0G0N";
+      passFile->encryptStringToFile(s, p, m_gpgIdManageType.getEncryptTo());
     });
   }
+
+  Q_INVOKABLE bool fileExists(QString fullPathFolder,
+                                            QString fileName) {
+    std::filesystem::path p = fullPathFolder.toStdString();
+    fileName = fileName + ".gpg";
+    p = p / fileName.toStdString();
+
+    return (std::filesystem::exists(p));
+  }
+
 
   Q_INVOKABLE void encryptUpload(QString fullPathFolder, QString fileName) {
       const QUrl url(fileName);

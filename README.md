@@ -10,10 +10,10 @@ https://sourceforge.net/projects/pass-simple/
 
 ```YAML
 ---
-user name: 
-password: 
-home page: 
-totp: 
+user name: ""
+password: ""
+home page: ""
+totp: ""
 description: ""
 fields type:
   user name: text
