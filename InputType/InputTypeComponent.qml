@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import InputType
+import QmlApp
 
 ColumnLayout {
     id: columnLayoutId
@@ -12,14 +13,13 @@ ColumnLayout {
 
     Component {
         id: textAreaComponent
-        RowLayout {
-            TextArea {
+
+            TextEditComponent {
                 id: textArea
-                text: inputText
-                onTextChanged: textChangedSignal(text)
-                Layout.fillWidth: true
+                textEdit.text: inputText
+                onTextChanged: textChangedSignal(textEdit.text)
             }
-        }
+
     }
 
     Component {
