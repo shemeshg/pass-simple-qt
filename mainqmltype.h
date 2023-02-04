@@ -15,7 +15,7 @@
 #include <QFileSystemModel>
 #include <QInputEvent>
 #include <QModelIndex>
-
+#include "config.h"
 
 class MainQmlType : public QObject {
   Q_OBJECT
@@ -382,12 +382,22 @@ private:
   }
 
   void autoType (QString sequence){
+      if (QString(PROJECT_OS) == "LINUX"){
+          std::string s = R"V0G0N(
+    ydotool type sequence
+    )V0G0N";
+          s = ReplaceAll(s,"sequence",escapeshellarg(sequence.toStdString()));
+          system(s.c_str());
+          return;
+      }
+      if (QString(PROJECT_OS) == "MACOSX"){
       std::string s = R"V0G0N(
 osascript -e 'tell application "System Events" to keystroke "sequence"'
 )V0G0N";
 
         s = ReplaceAll(s,"sequence",escapeAppleScript(sequence.toStdString()));
         system(s.c_str());
+      }
   }
 
   std::string ReplaceAll(std::string str, const std::string& from, const std::string& to) {
@@ -397,6 +407,16 @@ osascript -e 'tell application "System Events" to keystroke "sequence"'
           start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
       }
       return str;
+  }
+
+  std::string escapeshellarg(std::string str)
+  {
+    std::string ret = str;
+    ret = ReplaceAll(ret, "\\", "\\\\");
+    ret = ReplaceAll(ret, "'", "\\'");
+    ret = "'" + str + "'";
+
+    return ret;
   }
 
   std::string escapeAppleScript(std::string str)
