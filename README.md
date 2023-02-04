@@ -6,6 +6,23 @@ Multi-platform GUI for [pass](https://www.passwordstore.org/), the standard unix
 
 ## Getting Started
 
+### Template file example
+
+```YAML
+---
+user name: 
+password: 
+home page: 
+totp: 
+description: ""
+fields type:
+  user name: text
+  password: password
+  home page: url
+  totp: totp
+  description: textedit  
+```
+
 ### Prerequisites
 
 #### On Macos for user

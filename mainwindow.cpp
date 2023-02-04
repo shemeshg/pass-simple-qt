@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
 
+
     QSystemTrayIcon *trayIcon = new QSystemTrayIcon(this);
     QMenu *trayIconMenu = new QMenu(this);
 

@@ -46,7 +46,6 @@ Item {
         mainqmltype.closeExternalEncryptNoWait();
     }
 
-
     QmlAppComponent {
         id: qmlAppComponent
     }
