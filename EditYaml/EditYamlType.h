@@ -75,7 +75,7 @@ public:
                 return;
                 ;
             }
-            if (!it->second.IsScalar()) {
+            if (!it->second.IsScalar() ) {
                 continue;
             }
             std::string key = it->first.as<std::string>();
