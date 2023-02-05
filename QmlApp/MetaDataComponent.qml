@@ -9,8 +9,6 @@ import DropdownWithList
 ColumnLayout {
     property string nearestGit: ""
     property alias getDecryptedSignedById: getDecryptedSignedById
-    property alias waitItemsId: waitItemsId
-    property alias noneWaitItemsId: noneWaitItemsId
     property alias gitResponseId: gitResponseId
 
     Text {
@@ -69,11 +67,38 @@ ColumnLayout {
         text:"DecryptedSignedBy : "
     }
     Text {
-        id: waitItemsId
-        text:"waitItems" + JSON.stringify(waitItems)
+        text:"<h2>Wait Items</h2>" 
     }
+    Repeater {
+        model: waitItems
+        RowLayout{
+            Label {
+                text:  modelData
+
+            }
+            Button {
+                text: "select"
+                onClicked: getMainqmltype().setTreeViewSelected(modelData)
+            }
+
+        }
+    }
+
     Text {
-        id: noneWaitItemsId
-        text:"noneWaitItems" + JSON.stringify(noneWaitItems)
+        text:"<h2>None Wait Items</h2>" 
     }
+    Repeater {
+        model: noneWaitItems
+        RowLayout{
+            Label {
+                text:  modelData
+
+            }
+            Button {
+                text: "select"
+                onClicked: getMainqmltype().setTreeViewSelected(modelData)
+            }
+
+        }
+    }    
 }
