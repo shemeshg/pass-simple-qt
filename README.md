@@ -4,6 +4,8 @@ Multi-platform GUI for [pass](https://www.passwordstore.org/), the standard unix
 
 https://sourceforge.net/projects/pass-simple/
 
+Screenshots: https://github.com/shemeshg/pass-simple-qt/wiki
+
 ## Getting Started
 
 ### Template file example
@@ -22,10 +24,12 @@ fields type:
   totp: totp
   description: textedit  
 ```
+## Installing
 
 ### Prerequisites
 
-#### On Macos for user
+#### Macos users
+
 1. Install pass
 ```
 brew install pass pinentry-mac
@@ -37,12 +41,15 @@ gpgconf --kill gpg-agent
 defaults write org.gpgtools.common UseKeychain -bool NO
 ```
 
-Create a note with pass command line, ensure all well
+2. Create a note with pass command line, ensure all well
 
 ```
 pass
 pass edit whatever
 ```
+
+If pass is not ok, follow this:
+https://www.redhat.com/sysadmin/management-password-store
 
 2. Install pass-simple 
 ```
@@ -52,11 +59,13 @@ brew install --cask shemeshg/homebrew-tap/pass-simple
 3. Ensure you can read and write the test note created on step 2.
 
 
-#### On Macos develop env
+#### Mac dev env also requires
+1. 
 ```
 brew install gpgme libgpg-error pinentry-mac yaml-cpp
 
 ```
+
 
 #### Ubuntu  
 
@@ -70,8 +79,10 @@ install qt https://web.stanford.edu/dept/cs_edu/resources/qt/install-linux
 suto apt-get install pass 
 ```
 
-test ydotool, or use clipboard (by default)
-(in application settings)
+test ydotool, or use clipboard (used by default
+in application settings)
+
+#### Ubuntu dev env also requires
 
 ```
 sudo apt install libyaml-cpp-dev libgpgme-dev
@@ -80,7 +91,7 @@ sudo apt-get install -y libgpgmepp-dev
 
 
 
-### Installing
+
 
 
 
