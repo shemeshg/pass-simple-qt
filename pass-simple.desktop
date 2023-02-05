@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=pass-simple
+Version=1.0
+GenericName=Password Manager
+Comment=GUI for the standard unix password store
+Exec=pass-simple
+Icon=default
+Terminal=false
+Categories=Security;Utility;
+Keywords=Password;Manager;QT;

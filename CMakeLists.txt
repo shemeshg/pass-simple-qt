@@ -148,6 +148,10 @@ qt_add_qml_module(pass-simple
     QML_FILES mainQml.qml
 )
 
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+  set_property(TARGET pass-simple PROPERTY WIN32_EXECUTABLE true)
+endif()
+
 install(TARGETS pass-simple
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
