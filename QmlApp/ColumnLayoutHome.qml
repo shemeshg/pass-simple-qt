@@ -15,6 +15,7 @@ ColumnLayout {
     id: columnLayoutHomeId
 
     width: scrollViewId.width
+
     visible: !isShowLog;
     TabBar {
         id: bar

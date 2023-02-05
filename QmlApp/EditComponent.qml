@@ -63,8 +63,19 @@ ColumnLayout {
         }
 
 
+
+        Shortcut {
+            sequence: StandardKey.Save
+            onActivated: {
+                if (saveBtnId.visible){
+                    saveBtnId.clicked()
+                }
+            }
+        }
+
         Button {
-            text: "Save"
+            id: saveBtnId
+            text: "&Save"
             enabled: hasEffectiveGpgIdFile && (!showYamlEdit || showYamlEdit && editYamlComponentId.editYamlType.isYamlValid)
             onClicked:{
                 if (showYamlEdit){
