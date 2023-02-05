@@ -1,6 +1,6 @@
 #pragma once
 
-#define PROJECT_NAME "pass-simple-qt"
+#define PROJECT_NAME "pass-simple"
 #define PROJECT_VER  "0.2"
 #define PROJECT_VER_MAJOR "0"
 #define PROJECT_VER_MINOR "2"

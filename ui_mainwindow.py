@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Volumes/RAM_Disk_4G/pass-simple-qt/mainwindow.ui'
+# Form implementation generated from reading ui file '/Volumes/RAM_Disk_4G/pass-simple/mainwindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.9.2
 #
@@ -45,7 +45,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.splitter)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 747, 24))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 850, 24))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
 
@@ -54,6 +54,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Pass simple"))
 
 from PyQt5 import QtQuickWidgets

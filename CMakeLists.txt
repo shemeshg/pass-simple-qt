@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(pass-simple-qt VERSION 0.2 LANGUAGES CXX)
+project(pass-simple VERSION 0.2 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -66,26 +66,26 @@ set(QML_IMPORT_PATH ${CMAKE_SOURCE_DIR}/QmlApp
                 CACHE STRING "" FORCE)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(pass-simple-qt
+    qt_add_executable(pass-simple
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         ${APP_ICON_MACOSX}
     )
 # Define target properties for Android with Qt 6 as:
-#    set_property(TARGET pass-simple-qt APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+#    set_property(TARGET pass-simple APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
     qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 else()
     if(ANDROID)
-        add_library(pass-simple-qt SHARED
+        add_library(pass-simple SHARED
             ${PROJECT_SOURCES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
-        add_executable(pass-simple-qt
+        add_executable(pass-simple
             ${PROJECT_SOURCES}
         )
     endif()
@@ -103,14 +103,14 @@ include_directories(${LibGpgError_INCLUDE_DIRS})
 # End LibGpgError
 add_subdirectory(gpgfactory/libpgpfactory)
 
-set(TS_FILES pass-simple-qt_en_US.ts)
+set(TS_FILES pass-simple_en_US.ts)
 
 
 
 
 
 
-target_link_libraries(pass-simple-qt PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::QuickWidgets
+target_link_libraries(pass-simple PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::QuickWidgets
     Qt6::Concurrent
     QmlApp
     EditYaml
@@ -119,7 +119,7 @@ target_link_libraries(pass-simple-qt PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${
     libpgpfactory    
 )
 
-set_target_properties(pass-simple-qt PROPERTIES
+set_target_properties(pass-simple PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER PassSimple.shemeshg.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -130,7 +130,7 @@ set_target_properties(pass-simple-qt PROPERTIES
 
 
 
-qt_add_qml_module(pass-simple-qt
+qt_add_qml_module(pass-simple
     URI MainQml
     VERSION 1.0
     SOURCES
@@ -148,10 +148,10 @@ qt_add_qml_module(pass-simple-qt
     QML_FILES mainQml.qml
 )
 
-install(TARGETS pass-simple-qt
+install(TARGETS pass-simple
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(pass-simple-qt)
+    qt_finalize_executable(pass-simple)
 endif()
