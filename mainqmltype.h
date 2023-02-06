@@ -15,6 +15,8 @@
 #include <QFileSystemModel>
 #include <QInputEvent>
 #include <QModelIndex>
+#include <QClipboard>
+#include <QGuiApplication>
 #include "config.h"
 
 class MainQmlType : public QObject {
@@ -128,13 +130,16 @@ public:
                                           QString tmpFolderPath,
                                           QString gitExecPath,
                                           QString vscodeExecPath,
-                                          QString autoTypeCmd) {
+                                          QString autoTypeCmd,
+                                          bool useClipboard) {
     appSettings.setPasswordStorePath(passwordStorePath);
     appSettings.setTmpFolderPath(tmpFolderPath);
 
     appSettings.setGitExecPath(gitExecPath);
     appSettings.setVscodeExecPath(vscodeExecPath);
     appSettings.setAutoTypeCmd(autoTypeCmd);
+    appSettings.setUseClipboard(useClipboard);
+    
     loadTreeView();
     emit appSettingsTypeChanged();
   }
@@ -405,6 +410,11 @@ private:
   }
 
   void autoType (QString sequence){
+      if (appSettings.useClipboard()){
+          QClipboard *clipboard = QGuiApplication::clipboard();
+          clipboard->setText(sequence);
+          return;
+      }
       if (QString(PROJECT_OS) == "LINUX"){
           std::string s =appSettings.autoTypeCmd().toStdString();
 

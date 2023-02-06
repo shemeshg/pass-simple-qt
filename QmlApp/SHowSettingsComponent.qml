@@ -39,7 +39,8 @@ ColumnLayout {
                            tmpFolderPath.text,
                            gitExecPath.text,
                            vscodeExecPath.text,
-                           autoTypeCmd.text)
+                           autoTypeCmd.text,
+                           useClipboard.checked)
         }
     }
     Row{
@@ -115,6 +116,14 @@ ColumnLayout {
             id: autoTypeCmd
             text: mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
             Layout.fillWidth: true
+        }
+    }
+    RowLayout {
+        Switch {
+            id: useClipboard
+            visible: isShowPreview
+            text: qsTr("Use clipboard")
+            checked: mainLayout.getMainqmltype().appSettingsType.useClipboard
         }
     }
 

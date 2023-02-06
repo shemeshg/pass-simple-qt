@@ -13,6 +13,7 @@ class AppSettings : public QObject
   Q_PROPERTY(QString gitExecPath READ gitExecPath WRITE setGitExecPath NOTIFY gitExecPathChanged)
   Q_PROPERTY(QString vscodeExecPath READ vscodeExecPath WRITE setVscodeExecPath NOTIFY vscodeExecPathChanged)
 Q_PROPERTY(QString autoTypeCmd READ autoTypeCmd WRITE setAutoTypeCmd NOTIFY autoTypeCmdChanged)
+Q_PROPERTY(bool useClipboard READ useClipboard WRITE setUseClipboard NOTIFY useClipboardChanged)
 
     // hygen Q_PROPERTY
     QML_ELEMENT
@@ -24,6 +25,8 @@ public:
         m_gitExecPath = settings.value("gitExecPath","").toString();
         m_vscodeExecPath = settings.value("vscodeExecPath","").toString();
         m_autoTypeCmd = settings.value("autoTypeCmd","").toString();
+        m_useClipboard = settings.value("useClipboard","").toBool();
+        
 
     }
 
@@ -131,6 +134,24 @@ echo -n sequence | xclip -selection clipboard
 
     emit autoTypeCmdChanged();
   }
+
+  bool useClipboard()
+  {
+    return m_useClipboard;
+  };
+
+  void setUseClipboard(const bool &useClipboard)
+  {
+    if (useClipboard == m_useClipboard)
+      return;
+
+    m_useClipboard = useClipboard;
+    settings.setValue("useClipboard", m_useClipboard);
+
+    emit useClipboardChanged();
+  }
+
+
   // hygen public
 
   signals:
@@ -138,7 +159,8 @@ echo -n sequence | xclip -selection clipboard
   void tmpFolderPathChanged();
   void gitExecPathChanged();
   void vscodeExecPathChanged();
-  void autoTypeCmdChanged();;
+  void autoTypeCmdChanged();
+  void useClipboardChanged();
     // hygen signals
 
   private:
@@ -148,5 +170,6 @@ echo -n sequence | xclip -selection clipboard
   QString m_gitExecPath;
   QString m_vscodeExecPath;
   QString m_autoTypeCmd;
+  bool m_useClipboard;
   // hygen private
 };
