@@ -140,7 +140,7 @@ echo -n sequence | xclip -selection clipboard
     return m_useClipboard;
   };
 
-  void setUseClipboard(const bool &useClipboard)
+  void setUseClipboard(const bool useClipboard)
   {
     if (useClipboard == m_useClipboard)
       return;

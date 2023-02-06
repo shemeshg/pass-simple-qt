@@ -27,6 +27,16 @@ ColumnLayout {
         }
     }
 
+    function saveSettingsComponent(){
+        mainLayout.getMainqmltype().submit_AppSettingsType(
+                                   passwordStorePath.text,
+                                   tmpFolderPath.text,
+                                   gitExecPath.text,
+                                   vscodeExecPath.text,
+                                   autoTypeCmd.text,
+                                   useClipboard.checked);
+    }
+
     RowLayout {
         Button {
             text: "Back"
@@ -34,13 +44,7 @@ ColumnLayout {
         }
         Button {
             text: "Save"
-            onClicked: mainLayout.getMainqmltype().submit_AppSettingsType(
-                           passwordStorePath.text,
-                           tmpFolderPath.text,
-                           gitExecPath.text,
-                           vscodeExecPath.text,
-                           autoTypeCmd.text,
-                           useClipboard.checked)
+            onClicked: saveSettingsComponent();
         }
     }
     Row{
@@ -123,7 +127,10 @@ ColumnLayout {
             id: useClipboard
             visible: isShowPreview
             text: qsTr("Use clipboard")
-            checked: mainLayout.getMainqmltype().appSettingsType.useClipboard
+            checked: mainLayout.getMainqmltype().appSettingsType.useClipboard;
+            onCheckedChanged: {
+                saveSettingsComponent();
+            }
         }
     }
 
