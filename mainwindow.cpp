@@ -7,6 +7,7 @@
 #include <QMenu>
 #include <QSystemTrayIcon>
 #include <QAction>
+#include <QClipboard>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,10 +23,23 @@ MainWindow::MainWindow(QWidget *parent)
     QMenu* autoTypeFields = new QMenu(tr("auto type field"), this);
 
 
+
+
+    trayIconMenu->addMenu(autoTypeFields);
+    QAction* clearClipboard = new QAction(tr("Clear clipboard"), this);
+
+    connect(clearClipboard, &QAction::triggered, autoTypeFields, [=](  ) {
+        QClipboard *clipboard = QGuiApplication::clipboard();
+        clipboard->clear();
+
+    });
+
+    trayIconMenu->addAction(clearClipboard);
+    trayIconMenu->addSeparator();
+
     QAction*  quitAction = new QAction(tr("&Quit"), this);
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
-    trayIconMenu->addMenu(autoTypeFields);
-    trayIconMenu->addSeparator();
+
     trayIconMenu->addAction(quitAction);
     trayIcon->setContextMenu(trayIconMenu);
     trayIcon->setIcon(QIcon(":/icon.png"));
