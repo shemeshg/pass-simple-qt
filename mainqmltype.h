@@ -131,7 +131,8 @@ public:
                                           QString gitExecPath,
                                           QString vscodeExecPath,
                                           QString autoTypeCmd,
-                                          bool useClipboard) {
+                                          bool useClipboard,
+                                          int fontSize) {
     appSettings.setPasswordStorePath(passwordStorePath);
     appSettings.setTmpFolderPath(tmpFolderPath);
 
@@ -139,6 +140,7 @@ public:
     appSettings.setVscodeExecPath(vscodeExecPath);
     appSettings.setAutoTypeCmd(autoTypeCmd);
     appSettings.setUseClipboard(useClipboard);
+    appSettings.setfontSize(fontSize);
     
     loadTreeView();
     emit appSettingsTypeChanged();

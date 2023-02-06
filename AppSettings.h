@@ -4,6 +4,8 @@
 #include <QDir>
 #include <qqmlregistration.h>
 #include "config.h"
+#include <QApplication>
+#include <QFont>
 
 class AppSettings : public QObject
 {
@@ -14,6 +16,7 @@ class AppSettings : public QObject
   Q_PROPERTY(QString vscodeExecPath READ vscodeExecPath WRITE setVscodeExecPath NOTIFY vscodeExecPathChanged)
 Q_PROPERTY(QString autoTypeCmd READ autoTypeCmd WRITE setAutoTypeCmd NOTIFY autoTypeCmdChanged)
 Q_PROPERTY(bool useClipboard READ useClipboard WRITE setUseClipboard NOTIFY useClipboardChanged)
+Q_PROPERTY(int fontSize READ fontSize WRITE setfontSize NOTIFY fontSizeChanged)
 
     // hygen Q_PROPERTY
     QML_ELEMENT
@@ -26,6 +29,8 @@ public:
         m_vscodeExecPath = settings.value("vscodeExecPath","").toString();
         m_autoTypeCmd = settings.value("autoTypeCmd","").toString();
         m_useClipboard = settings.value("useClipboard","").toBool();
+        m_fontSize = settings.value("fontSize","14").toInt();
+        
         
 
     }
@@ -152,6 +157,22 @@ echo -n sequence | xclip -selection clipboard
   }
 
 
+  int fontSize()
+  {
+    return m_fontSize;
+  };
+
+  void setfontSize(const int fontSize)
+  {
+    if (fontSize == m_fontSize)
+      return;
+
+    m_fontSize = fontSize;
+    settings.setValue("fontSize", m_fontSize);
+
+
+    emit fontSizeChanged();
+  }
   // hygen public
 
   signals:
@@ -161,6 +182,8 @@ echo -n sequence | xclip -selection clipboard
   void vscodeExecPathChanged();
   void autoTypeCmdChanged();
   void useClipboardChanged();
+  void fontSizeChanged();
+  
     // hygen signals
 
   private:
@@ -171,5 +194,7 @@ echo -n sequence | xclip -selection clipboard
   QString m_vscodeExecPath;
   QString m_autoTypeCmd;
   bool m_useClipboard;
+  int m_fontSize;
+  
   // hygen private
 };
