@@ -36,7 +36,8 @@ ColumnLayout {
                                    gitExecPath.text,
                                    vscodeExecPath.text,
                                    autoTypeCmd.text,
-                                   useClipboard.checked);
+                                   useClipboard.checked,
+                                   fontSize.text);
     }
 
     RowLayout {
@@ -120,6 +121,18 @@ ColumnLayout {
         TextField {
             id: autoTypeCmd
             text: mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
+            Layout.fillWidth: true
+        }
+    }
+
+    RowLayout {
+        Layout.fillWidth: true
+        Label {
+            text: "Font size (reopen app required)"
+        }
+        TextField {
+            id: fontSize
+            text: mainLayout.getMainqmltype().appSettingsType.fontSize
             Layout.fillWidth: true
         }
     }

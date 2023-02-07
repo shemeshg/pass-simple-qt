@@ -8,6 +8,7 @@
 #include <QSystemTrayIcon>
 #include <QAction>
 #include <QClipboard>
+#include "AppSettings.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,6 +17,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
 
+    QFont font = QApplication::font();
+    AppSettings as;
+    font.setPointSize(as.fontSize());
+    QApplication::setFont(font);
 
     QSystemTrayIcon *trayIcon = new QSystemTrayIcon(this);
     QMenu *trayIconMenu = new QMenu(this);
