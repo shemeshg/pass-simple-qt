@@ -136,6 +136,13 @@ ColumnLayout {
             ToolTip.visible: hovered
         }
     }
+    Row{
+        Rectangle {
+            color: "white"
+            width: scrollViewId.width - 20
+            height: 2
+        }
+    }
     Repeater {
         model: getMainqmltype().searchResult
         RowLayout{
