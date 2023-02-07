@@ -10,6 +10,8 @@ ColumnLayout {
     visible: isShowSettings
     width: parent.width
 
+    property bool isUseClipboard: mainLayout.getMainqmltype().appSettingsType.useClipboard
+
     FileDialog {
         id: selectStorePathDialogId
         title: "Select folder"
@@ -126,7 +128,7 @@ ColumnLayout {
             id: useClipboard
             visible: isShowPreview
             text: qsTr("Use clipboard")
-            checked: mainLayout.getMainqmltype().appSettingsType.useClipboard;
+            checked: isUseClipboard;
             onCheckedChanged: {
                 saveSettingsComponent();
             }
