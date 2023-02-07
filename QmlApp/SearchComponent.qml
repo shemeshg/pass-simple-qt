@@ -9,6 +9,9 @@ import DropdownWithList
 ColumnLayout {
     visible: isShowSearch
     width: parent.width
+
+    property string currentSearchFolder: passwordStorePathStr
+
     RowLayout {
         Button {
             text: "Back"
@@ -64,7 +67,7 @@ ColumnLayout {
                 btnFindId.enabled = false
                 searchStatusLabelId.visible= true
                 delay(10, function() {
-                    getMainqmltype().doSearch(textFieldFileSearch.text,textFieldContentSearch.text)
+                    getMainqmltype().doSearch(currentSearchFolder, textFieldFileSearch.text,textFieldContentSearch.text)
                     btnFindId.enabled = true
                     searchStatusLabelId.visible=false;
                 })
@@ -117,7 +120,22 @@ ColumnLayout {
             }
         }
     }
-
+    RowLayout {
+        Label {
+            text: "In: " + currentSearchFolder
+            Layout.fillWidth: true
+        }
+        Button {
+            text: "."
+            onClicked: {
+                if(fullPathFolder){
+                    currentSearchFolder = fullPathFolder
+                }
+            }
+            ToolTip.text: "Set search folder to current treeview selected folder"
+            ToolTip.visible: hovered
+        }
+    }
     Repeater {
         model: getMainqmltype().searchResult
         RowLayout{
