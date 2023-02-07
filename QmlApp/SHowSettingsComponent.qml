@@ -21,7 +21,7 @@ ColumnLayout {
             path = decodeURIComponent(path);
 
             path =  path.substring(0, path.lastIndexOf("/")) ;
-            passwordStorePath.text = "/" + path
+            passwordStorePathStr = "/" + path
         }
         onRejected: {
         }
@@ -29,7 +29,7 @@ ColumnLayout {
 
     function saveSettingsComponent(){
         mainLayout.getMainqmltype().submit_AppSettingsType(
-                                   passwordStorePath.text,
+                                   passwordStorePathStr,
                                    tmpFolderPath.text,
                                    gitExecPath.text,
                                    vscodeExecPath.text,
@@ -60,7 +60,7 @@ ColumnLayout {
         }
         Button {
             text:  "default"
-            onClicked: passwordStorePath.text = ""
+            onClicked: passwordStorePathStr = ""
         }
         Button {
             text:  "select"
@@ -71,8 +71,7 @@ ColumnLayout {
     RowLayout {
 
         TextField {
-            id: passwordStorePath
-            text: mainLayout.getMainqmltype().appSettingsType.passwordStorePath;
+            text: passwordStorePathStr;
             Layout.fillWidth: true
         }
     }

@@ -36,6 +36,7 @@ ScrollView {
     property string showLogText: ""
     property string nearestGpg: ""
     property string fullPathFolder: ""
+    property string passwordStorePathStr: mainLayout.getMainqmltype().appSettingsType.passwordStorePath
 
     function initOnFileChanged(){
         clearSystemTrayIconEntries();
