@@ -76,6 +76,8 @@ ColumnLayout {
         TextField {
             text: passwordStorePathStr;
             Layout.fillWidth: true
+            onTextChanged:
+                passwordStorePathStr = text
         }
     }
     RowLayout {
