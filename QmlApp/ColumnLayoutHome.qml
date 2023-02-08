@@ -29,10 +29,10 @@ ColumnLayout {
             text: qsTr("Add")
         }
         TabButton {
-            text: qsTr("Manage")
+            text: qsTr("Info Git")
         }
         TabButton {
-            text: qsTr("Meta")
+            text: qsTr("Auth")
         }
         TabButton {
             text: qsTr("About")
@@ -50,12 +50,11 @@ ColumnLayout {
             id: addComponentId
         }
 
-        ManageGpgIdComponent {
-            id: manageGpgIdComponentId
-        }
-
         MetaDataComponent {
             id: metaDataComponentId
+        }
+        ManageGpgIdComponent {
+            id: manageGpgIdComponentId
         }
         ColumnLayout {
 

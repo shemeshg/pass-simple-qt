@@ -8,7 +8,7 @@ import InputType
 ColumnLayout {
     property alias text: editYamlType.text
     property alias  editYamlType: editYamlType
-
+    property bool isEditFieldsType: false
 
 
     Component {
@@ -22,12 +22,12 @@ ColumnLayout {
     EditYamlType {
         id: editYamlType
         onYamlModelChanged: {
-           clearSystemTrayIconEntries()
-           for(var idx in yamlModel){
-               addSystemTrayIconEntries(yamlModel[idx].key,
-                                            yamlModel[idx].val,
-                                        yamlModel[idx].inputType)
-           }
+            clearSystemTrayIconEntries()
+            for(var idx in yamlModel){
+                addSystemTrayIconEntries(yamlModel[idx].key,
+                                         yamlModel[idx].val,
+                                         yamlModel[idx].inputType)
+            }
         }
 
     }
@@ -44,26 +44,58 @@ ColumnLayout {
         ColumnLayout {
             Row{
                 Text { text:  modelData.key + ": "}
+                ComboBox {
+                    id: selectedInputType
+                    visible: isEditFieldsType
+                    model: ["textedit", "text","url","password","totp"]
+                    Component.onCompleted: {
+                        currentIndex = find(modelData.inputType);
+                    }
+                    width: 200
+                    onActivated:    {
+                        editYamlType.sendChangeType(modelData.key,currentText);
+                        inputTypeComponentId.inputType = currentText;
+                    }
+
+                }
             }
             Row{
                 InputTypeComponent {
+                    id: inputTypeComponentId
                     width: scrollViewId.width - 20
                     inputText: modelData.val
                     inputType: modelData.inputType
-                     onTextChangedSignal:  function(s){
-                       editYamlType.sendChange(modelData.key,s);
+                    onTextChangedSignal:  function(s){
+                        editYamlType.sendChangeVal(modelData.key,s);
                     }
                 }
             }
             Rectangle {
-                       Layout.fillWidth: true
-                       Layout.preferredHeight: 1
-                       color: "black"
-                   }
+                Layout.fillWidth: true
+                Layout.preferredHeight: 1
+                color: "black"
+            }
         }
 
 
     }
 
+    Row{
+        Rectangle {
+            color: "white"
+            width: scrollViewId.width - 20
+            height: 2
+        }
+    }
+    RowLayout {
+        Switch {
+            id: idEditFieldsType
+            text: qsTr("Edit fields type")
+            checked: isEditFieldsType;
+            onCheckedChanged: {
+                isEditFieldsType = !isEditFieldsType;
+            }
+        }
+    }
 }
 

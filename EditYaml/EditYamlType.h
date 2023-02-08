@@ -101,6 +101,8 @@ public:
             }
 
 
+           if (inputType.isEmpty()){inputType = "textedit";}
+
             map.insert("inputType", inputType);
 
             list << map;
@@ -155,7 +157,11 @@ public:
 
     }
 
-    Q_INVOKABLE void sendChange(QString key, QString val) {
+    Q_INVOKABLE void sendChangeType(QString key, QString typeVal) {
+        yamlContent["fields type"][key.toStdString()] = typeVal.toStdString();
+    }
+
+    Q_INVOKABLE void sendChangeVal(QString key, QString val) {
 
         for (QVariantList::iterator hehe = m_yamlModel.begin();
              hehe != m_yamlModel.end(); hehe++) {
