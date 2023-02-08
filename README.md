@@ -51,13 +51,16 @@ pass edit whatever
 If pass is not ok, follow this:
 https://www.redhat.com/sysadmin/management-password-store
 
-2. Install pass-simple 
+3. Install pass-simple 
 ```
 brew install --cask shemeshg/homebrew-tap/pass-simple
 ```
 
-3. Ensure you can read and write the test note created on step 2.
+4. Ensure you can read and write the test note created on step 2.
 
+5. Backup your store to other drive
+
+https://stackoverflow.com/questions/39471072/how-to-create-a-local-push-destination-on-a-hard-disk-using-git
 
 #### Mac dev env also requires
 1. 
@@ -88,16 +91,6 @@ in application settings)
 sudo apt install libyaml-cpp-dev libgpgme-dev
 sudo apt-get install -y libgpgmepp-dev
 ```
-
-
-
-
-
-
-
-
-
-
 
 ## Built With
 
