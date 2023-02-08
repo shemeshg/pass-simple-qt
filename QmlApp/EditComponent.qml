@@ -50,9 +50,13 @@ ColumnLayout {
                 }
             }
         }
+
+
+
         Switch {
+            id:isYamlShow
             visible: isShowPreview
-            text: qsTr("YAML")
+            text: qsTr("YAM<u>L</u>")
             checked: showYamlEdit
             onCheckedChanged: {
                 showYamlEdit = checked;
@@ -62,12 +66,21 @@ ColumnLayout {
             }
         }
 
-
+        Shortcut {
+            sequence: "Ctrl+L"
+            onActivated: {
+                isYamlShow.checked = !isYamlShow.checked
+                showYamlEdit = isYamlShow.checked;
+                if (!showYamlEdit && editYamlComponentId.editYamlType.isYamlValid){
+                    decryptedTextId.textEdit.text = editYamlComponentId.editYamlType.getUpdatedText()
+                }
+            }
+        }
 
         Shortcut {
             sequence: StandardKey.Save
             onActivated: {
-                if (saveBtnId.visible){
+                if (saveBtnId.visible && saveBtnId.enabled){
                     saveBtnId.clicked()
                 }
             }
