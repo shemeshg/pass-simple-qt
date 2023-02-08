@@ -43,7 +43,12 @@ ColumnLayout {
         model: editYamlType.yamlModel
         ColumnLayout {
             Row{
-                Text { text:  modelData.key + ": "}
+                Text {
+                    text:  modelData.key + ": "
+                    bottomPadding: 8
+                    topPadding: 8
+
+                }
                 ComboBox {
                     id: selectedInputType
                     visible: isEditFieldsType
