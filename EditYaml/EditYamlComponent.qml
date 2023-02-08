@@ -86,13 +86,15 @@ ColumnLayout {
     }
 
     Row{
+        visible: editYamlType.isYamlValid
         Rectangle {
             color: "white"
             width: scrollViewId.width - 20
             height: 2
         }
-    }
+    }    
     RowLayout {
+        visible: editYamlType.isYamlValid
         Switch {
             id: idEditFieldsType
             text: qsTr("Edit fields type")
