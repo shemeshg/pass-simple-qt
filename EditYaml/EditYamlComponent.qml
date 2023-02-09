@@ -38,8 +38,10 @@ ColumnLayout {
         visible: !editYamlType.isYamlValid
     }
 
-    Repeater {
+    ColumnLayout{
         visible: editYamlType.isYamlValid
+    Repeater {
+
         model: editYamlType.yamlModel
         ColumnLayout {
             Row{
@@ -83,6 +85,7 @@ ColumnLayout {
         }
 
 
+    }
     }
 
     Row{
