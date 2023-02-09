@@ -93,6 +93,24 @@ ScrollView {
     SHowSettingsComponent {
     }
 
+    Timer {
+                id: setTimeoutTimer
+            }
+
+    function delaySetTimeOut(delayTime, cb) {
+        setTimeoutTimer.interval = delayTime;
+        setTimeoutTimer.repeat = false;
+        setTimeoutTimer.triggered.connect(cb);
+        setTimeoutTimer.start();
+    }
+
+    function notifyStr(str){
+        statusLabelId.text = str
+        delaySetTimeOut(1000, function() {
+            statusLabelId.text = ""
+        })
+    }
+
     ColumnLayout {
         width: parent.width
         height : parent.height
@@ -133,6 +151,12 @@ ScrollView {
                 icon.source: "icons/icons8-search-more-50"
                 ToolTip.visible: hovered
                 ToolTip.text: "search"
+
+            }
+            Label {
+                id: statusLabelId
+                text: ""
+                Layout.alignment: Qt.AlignRight
 
             }
         }

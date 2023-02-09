@@ -95,6 +95,7 @@ ColumnLayout {
                     decryptedTextId.textEdit.text = editYamlComponentId.editYamlType.getUpdatedText()
                 }
                 mainLayout.encrypt(decryptedTextId.textEdit.text)
+                notifyStr("* Saved")
             }
             visible: isShowPreview
 
