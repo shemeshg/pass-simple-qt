@@ -11,6 +11,20 @@ ColumnLayout {
     property alias decryptedTextId: decryptedTextId
     property bool showYamlEdit: true
 
+    function doShowYAML(){
+        if (!showYamlEdit && editYamlComponentId.editYamlType.isYamlValid){
+            decryptedTextId.textEdit.text = editYamlComponentId.editYamlType.getUpdatedText()
+        }
+    }
+
+    function doExternalOpen(){
+        if (selectExternalEncryptDestinationId.currentValue === "code --wait"){
+            mainLayout.openExternalEncryptWait();
+        } else if (selectExternalEncryptDestinationId.editText === "File browser"){
+            mainLayout.openExternalEncryptNoWait();
+        }
+    }
+
     FileDialog {
         id: fileDialogDownload
         title: "Choose folder to download"
@@ -37,11 +51,34 @@ ColumnLayout {
             onClicked: fileDialogDownload.open()
         }
     }
+    RowLayout {
+        visible: waitItems.indexOf(filePath) > -1 ||
+                                         noneWaitItems.indexOf(filePath) > -1
+        Text {
+            text: "File opened externally"
+        }
+    }
+
     Row{
+        Shortcut {
+            sequence: "Ctrl+E"
+            onActivated: {
+                if ( isPreviewId.visible && editComponentId.visible
+                        ){
+                    isPreviewId.checked = !isPreviewId.checked
+                    isShowPreview = isPreviewId.checked
+                    if(classInitialized){
+                        initOnFileChanged();
+                    }
+
+                }
+            }
+        }
+
         visible: isGpgFile
         Switch {
             id: isPreviewId
-            text: qsTr("Preview")
+            text: qsTr("Pr<u>e</u>view")
             checked: isShowPreview
             onCheckedChanged: {
                 isShowPreview = isPreviewId.checked
@@ -49,9 +86,25 @@ ColumnLayout {
                     initOnFileChanged();
                 }
             }
+            visible: waitItems.indexOf(filePath) === -1 &&
+                     noneWaitItems.indexOf(filePath) === -1
         }
 
 
+
+        Shortcut {
+            sequence: "Ctrl+L"
+            onActivated: {
+                if ( isPreviewId.checked && editComponentId.visible
+                        ){
+
+                    isYamlShow.checked = !isYamlShow.checked
+                    showYamlEdit = isYamlShow.checked;
+                    doShowYAML()
+
+                }
+            }
+        }
 
         Switch {
             id:isYamlShow
@@ -60,22 +113,11 @@ ColumnLayout {
             checked: showYamlEdit
             onCheckedChanged: {
                 showYamlEdit = checked;
-                if (!showYamlEdit && editYamlComponentId.editYamlType.isYamlValid){
-                    decryptedTextId.textEdit.text = editYamlComponentId.editYamlType.getUpdatedText()
-                }
+                doShowYAML();
             }
         }
 
-        Shortcut {
-            sequence: "Ctrl+L"
-            onActivated: {
-                isYamlShow.checked = !isYamlShow.checked
-                showYamlEdit = isYamlShow.checked;
-                if (!showYamlEdit && editYamlComponentId.editYamlType.isYamlValid){
-                    decryptedTextId.textEdit.text = editYamlComponentId.editYamlType.getUpdatedText()
-                }
-            }
-        }
+
 
         Shortcut {
             sequence: StandardKey.Save
@@ -100,17 +142,24 @@ ColumnLayout {
             visible: isShowPreview
 
         }
+
+
+
+        Shortcut {
+            sequence: "Ctrl+O"
+            onActivated: {
+                if ( editComponentId.visible && !isShowPreview &&
+                        waitItems.indexOf(filePath) === -1 &&
+                        noneWaitItems.indexOf(filePath) === -1){
+                    doExternalOpen()
+                }
+            }
+        }
         Button {
-            text: "Open"
+            text: "&Open"
             enabled: hasEffectiveGpgIdFile;
             onClicked: {
-                if (selectExternalEncryptDestinationId.currentValue === "code --wait"){
-                    mainLayout.openExternalEncryptWait();
-                } else if (selectExternalEncryptDestinationId.editText === "File browser"){
-                    mainLayout.openExternalEncryptNoWait();
-                }
-
-
+                doExternalOpen();
             }
             visible: !isShowPreview &&
                      waitItems.indexOf(filePath) === -1 &&
@@ -134,6 +183,7 @@ ColumnLayout {
                      noneWaitItems.indexOf(filePath) === -1
         }
     }
+
     Row{
         visible: isGpgFile
         TextEditComponent {
