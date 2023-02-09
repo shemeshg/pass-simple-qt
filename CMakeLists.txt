@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(pass-simple VERSION 0.12 LANGUAGES CXX)
+project(pass-simple VERSION 0.13 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)

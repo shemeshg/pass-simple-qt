@@ -32,6 +32,11 @@ public:
         emit textChanged();
 
         setIsYamlValid(true);
+        if (m_text.startsWith("#")){
+            setIsYamlValid(false);
+            setYamlErrorMsg("YAML should not start with #");
+            return;
+        }
         setYamlErrorMsg("");
         QVariantList list;
         m_yamlModel = list;
