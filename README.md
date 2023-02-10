@@ -68,6 +68,14 @@ export PASSWORD_STORE_DIR=/Volumes/volume\ name/password-store
 pass git init
 ```
 
+or do it manually with
+
+```bash
+echo '*.gpg diff=gpg' > ".gitattributes"
+git config --local diff.gpg.binary true
+git config --local diff.gpg.textconv "gpg -d --quiet --yes --compress-algo=none --no-encrypt-to"
+```
+
 #### Mac dev env also requires
 1. 
 ```
