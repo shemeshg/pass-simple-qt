@@ -49,6 +49,7 @@ ColumnLayout {
             text: "download"
             enabled: isGpgFile
             onClicked: fileDialogDownload.open()
+            rightPadding: 8
         }
     }
     RowLayout {

@@ -12,6 +12,7 @@ ColumnLayout {
     property alias editComponentId: editComponentId
     property alias addComponentId: addComponentId
 
+
     id: columnLayoutHomeId
 
     width: scrollViewId.width
