@@ -62,6 +62,12 @@ brew install --cask shemeshg/homebrew-tap/pass-simple
 
 https://stackoverflow.com/questions/39471072/how-to-create-a-local-push-destination-on-a-hard-disk-using-git
 
+6. Enable pgp for git, this will enable `git diff` within pgp
+```
+export PASSWORD_STORE_DIR=/Volumes/volume\ name/password-store
+pass git init
+```
+
 #### Mac dev env also requires
 1. 
 ```
