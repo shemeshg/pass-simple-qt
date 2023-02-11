@@ -1,1 +1,17 @@
 module QmlApp
+linktarget QmlAppplugin
+optional plugin QmlAppplugin
+classname QmlAppPlugin
+typeinfo QmlApp.qmltypes
+prefer :/QmlApp/
+QmlAppComponent 1.0 QmlAppComponent.qml
+EditComponent 1.0 EditComponent.qml
+ManageGpgIdComponent 1.0 ManageGpgIdComponent.qml
+MetaDataComponent 1.0 MetaDataComponent.qml
+ExceptionAndLog 1.0 ExceptionAndLog.qml
+ColumnLayoutHome 1.0 ColumnLayoutHome.qml
+AddComponent 1.0 AddComponent.qml
+SearchComponent 1.0 SearchComponent.qml
+SHowSettingsComponent 1.0 SHowSettingsComponent.qml
+TextEditComponent 1.0 TextEditComponent.qml
+

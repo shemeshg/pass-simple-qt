@@ -11,7 +11,7 @@ ScrollView {
     id: scrollViewId
     width: parent.width
     height : parent.height
-    contentWidth: columnLayoutHomeId.width    // The important part
+    contentWidth: columnLayoutHomeId.width - 30   // The important part
     contentHeight: columnLayoutHomeId.height + 90   // Same
     clip : true
 

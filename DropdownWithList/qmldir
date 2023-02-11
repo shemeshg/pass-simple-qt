@@ -1,1 +1,8 @@
 module DropdownWithList
+linktarget DropdownWithListplugin
+optional plugin DropdownWithListplugin
+classname DropdownWithListPlugin
+typeinfo DropdownWithList.qmltypes
+prefer :/DropdownWithList/
+DropdownWithListComponent 1.0 DropdownWithListComponent.qml
+

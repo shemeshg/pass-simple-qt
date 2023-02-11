@@ -8,10 +8,12 @@ Rectangle {
     signal textChanged()
     color: "white"    
     height: textEditId.height
+    width: parent.width -20
     TextEdit {
         id: textEditId
         text: ""
-        width: parent.width
+        width: parent.width - 20
         onTextChanged: parent.textChanged()
+        wrapMode: Text.WrapAnywhere
     }
 }

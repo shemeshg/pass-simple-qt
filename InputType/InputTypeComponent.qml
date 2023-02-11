@@ -11,7 +11,9 @@ ColumnLayout {
     signal textChangedSignal(s: string)
 
     RowLayout {
+         width: parent.width
         Row{
+             width: parent.width
             TextEditComponent {
                 id: textEditComponentId
                 visible: inputType === "textedit"
@@ -20,7 +22,7 @@ ColumnLayout {
                     textChangedSignal(textEdit.text)
                     inputText = textEdit.text
                 }
-                width: scrollViewId.width - 20
+                width: parent.width
 
 
             }
@@ -50,6 +52,7 @@ ColumnLayout {
             }
             Layout.fillWidth: true
             echoMode: (inputType === "totp" || inputType === "password") ? TextInput.Password : TextInput.Normal
+            rightPadding: 8
         }
         TextField {
             id: totpId

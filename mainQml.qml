@@ -46,8 +46,15 @@ Item {
         mainqmltype.closeExternalEncryptNoWait();
     }
 
+    Flickable {
+        id: flickable
+        clip: true
+        anchors.fill: parent
+
+
     QmlAppComponent {
         id: qmlAppComponent
+    }
     }
 
     Binding {

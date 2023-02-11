@@ -1,1 +1,8 @@
 module EditYaml
+linktarget EditYamlplugin
+optional plugin EditYamlplugin
+classname EditYamlPlugin
+typeinfo EditYaml.qmltypes
+prefer :/EditYaml/
+EditYamlComponent 1.0 EditYamlComponent.qml
+
