@@ -21,7 +21,7 @@ ColumnLayout {
     Column{
         Row{
             Label {
-                text:  "<h2>Group members</h2>"
+                text:  "<h2>Groups membered</h2>"
                 visible: dropdownWithListTypeId.selectedItems.length > 0
             }
 
@@ -40,7 +40,7 @@ ColumnLayout {
         }
         Row{
             Label {
-                text:  "<h2>Select member to add</h2>"
+                text:  "<h2>Select groups to add</h2>"
                 visible: dropdownWithListTypeId.notSelectedItems.length > 0
             }
         }
