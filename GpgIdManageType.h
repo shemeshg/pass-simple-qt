@@ -134,6 +134,7 @@ public:
 
             m_gpgIdManage.saveBackGpgIdFile();
             m_gpgIdManage.exportGpgIdToGpgPubKeysFolder();
+            m_gpgIdManage.reInit();
             m_gpgIdManage.reEncryptStoreFolder( [&](std::string s){
                 qDebug()<<"Re-Encrypt "<<QString::fromStdString(s)<<"\n";
             });

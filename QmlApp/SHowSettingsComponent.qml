@@ -80,6 +80,11 @@ ColumnLayout {
                 passwordStorePathStr = text
         }
     }
+    Rectangle {
+        Layout.fillWidth: true
+        Layout.preferredHeight: 1
+        color: "black"
+    }
     RowLayout {
         Layout.fillWidth: true
         Label {
