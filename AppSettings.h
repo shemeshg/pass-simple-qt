@@ -14,7 +14,8 @@ class AppSettings : public QObject
     Q_PROPERTY(QString tmpFolderPath READ tmpFolderPath WRITE setTmpFolderPath NOTIFY tmpFolderPathChanged)
   Q_PROPERTY(QString gitExecPath READ gitExecPath WRITE setGitExecPath NOTIFY gitExecPathChanged)
   Q_PROPERTY(QString vscodeExecPath READ vscodeExecPath WRITE setVscodeExecPath NOTIFY vscodeExecPathChanged)
-Q_PROPERTY(QString autoTypeCmd READ autoTypeCmd WRITE setAutoTypeCmd NOTIFY autoTypeCmdChanged)
+    Q_PROPERTY(QString autoTypeCmd READ autoTypeCmd WRITE setAutoTypeCmd NOTIFY autoTypeCmdChanged)
+    Q_PROPERTY(QString ctxSigner READ ctxSigner WRITE setCtxSigner NOTIFY ctxSignerChanged)
 Q_PROPERTY(bool useClipboard READ useClipboard WRITE setUseClipboard NOTIFY useClipboardChanged)
 Q_PROPERTY(int fontSize READ fontSize WRITE setfontSize NOTIFY fontSizeChanged)
 
@@ -28,6 +29,7 @@ public:
         m_gitExecPath = settings.value("gitExecPath","").toString();
         m_vscodeExecPath = settings.value("vscodeExecPath","").toString();
         m_autoTypeCmd = settings.value("autoTypeCmd","").toString();
+        m_ctxSigner = settings.value("ctxSigner","").toString();
         m_useClipboard = settings.value("useClipboard","").toBool();
         m_fontSize = settings.value("fontSize","14").toInt();
         
@@ -93,6 +95,24 @@ public:
 
     emit gitExecPathChanged();
   }
+
+
+  QString ctxSigner()
+  {
+    return m_ctxSigner;
+  };
+
+  void setCtxSigner(const QString &ctxSigner)
+  {
+    if (ctxSigner == m_ctxSigner)
+      return;
+
+    m_ctxSigner = ctxSigner;
+    settings.setValue("ctxSigner", m_ctxSigner);
+
+    emit ctxSignerChanged();
+  }
+
 
   QString vscodeExecPath()
   {
@@ -183,6 +203,7 @@ echo -n sequence | xclip -selection clipboard
   void autoTypeCmdChanged();
   void useClipboardChanged();
   void fontSizeChanged();
+  void ctxSignerChanged();
   
     // hygen signals
 
@@ -193,6 +214,7 @@ echo -n sequence | xclip -selection clipboard
   QString m_gitExecPath;
   QString m_vscodeExecPath;
   QString m_autoTypeCmd;
+  QString m_ctxSigner;
   bool m_useClipboard;
   int m_fontSize;
   

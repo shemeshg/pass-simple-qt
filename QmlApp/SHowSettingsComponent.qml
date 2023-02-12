@@ -37,7 +37,8 @@ ColumnLayout {
                                    vscodeExecPath.text,
                                    autoTypeCmd.text,
                                    useClipboard.checked,
-                                   fontSize.text);
+                                   fontSize.text,
+                                    ctxSigner.displayText);
     }
 
     RowLayout {
@@ -85,6 +86,20 @@ ColumnLayout {
         Layout.preferredHeight: 1
         color: "black"
     }
+    RowLayout {
+        Label {
+            text: "Private personal Id: "
+        }
+        ComboBox {
+            id: ctxSigner
+            model: allPrivateKeys
+            Component.onCompleted: {
+                currentIndex = find(mainLayout.getMainqmltype().appSettingsType.ctxSigner);
+            }
+            Layout.fillWidth: true
+        }
+    }
+
     RowLayout {
         Layout.fillWidth: true
         Label {

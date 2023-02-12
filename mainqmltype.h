@@ -122,8 +122,15 @@ public:
                 emit searchResultChanged();
       });
 
+  }
 
-
+  Q_INVOKABLE void initGpgIdManage(){
+      try {
+        m_gpgIdManageType.init(appSettings.passwordStorePath().toStdString(), appSettings.passwordStorePath().toStdString(),&passHelper);
+      }
+      catch (...) {
+       qDebug()<<"Just failed \n"; // Block of code to handle errors
+      }
   }
 
   Q_INVOKABLE void submit_AppSettingsType(QString passwordStorePath,
@@ -132,7 +139,8 @@ public:
                                           QString vscodeExecPath,
                                           QString autoTypeCmd,
                                           bool useClipboard,
-                                          int fontSize) {
+                                          int fontSize,
+                                          QString  ctxSigner) {
     appSettings.setPasswordStorePath(passwordStorePath);
     appSettings.setTmpFolderPath(tmpFolderPath);
 
@@ -141,6 +149,7 @@ public:
     appSettings.setAutoTypeCmd(autoTypeCmd);
     appSettings.setUseClipboard(useClipboard);
     appSettings.setfontSize(fontSize);
+    appSettings.setCtxSigner(ctxSigner);
     
     loadTreeView();
     emit appSettingsTypeChanged();

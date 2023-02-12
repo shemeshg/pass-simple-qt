@@ -37,6 +37,12 @@ ScrollView {
     property string nearestGpg: ""
     property string fullPathFolder: ""
     property string passwordStorePathStr: mainLayout.getMainqmltype().appSettingsType.passwordStorePath
+    property var allPrivateKeys: []
+
+    Component.onCompleted:{
+        mainLayout.getMainqmltype().initGpgIdManage();
+        allPrivateKeys = [mainLayout.getGpgIdManageType().allPrivateKeys[0] , "GARGAML HHH"];
+    }
 
     function initOnFileChanged(){
         clearSystemTrayIconEntries();

@@ -18,6 +18,7 @@ class GpgIdManageType : public QObject
     Q_PROPERTY(QStringList  keysNotFoundInGpgIdFile READ keysNotFoundInGpgIdFile CONSTANT)
     Q_PROPERTY(QStringList  keysFoundInGpgIdFile READ keysFoundInGpgIdFile CONSTANT)
     Q_PROPERTY(QStringList  allKeys READ allKeys CONSTANT)
+    Q_PROPERTY(QStringList  allPrivateKeys READ allPrivateKeys CONSTANT)
     Q_PROPERTY(bool  gpgPubKeysFolderExists READ gpgPubKeysFolderExists CONSTANT)
     Q_PROPERTY(bool  classInitialized READ classInitialized CONSTANT)
 
@@ -91,6 +92,15 @@ public:
     {
         QStringList l;
         for (auto r : m_gpgIdManage.keysFoundInGpgIdFile){
+            l.append(QString::fromStdString(r.getKeyStr()));
+        }
+        return l;
+    };
+
+    QStringList  allPrivateKeys()
+    {
+        QStringList l;
+        for (auto r : m_gpgIdManage.allPrivateKeys){
             l.append(QString::fromStdString(r.getKeyStr()));
         }
         return l;
