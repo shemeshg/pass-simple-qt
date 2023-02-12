@@ -41,7 +41,7 @@ ScrollView {
 
     Component.onCompleted:{
         mainLayout.getMainqmltype().initGpgIdManage();
-        allPrivateKeys = [mainLayout.getGpgIdManageType().allPrivateKeys[0] , "GARGAML HHH"];
+        allPrivateKeys = mainLayout.getGpgIdManageType().allPrivateKeys;
     }
 
     function initOnFileChanged(){

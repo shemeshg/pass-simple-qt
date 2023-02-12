@@ -125,11 +125,17 @@ public:
   }
 
   Q_INVOKABLE void initGpgIdManage(){
+
+
       try {
         m_gpgIdManageType.init(appSettings.passwordStorePath().toStdString(), appSettings.passwordStorePath().toStdString(),&passHelper);
+        if (!appSettings.ctxSigner().isEmpty()){
+            passHelper.setCtxSigner({ appSettings.ctxSigner().split(" ")[0].toStdString()
+                                    });
+        }
       }
       catch (...) {
-       qDebug()<<"Just failed \n"; // Block of code to handle errors
+       qDebug()<<"Bad signer Id \n"; // Block of code to handle errors
       }
   }
 
