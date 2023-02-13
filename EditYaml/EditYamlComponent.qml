@@ -69,7 +69,7 @@ ColumnLayout {
                     Layout.fillWidth: true
                     InputTypeComponent {
                         id: inputTypeComponentId
-                        width: parent.width - 20
+                        width: parent.width
                         inputText: modelData.val
                         inputType: modelData.inputType
                         onTextChangedSignal:  function(s){

@@ -13,7 +13,7 @@ ColumnLayout {
 
     function doShowYAML(){
         if (!showYamlEdit && editYamlComponentId.editYamlType.isYamlValid){
-            decryptedTextId.textEdit.text = editYamlComponentId.editYamlType.getUpdatedText()
+            decryptedTextId.text = editYamlComponentId.editYamlType.getUpdatedText()
         }
     }
 
@@ -54,7 +54,7 @@ ColumnLayout {
     }
     RowLayout {
         visible: waitItems.indexOf(filePath) > -1 ||
-                                         noneWaitItems.indexOf(filePath) > -1
+                 noneWaitItems.indexOf(filePath) > -1
         Text {
             text: "File opened externally"
         }
@@ -135,9 +135,9 @@ ColumnLayout {
             enabled: hasEffectiveGpgIdFile && (!showYamlEdit || showYamlEdit && editYamlComponentId.editYamlType.isYamlValid)
             onClicked:{
                 if (showYamlEdit){
-                    decryptedTextId.textEdit.text = editYamlComponentId.editYamlType.getUpdatedText()
+                    decryptedTextId.text = editYamlComponentId.editYamlType.getUpdatedText()
                 }
-                mainLayout.encrypt(decryptedTextId.textEdit.text)
+                mainLayout.encrypt(decryptedTextId.text)
                 notifyStr("* Saved")
             }
             visible: isShowPreview
@@ -184,23 +184,23 @@ ColumnLayout {
                      noneWaitItems.indexOf(filePath) === -1
         }
     }
-
-    Row{
-        visible: isGpgFile
+    Row {
         Layout.fillWidth: true
-        TextEditComponent {
+        TextArea {
+            visible: isGpgFile && isShowPreview && !showYamlEdit
             id: decryptedTextId
-            visible: isShowPreview && !showYamlEdit
             width: parent.width - 20
+            wrapMode: TextEdit.WrapAnywhere
         }
     }
+
     Row {
         Layout.fillWidth: true
         visible: isGpgFile
         EditYamlComponent {
             id: editYamlComponentId
             visible: isShowPreview && showYamlEdit
-            text: decryptedTextId.textEdit.text
+            text: decryptedTextId.text
             width: parent.width
         }
     }

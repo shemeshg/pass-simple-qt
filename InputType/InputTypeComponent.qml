@@ -12,21 +12,22 @@ ColumnLayout {
 
     RowLayout {
 
-        Row{
-            Layout.fillWidth: true
-            TextEditComponent {
+
+
+            TextArea {
+                Layout.fillWidth: true
                 id: textEditComponentId
                 visible: inputType === "textedit"
-                textEdit.text: inputText
+                text: inputText
+                wrapMode: TextEdit.WrapAnywhere
                 onTextChanged: {
-                    textChangedSignal(textEdit.text)
-                    inputText = textEdit.text
+                    textChangedSignal(textEditComponentId.text)
+                    inputText = textEditComponentId.text
                 }
-                width: parent.width
-
-
             }
-        }
+
+
+
     }
     RowLayout {
 
@@ -48,7 +49,7 @@ ColumnLayout {
             text: inputText
             onTextChanged: {
                 textChangedSignal(text)
-                textEditComponentId.textEdit.text = text
+                textEditComponentId.text = text
             }
             Layout.fillWidth: true
             echoMode: (inputType === "totp" || inputType === "password") ? TextInput.Password : TextInput.Normal

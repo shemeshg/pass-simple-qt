@@ -7,12 +7,13 @@ Rectangle {
     property  alias textEdit: textEditId
     signal textChanged()
     color: "white"    
-    height: textEditId.height
-    width: parent.width -20
+    height: parent.height
+    width: parent.width
     TextEdit {
         id: textEditId
         text: ""
-        width: parent.width - 20
+        width: parent.width
+        height: parent.height
         onTextChanged: parent.textChanged()
         wrapMode: Text.WrapAnywhere
     }

@@ -47,7 +47,7 @@ ScrollView {
     function initOnFileChanged(){
         clearSystemTrayIconEntries();
         if (isShowPreview){
-            columnLayoutHomeId.editComponentId.decryptedTextId.textEdit.text = mainLayout.getDecrypted();
+            columnLayoutHomeId.editComponentId.decryptedTextId.text = mainLayout.getDecrypted();
         }
 
         columnLayoutHomeId.metaDataComponentId.nearestGit = mainLayout.getNearestGit();
@@ -169,7 +169,7 @@ ScrollView {
         Row{
             Rectangle {
                 color: "white"
-                width: scrollViewId.width - 20
+                width: parent.parent.parent.parent.width - 20
                 height: 2
             }
         }
