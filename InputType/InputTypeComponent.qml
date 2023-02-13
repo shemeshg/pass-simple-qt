@@ -11,9 +11,9 @@ ColumnLayout {
     signal textChangedSignal(s: string)
 
     RowLayout {
-         width: parent.width
+
         Row{
-             width: parent.width
+            Layout.fillWidth: true
             TextEditComponent {
                 id: textEditComponentId
                 visible: inputType === "textedit"

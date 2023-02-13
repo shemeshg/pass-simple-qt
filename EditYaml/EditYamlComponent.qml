@@ -66,9 +66,10 @@ ColumnLayout {
                     }
                 }
                 Row{
+                    Layout.fillWidth: true
                     InputTypeComponent {
                         id: inputTypeComponentId
-                        width: scrollViewId.width - 20
+                        width: parent.width - 20
                         inputText: modelData.val
                         inputType: modelData.inputType
                         onTextChangedSignal:  function(s){

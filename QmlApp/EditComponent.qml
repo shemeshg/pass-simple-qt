@@ -195,11 +195,13 @@ ColumnLayout {
         }
     }
     Row {
+        Layout.fillWidth: true
         visible: isGpgFile
         EditYamlComponent {
             id: editYamlComponentId
             visible: isShowPreview && showYamlEdit
             text: decryptedTextId.textEdit.text
+            width: parent.width
         }
     }
 
