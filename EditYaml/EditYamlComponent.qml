@@ -55,6 +55,7 @@ ColumnLayout {
             onCheckedChanged: {
                 isEditFieldsType = !isEditFieldsType;
             }
+            bottomPadding: 20;
         }
     }
 
@@ -67,7 +68,7 @@ ColumnLayout {
         Layout.fillWidth: true
         width: parent.width
         //Layout.fillHeight: true
-        height: 300
+        height: 400
 
         flickableDirection: Flickable.VerticalFlick
         boundsBehavior: Flickable.StopAtBounds
