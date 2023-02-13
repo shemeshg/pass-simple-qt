@@ -76,6 +76,13 @@ git config --local diff.gpg.binary true
 git config --local diff.gpg.textconv "gpg -d --quiet --yes --compress-algo=none --no-encrypt-to"
 ```
 
+7. Consider running RAM drive for temporary files
+
+```bash
+diskutil erasevolume HFS+ RAM_Disk_4G `hdiutil attach -nomount ram://8192000`
+```
+
+
 #### Mac dev env also requires
 1. 
 ```
