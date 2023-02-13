@@ -65,10 +65,8 @@ ColumnLayout {
         visible: editYamlType.isYamlValid
 
         ScrollBar.vertical: ScrollBar {}
-        Layout.fillWidth: true
-        width: parent.width
-        //Layout.fillHeight: true
-        height: 400
+        Layout.fillWidth: true        
+        Layout.fillHeight: true
 
         flickableDirection: Flickable.VerticalFlick
         boundsBehavior: Flickable.StopAtBounds
