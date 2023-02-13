@@ -184,13 +184,17 @@ ColumnLayout {
                      noneWaitItems.indexOf(filePath) === -1
         }
     }
-    Row {
+    Row{
         Layout.fillWidth: true
-        TextArea {
+        Layout.fillHeight:   true
+        ScrollView {
             visible: isGpgFile && isShowPreview && !showYamlEdit
-            id: decryptedTextId
-            width: parent.width - 20
-            wrapMode: TextEdit.WrapAnywhere
+            width: parent.width
+            height: parent.height
+            TextArea {
+                id: decryptedTextId
+                //wrapMode: TextEdit.WrapAnywhere
+            }
         }
     }
 
