@@ -187,10 +187,11 @@ ColumnLayout {
 
     Row{
         visible: isGpgFile
+        Layout.fillWidth: true
         TextEditComponent {
             id: decryptedTextId
             visible: isShowPreview && !showYamlEdit
-            width: scrollViewId.width - 20
+            width: parent.width - 20
         }
     }
     Row {
