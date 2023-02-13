@@ -7,12 +7,13 @@ import Qt.labs.platform
 import DropdownWithList
 import InputType
 
-ScrollView {
+
+ColumnLayout {
     width: parent.width
     height : parent.height
-    contentWidth: columnLayoutHomeId.width - 30   // The important part
-    contentHeight: columnLayoutHomeId.height + 90   // Same
-    clip : true
+    //contentWidth: columnLayoutHomeId.width - 30   // The important part
+    //contentHeight: columnLayoutHomeId.height + 90   // Same
+    //clip : true
 
     property int filePanSize: 0
     property int exceptionCounter: 0

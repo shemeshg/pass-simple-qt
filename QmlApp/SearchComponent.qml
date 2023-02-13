@@ -9,6 +9,7 @@ import DropdownWithList
 ColumnLayout {
     visible: isShowSearch
     width: parent.width
+    height: parent.height
 
     property string currentSearchFolder: passwordStorePathStr
     property var  searchResultModel: []
@@ -138,13 +139,10 @@ ColumnLayout {
         }
 
     }
-    Row{
-        width: parent.width
-        Rectangle {
-            color: "white"
-            width: parent.width - 20
-            height: 2
-        }
+    Rectangle {
+        color: "white"
+        Layout.fillWidth: true
+        height: 1
     }
     RowLayout {
         id: searchStatusLabelId
@@ -153,10 +151,17 @@ ColumnLayout {
             text: "Running..."
         }
     }
-    Repeater {
+    ListView {
         id: searchResultRepeaterId
         model: searchResultModel
-        RowLayout{
+
+        ScrollBar.vertical: ScrollBar {}
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        flickableDirection: Flickable.VerticalFlick
+        boundsBehavior: Flickable.StopAtBounds
+        delegate: RowLayout{
+
             Label {
                 text:  modelData.replace(passwordStorePathStr,"")
 
@@ -165,7 +170,8 @@ ColumnLayout {
                 text: "select"
                 onClicked: getMainqmltype().setTreeViewSelected(modelData)
             }
-
         }
+
+
     }
 }
