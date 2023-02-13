@@ -86,15 +86,13 @@ ColumnLayout {
 
         }
     }
-
-    Row{
+    Rectangle {
         visible: editYamlType.isYamlValid
-        Rectangle {
-            color: "white"
-            width: scrollViewId.width - 20
-            height: 2
-        }
+        Layout.fillWidth: true
+        Layout.preferredHeight: 1
+        color: "white"
     }
+
     RowLayout {
         visible: editYamlType.isYamlValid
         Switch {
