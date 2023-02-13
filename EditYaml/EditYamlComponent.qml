@@ -9,7 +9,8 @@ ColumnLayout {
     property alias text: editYamlType.text
     property alias  editYamlType: editYamlType
     property bool isEditFieldsType: false
-
+    height: parent.height
+    width:  parent.width
 
     Component {
         id: menuItem
@@ -38,12 +39,42 @@ ColumnLayout {
         visible: !editYamlType.isYamlValid
     }
 
-    ColumnLayout{
+    Rectangle {
         visible: editYamlType.isYamlValid
-        Repeater {
-            model: editYamlType.yamlModel
-            ColumnLayout {
+        Layout.fillWidth: true
+        Layout.preferredHeight: 1
+        color: "white"
+    }
+
+    RowLayout {
+        visible: editYamlType.isYamlValid
+        Switch {
+            id: idEditFieldsType
+            text: qsTr("Edit fields type")
+            checked: isEditFieldsType;
+            onCheckedChanged: {
+                isEditFieldsType = !isEditFieldsType;
+            }
+        }
+    }
+
+    ListView {
+        id: yamlModelListViewId
+        model: editYamlType.yamlModel
+        visible: editYamlType.isYamlValid
+
+        ScrollBar.vertical: ScrollBar {}
+        Layout.fillWidth: true
+        width: parent.width
+        //Layout.fillHeight: true
+        height: 300
+
+        flickableDirection: Flickable.VerticalFlick
+        boundsBehavior: Flickable.StopAtBounds
+        delegate:         ColumnLayout {
+                width: yamlModelListViewId.width
                 Row{
+                    Layout.fillWidth: true
                     Text {
                         text:  modelData.key + ": "
                         bottomPadding: 8
@@ -85,25 +116,8 @@ ColumnLayout {
             }
 
 
-        }
-    }
-    Rectangle {
-        visible: editYamlType.isYamlValid
-        Layout.fillWidth: true
-        Layout.preferredHeight: 1
-        color: "white"
     }
 
-    RowLayout {
-        visible: editYamlType.isYamlValid
-        Switch {
-            id: idEditFieldsType
-            text: qsTr("Edit fields type")
-            checked: isEditFieldsType;
-            onCheckedChanged: {
-                isEditFieldsType = !isEditFieldsType;
-            }
-        }
-    }
+
 }
 
