@@ -15,13 +15,13 @@ ColumnLayout {
 
     id: columnLayoutHomeId
 
-    width: scrollViewId.width
+
 
     visible: !isShowLog;
     TabBar {
         id: bar
         Layout.fillWidth: true
-        width: scrollViewId.width
+        width: parent.width
 
         TabButton {
             text: qsTr("Edit")
@@ -41,7 +41,7 @@ ColumnLayout {
     }
 
     StackLayout {
-        width: scrollViewId.width
+        width: parent.width
 
         currentIndex: bar.currentIndex
         EditComponent {
