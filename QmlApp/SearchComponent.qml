@@ -59,13 +59,13 @@ ColumnLayout {
             }
         }
     }
-    Row{
-        Rectangle {
-            color: "white"
-            width: scrollViewId.width - 20
-            height: 2
-        }
+
+    Rectangle {
+        Layout.fillWidth: true
+        Layout.preferredHeight: 1
+        color: "white"
     }
+
     RowLayout {
         Label {
             text: "File name"
@@ -139,9 +139,10 @@ ColumnLayout {
 
     }
     Row{
+        width: parent.width
         Rectangle {
             color: "white"
-            width: scrollViewId.width - 20
+            width: parent.width - 20
             height: 2
         }
     }

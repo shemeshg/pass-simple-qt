@@ -62,6 +62,7 @@ ScrollView {
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
         classInitialized = mainLayout.getGpgIdManageType().classInitialized
         gpgPubKeysFolderExists = mainLayout.getGpgIdManageType().gpgPubKeysFolderExists
+        isShowLog = true;
     }
 
     InputTypeType {
@@ -100,8 +101,8 @@ ScrollView {
     }
 
     Timer {
-                id: setTimeoutTimer
-            }
+        id: setTimeoutTimer
+    }
 
     function delaySetTimeOut(delayTime, cb) {
         setTimeoutTimer.interval = delayTime;
@@ -173,13 +174,15 @@ ScrollView {
                 height: 2
             }
         }
-        ColumnLayoutHome {            
+        ColumnLayoutHome {
             id: columnLayoutHomeId
         }
     }
-
-    ExceptionAndLog {
-        id: exceptionAndLogId
+    ColumnLayout {
+        width: parent.width
+        ExceptionAndLog {
+            id: exceptionAndLogId
+        }
     }
 
 

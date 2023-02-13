@@ -18,10 +18,11 @@ ColumnLayout {
 
     }
     Row{
+        Layout.fillWidth: true
         TextEditComponent {
             id: logTextId
             visible: isShowLog
-             width: scrollViewId.width - 20
+            width: parent.width
         }
 
     }

@@ -51,12 +51,10 @@ ColumnLayout {
             onClicked: saveSettingsComponent();
         }
     }
-    Row{
-        Rectangle {
-            color: "white"
-            width: scrollViewId.width - 20
-            height: 2
-        }
+    Rectangle {
+        Layout.fillWidth: true
+        Layout.preferredHeight: 1
+        color: "white"
     }
     RowLayout {
         Label {
