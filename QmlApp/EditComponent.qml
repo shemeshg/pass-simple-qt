@@ -25,16 +25,17 @@ ColumnLayout {
         }
     }
 
-    FileDialog {
+    FolderDialog {
         id: fileDialogDownload
         title: "Choose folder to download"
         onAccepted: {
-            getMainqmltype().decryptDownload(fileDialogDownload.selectedFile)
+            var filename = filePath.replace(/^.*[\\\/]/, '')
+            filename = filename.substr(0,filename.length-4)
+            getMainqmltype().decryptDownload(fileDialogDownload.selectedFolder + "/" +  filename)
         }
         onRejected: {
         }
-        fileMode: FileDialog.SaveFile
-
+        //fileMode: FileDialog.SaveFile
     }
 
     RowLayout {
@@ -48,7 +49,9 @@ ColumnLayout {
             visible: isGpgFile
             text: "download"
             enabled: isGpgFile
-            onClicked: fileDialogDownload.open()
+            onClicked: {
+                fileDialogDownload.open()
+            }
             rightPadding: 8
         }
     }

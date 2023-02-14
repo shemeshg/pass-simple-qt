@@ -12,17 +12,17 @@ ColumnLayout {
 
     property bool isUseClipboard: mainLayout.getMainqmltype().appSettingsType.useClipboard
 
-    FileDialog {
+    FolderDialog {
         id: selectStorePathDialogId
         title: "Select folder"
-        fileMode: FileDialog.OpenFile
+        //fileMode: FileDialog.OpenFile
         onAccepted: {
-            let path = selectStorePathDialogId.selectedFile.toString();
+            let path = selectStorePathDialogId.selectedFolder.toString();
             path = path.replace(/^(file:\/{3})/,"");
                     // unescape html codes like '%23' for '#'
             path = decodeURIComponent(path);
 
-            path =  path.substring(0, path.lastIndexOf("/")) ;
+            //path =  path.substring(0, path.lastIndexOf("/")) ;
             passwordStorePathStr = "/" + path
         }
         onRejected: {
