@@ -187,14 +187,24 @@ ColumnLayout {
 
 
 
-    Row {
+    ScrollView {
+
+        visible: isGpgFile && isShowPreview && !showYamlEdit
+        height: parent.height
+        width: parent.width
+        clip: true
         Layout.fillWidth: true
+        Layout.fillHeight: true
+
         TextArea {
-            visible: isGpgFile && isShowPreview && !showYamlEdit
             id: decryptedTextId
             width: parent.width
-            //wrapMode: TextEdit.WrapAnywhere
+            height: parent.height
+            Layout.fillWidth: true
+            Layout.fillHeight: true
         }
+
+
     }
 
     Row {
