@@ -19,7 +19,15 @@ ColumnLayout {
         }
     }
 
-
+    FolderDialog {
+        id: folderDialogUpload
+        title: "Choose folder to upload"
+        onAccepted: {
+            getMainqmltype().encryptFolderUpload(folderDialogUpload.selectedFolder, fullPathFolder)
+        }
+        onRejected: {
+        }
+    }
 
     id: addComponentId
     RowLayout{
@@ -78,7 +86,9 @@ ColumnLayout {
         Button {
             text: "upload folder content"
             enabled: Boolean(nearestGpg)
-            onClicked: {console.log("YES")}
+            onClicked: {
+                folderDialogUpload.open();
+            }
         }
     }
 

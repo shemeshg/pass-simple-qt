@@ -340,6 +340,17 @@ fields type:
     });
   }
 
+  Q_INVOKABLE void encryptFolderUpload(QString fromFolderName, QString fullPathFolder) {
+      const QUrl url(fromFolderName);
+    runSafeFromException(
+        [&]() {
+        passHelper.encryptFolderToFolder(url.toLocalFile().toStdString(),
+                                         fullPathFolder.toStdString(),
+                                         m_gpgIdManageType.getEncryptTo());
+    });
+  }
+
+
   Q_INVOKABLE QString runCmd(QStringList keysFound, QString noEscaped){
       RunShellCmd rsc;
       std::vector<std::string> v{};
