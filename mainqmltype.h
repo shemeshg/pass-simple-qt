@@ -332,6 +332,14 @@ fields type:
         [&]() { passFile->decryptToFile(url.toLocalFile().toStdString()); });
   }
 
+  Q_INVOKABLE void decryptFolderDownload(QString fullPathFolder, QString toFolderName) {
+      const QUrl url(toFolderName);
+    runSafeFromException(
+        [&]() {
+        passHelper.decryptFolderToFolder(fullPathFolder.toStdString(), url.toLocalFile().toStdString());
+    });
+  }
+
   Q_INVOKABLE QString runCmd(QStringList keysFound, QString noEscaped){
       RunShellCmd rsc;
       std::vector<std::string> v{};

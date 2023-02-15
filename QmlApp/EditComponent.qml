@@ -38,6 +38,18 @@ ColumnLayout {
         //fileMode: FileDialog.SaveFile
     }
 
+
+    FolderDialog {
+        id: folderDialogDownload
+        title: "Choose folder to download"
+        onAccepted: {
+            getMainqmltype().decryptFolderDownload(fullPathFolder, folderDialogDownload.selectedFolder)
+        }
+        onRejected: {
+        }
+        //fileMode: FileDialog.SaveFile
+    }
+
     RowLayout {
         width: parent.width
         Text {
@@ -51,7 +63,7 @@ ColumnLayout {
 
         Button {
             visible: isGpgFile
-            text: "download"
+            text: "download file"
             enabled: isGpgFile
             onClicked: {
                 fileDialogDownload.open()
@@ -63,7 +75,9 @@ ColumnLayout {
             visible: Boolean(nearestGpg)
             text: "download folder content"
             onClicked: {
-               onClicked: {console.log("YES")}
+               onClicked: {
+                    folderDialogDownload.open();
+                }
             }
             rightPadding: 8
         }
