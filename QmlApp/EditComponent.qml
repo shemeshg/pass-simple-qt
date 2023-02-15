@@ -45,12 +45,25 @@ ColumnLayout {
             text: "<h1>Edit<h1>"
             Layout.fillWidth: true
         }
+        Item {
+            Layout.fillWidth: true
+        }
+
         Button {
             visible: isGpgFile
             text: "download"
             enabled: isGpgFile
             onClicked: {
                 fileDialogDownload.open()
+            }
+            rightPadding: 8
+        }
+        Button {
+
+            visible: Boolean(nearestGpg)
+            text: "download folder content"
+            onClicked: {
+               onClicked: {console.log("YES")}
             }
             rightPadding: 8
         }

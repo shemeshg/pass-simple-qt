@@ -66,14 +66,19 @@ ColumnLayout {
     }
     RowLayout{
         Label {
-            text: "<h2>Upload existing file</h2>"
+            text: "<h2>Upload</h2>"
         }
     }
     RowLayout {
         Button {
-            text: "upload"
+            text: "upload file"
             enabled: Boolean(nearestGpg)
             onClicked: fileDialogUpload.open()
+        }
+        Button {
+            text: "upload folder content"
+            enabled: Boolean(nearestGpg)
+            onClicked: {console.log("YES")}
         }
     }
 
