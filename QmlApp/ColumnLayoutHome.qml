@@ -11,7 +11,7 @@ ColumnLayout {
     property alias manageGpgIdComponentId: manageGpgIdComponentId
     property alias editComponentId: editComponentId
     property alias addComponentId: addComponentId
-
+    property alias toolbarId: toolbarId
 
     id: columnLayoutHomeId
 
@@ -19,9 +19,10 @@ ColumnLayout {
 
     visible: !isShowLog;
     TabBar {
-        id: bar
+        id: toolbarId
         Layout.fillWidth: true
         width: parent.width
+
 
         TabButton {
             text: qsTr("Edit")
@@ -43,7 +44,7 @@ ColumnLayout {
     StackLayout {
         width: parent.width
 
-        currentIndex: bar.currentIndex
+        currentIndex: toolbarId.currentIndex
         EditComponent {
             id: editComponentId
         }

@@ -39,12 +39,21 @@ ColumnLayout {
     property string passwordStorePathStr: mainLayout.getMainqmltype().appSettingsType.passwordStorePath
     property var allPrivateKeys: []
 
+    function refreshToolBar(){
+        //this is akward but it works (force refresh)
+        columnLayoutHomeId.toolbarId.currentIndex = 4;
+        columnLayoutHomeId.toolbarId.currentIndex = 0;
+
+    }
+
     Component.onCompleted:{
         mainLayout.getMainqmltype().initGpgIdManage();
         allPrivateKeys = mainLayout.getGpgIdManageType().allPrivateKeys;
+        refreshToolBar();
     }
 
     function initOnFileChanged(){
+        refreshToolBar()
         clearSystemTrayIconEntries();
         if (isShowPreview){
             columnLayoutHomeId.editComponentId.decryptedTextId.text = mainLayout.getDecrypted();
