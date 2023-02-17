@@ -95,6 +95,7 @@ brew install gpgme libgpg-error pinentry-mac yaml-cpp
 
 #### Ubuntu  
 
+Read macosx section abouve, most of it also relevant for ubuntu
 
 No appImage yet, compile yourself
 
@@ -113,6 +114,15 @@ in application settings)
 ```
 sudo apt install libyaml-cpp-dev libgpgme-dev
 sudo apt-get install -y libgpgmepp-dev
+```
+
+Remember to pull also the submodules
+
+https://stackoverflow.com/questions/1030169/pull-latest-changes-for-all-git-submodules
+
+```bash
+~/Qt/6.5.0/gcc_64/bin/qt-cmake -DCMAKE_BUILD_TYPE=Release ../pass-simple-qt/
+cmake --build .
 ```
 
 ## Built With
