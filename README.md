@@ -102,7 +102,7 @@ No appImage yet, compile yourself
 install qt https://web.stanford.edu/dept/cs_edu/resources/qt/install-linux
 
 ```
-suto apt-get install pass 
+suto apt-get install pass gnupg2
 ```
 
 test ydotool, or use clipboard (used by default
