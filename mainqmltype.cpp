@@ -2,23 +2,28 @@
 
 #include <qstring.h>
 
-
-
-MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,QTreeView *treeView, QSplitter *s, QMenu* autoTypeFields ,QObject *parent) :
-    QObject(parent), splitter{s}, treeView{treeView},filesystemModel{filesystemModel},autoTypeFields{autoTypeFields}
-{    
-
-    watchWaitAndNoneWaitRunCmd.callback = [&](){
+MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,
+                         QTreeView *treeView,
+                         QSplitter *s,
+                         QMenu *autoTypeFields,
+                         QObject *parent)
+    : QObject(parent)
+    , splitter{s}
+    , treeView{treeView}
+    , filesystemModel{filesystemModel}
+    , autoTypeFields{autoTypeFields}
+{
+    watchWaitAndNoneWaitRunCmd.callback = [&]() {
         QStringList waitString, noneWaitString;
 
         for (auto &itm : watchWaitAndNoneWaitRunCmd.waitItems) {
-            waitString.push_back(QString::fromStdString( itm.uniqueId));
+            waitString.push_back(QString::fromStdString(itm.uniqueId));
         }
         for (auto &itm : watchWaitAndNoneWaitRunCmd.noneWaitItems) {
-            noneWaitString.push_back(QString::fromStdString( itm.uniqueId));
+            noneWaitString.push_back(QString::fromStdString(itm.uniqueId));
         }
         setWaitItems(waitString);
-        setNoneWaitItems(noneWaitString);        
+        setNoneWaitItems(noneWaitString);
     };
     loadTreeView();
 }
@@ -35,12 +40,12 @@ void MainQmlType::setFilePath(const QString &filePath)
     m_filePath = filePath;
     passFile->setFullPath(m_filePath.toStdString());
     try {
-      m_gpgIdManageType.init(m_filePath.toStdString(), appSettings.passwordStorePath().toStdString(),&passHelper);
+        m_gpgIdManageType.init(m_filePath.toStdString(),
+                               appSettings.passwordStorePath().toStdString(),
+                               &passHelper);
+    } catch (...) {
+        qDebug() << "Just failed \n"; // Block of code to handle errors
     }
-    catch (...) {
-     qDebug()<<"Just failed \n"; // Block of code to handle errors
-    }
-
 
     emit filePathChanged();
 }
@@ -58,5 +63,3 @@ void MainQmlType::setFilePanSize(const int &filePanSize)
     m_filePanSize = filePanSize;
     emit filePanSizeChanged();
 }
-
-

@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.5)
 
 project(pass-simple VERSION 0.24 LANGUAGES CXX)
 
+include(cmake/CPM.cmake)
+CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -11,12 +14,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 CMAKE_POLICY(SET CMP0071 NEW) 
 
-
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent LabsFolderListModel)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent LabsFolderListModel)
-
-
-
 
 
 set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/rc.qrc")
@@ -25,17 +24,19 @@ add_subdirectory(EditYaml)
 add_subdirectory(InputType)
 add_subdirectory(DropdownWithList)
 
+# generated files should be on build dir only
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+configure_file("${PROJECT_SOURCE_DIR}/config.h.in" "${CMAKE_BINARY_DIR}/config.h")
+
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        qwidgetqrc.qrc
-        ${TS_FILES}
-        ${APP_ICON_RESOURCE_WINDOWS}
+    main.cpp
+    mainwindow.cpp
+    mainwindow.h
+    mainwindow.ui
+    qwidgetqrc.qrc
+    ${TS_FILES}
+    ${APP_ICON_RESOURCE_WINDOWS}
 )
-
-
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(MACOSX TRUE)
@@ -50,7 +51,6 @@ if(WIN32 OR MSVC OR MSYS OR MINGW)
     set(PROJECT_OS "WINDOWS")
 endif()
 
-configure_file("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
 
 if(MACOSX)
     # Application icon
@@ -91,10 +91,8 @@ else()
         )
     endif()
 
-    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
-
-
 
 
 # LibGpgError bug must include_directories on root, but can be linked in subdirectory
@@ -107,7 +105,7 @@ add_subdirectory(gpgfactory/libpgpfactory)
 find_package(yaml-cpp REQUIRED)
 include_directories(${YAML_CPP_INCLUDE_DIR})
 
-set(TS_FILES pass-simple_en_US.ts)
+set(TS_FILES ts/pass-simple_en_US.ts)
 
 
 

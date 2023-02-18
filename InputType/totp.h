@@ -24,75 +24,72 @@
 
 class QUrl;
 
-namespace Totp
+namespace Totp {
+struct Encoder
 {
-    struct Encoder
-    {
-        QString name;
-        QString shortName;
-        QString alphabet;
-        uint digits;
-        uint step;
-        bool reverse;
-    };
+    QString name;
+    QString shortName;
+    QString alphabet;
+    uint digits;
+    uint step;
+    bool reverse;
+};
 
-    enum Algorithm
-    {
-        Sha1,
-        Sha256,
-        Sha512,
-    };
+enum Algorithm {
+    Sha1,
+    Sha256,
+    Sha512,
+};
 
-    enum StorageFormat
-    {
-        OTPURL,
-        KEEOTP,
-        LEGACY,
-    };
+enum StorageFormat {
+    OTPURL,
+    KEEOTP,
+    LEGACY,
+};
 
-    struct Settings
-    {
-        Totp::StorageFormat format;
-        Totp::Encoder encoder;
-        Totp::Algorithm algorithm;
-        QString key;
-        bool custom;
-        uint digits;
-        uint step;
-    };
+struct Settings
+{
+    Totp::StorageFormat format;
+    Totp::Encoder encoder;
+    Totp::Algorithm algorithm;
+    QString key;
+    bool custom;
+    uint digits;
+    uint step;
+};
 
-    constexpr uint DEFAULT_STEP = 30u;
-    constexpr uint DEFAULT_DIGITS = 6u;
-    constexpr uint STEAM_DIGITS = 5u;
-    constexpr Totp::Algorithm DEFAULT_ALGORITHM = Sha1;
-    constexpr Totp::StorageFormat DEFAULT_FORMAT = OTPURL;
-    static const QString STEAM_SHORTNAME = "S";
+constexpr uint DEFAULT_STEP = 30u;
+constexpr uint DEFAULT_DIGITS = 6u;
+constexpr uint STEAM_DIGITS = 5u;
+constexpr Totp::Algorithm DEFAULT_ALGORITHM = Sha1;
+constexpr Totp::StorageFormat DEFAULT_FORMAT = OTPURL;
+static const QString STEAM_SHORTNAME = "S";
 
-    static const QString ATTRIBUTE_OTP = "otp";
-    static const QString ATTRIBUTE_SEED = "TOTP Seed";
-    static const QString ATTRIBUTE_SETTINGS = "TOTP Settings";
+static const QString ATTRIBUTE_OTP = "otp";
+static const QString ATTRIBUTE_SEED = "TOTP Seed";
+static const QString ATTRIBUTE_SETTINGS = "TOTP Settings";
 
-    QSharedPointer<Totp::Settings> parseSettings(const QString& rawSettings, const QString& key = {});
-    QSharedPointer<Totp::Settings> createSettings(const QString& key,
-                                                  const uint digits,
-                                                  const uint step,
-                                                  const Totp::StorageFormat format = DEFAULT_FORMAT,
-                                                  const QString& encoderShortName = {},
-                                                  const Totp::Algorithm algorithm = DEFAULT_ALGORITHM);
-    QString writeSettings(const QSharedPointer<Totp::Settings>& settings,
-                          const QString& title = {},
-                          const QString& username = {},
-                          bool forceOtp = false);
+QSharedPointer<Totp::Settings> parseSettings(const QString &rawSettings, const QString &key = {});
+QSharedPointer<Totp::Settings> createSettings(const QString &key,
+                                              const uint digits,
+                                              const uint step,
+                                              const Totp::StorageFormat format = DEFAULT_FORMAT,
+                                              const QString &encoderShortName = {},
+                                              const Totp::Algorithm algorithm = DEFAULT_ALGORITHM);
+QString writeSettings(const QSharedPointer<Totp::Settings> &settings,
+                      const QString &title = {},
+                      const QString &username = {},
+                      bool forceOtp = false);
 
-    QString generateTotp(const QSharedPointer<Totp::Settings>& settings, const quint64 time = 0ull);
+QString generateTotp(const QSharedPointer<Totp::Settings> &settings, const quint64 time = 0ull);
 
-    QList<QPair<QString, QString>> supportedEncoders();
-    QList<QPair<QString, Algorithm>> supportedAlgorithms();
+QList<QPair<QString, QString>> supportedEncoders();
+QList<QPair<QString, Algorithm>> supportedAlgorithms();
 
-    Encoder& defaultEncoder();
-    Encoder& steamEncoder();
-    Encoder& getEncoderByShortName(const QString& shortName);
-    Encoder& getEncoderByName(const QString& name);
+Encoder &defaultEncoder();
+Encoder &steamEncoder();
+Encoder &getEncoderByShortName(const QString &shortName);
+Encoder &getEncoderByName(const QString &name);
 } // namespace Totp
 
 #endif // QTOTP_H

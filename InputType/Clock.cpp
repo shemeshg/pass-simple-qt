@@ -39,7 +39,7 @@ qint64 Clock::currentMilliSecondsSinceEpoch()
     return instance().currentDateTimeImpl().toMSecsSinceEpoch();
 }
 
-QDateTime Clock::serialized(const QDateTime& dateTime)
+QDateTime Clock::serialized(const QDateTime &dateTime)
 {
     auto time = dateTime.time();
     if (time.isValid() && time.msec() != 0) {
@@ -68,12 +68,12 @@ QDateTime Clock::datetime(qint64 msecSinceEpoch)
     return QDateTime::fromMSecsSinceEpoch(msecSinceEpoch, Qt::LocalTime);
 }
 
-QDateTime Clock::parse(const QString& text, Qt::DateFormat format)
+QDateTime Clock::parse(const QString &text, Qt::DateFormat format)
 {
     return QDateTime::fromString(text, format);
 }
 
-QDateTime Clock::parse(const QString& text, const QString& format)
+QDateTime Clock::parse(const QString &text, const QString &format)
 {
     return QDateTime::fromString(text, format);
 }
@@ -97,12 +97,12 @@ void Clock::resetInstance()
     m_instance.reset();
 }
 
-void Clock::setInstance(Clock* clock)
+void Clock::setInstance(Clock *clock)
 {
     m_instance = QSharedPointer<Clock>(clock);
 }
 
-const Clock& Clock::instance()
+const Clock &Clock::instance()
 {
     if (!m_instance) {
         m_instance = QSharedPointer<Clock>(new Clock());

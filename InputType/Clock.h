@@ -30,7 +30,7 @@ public:
     static uint currentSecondsSinceEpoch();
     static qint64 currentMilliSecondsSinceEpoch();
 
-    static QDateTime serialized(const QDateTime& dateTime);
+    static QDateTime serialized(const QDateTime &dateTime);
 
     static QDateTime datetimeUtc(int year, int month, int day, int hour, int min, int second);
     static QDateTime datetime(int year, int month, int day, int hour, int min, int second);
@@ -38,8 +38,8 @@ public:
     static QDateTime datetimeUtc(qint64 msecSinceEpoch);
     static QDateTime datetime(qint64 msecSinceEpoch);
 
-    static QDateTime parse(const QString& text, Qt::DateFormat format = Qt::TextDate);
-    static QDateTime parse(const QString& text, const QString& format);
+    static QDateTime parse(const QString &text, Qt::DateFormat format = Qt::TextDate);
+    static QDateTime parse(const QString &text, const QString &format);
 
     virtual ~Clock();
 
@@ -49,8 +49,8 @@ protected:
     virtual QDateTime currentDateTimeImpl() const;
 
     static void resetInstance();
-    static void setInstance(Clock* clock);
-    static const Clock& instance();
+    static void setInstance(Clock *clock);
+    static const Clock &instance();
 
 private:
     static QSharedPointer<Clock> m_instance;
