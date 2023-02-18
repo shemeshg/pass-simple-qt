@@ -93,7 +93,7 @@ brew install gpgme libgpg-error pinentry-mac yaml-cpp
 ```
 
 
-#### Ubuntu  
+## Ubuntu  
 
 Read macosx section abouve, most of it also relevant for ubuntu
 
