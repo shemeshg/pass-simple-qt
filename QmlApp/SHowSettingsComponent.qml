@@ -3,8 +3,9 @@ import QmlApp
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Dialogs
-
+import Qt.labs.platform
 import DropdownWithList
+
 
 ColumnLayout {
     visible: isShowSettings
