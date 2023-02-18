@@ -41,8 +41,9 @@ ColumnLayout {
 
     function refreshToolBar(){
         //this is akward but it works (force refresh)
+        let i = columnLayoutHomeId.toolbarId.currentIndex
         columnLayoutHomeId.toolbarId.currentIndex = 4;
-        columnLayoutHomeId.toolbarId.currentIndex = 0;
+        columnLayoutHomeId.toolbarId.currentIndex = i;
 
     }
 
