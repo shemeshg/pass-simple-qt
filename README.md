@@ -13,7 +13,6 @@ Screenshots: https://github.com/shemeshg/pass-simple-qt/wiki
 ### Template file example
 
 ```YAML
----
 user name: ""
 password: ""
 home page: ""
