@@ -97,24 +97,30 @@ brew install gpgme libgpg-error pinentry-mac yaml-cpp
 
 Read macosx section abouve, most of it also relevant for ubuntu
 
-No appImage yet, compile yourself
+No appImage yet, you can 
+
+1. compile yourself
+
+or 
+
+2. Download static linked folder for Ubuntu20.04
+
+No matter Compiling or using the static link  folder - Install dependencies 
+```
+suto apt-get -y  install pass gnupg2 libyaml-cpp-dev libgpgme-dev libgpgmepp-dev
+```
+
+* test ydotool, or use clipboard (used by default, see application settings)
+
+* Create desktiop shortcut, see `pass-simple.desktop` example file in this repository
+
+#### Ubuntu Compiling 
+
 
 
 install qt https://web.stanford.edu/dept/cs_edu/resources/qt/install-linux
 
-```
-suto apt-get install pass gnupg2
-```
-
-test ydotool, or use clipboard (used by default
-in application settings)
-
-#### Ubuntu dev env also requires
-
-```
-sudo apt install libyaml-cpp-dev libgpgme-dev
-sudo apt-get install -y libgpgmepp-dev
-```
+Notice: Qt6 packages in the deb repository are broken, so download the install from Qt.com
 
 Remember to pull also the submodules
 
