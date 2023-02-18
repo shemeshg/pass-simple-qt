@@ -103,6 +103,9 @@ include_directories(${LibGpgError_INCLUDE_DIRS})
 # End LibGpgError
 add_subdirectory(gpgfactory/libpgpfactory)
 
+find_package(yaml-cpp REQUIRED)
+include_directories(${YAML_CPP_INCLUDE_DIR})
+
 set(TS_FILES pass-simple_en_US.ts)
 
 
@@ -117,6 +120,7 @@ target_link_libraries(pass-simple PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_
     InputType
     DropdownWithList
     libpgpfactory    
+	yaml-cpp
 )
 
 set_target_properties(pass-simple PROPERTIES

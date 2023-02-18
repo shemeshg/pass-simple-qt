@@ -5,5 +5,5 @@
 #define PROJECT_VER_MAJOR "0"
 #define PROJECT_VER_MINOR "23"
 #define PTOJECT_VER_PATCH ""
-#define PROJECT_OS "MACOSX"
+#define PROJECT_OS "LINUX"
 
