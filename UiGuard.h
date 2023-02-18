@@ -1,11 +1,11 @@
 #pragma once
-#include <QWidget>
 #include <QInputEvent>
+#include <QWidget>
 
 class UiGuard : public QObject
 {
 public:
-    UiGuard(QWidget * ui)
+    UiGuard(QWidget *ui)
         : widget(ui)
     {
         widget->grabMouse();
@@ -19,11 +19,11 @@ public:
         widget->releaseMouse();
     }
 
-    bool eventFilter(QObject *, QEvent * event) override
+    bool eventFilter(QObject *, QEvent *event) override
     {
-        return dynamic_cast<QInputEvent *>(event);  // Eat up the input events
+        return dynamic_cast<QInputEvent *>(event); // Eat up the input events
     }
 
 private:
-    QWidget * widget;
+    QWidget *widget;
 };

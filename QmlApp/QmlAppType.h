@@ -5,20 +5,19 @@
 
 class QmlAppType : public QObject
 {
-  Q_OBJECT  
-  // hygen Q_PROPERTY
-  QML_ELEMENT
+    Q_OBJECT
+    // hygen Q_PROPERTY
+    QML_ELEMENT
 
 public:
-  explicit QmlAppType(QObject *parent = nullptr) : QObject(parent){};
- 
-  // hygen public
+    explicit QmlAppType(QObject *parent = nullptr)
+        : QObject(parent){};
+
+    // hygen public
 
 signals:
-  // hygen signals
+    // hygen signals
 
 private:
-  // hygen private
+    // hygen private
 };
-
-

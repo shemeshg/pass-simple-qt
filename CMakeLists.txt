@@ -105,7 +105,7 @@ add_subdirectory(gpgfactory/libpgpfactory)
 find_package(yaml-cpp REQUIRED)
 include_directories(${YAML_CPP_INCLUDE_DIR})
 
-set(TS_FILES pass-simple_en_US.ts)
+set(TS_FILES ts/pass-simple_en_US.ts)
 
 
 

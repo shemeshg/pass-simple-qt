@@ -43,7 +43,7 @@ constexpr quint8 ASCII_a = static_cast<quint8>('a');
 constexpr quint8 ASCII_z = static_cast<quint8>('z');
 constexpr quint8 ASCII_EQ = static_cast<quint8>('=');
 
-QVariant Base32::decode(const QByteArray& encodedData)
+QVariant Base32::decode(const QByteArray &encodedData)
 {
     if (encodedData.size() <= 0) {
         return QVariant::fromValue(QByteArray(""));
@@ -142,7 +142,7 @@ QVariant Base32::decode(const QByteArray& encodedData)
     return QVariant::fromValue(data);
 }
 
-QByteArray Base32::encode(const QByteArray& data)
+QByteArray Base32::encode(const QByteArray &data)
 {
     if (data.size() < 1) {
         return {};
@@ -227,7 +227,7 @@ QByteArray Base32::encode(const QByteArray& data)
     return encodedData;
 }
 
-QByteArray Base32::addPadding(const QByteArray& encodedData)
+QByteArray Base32::addPadding(const QByteArray &encodedData)
 {
     if (encodedData.size() <= 0 || encodedData.size() % 8 == 0) {
         return encodedData;
@@ -247,7 +247,7 @@ QByteArray Base32::addPadding(const QByteArray& encodedData)
     return newEncodedData;
 }
 
-QByteArray Base32::removePadding(const QByteArray& encodedData)
+QByteArray Base32::removePadding(const QByteArray &encodedData)
 {
     if (encodedData.size() <= 0 || encodedData.size() % 8 != 0) {
         return encodedData; // return same bad input
@@ -267,7 +267,7 @@ QByteArray Base32::removePadding(const QByteArray& encodedData)
     return newEncodedData;
 }
 
-QByteArray Base32::sanitizeInput(const QByteArray& encodedData)
+QByteArray Base32::sanitizeInput(const QByteArray &encodedData)
 {
     if (encodedData.size() <= 0) {
         return encodedData;

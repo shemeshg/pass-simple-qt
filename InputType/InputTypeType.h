@@ -1,11 +1,11 @@
 #pragma once
 
-#include <QObject>
-#include <qqmlregistration.h>
-#include <QSharedPointer>
 #include <algorithm>
 #include <string>
+#include <QObject>
+#include <QSharedPointer>
 #include <qdebug.h>
+#include <qqmlregistration.h>
 
 class InputTypeType : public QObject
 {
@@ -14,22 +14,14 @@ class InputTypeType : public QObject
     QML_ELEMENT
 
 public:
-    explicit InputTypeType(QObject *parent = nullptr) : QObject(parent){};
+    explicit InputTypeType(QObject *parent = nullptr)
+        : QObject(parent){};
 
     // hygen public
-
-
-
-
 
 signals:
     // hygen signals
 
 private:
     // hygen private
-
-
-
 };
-
-
