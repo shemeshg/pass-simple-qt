@@ -11,9 +11,13 @@ ColumnLayout {
     FileDialog {
         id: fileDialogUpload
         title: "Choose file to upload"
-        fileMode: FileDialog.OpenFile
+        fileMode: FileDialog.OpenFile        
         onAccepted: {
-            getMainqmltype().encryptUpload( fullPathFolder, fileDialogUpload.selectedFile);
+            fileDialogUpload.files.forEach((f)=> {
+                getMainqmltype().encryptUpload( fullPathFolder, f);
+            })
+
+
         }
         onRejected: {
         }
@@ -23,7 +27,7 @@ ColumnLayout {
         id: folderDialogUpload
         title: "Choose folder to upload"
         onAccepted: {
-            getMainqmltype().encryptFolderUpload(folderDialogUpload.selectedFolder, fullPathFolder)
+            getMainqmltype().encryptFolderUpload(folderDialogUpload.currentFolder, fullPathFolder)
         }
         onRejected: {
         }
@@ -81,7 +85,9 @@ ColumnLayout {
         Button {
             text: "upload file"
             enabled: Boolean(nearestGpg)
-            onClicked: fileDialogUpload.open()
+            onClicked: {
+                fileDialogUpload.open()
+            }
         }
         Button {
             text: "upload folder content"
