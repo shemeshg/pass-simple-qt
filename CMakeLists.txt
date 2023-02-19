@@ -26,7 +26,6 @@ add_subdirectory(DropdownWithList)
 
 # generated files should be on build dir only
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-configure_file("${PROJECT_SOURCE_DIR}/config.h.in" "${CMAKE_BINARY_DIR}/config.h")
 
 set(PROJECT_SOURCES
     main.cpp
@@ -51,6 +50,7 @@ if(WIN32 OR MSVC OR MSYS OR MINGW)
     set(PROJECT_OS "WINDOWS")
 endif()
 
+configure_file("${PROJECT_SOURCE_DIR}/config.h.in" "${CMAKE_BINARY_DIR}/config.h")
 
 if(MACOSX)
     # Application icon
