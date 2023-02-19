@@ -11,8 +11,6 @@
 #include "libpasshelper.h"
 
 #include "AppSettings.h"
-#include "InputType/totp.h"
-#include "config.h"
 #include <QClipboard>
 #include <QFileSystemModel>
 #include <QGuiApplication>
@@ -54,92 +52,31 @@ public:
 
     QStringList waitItems() { return m_waitItems; };
 
-    void setWaitItems(const QStringList &waitItems)
-    {
-        if (waitItems == m_waitItems)
-            return;
-
-        m_waitItems = waitItems;
-        emit waitItemsChanged();
-    }
+    void setWaitItems(const QStringList &waitItems);
     QStringList noneWaitItems() { return m_noneWaitItems; };
 
-    void setNoneWaitItems(const QStringList &noneWaitItems)
-    {
-        if (noneWaitItems == m_noneWaitItems)
-            return;
-
-        m_noneWaitItems = noneWaitItems;
-        emit noneWaitItemsChanged();
-    }
+    void setNoneWaitItems(const QStringList &noneWaitItems);
     int exceptionCounter() { return m_exceptionCounter; };
 
-    void setExceptionCounter(const int &exceptionCounter)
-    {
-        if (exceptionCounter == m_exceptionCounter)
-            return;
-
-        m_exceptionCounter = exceptionCounter;
-        emit exceptionCounterChanged();
-    }
+    void setExceptionCounter(const int &exceptionCounter);
     QString exceptionStr() { return m_exceptionStr; };
 
-    void setExceptionStr(const QString &exceptionStr)
-    {
-        if (exceptionStr == m_exceptionStr)
-            return;
-
-        m_exceptionStr = exceptionStr;
-        emit exceptionStrChanged();
-    }
+    void setExceptionStr(const QString &exceptionStr);
     AppSettings *appSettingsType() { return &appSettings; };
 
-    void setAppSettingsType(AppSettings *appSettingsType)
-    {
-        appSettings.setPasswordStorePath(appSettingsType->passwordStorePath());
-        appSettings.setTmpFolderPath(appSettingsType->tmpFolderPath());
-        emit appSettingsTypeChanged();
-        qDebug() << "Yes subbmited";
-    }
+    void setAppSettingsType(AppSettings *appSettingsType);
     QStringList &searchResult() { return m_searchResult; };
 
-    void setSearchResult(const QStringList &searchResult)
-    {
-        m_searchResult = searchResult;
-        emit searchResultChanged();
-    }
+    void setSearchResult(const QStringList &searchResult);
     // hygen public
 
     GpgIdManageType *gpgIdManageType() { return &m_gpgIdManageType; }
 
     Q_INVOKABLE void doSearch(QString rootFolderToSearch,
                               QString FolderToSearch,
-                              QString fileRegExStr)
-    {
-        m_searchResult.clear();
-        emit searchResultChanged();
-        passHelper.searchDown(rootFolderToSearch.toStdString(),
-                              FolderToSearch.toStdString(),
-                              fileRegExStr.toStdString(),
-                              [&](std::string path) {
-                                  m_searchResult.push_back(QString::fromStdString(path));
-                                  emit searchResultChanged();
-                              });
-    }
+                              QString fileRegExStr);
 
-    Q_INVOKABLE void initGpgIdManage()
-    {
-        try {
-            m_gpgIdManageType.init(appSettings.passwordStorePath().toStdString(),
-                                   appSettings.passwordStorePath().toStdString(),
-                                   &passHelper);
-            if (!appSettings.ctxSigner().isEmpty()) {
-                passHelper.setCtxSigner({appSettings.ctxSigner().split(" ")[0].toStdString()});
-            }
-        } catch (...) {
-            qDebug() << "Bad signer Id \n"; // Block of code to handle errors
-        }
-    }
+    Q_INVOKABLE void initGpgIdManage();
 
     Q_INVOKABLE void submit_AppSettingsType(QString passwordStorePath,
                                             QString tmpFolderPath,
@@ -148,256 +85,51 @@ public:
                                             QString autoTypeCmd,
                                             bool useClipboard,
                                             int fontSize,
-                                            QString ctxSigner)
-    {
-        appSettings.setPasswordStorePath(passwordStorePath);
-        appSettings.setTmpFolderPath(tmpFolderPath);
+                                            QString ctxSigner);
 
-        appSettings.setGitExecPath(gitExecPath);
-        appSettings.setVscodeExecPath(vscodeExecPath);
-        appSettings.setAutoTypeCmd(autoTypeCmd);
-        appSettings.setUseClipboard(useClipboard);
-        appSettings.setfontSize(fontSize);
-        appSettings.setCtxSigner(ctxSigner);
+    Q_INVOKABLE void setTreeViewSelected(QString path);
 
-        loadTreeView();
-        emit appSettingsTypeChanged();
-    }
+    Q_INVOKABLE void toggleFilepan();
 
-    Q_INVOKABLE void setTreeViewSelected(QString path)
-    {
-        treeView->setCurrentIndex(filesystemModel->index(path));
-    }
+    Q_INVOKABLE void encrypt(QString s);
 
-    Q_INVOKABLE void toggleFilepan()
-    {
-        if (m_filePanSize == 0) {
-            splitter->setSizes(QList<int>({150, 400}));
-            setFilePanSize(150);
-        } else {
-            splitter->setSizes(QList<int>({0, 400}));
-            setFilePanSize(0);
-        }
-    }
+    Q_INVOKABLE void openExternalEncryptWait();
 
-    Q_INVOKABLE void encrypt(QString s)
-    {
-        if (passFile->isGpgFile()) {
-            runSafeFromException(
-                [&]() { passFile->encrypt(s.toStdString(), m_gpgIdManageType.getEncryptTo()); });
-        }
-    }
+    Q_INVOKABLE void openExternalEncryptNoWait();
 
-    Q_INVOKABLE void openExternalEncryptWait()
-    {
-        if (passFile->isGpgFile()) {
-            runSafeFromException([&]() {
-                passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(),
-                                                       &watchWaitAndNoneWaitRunCmd,
-                                                       appSettings.tmpFolderPath().toStdString(),
-                                                       appSettings.vscodeExecPath().toStdString());
-            });
-        }
-    }
+    Q_INVOKABLE void openStoreInFileBrowser(QString fullPathFolder);
 
-    Q_INVOKABLE void openExternalEncryptNoWait()
-    {
-        if (passFile->isGpgFile()) {
-            runSafeFromException([&]() {
-                std::string subfolderPath
-                    = passFile->openExternalEncryptNoWait(&watchWaitAndNoneWaitRunCmd,
-                                                          appSettings.tmpFolderPath().toStdString(),
-                                                          appSettings.vscodeExecPath().toStdString());
-                QDesktopServices::openUrl(
-                    QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
-            });
-        }
-    }
+    Q_INVOKABLE void closeExternalEncryptNoWait();
 
-    Q_INVOKABLE void openStoreInFileBrowser(QString fullPathFolder)
-    {
-        if (fullPathFolder.isEmpty()) {
-            fullPathFolder = appSettings.passwordStorePath();
-        }
-        runSafeFromException(
-            [&]() { QDesktopServices::openUrl(QUrl::fromLocalFile(fullPathFolder)); });
-    }
+    Q_INVOKABLE QString getDecrypted();
 
-    Q_INVOKABLE void closeExternalEncryptNoWait()
-    {
-        if (passFile->isGpgFile()) {
-            runSafeFromException([&]() {
-                passFile->closeExternalEncryptNoWait(m_gpgIdManageType.getEncryptTo(),
-                                                     &watchWaitAndNoneWaitRunCmd);
-            });
-        }
-    }
+    Q_INVOKABLE QString getDecryptedSignedBy();
 
-    Q_INVOKABLE QString getDecrypted()
-    {
-        if (passFile->isGpgFile()) {
-            QString ret = "";
-            runSafeFromException([&]() {
-                passFile->decrypt();
-                ret = QString::fromStdString(passFile->getDecrypted());
-            });
-            return ret;
-        } else
-            return "";
-    }
+    Q_INVOKABLE QString getNearestGit();
 
-    Q_INVOKABLE QString getDecryptedSignedBy()
-    {
-        if (passFile->isGpgFile()) {
-            passFile->decrypt();
+    Q_INVOKABLE QString getNearestGpgId();
 
-            QString ret = "";
-            runSafeFromException(
-                [&]() { ret = QString::fromStdString(passFile->getDecryptedSignedBy()); });
-            return ret;
-        } else
-            return "";
-    }
+    Q_INVOKABLE QString getFullPathFolder();
 
-    Q_INVOKABLE QString getNearestGit()
-    {
-        QString ret = "";
-        runSafeFromException([&]() {
-            ret = QString::fromStdString(
-                passHelper.getNearestGit(passFile->getFullPath(),
-                                         appSettings.passwordStorePath().toStdString()));
-        });
-        return ret;
-    }
+    Q_INVOKABLE void createEmptyEncryptedFile(QString fullPathFolder, QString fileName);
 
-    Q_INVOKABLE QString getNearestGpgId()
-    {
-        QString ret = "";
-        runSafeFromException([&]() {
-            ret = QString::fromStdString(
-                passHelper.getNearestGpgId(passFile->getFullPath(),
-                                           appSettings.passwordStorePath().toStdString()));
-        });
-        return ret;
-    }
+    Q_INVOKABLE bool fileExists(QString fullPathFolder, QString fileName);
 
-    Q_INVOKABLE QString getFullPathFolder()
-    {
-        QString ret = "";
-        runSafeFromException([&]() { ret = QString::fromStdString(passFile->getFullPathFolder()); });
-        return ret;
-    }
+    Q_INVOKABLE void encryptUpload(QString fullPathFolder, QString fileName);
 
-    Q_INVOKABLE void createEmptyEncryptedFile(QString fullPathFolder, QString fileName)
-    {
-        std::filesystem::path p = fullPathFolder.toStdString();
-        fileName = fileName + ".gpg";
-        p = p / fileName.toStdString();
+    Q_INVOKABLE void decryptDownload(QString toFileName);
 
-        runSafeFromException([&]() {
-            std::string s = R"V0G0N(user name: ""
-password: ""
-home page: ""
-totp: ""
-description: ""
-fields type:
-  user name: text
-  password: password
-  totp: totp
-  home page: url
-  description: textedit)V0G0N";
-            passFile->encryptStringToFile(s, p, m_gpgIdManageType.getEncryptTo());
-        });
-    }
+    Q_INVOKABLE void decryptFolderDownload(QString fullPathFolder, QString toFolderName);
 
-    Q_INVOKABLE bool fileExists(QString fullPathFolder, QString fileName)
-    {
-        std::filesystem::path p = fullPathFolder.toStdString();
-        fileName = fileName + ".gpg";
-        p = p / fileName.toStdString();
+    Q_INVOKABLE void encryptFolderUpload(QString fromFolderName, QString fullPathFolder);
 
-        return (std::filesystem::exists(p));
-    }
+    Q_INVOKABLE QString runCmd(QStringList keysFound, QString noEscaped);
 
-    Q_INVOKABLE void encryptUpload(QString fullPathFolder, QString fileName)
-    {
-        const QUrl url(fileName);
-        const QString sourceName = url.toLocalFile();
-
-        runSafeFromException([&]() {
-            std::filesystem::path source = {sourceName.toStdString()};
-            std::filesystem::path dest{fullPathFolder.toStdString()};
-            std::string fname = source.filename();
-            fname = fname + ".gpg";
-            dest = dest / fname;
-            passFile->encryptFileToFile(sourceName.toStdString(),
-                                        dest,
-                                        m_gpgIdManageType.getEncryptTo());
-        });
-    }
-
-    Q_INVOKABLE void decryptDownload(QString toFileName)
-    {
-        const QUrl url(toFileName);
-        runSafeFromException([&]() { passFile->decryptToFile(url.toLocalFile().toStdString()); });
-    }
-
-    Q_INVOKABLE void decryptFolderDownload(QString fullPathFolder, QString toFolderName)
-    {
-        const QUrl url(toFolderName);
-        runSafeFromException([&]() {
-            passHelper.decryptFolderToFolder(fullPathFolder.toStdString(),
-                                             url.toLocalFile().toStdString());
-        });
-    }
-
-    Q_INVOKABLE void encryptFolderUpload(QString fromFolderName, QString fullPathFolder)
-    {
-        const QUrl url(fromFolderName);
-        runSafeFromException([&]() {
-            passHelper.encryptFolderToFolder(url.toLocalFile().toStdString(),
-                                             fullPathFolder.toStdString(),
-                                             m_gpgIdManageType.getEncryptTo());
-        });
-    }
-
-    Q_INVOKABLE QString runCmd(QStringList keysFound, QString noEscaped)
-    {
-        RunShellCmd rsc;
-        std::vector<std::string> v{};
-        for (const QString &r : keysFound) {
-            v.push_back(r.toStdString());
-        }
-        return QString::fromStdString(rsc.runCmd(v, noEscaped.toStdString()));
-    }
-
-    Q_INVOKABLE QString getTotp(QString secret)
-    {
-        if (secret.startsWith("otpauth://totp/")) {
-            QSharedPointer<Totp::Settings> settings{Totp::parseSettings(secret, "")};
-            return Totp::generateTotp(settings);
-        }
-        QSharedPointer<Totp::Settings> settings{Totp::parseSettings("", secret)};
-        return Totp::generateTotp(settings);
-    }
+    Q_INVOKABLE QString getTotp(QString secret);
 
     Q_INVOKABLE void trayMenuClear() { autoTypeFields->clear(); }
 
-    Q_INVOKABLE void trayMenuAdd(QString _username, QString _password, QString _fieldstype)
-    {
-        QAction *a = new QAction(_username, autoTypeFields);
-        connect(a, &QAction::triggered, autoTypeFields, [=]() {
-            QString username = _username;
-            QString password = _password;
-            QString fieldstype = _fieldstype;
-            if (fieldstype == "totp") {
-                autoType(getTotp(password));
-            } else {
-                autoType(password);
-            }
-        });
-        autoTypeFields->addAction(a);
-    }
+    Q_INVOKABLE void trayMenuAdd(QString _username, QString _password, QString _fieldstype);
 
 signals:
     void filePathChanged();
@@ -430,81 +162,17 @@ private:
     QStringList m_searchResult;
     // hygen private
 
-    void runSafeFromException(std::function<void()> callback)
-    {
-        try {
-            callback();
-        } catch (const std::exception &e) {
-            setExceptionStr(e.what());
-            setExceptionCounter(exceptionCounter() + 1);
-        } catch (...) {
-        }
-    }
+    void runSafeFromException(std::function<void()> callback);
 
-    void loadTreeView()
-    {
-        QString rootPath = appSettings.passwordStorePath();
+    void loadTreeView();
 
-        if (!rootPath.isEmpty()) {
-            const QModelIndex rootIndex = filesystemModel->index(QDir::cleanPath(rootPath));
-            if (rootIndex.isValid())
-                treeView->setRootIndex(rootIndex);
-        }
-    }
+    void autoType(QString sequence);
 
-    void autoType(QString sequence)
-    {
-        if (appSettings.useClipboard()) {
-            QClipboard *clipboard = QGuiApplication::clipboard();
-            clipboard->setText(sequence);
-            return;
-        }
-        if (QString(PROJECT_OS) == "LINUX") {
-            std::string s = appSettings.autoTypeCmd().toStdString();
+    std::string ReplaceAll(std::string str, const std::string &from, const std::string &to);
 
-            s = ReplaceAll(s, "sequence", escapeshellarg(sequence.toStdString()));
-            system(s.c_str());
-            return;
-        }
-        if (QString(PROJECT_OS) == "MACOSX") {
-            std::string s = R"V0G0N(
-osascript -e 'tell application "System Events" to keystroke "sequence"'
-)V0G0N";
+    std::string escapeshellarg(std::string str);
 
-            s = ReplaceAll(s, "sequence", escapeAppleScript(sequence.toStdString()));
-            system(s.c_str());
-        }
-    }
-
-    std::string ReplaceAll(std::string str, const std::string &from, const std::string &to)
-    {
-        size_t start_pos = 0;
-        while ((start_pos = str.find(from, start_pos)) != std::string::npos) {
-            str.replace(start_pos, from.length(), to);
-            start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
-        }
-        return str;
-    }
-
-    std::string escapeshellarg(std::string str)
-    {
-        std::string ret = str;
-        ret = ReplaceAll(ret, "\\", "\\\\");
-        ret = ReplaceAll(ret, "'", "\\'");
-        ret = "'" + str + "'";
-
-        return ret;
-    }
-
-    std::string escapeAppleScript(std::string str)
-    {
-        std::string ret = str;
-        ret = ReplaceAll(ret, "\\", "\\\\");
-        ret = ReplaceAll(ret, "'", "'\\''");
-        ret = ReplaceAll(ret, R"(")", R"(\")");
-
-        return ret;
-    }
+    std::string escapeAppleScript(std::string str);
 };
 
 #endif // MAINQMLTYPE_H
