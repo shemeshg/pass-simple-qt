@@ -16,57 +16,20 @@ class DropdownWithListType : public QObject
     QML_ELEMENT
 
 public:
-    explicit DropdownWithListType(QObject *parent = nullptr)
-        : QObject(parent)
-    {
-        setAllItems({});
-        setSelectedItems({});
-    };
-    QStringList allItems() { return m_allItems; };
+    explicit DropdownWithListType(QObject *parent = nullptr);
+    ;
+    const QStringList &allItems() const { return m_allItems; };
 
-    void setAllItems(const QStringList &allItems)
-    {
-        if (allItems == m_allItems)
-            return;
-
-        m_allItems = allItems;
-        emit allItemsChanged();
-    }
+    void setAllItems(const QStringList &allItems);
     QStringList selectedItems() { return m_selectedItems; };
 
-    void setSelectedItems(const QStringList &selectedItems)
-    {
-        m_selectedItems = selectedItems;
-        emit selectedItemsChanged();
+    void setSelectedItems(const QStringList &selectedItems);
+    const QStringList &notSelectedItems() const { return m_notSelectedItems; };
 
-        setNotSelectedItems(setItemsInList1ThatAreNotInList2(m_allItems, m_selectedItems));
-    }
-    QStringList notSelectedItems() { return m_notSelectedItems; };
-
-    void setNotSelectedItems(const QStringList &notSelectedItems)
-    {
-        if (notSelectedItems == m_notSelectedItems)
-            return;
-
-        m_notSelectedItems = notSelectedItems;
-        emit notSelectedItemsChanged();
-    }
+    void setNotSelectedItems(const QStringList &notSelectedItems);
     // hygen public
-    Q_INVOKABLE void addSelectedItem(QString item)
-    {
-        m_selectedItems.push_back(item);
-        m_notSelectedItems.removeAll(item);
-        emit selectedItemsChanged();
-        emit notSelectedItemsChanged();
-    }
-
-    Q_INVOKABLE void addNotSelectedItem(QString item)
-    {
-        m_notSelectedItems.push_back(item);
-        m_selectedItems.removeAll(item);
-        emit selectedItemsChanged();
-        emit notSelectedItemsChanged();
-    }
+    Q_INVOKABLE void addSelectedItem(QString item);
+    Q_INVOKABLE void addNotSelectedItem(QString item);
 
 signals:
     void allItemsChanged();
@@ -78,17 +41,7 @@ private:
     QStringList m_allItems;
     QStringList m_selectedItems;
     QStringList m_notSelectedItems;
-    // hygen private
 
-    QStringList setItemsInList1ThatAreNotInList2(QStringList &list1, QStringList &list2)
-    {
-        QStringList list3;
-        std::remove_copy_if(list1.begin(),
-                            list1.end(),
-                            std::back_inserter(list3),
-                            [&list2](const QString &arg) {
-                                return (std::find(list2.begin(), list2.end(), arg) != list2.end());
-                            });
-        return list3;
-    }
+    // hygen private
+    QStringList setItemsInList1ThatAreNotInListImpl(QStringList &list1, QStringList &list2);
 };
