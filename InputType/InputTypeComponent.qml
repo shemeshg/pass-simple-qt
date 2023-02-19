@@ -10,8 +10,9 @@ ColumnLayout {
     property string  inputText: ""
     signal textChangedSignal(s: string)
 
-    RowLayout {
 
+
+    RowLayout {
 
 
             TextArea {
@@ -24,6 +25,11 @@ ColumnLayout {
                     textChangedSignal(textEditComponentId.text)
                     inputText = textEditComponentId.text
                 }
+
+            }
+            Item {
+                height: 2
+                width: 15
             }
 
 
@@ -82,6 +88,11 @@ ColumnLayout {
                 }
             }
         }
+        Item {
+            height: 2
+            width: 15
+        }
+
     }
 
 

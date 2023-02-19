@@ -101,7 +101,7 @@ ColumnLayout {
                         id: inputTypeComponentId
                         width: parent.width
                         inputText: modelData.val
-                        inputType: modelData.inputType
+                        inputType: modelData.inputType                        
                         onTextChangedSignal:  function(s){
                             editYamlType.sendChangeVal(modelData.key,s);
                         }
