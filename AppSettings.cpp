@@ -12,6 +12,7 @@ AppSettings::AppSettings(QObject *parent)
     m_ctxSigner = settings.value("ctxSigner", "").toString();
     m_useClipboard = settings.value("useClipboard", "").toBool();
     m_fontSize = settings.value("fontSize", "14").toInt();
+    m_projectOs = QString(PROJECT_OS);
 }
 
 const QString AppSettings::passwordStorePath() const
@@ -37,7 +38,7 @@ const QString AppSettings::tmpFolderPath() const
 {
     QString tmpFolderPathDefault = QDir::tempPath();
 
-    if (QString(PROJECT_OS) == "LINUX" && QDir("/dev/shm").exists()) {
+    if (m_projectOs == "LINUX" && QDir("/dev/shm").exists()) {
         tmpFolderPathDefault = "/dev/shm";
     }
 
@@ -84,7 +85,7 @@ void AppSettings::setCtxSigner(const QString &ctxSigner)
 QString AppSettings::vscodeExecPath() const
 {
     if (m_vscodeExecPath.isEmpty()) {
-        if (QString(PROJECT_OS) == "LINUX") {
+        if (m_projectOs == "LINUX") {
             return "/usr/bin/code";
         }
         return "/usr/local/bin/code";
@@ -106,7 +107,7 @@ void AppSettings::setVscodeExecPath(const QString &vscodeExecPath)
 const QString AppSettings::autoTypeCmd() const
 {
     if (m_autoTypeCmd.isEmpty()) {
-        if (QString(PROJECT_OS) == "LINUX") {
+        if (m_projectOs == "LINUX") {
             return R"V0G0N(
 echo -n sequence | xclip -selection clipboard
     )V0G0N";

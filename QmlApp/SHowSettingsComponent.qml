@@ -136,9 +136,11 @@ ColumnLayout {
     }
     RowLayout {
         Layout.fillWidth: true
+        visible: mainLayout.getMainqmltype().appSettingsType.projectOs === "LINUX"
         Label {
             text: "Linux only autotype cmd"
         }
+
         TextField {
             id: autoTypeCmd
             text: mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
