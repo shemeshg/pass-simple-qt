@@ -1,5 +1,3 @@
-#include "mainwindow.h"
-#include "./ui_mainwindow.h"
 #include "AppSettings.h"
 #include <QAction>
 #include <QClipboard>
@@ -9,6 +7,10 @@
 #include <QScroller>
 #include <QSystemTrayIcon>
 #include <QTimer>
+
+#include "./ui_mainwindow.h"
+#include "UiGuard.h"
+#include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -118,6 +120,19 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::indexHasChanged()
+{
+    UiGuard guard(this);
+    // get the text of the selected item
+
+    auto idx = treeIndex.model()->index(treeIndex.row(), 0, treeIndex.parent());
+    try {
+        mainqmltype->setFilePath(filesystemModel.filePath(idx));
+    } catch (const std::exception &e) {
+        qDebug() << e.what();
+    }
 }
 
 void MainWindow::selectionChangedSlot(const QItemSelection & /*newSelection*/,
