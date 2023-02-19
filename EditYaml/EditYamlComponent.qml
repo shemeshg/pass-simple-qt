@@ -63,6 +63,7 @@ ColumnLayout {
         id: yamlModelListViewId
         model: editYamlType.yamlModel
         visible: editYamlType.isYamlValid
+        clip: true
 
         ScrollBar.vertical: ScrollBar {}
         Layout.fillWidth: true        
