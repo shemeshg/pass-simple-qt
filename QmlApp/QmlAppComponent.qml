@@ -73,6 +73,7 @@ ColumnLayout {
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
         classInitialized = mainLayout.getGpgIdManageType().classInitialized
         gpgPubKeysFolderExists = mainLayout.getGpgIdManageType().gpgPubKeysFolderExists
+        notifyStr("")
     }
 
     InputTypeType {
@@ -121,11 +122,15 @@ ColumnLayout {
         setTimeoutTimer.start();
     }
 
-    function notifyStr(str){
+    function notifyStr(str, withTimeout=false){
         statusLabelId.text = str
-        delaySetTimeOut(1000, function() {
-            statusLabelId.text = ""
-        })
+        if (withTimeout){
+            delaySetTimeOut(1000, function() {
+                statusLabelId.text = ""
+            })
+        }
+
+
     }
 
     ColumnLayout {

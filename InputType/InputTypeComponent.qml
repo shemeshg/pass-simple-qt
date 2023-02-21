@@ -24,6 +24,7 @@ ColumnLayout {
                 onTextChanged: {
                     textChangedSignal(textEditComponentId.text)
                     inputText = textEditComponentId.text
+                    notifyStr("*");
                 }
 
             }
@@ -56,6 +57,7 @@ ColumnLayout {
             onTextChanged: {
                 textChangedSignal(text)
                 textEditComponentId.text = text
+                notifyStr("*");
             }
             Layout.fillWidth: true
             echoMode: (inputType === "totp" || inputType === "password") ? TextInput.Password : TextInput.Normal

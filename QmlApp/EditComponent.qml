@@ -169,7 +169,7 @@ ColumnLayout {
                     decryptedTextId.text = editYamlComponentId.editYamlType.getUpdatedText()
                 }
                 mainLayout.encrypt(decryptedTextId.text)
-                notifyStr("* Saved")
+                notifyStr("* Saved", true)
             }
             visible: isShowPreview
 
@@ -233,6 +233,7 @@ ColumnLayout {
             height: parent.height
             Layout.fillWidth: true
             Layout.fillHeight: true
+            onTextChanged: notifyStr("*");
         }
 
 
