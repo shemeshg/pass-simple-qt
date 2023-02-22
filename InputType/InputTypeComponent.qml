@@ -21,7 +21,7 @@ ColumnLayout {
                 visible: inputType === "textedit"
                 text: inputText
                 wrapMode: TextEdit.WrapAnywhere
-                onTextChanged: {
+                Keys.onPressed:  {
                     textChangedSignal(textEditComponentId.text)
                     inputText = textEditComponentId.text
                     notifyStr("*");
@@ -54,7 +54,7 @@ ColumnLayout {
         TextField {
             id: textField
             text: inputText
-            onTextChanged: {
+            Keys.onPressed: {
                 textChangedSignal(text)
                 textEditComponentId.text = text
                 notifyStr("*");

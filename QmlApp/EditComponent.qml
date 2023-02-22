@@ -233,7 +233,7 @@ ColumnLayout {
             height: parent.height
             Layout.fillWidth: true
             Layout.fillHeight: true
-            onTextChanged: notifyStr("*");
+            Keys.onPressed: notifyStr("*");
         }
 
 
