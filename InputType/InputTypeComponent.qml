@@ -26,6 +26,9 @@ ColumnLayout {
                     inputText = textEditComponentId.text
                     notifyStr("*");
                 }
+                background: Rectangle {
+                    color: "white"
+                }
 
             }
             Item {

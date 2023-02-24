@@ -8,6 +8,7 @@ import Qt.labs.platform
 import DropdownWithList
 import EditYaml
 
+
 ColumnLayout {
     property alias decryptedTextId: decryptedTextId
     property bool showYamlEdit: true
@@ -227,13 +228,16 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
-        TextArea {
-            id: decryptedTextId
+        TextArea { 
+            id: decryptedTextId            
             width: parent.width
             height: parent.height
             Layout.fillWidth: true
             Layout.fillHeight: true
             Keys.onPressed: notifyStr("*");
+            background: Rectangle {
+                color: "white"
+            }
         }
 
 
