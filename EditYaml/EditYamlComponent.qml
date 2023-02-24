@@ -75,10 +75,12 @@ ColumnLayout {
                 width: yamlModelListViewId.width
                 Row{
                     Layout.fillWidth: true
+
                     Text {
                         text:  modelData.key + ": "
                         bottomPadding: 8
                         topPadding: 8
+                        leftPadding: 8
 
                     }
                     ComboBox {
@@ -98,7 +100,11 @@ ColumnLayout {
                 }
                 Row{
                     Layout.fillWidth: true
-                    InputTypeComponent {
+                    Item {
+                        height: 2
+                        width: 8
+                    }
+                    InputTypeComponent {                        
                         id: inputTypeComponentId
                         width: parent.width
                         inputText: modelData.val

@@ -13,8 +13,6 @@ ColumnLayout {
 
 
     RowLayout {
-
-
             TextArea {
                 Layout.fillWidth: true
                 id: textEditComponentId
