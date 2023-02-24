@@ -41,10 +41,13 @@ ColumnLayout {
     property var allPrivateKeys: []
 
     function refreshToolBar(){
-        //this is akward but it works (force refresh)
-        let i = columnLayoutHomeId.toolbarId.currentIndex
-        columnLayoutHomeId.toolbarId.currentIndex = 4;
-        columnLayoutHomeId.toolbarId.currentIndex = i;
+        //walkaround "Qt Quick Layouts: Polish loop detected. Aborting after two iterations."
+        delaySetTimeOut(100, function() {
+            let i = columnLayoutHomeId.toolbarId.currentIndex
+            columnLayoutHomeId.toolbarId.currentIndex = 4;
+            columnLayoutHomeId.toolbarId.currentIndex = i;
+        })
+
 
     }
 
