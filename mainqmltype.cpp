@@ -7,12 +7,14 @@ MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,
                          QTreeView *treeView,
                          QSplitter *s,
                          QMenu *autoTypeFields,
+                         QAction *autoTypeSelected,
                          QObject *parent)
     : QObject(parent)
     , splitter{s}
     , treeView{treeView}
     , filesystemModel{filesystemModel}
     , autoTypeFields{autoTypeFields}
+    , autoTypeSelected{autoTypeSelected}
 {
     watchWaitAndNoneWaitRunCmd.callback = [&]() {
         QStringList waitString, noneWaitString;

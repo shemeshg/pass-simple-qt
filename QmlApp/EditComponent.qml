@@ -228,6 +228,11 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
+        Button {
+            text: decryptedTextId.selectedText
+        }
+
+
         TextArea { 
             id: decryptedTextId            
             width: parent.width
@@ -237,6 +242,9 @@ ColumnLayout {
             Keys.onPressed: notifyStr("*");
             background: Rectangle {
                 color: "white"
+            }
+            onSelectedTextChanged: {
+                console.log(selectedText)
             }
         }
 

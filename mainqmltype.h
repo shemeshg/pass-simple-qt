@@ -42,6 +42,7 @@ public:
                          QTreeView *treeView,
                          QSplitter *s,
                          QMenu *autoTypeFields,
+                         QAction *autoTypeSelected,
                          QObject *parent = nullptr);
 
     QString filePath();
@@ -158,6 +159,7 @@ private:
     QTreeView *treeView;
     QFileSystemModel *filesystemModel;
     QMenu *autoTypeFields;
+    QAction *autoTypeSelected;
 
     QStringList m_searchResult;
     // hygen private

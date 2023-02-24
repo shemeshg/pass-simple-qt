@@ -28,7 +28,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     QMenu *autoTypeFields = new QMenu(tr("auto type field"), this);
 
+
     trayIconMenu->addMenu(autoTypeFields);
+    QAction *autoTypeSelected = new QAction(tr("auto type selected"), this);
+    trayIconMenu->addAction(autoTypeSelected);
+
     QAction *clearClipboard = new QAction(tr("Clear clipboard"), this);
 
     connect(clearClipboard, &QAction::triggered, autoTypeFields, [=]() {
@@ -98,6 +102,7 @@ MainWindow::MainWindow(QWidget *parent)
                                   ui->treeView,
                                   ui->splitter,
                                   autoTypeFields,
+                                  autoTypeSelected,
                                   ui->quickWidget); // NOLINT
     context->setContextProperty(QStringLiteral("mainqmltype"), mainqmltype);
 
