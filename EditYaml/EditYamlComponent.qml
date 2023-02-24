@@ -80,7 +80,6 @@ ColumnLayout {
                         text:  modelData.key + ": "
                         bottomPadding: 8
                         topPadding: 8
-                        leftPadding: 8
 
                     }
                     ComboBox {
@@ -100,10 +99,6 @@ ColumnLayout {
                 }
                 Row{
                     Layout.fillWidth: true
-                    Item {
-                        height: 2
-                        width: 8
-                    }
                     InputTypeComponent {                        
                         id: inputTypeComponentId
                         width: parent.width
