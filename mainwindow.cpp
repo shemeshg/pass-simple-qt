@@ -18,10 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QFont font = QApplication::font();
     AppSettings as;
-    font.setPointSize(as.fontSize());
-    QApplication::setFont(font);
 
     QSystemTrayIcon *trayIcon = new QSystemTrayIcon(this);
     QMenu *trayIconMenu = new QMenu(this);
@@ -64,10 +61,9 @@ MainWindow::MainWindow(QWidget *parent)
     quitQtAct->setStatusTip(tr("Quit"));
     connect(quitQtAct, &QAction::triggered, this, &QApplication::quit);
 
-    fileMenu->addAction(aboutAct);
-    fileMenu->addAction(aboutQtAct);
-    fileMenu->addAction(quitQtAct);
-    ui->menubar->addMenu(fileMenu);
+    ui->toolBar->addAction(aboutAct);
+    ui->toolBar->addAction(aboutQtAct);
+    ui->toolBar->addAction(quitQtAct);
 
     filesystemModel.setIconProvider(&iconProvider);
     filesystemModel.setRootPath("");

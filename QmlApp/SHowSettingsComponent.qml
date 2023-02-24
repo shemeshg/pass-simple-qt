@@ -57,6 +57,7 @@ ColumnLayout {
         Layout.preferredHeight: 1
         color: "white"
     }
+
     RowLayout {
         Label {
             text: "Password Store Path:"
@@ -72,7 +73,6 @@ ColumnLayout {
     }
 
     RowLayout {
-
         TextField {
             text: passwordStorePathStr;
             Layout.fillWidth: true
@@ -85,7 +85,11 @@ ColumnLayout {
         Layout.preferredHeight: 1
         color: "black"
     }
-    RowLayout {
+
+
+    ColumnLayout {
+        spacing: 8
+
         Label {
             text: "Private personal Id: "
         }
@@ -97,69 +101,53 @@ ColumnLayout {
             }
             Layout.fillWidth: true
         }
-    }
-
-    RowLayout {
-        Layout.fillWidth: true
         Label {
-            text: "Tmp Folder Path"
+            text: "Temporary directory"
         }
         TextField {
             id: tmpFolderPath
             text: mainLayout.getMainqmltype().appSettingsType.tmpFolderPath
             Layout.fillWidth: true
         }
-    }
-
-    RowLayout {
-        Layout.fillWidth: true
         Label {
-            text: "git exec Path"
+            text: "*git* executable full path"
         }
         TextField {
             id: gitExecPath
             text: mainLayout.getMainqmltype().appSettingsType.gitExecPath
             Layout.fillWidth: true
         }
-    }
-
-    RowLayout {
-        Layout.fillWidth: true
         Label {
-            text: "vscode execr Path"
+            text: "*Visual Studio Code* executable full path"
         }
         TextField {
             id: vscodeExecPath
             text: mainLayout.getMainqmltype().appSettingsType.vscodeExecPath
             Layout.fillWidth: true
         }
-    }
-    RowLayout {
-        Layout.fillWidth: true
-        visible: Qt.platform.os === "linux"
-        Label {
-            text: "Linux only autotype cmd"
-        }
-
-        TextField {
-            id: autoTypeCmd
-            text: mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
+        ColumnLayout {
             Layout.fillWidth: true
+            visible: Qt.platform.os === "linux"
+            Label {
+                text: "Linux only autotype cmd"
+            }
+            TextField {
+                id: autoTypeCmd
+                text: mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
+                Layout.fillWidth: true
+            }
         }
-    }
-
-    RowLayout {
-        Layout.fillWidth: true
-        Label {
-            text: "Font size (reopen app required)"
+        ColumnLayout {
+            visible: false
+            Label {
+                text: "Font size (reopen app required)"
+            }
+            TextField {
+                id: fontSize
+                text: mainLayout.getMainqmltype().appSettingsType.fontSize
+                Layout.fillWidth: true
+            }
         }
-        TextField {
-            id: fontSize
-            text: mainLayout.getMainqmltype().appSettingsType.fontSize
-            Layout.fillWidth: true
-        }
-    }
-    RowLayout {
         Switch {
             id: useClipboard
             visible: isShowPreview
@@ -170,6 +158,4 @@ ColumnLayout {
             }
         }
     }
-
-
 }

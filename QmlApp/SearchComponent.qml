@@ -67,7 +67,9 @@ ColumnLayout {
         color: "white"
     }
 
-    RowLayout {
+    ColumnLayout {
+        spacing: 8
+
         Label {
             text: "File name"
         }
@@ -79,23 +81,21 @@ ColumnLayout {
                 doSearchAction()
             }
         }
-    }
-    RowLayout {
-        id: textFindRegexId
-        visible: false
-        Label {
-            text: "std::regex"
-        }
-        TextField {
-            id: textFieldFileSearch
-            text: ".*" + findTextId.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') +  ".*"
-            Layout.fillWidth: true
-            onAccepted: {
-                doSearchAction()
+        ColumnLayout {
+            id: textFindRegexId
+            visible: false
+            Label {
+                text: "std::regex"
+            }
+            TextField {
+                id: textFieldFileSearch
+                text: ".*" + findTextId.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') +  ".*"
+                Layout.fillWidth: true
+                onAccepted: {
+                    doSearchAction()
+                }
             }
         }
-    }
-    RowLayout {
         Label {
             text: "Contain"
         }
@@ -107,71 +107,72 @@ ColumnLayout {
                 doSearchAction()
             }
         }
-    }
-    RowLayout {
-        id: textSearchRegexId
-        visible: false
-        Label {
-            text: "std::regex"
-        }
-        TextField {
-            id: textFieldContentSearch
-            text: ".*" + searchTextId.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') +  ".*"
-            Layout.fillWidth: true
-            onAccepted: {
-                doSearchAction()
+
+        ColumnLayout {
+            id: textSearchRegexId
+            visible: false
+            Label {
+                text: "std::regex"
             }
-        }
-    }
-    RowLayout {
-        Button {
-            text: "."
-            onClicked: {
-                if(fullPathFolder){
-                    currentSearchFolder = fullPathFolder
+            TextField {
+                id: textFieldContentSearch
+                text: ".*" + searchTextId.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') +  ".*"
+                Layout.fillWidth: true
+                onAccepted: {
+                    doSearchAction()
                 }
             }
-            ToolTip.text: "Set search folder to current treeview selected folder"
-            ToolTip.visible: hovered
-        }
-        Label {
-            text: "In: " + currentSearchFolder
         }
 
-    }
-    Rectangle {
-        color: "white"
-        Layout.fillWidth: true
-        height: 1
-    }
-    RowLayout {
-        id: searchStatusLabelId
-        visible: false
-        Label {
-            text: "Running..."
-        }
-    }
-    ListView {
-        id: searchResultRepeaterId
-        model: searchResultModel
-
-        ScrollBar.vertical: ScrollBar {}
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-        flickableDirection: Flickable.VerticalFlick
-        boundsBehavior: Flickable.StopAtBounds
-        delegate: RowLayout{
-
-            Label {
-                text:  modelData.replace(passwordStorePathStr,"")
-
-            }
+        RowLayout {
             Button {
-                text: "select"
-                onClicked: getMainqmltype().setTreeViewSelected(modelData)
+                text: "."
+                onClicked: {
+                    if(fullPathFolder){
+                        currentSearchFolder = fullPathFolder
+                    }
+                }
+                ToolTip.text: "Set search folder to current treeview selected folder"
+                ToolTip.visible: hovered
+            }
+            Label {
+                text: "In: " + currentSearchFolder
             }
         }
 
+        Rectangle {
+            color: "white"
+            Layout.fillWidth: true
+            height: 1
+        }
+        RowLayout {
+            id: searchStatusLabelId
+            visible: false
+            Label {
+                text: "Running..."
+            }
+        }
+        ListView {
+            id: searchResultRepeaterId
+            model: searchResultModel
 
+            ScrollBar.vertical: ScrollBar {}
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            flickableDirection: Flickable.VerticalFlick
+            boundsBehavior: Flickable.StopAtBounds
+            delegate: RowLayout{
+
+                Label {
+                    text:  modelData.replace(passwordStorePathStr,"")
+
+                }
+                Button {
+                    text: "select"
+                    onClicked: getMainqmltype().setTreeViewSelected(modelData)
+                }
+            }
+
+        }
     }
 }
