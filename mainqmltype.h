@@ -25,15 +25,16 @@ class MainQmlType : public QObject
     Q_PROPERTY(GpgIdManageType *gpgIdManageType READ gpgIdManageType CONSTANT)
     Q_PROPERTY(QStringList waitItems READ waitItems WRITE setWaitItems NOTIFY waitItemsChanged)
     Q_PROPERTY(QStringList noneWaitItems READ noneWaitItems WRITE setNoneWaitItems NOTIFY
-                   noneWaitItemsChanged)
+               noneWaitItemsChanged)
     Q_PROPERTY(int exceptionCounter READ exceptionCounter WRITE setExceptionCounter NOTIFY
-                   exceptionCounterChanged)
+               exceptionCounterChanged)
     Q_PROPERTY(
-        QString exceptionStr READ exceptionStr WRITE setExceptionStr NOTIFY exceptionStrChanged)
+            QString exceptionStr READ exceptionStr WRITE setExceptionStr NOTIFY exceptionStrChanged)
     Q_PROPERTY(AppSettings *appSettingsType READ appSettingsType WRITE setAppSettingsType NOTIFY
-                   appSettingsTypeChanged)
+               appSettingsTypeChanged)
     Q_PROPERTY(
-        QStringList searchResult READ searchResult WRITE setSearchResult NOTIFY searchResultChanged)
+            QStringList searchResult READ searchResult WRITE setSearchResult NOTIFY searchResultChanged)
+    Q_PROPERTY(QString selectedText READ selectedText WRITE setSelectedText NOTIFY selectedTextChanged)
     // hygen Q_PROPERTY
     QML_ELEMENT
 
@@ -69,6 +70,12 @@ public:
     QStringList &searchResult() { return m_searchResult; };
 
     void setSearchResult(const QStringList &searchResult);
+    QString selectedText()
+    {
+        return m_selectedText;
+    };
+
+    void setSelectedText(const QString &selectedText);
     // hygen public
 
     GpgIdManageType *gpgIdManageType() { return &m_gpgIdManageType; }
@@ -141,6 +148,7 @@ signals:
     void exceptionStrChanged();
     void appSettingsTypeChanged();
     void searchResultChanged();
+    void selectedTextChanged();
     // hygen signals
 
 private:
@@ -162,6 +170,7 @@ private:
     QAction *autoTypeSelected;
 
     QStringList m_searchResult;
+    QString m_selectedText;
     // hygen private
 
     void runSafeFromException(std::function<void()> callback);

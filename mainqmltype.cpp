@@ -29,6 +29,10 @@ MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,
         setNoneWaitItems(noneWaitString);
     };
     loadTreeView();
+    connect(autoTypeSelected, &QAction::triggered, autoTypeFields, [=]() {
+        autoType(m_selectedText);
+    });
+    autoTypeSelected->setVisible(false);
 }
 QString MainQmlType::filePath()
 {
@@ -115,6 +119,22 @@ void MainQmlType::setSearchResult(const QStringList &searchResult)
 {
     m_searchResult = searchResult;
     emit searchResultChanged();
+}
+
+void MainQmlType::setSelectedText(const QString &selectedText)
+{
+    if (selectedText == m_selectedText)
+        return;
+
+    m_selectedText = selectedText;
+
+    if (m_selectedText.isEmpty()){
+        autoTypeSelected->setVisible(false);
+    } else {
+        autoTypeSelected->setVisible(true);
+    }
+
+    emit selectedTextChanged();
 }
 
 void MainQmlType::doSearch(QString rootFolderToSearch, QString FolderToSearch, QString fileRegExStr)

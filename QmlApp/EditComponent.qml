@@ -228,11 +228,6 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
-        Button {
-            text: decryptedTextId.selectedText
-        }
-
-
         TextArea { 
             id: decryptedTextId            
             width: parent.width
@@ -244,7 +239,7 @@ ColumnLayout {
                 color: "white"
             }
             onSelectedTextChanged: {
-                console.log(selectedText)
+                getMainqmltype().selectedText = selectedText
             }
         }
 
