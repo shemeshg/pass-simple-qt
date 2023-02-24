@@ -1,3 +1,4 @@
+#include <QStandardPaths>
 #include "AppSettings.h"
 #include "config.h"
 
@@ -12,7 +13,6 @@ AppSettings::AppSettings(QObject *parent)
     m_ctxSigner = settings.value("ctxSigner", "").toString();
     m_useClipboard = settings.value("useClipboard", "").toBool();
     m_fontSize = settings.value("fontSize", "14").toInt();
-    m_projectOs = QString(PROJECT_OS);
 }
 
 const QString AppSettings::passwordStorePath() const
@@ -36,13 +36,13 @@ void AppSettings::setPasswordStorePath(const QString &passwordStorePath)
 
 const QString AppSettings::tmpFolderPath() const
 {
-    QString tmpFolderPathDefault = QDir::tempPath();
-
-    if (m_projectOs == "LINUX" && QDir("/dev/shm").exists()) {
-        tmpFolderPathDefault = "/dev/shm";
-    }
-
     if (m_tmpFolderPath.isEmpty() || !QDir(m_tmpFolderPath).exists()) {
+        QString tmpFolderPathDefault = QDir::tempPath();
+#ifdef __linux__
+        if (QDir("/dev/shm").exists()) {
+            tmpFolderPathDefault = "/dev/shm";
+        }
+#endif
         return tmpFolderPathDefault;
     }
     return m_tmpFolderPath;
@@ -59,7 +59,8 @@ void AppSettings::setTmpFolderPath(const QString &tmpFolderPath)
 const QString AppSettings::gitExecPath() const
 {
     if (m_gitExecPath.isEmpty()) {
-        return "git";
+        auto full_path = QStandardPaths::findExecutable("git");
+        return full_path;
     }
     return m_gitExecPath;
 }
@@ -85,10 +86,8 @@ void AppSettings::setCtxSigner(const QString &ctxSigner)
 QString AppSettings::vscodeExecPath() const
 {
     if (m_vscodeExecPath.isEmpty()) {
-        if (m_projectOs == "LINUX") {
-            return "/usr/bin/code";
-        }
-        return "/usr/local/bin/code";
+        auto full_path = QStandardPaths::findExecutable("code");
+        return full_path;
     }
     return m_vscodeExecPath;
 }
@@ -107,12 +106,11 @@ void AppSettings::setVscodeExecPath(const QString &vscodeExecPath)
 const QString AppSettings::autoTypeCmd() const
 {
     if (m_autoTypeCmd.isEmpty()) {
-        if (m_projectOs == "LINUX") {
-            return R"V0G0N(
-echo -n sequence | xclip -selection clipboard
-    )V0G0N";
-        }
-        return "";
+#ifdef __linux__
+            return R"V0G0N(echo -n sequence | xclip -selection clipboard)V0G0N";
+#else
+        return QString;
+#endif
     }
     return m_autoTypeCmd;
 }

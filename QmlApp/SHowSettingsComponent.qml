@@ -136,7 +136,7 @@ ColumnLayout {
     }
     RowLayout {
         Layout.fillWidth: true
-        visible: mainLayout.getMainqmltype().appSettingsType.projectOs === "LINUX"
+        visible: Qt.platform.os === "linux"
         Label {
             text: "Linux only autotype cmd"
         }
