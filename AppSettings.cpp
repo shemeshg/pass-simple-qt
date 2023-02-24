@@ -86,8 +86,13 @@ void AppSettings::setCtxSigner(const QString &ctxSigner)
 QString AppSettings::vscodeExecPath() const
 {
     if (m_vscodeExecPath.isEmpty()) {
-        auto full_path = QStandardPaths::findExecutable("code");
-        return full_path;
+        #if defined(__linux__)
+            auto full_path = QStandardPaths::findExecutable("code");
+            return full_path;
+        #elif defined(__APPLE__)
+            return "/usr/local/bin/code";
+        #endif
+
     }
     return m_vscodeExecPath;
 }
