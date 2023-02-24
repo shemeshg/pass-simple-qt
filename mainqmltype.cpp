@@ -420,21 +420,19 @@ void MainQmlType::autoType(QString sequence)
         clipboard->setText(sequence);
         return;
     }
-    if (QString(PROJECT_OS) == "LINUX") {
-        std::string s = appSettings.autoTypeCmd().toStdString();
-
-        s = ReplaceAll(s, "sequence", escapeshellarg(sequence.toStdString()));
-        system(s.c_str());
-        return;
-    }
-    if (QString(PROJECT_OS) == "MACOSX") {
-        std::string s = R"V0G0N(
+#if defined(__linux__)
+    std::string s = appSettings.autoTypeCmd().toStdString();
+    s = ReplaceAll(s, "sequence", escapeshellarg(sequence.toStdString()));
+    system(s.c_str());
+    return;
+#elif defined(__APPLE__)
+    std::string s = R"V0G0N(
 osascript -e 'tell application "System Events" to keystroke "sequence"'
 )V0G0N";
 
-        s = ReplaceAll(s, "sequence", escapeAppleScript(sequence.toStdString()));
-        system(s.c_str());
-    }
+    s = ReplaceAll(s, "sequence", escapeAppleScript(sequence.toStdString()));
+    system(s.c_str());
+#endif
 }
 
 std::string MainQmlType::ReplaceAll(std::string str, const std::string &from, const std::string &to)
