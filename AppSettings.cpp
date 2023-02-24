@@ -109,7 +109,7 @@ const QString AppSettings::autoTypeCmd() const
 #ifdef __linux__
             return R"V0G0N(echo -n sequence | xclip -selection clipboard)V0G0N";
 #else
-        return m_autoTypeCmd;
+        return QString{};
 #endif
     }
     return m_autoTypeCmd;
