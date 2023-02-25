@@ -110,7 +110,7 @@ ColumnLayout {
             Layout.fillWidth: true
         }
         Label {
-            text: "*git* executable full path"
+            text: "<b>git</b> executable full path"
         }
         TextField {
             id: gitExecPath
@@ -118,7 +118,7 @@ ColumnLayout {
             Layout.fillWidth: true
         }
         Label {
-            text: "*Visual Studio Code* executable full path"
+            text: "<b>Visual Studio Code</b> executable full path"
         }
         TextField {
             id: vscodeExecPath
