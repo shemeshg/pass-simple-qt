@@ -54,7 +54,9 @@ ColumnLayout {
     Component.onCompleted:{
         mainLayout.getMainqmltype().initGpgIdManage();
         allPrivateKeys = mainLayout.getGpgIdManageType().allPrivateKeys;
+        getMainqmltype().filePath = passwordStorePathStr;
         refreshToolBar();
+
     }
 
     function initOnFileChanged(){
