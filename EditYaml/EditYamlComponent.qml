@@ -77,9 +77,8 @@ ColumnLayout {
                     Layout.fillWidth: true
 
                     Text {
-                        text:  modelData.key + ": "
-                        bottomPadding: 8
-                        topPadding: 8
+                        text:  modelData.key + ": "                       
+                        padding: 8
 
                     }
                     ComboBox {
