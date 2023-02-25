@@ -34,66 +34,55 @@ ColumnLayout {
     }
 
     id: addComponentId
-    RowLayout{
+
+    ColumnLayout{
         Label {
-            text: "<h1>Add</h1>"
+            text: "Destination folder:" + fullPathFolder
         }
-    }
-    RowLayout{
         Label {
-            text: "Destination folder: " + fullPathFolder
+            text: "Create empty encrypted text file"
         }
-    }
-    RowLayout{
-        Label {
-            text: "<h2>Create empty encrypted text file</h1>"
-        }
-    }
-    RowLayout {
-        Label {
-            text: "File name"
-        }
-        TextField {
-            id: createEmptyFileNameId
-            text: ""
-            placeholderText: "FileName.txt"
-            Layout.fillWidth: true
-            onTextChanged: {
-                var makeEnabled = Boolean(nearestGpg) && Boolean( createEmptyFileNameId.text);
-                if (getMainqmltype().fileExists(fullPathFolder, createEmptyFileNameId.text)){
-                    makeEnabled = false;
+        RowLayout {
+            TextField {
+                id: createEmptyFileNameId
+                text: ""
+                placeholderText: "FileName.txt"
+                Layout.fillWidth: true
+                onTextChanged: {
+                    var makeEnabled = Boolean(nearestGpg) && Boolean( createEmptyFileNameId.text);
+                    if (getMainqmltype().fileExists(fullPathFolder, createEmptyFileNameId.text)){
+                        makeEnabled = false;
+                    }
+                    addBtnId.enabled = makeEnabled
                 }
-                addBtnId.enabled = makeEnabled
+            }
+            Button {
+                id: addBtnId
+                text: "add";
+                enabled: Boolean(nearestGpg) && Boolean( createEmptyFileNameId.text)
+                onClicked: {
+                    getMainqmltype().createEmptyEncryptedFile(fullPathFolder, createEmptyFileNameId.text)
+                    createEmptyFileNameId.text = ""
+                }
             }
         }
-        Button {
-            id: addBtnId
-            text: "add";
-            enabled: Boolean(nearestGpg) && Boolean( createEmptyFileNameId.text)
-            onClicked: {
-                getMainqmltype().createEmptyEncryptedFile(fullPathFolder, createEmptyFileNameId.text)
-                createEmptyFileNameId.text = ""
+        RowLayout{
+            Label {
+                text: "Upload"
             }
-        }
-    }
-    RowLayout{
-        Label {
-            text: "<h2>Upload</h2>"
-        }
-    }
-    RowLayout {
-        Button {
-            text: "upload file"
-            enabled: Boolean(nearestGpg)
-            onClicked: {
-                fileDialogUpload.open()
+            Button {
+                text: "Upload file"
+                enabled: Boolean(nearestGpg)
+                onClicked: {
+                    fileDialogUpload.open()
+                }
             }
-        }
-        Button {
-            text: "upload folder content"
-            enabled: Boolean(nearestGpg)
-            onClicked: {
-                folderDialogUpload.open();
+            Button {
+                text: "Upload folder content"
+                enabled: Boolean(nearestGpg)
+                onClicked: {
+                    folderDialogUpload.open();
+                }
             }
         }
     }

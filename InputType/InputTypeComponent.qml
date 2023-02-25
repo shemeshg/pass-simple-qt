@@ -10,40 +10,33 @@ ColumnLayout {
     property string  inputText: ""
     signal textChangedSignal(s: string)
 
-
-
     RowLayout {
-            TextArea {
-                Layout.fillWidth: true
-                id: textEditComponentId
-                visible: inputType === "textedit"
-                text: inputText
-                wrapMode: TextEdit.WrapAnywhere
-                Keys.onPressed:  {
-                    textChangedSignal(textEditComponentId.text)
-                    inputText = textEditComponentId.text
-                    notifyStr("*");
-                }
-                background: Rectangle {
-                    color: "white"
-                }
-
+        TextArea {
+            Layout.fillWidth: true
+            id: textEditComponentId
+            visible: inputType === "textedit"
+            text: inputText
+            wrapMode: TextEdit.WrapAnywhere
+            Keys.onPressed:  {
+                textChangedSignal(textEditComponentId.text)
+                inputText = textEditComponentId.text
+                notifyStr("*");
             }
-            Item {
-                height: 2
-                width: 15
+            background: Rectangle {
+                color: "white"
             }
-
-
-
+        }
+        Item {
+            height: 2
+            width: 15
+        }
     }
-    RowLayout {
 
+    RowLayout {
         visible: inputType === "text" ||
                  inputType === "url" ||
                  inputType === "totp" ||
                  inputType === "password"
-
         InputTypeType {
             id: inputTypeType
         }
@@ -51,7 +44,6 @@ ColumnLayout {
             interval: 500; running: inputType === "totp"; repeat: true
             onTriggered: totpId.text = getMainqmltype().getTotp(textField.text)
         }
-
         TextField {
             id: textField
             text: inputText
@@ -97,8 +89,4 @@ ColumnLayout {
         }
 
     }
-
-
-
-
 }
