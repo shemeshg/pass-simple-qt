@@ -84,7 +84,7 @@ ColumnLayout {
                     ComboBox {
                         id: selectedInputType
                         visible: isEditFieldsType
-                        model: ["textedit", "text","url","password","totp"]
+                        model: ["textedit", "text","url","password","totp","datetime"]
                         Component.onCompleted: {
                             currentIndex = find(modelData.inputType);
                         }

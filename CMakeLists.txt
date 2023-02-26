@@ -23,6 +23,7 @@ add_subdirectory(QmlApp)
 add_subdirectory(EditYaml)
 add_subdirectory(InputType)
 add_subdirectory(DropdownWithList)
+add_subdirectory(Datetime)
 
 # generated files should be on build dir only
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -64,6 +65,7 @@ set(QML_IMPORT_PATH ${CMAKE_SOURCE_DIR}/QmlApp
                 ${CMAKE_SOURCE_DIR}/EditYaml
                 ${CMAKE_SOURCE_DIR}/InputType
                 ${CMAKE_SOURCE_DIR}/DropdownWithList
+                ${CMAKE_SOURCE_DIR}/Datetime
                 CACHE STRING "" FORCE)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -119,6 +121,7 @@ Qt${QT_VERSION_MAJOR}::LabsFolderListModel
     EditYaml
     InputType
     DropdownWithList
+    Datetime
     libpgpfactory    
 	yaml-cpp
 )

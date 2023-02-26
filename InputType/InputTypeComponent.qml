@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import InputType
 import QmlApp
+import Datetime
 
 ColumnLayout {
     id: columnLayoutId
@@ -11,16 +12,25 @@ ColumnLayout {
     signal textChangedSignal(s: string)
 
     RowLayout {
+        visible: inputType === "datetime"
+        DatetimeComponent {
+            dateTime.datetimeStr: inputText
+            onDatetimeChanged: (text)=>{
+                              textChangedSignal(text)
+                               }
+        }
+    }
+
+    RowLayout {
         TextArea {
             Layout.fillWidth: true
             id: textEditComponentId
             visible: inputType === "textedit"
             text: inputText
             wrapMode: TextEdit.WrapAnywhere
-            Keys.onPressed:  {
+            onTextChanged:   {
                 textChangedSignal(textEditComponentId.text)
                 inputText = textEditComponentId.text
-                notifyStr("*");
             }
             background: Rectangle {
                 color: "white"
@@ -47,10 +57,9 @@ ColumnLayout {
         TextField {
             id: textField
             text: inputText
-            Keys.onPressed: {
+            onTextChanged: {
                 textChangedSignal(text)
                 textEditComponentId.text = text
-                notifyStr("*");
             }
             Layout.fillWidth: true
             echoMode: (inputType === "totp" || inputType === "password") ? TextInput.Password : TextInput.Normal
