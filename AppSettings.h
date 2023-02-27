@@ -7,6 +7,7 @@
 #include <QString>
 #include <qqmlregistration.h>
 
+
 class AppSettings : public QObject
 {
     Q_OBJECT
@@ -21,6 +22,7 @@ class AppSettings : public QObject
     Q_PROPERTY(QString ctxSigner READ ctxSigner WRITE setCtxSigner NOTIFY ctxSignerChanged)
     Q_PROPERTY(bool useClipboard READ useClipboard WRITE setUseClipboard NOTIFY useClipboardChanged)
     Q_PROPERTY(int fontSize READ fontSize WRITE setfontSize NOTIFY fontSizeChanged)
+    Q_PROPERTY(QString appVer READ appVer CONSTANT )
     QML_ELEMENT
 public:
     AppSettings(QObject *parent = nullptr);
@@ -40,7 +42,7 @@ public:
     void setUseClipboard(const bool useClipboard);
     int fontSize() const { return m_fontSize; };
     void setfontSize(const int fontSize);
-
+    QString appVer() const;;
 
 signals:
     void passwordStorePathChanged();

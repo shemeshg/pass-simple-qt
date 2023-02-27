@@ -59,27 +59,21 @@ ColumnLayout {
             id: manageGpgIdComponentId
         }
         ColumnLayout {
-
+            Label {
+                text: mainLayout.getMainqmltype().appSettingsType.appVer
+            }
             TextEdit {
                 readOnly: true
                 text: `
-Pass simple:
+Doc:
+    https://shemeshg.github.io/pass-simple-mdbook/install.html
+
+git:
     https://github.com/shemeshg/pass-simple-qt
+
+Download:
     https://sourceforge.net/projects/pass-simple/
 
-Example template:
----
-user name:
-password:
-home page:
-totp:
-description: ""
-fields type:
-  user name: text
-  password: password
-  home page: url
-  totp: totp
-  description: textedit
 `
 
         }

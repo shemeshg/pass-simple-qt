@@ -1,5 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>icon.png</file>
+        <file>icons/icons8-add-file-64.png</file>
+        <file>icons/icons8-upload-folder-67.png</file>
+        <file>icons/icons8-download-folder-67.png</file>
+        <file>icons/icons8-upload-file-64.png</file>
+        <file>icons/icons8-download-file-64.png</file>
+        <file>icons/icons8-logout-64.png</file>
     </qresource>
 </RCC>

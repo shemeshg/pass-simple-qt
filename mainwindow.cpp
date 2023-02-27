@@ -48,21 +48,26 @@ MainWindow::MainWindow(QWidget *parent)
     trayIcon->setIcon(QIcon(":/icon.png"));
     trayIcon->show();
 
-    QMenu *fileMenu = new QMenu("File");
-    QAction *aboutAct = new QAction(tr("About"), this);
-    aboutAct->setStatusTip(tr("Show the application's About box"));
-    connect(aboutAct, &QAction::triggered, this, &MainWindow::about);
+    QAction *addItemAct = new QAction(QIcon("://icons/icons8-add-file-64.png"),tr("Add Item"), this);
 
-    QAction *aboutQtAct = new QAction(tr("About Qt"), this);
-    aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
-    connect(aboutQtAct, &QAction::triggered, this, &QApplication::aboutQt);
+    QAction *uploadFileAct = new QAction(QIcon("://icons/icons8-upload-file-64.png"),tr("Upload file"), this);
+    QAction *uploadFolderAct = new QAction(QIcon("://icons/icons8-upload-folder-67.png"),tr("Upload folder"), this);
 
-    QAction *quitQtAct = new QAction(tr("Quit"), this);
+    QAction *downloadFileAct = new QAction(QIcon("://icons/icons8-download-file-64.png"),tr("Download file"), this);
+    QAction *downloadFolderAct = new QAction(QIcon("://icons/icons8-download-folder-67.png"),tr("Download folder"), this);
+
+    QAction *quitQtAct = new QAction(QIcon("://icons/icons8-logout-64.png"),tr("Quit"), this);
     quitQtAct->setStatusTip(tr("Quit"));
     connect(quitQtAct, &QAction::triggered, this, &QApplication::quit);
 
-    ui->toolBar->addAction(aboutAct);
-    ui->toolBar->addAction(aboutQtAct);
+    ui->toolBar->addAction(addItemAct);
+    ui->toolBar->addSeparator();
+    ui->toolBar->addAction(uploadFileAct);
+    ui->toolBar->addAction(uploadFolderAct);
+    ui->toolBar->addSeparator();
+    ui->toolBar->addAction(downloadFileAct);
+    ui->toolBar->addAction(downloadFolderAct);
+    ui->toolBar->addSeparator();
     ui->toolBar->addAction(quitQtAct);
 
     filesystemModel.setIconProvider(&iconProvider);
