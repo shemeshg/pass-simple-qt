@@ -51,10 +51,10 @@ MainWindow::MainWindow(QWidget *parent)
     QAction *addItemAct = new QAction(QIcon("://icons/icons8-add-file-64.png"),tr("Add Item"), this);
 
     QAction *uploadFileAct = new QAction(QIcon("://icons/icons8-upload-file-64.png"),tr("Upload file"), this);
-    QAction *uploadFolderAct = new QAction(QIcon("://icons/icons8-upload-folder-67.png"),tr("Upload folder"), this);
+    QAction *uploadFolderAct = new QAction(QIcon("://icons/icons8-upload-folder-67.png"),tr("Upload folder content"), this);
 
     QAction *downloadFileAct = new QAction(QIcon("://icons/icons8-download-file-64.png"),tr("Download file"), this);
-    QAction *downloadFolderAct = new QAction(QIcon("://icons/icons8-download-folder-67.png"),tr("Download folder"), this);
+    QAction *downloadFolderAct = new QAction(QIcon("://icons/icons8-download-folder-67.png"),tr("Download folder content"), this);
 
     QAction *quitQtAct = new QAction(QIcon("://icons/icons8-logout-64.png"),tr("Quit"), this);
     quitQtAct->setStatusTip(tr("Quit"));
