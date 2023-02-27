@@ -98,26 +98,26 @@ ColumnLayout {
     onMenubarCommStrChanged: {
 
 
-       let action = menubarCommStr.split(" ")[0];
-       if (action==="addItemAct"){
+        let action = menubarCommStr.split(" ")[0];
+        if (action==="addItemAct"){
             columnLayoutHomeId.toolbarId.currentIndex = 1
-           columnLayoutHomeId.addComponentId.createEmptyFileNameId.forceActiveFocus()
+            columnLayoutHomeId.addComponentId.createEmptyFileNameId.forceActiveFocus()
 
-       }
-       if(Boolean(nearestGpg)){
+        }
+        if(Boolean(nearestGpg)){
             if (action==="uploadFileAct"){
-               columnLayoutHomeId.addComponentId.fileDialogUpload.open()
+                columnLayoutHomeId.addComponentId.fileDialogUpload.open()
             }
             if (action==="uploadFolderAct"){
-               columnLayoutHomeId.addComponentId.folderDialogUpload.open()
+                columnLayoutHomeId.addComponentId.folderDialogUpload.open()
             }
             if (action==="downloadFolderAct"){
                 columnLayoutHomeId.editComponentId.folderDialogDownload.open();
             }
-       }
-       if (isGpgFile && action==="downloadFileAct"){
-           columnLayoutHomeId.editComponentId.fileDialogDownload.open()
-       }
+        }
+        if (isGpgFile && action==="downloadFileAct"){
+            columnLayoutHomeId.editComponentId.fileDialogDownload.open()
+        }
 
 
 
