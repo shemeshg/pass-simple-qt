@@ -62,11 +62,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->toolBar->addAction(addItemAct);
     ui->toolBar->addSeparator();
-    ui->toolBar->addAction(uploadFileAct);
-    ui->toolBar->addAction(uploadFolderAct);
-    ui->toolBar->addSeparator();
     ui->toolBar->addAction(downloadFileAct);
     ui->toolBar->addAction(downloadFolderAct);
+    ui->toolBar->addSeparator();
+    ui->toolBar->addAction(uploadFileAct);
+    ui->toolBar->addAction(uploadFolderAct);
     ui->toolBar->addSeparator();
     ui->toolBar->addAction(quitQtAct);
 
