@@ -12,6 +12,9 @@ import EditYaml
 ColumnLayout {
     property alias decryptedTextId: decryptedTextId
     property bool showYamlEdit: true
+    property alias folderDialogDownload: folderDialogDownload
+    property alias fileDialogDownload: fileDialogDownload
+
 
     function doShowYAML(){
         if (!showYamlEdit && editYamlComponentId.editYamlType.isYamlValid){

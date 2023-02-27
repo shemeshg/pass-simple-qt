@@ -18,6 +18,7 @@ ColumnLayout {
 
     property int filePanSize: 0
     property int exceptionCounter: 0
+    property string menubarCommStr: ""
     property string exceptionStr: ""
     property string filePath: ""
     property string tmpShalom: ""
@@ -94,7 +95,37 @@ ColumnLayout {
         mainLayout.getMainqmltype().trayMenuAdd(txt, passwd, fieldType);
     }
 
+    onMenubarCommStrChanged: {
 
+
+       let action = menubarCommStr.split(" ")[0];
+       if (action==="addItemAct"){
+            columnLayoutHomeId.toolbarId.currentIndex = 1
+           columnLayoutHomeId.addComponentId.createEmptyFileNameId.forceActiveFocus()
+
+       }
+       if(Boolean(nearestGpg)){
+            if (action==="uploadFileAct"){
+               columnLayoutHomeId.addComponentId.fileDialogUpload.open()
+            }
+            if (action==="uploadFolderAct"){
+               columnLayoutHomeId.addComponentId.folderDialogUpload.open()
+            }
+            if (action==="downloadFolderAct"){
+                columnLayoutHomeId.editComponentId.folderDialogDownload.open();
+            }
+       }
+       if (isGpgFile && action==="downloadFileAct"){
+           columnLayoutHomeId.editComponentId.fileDialogDownload.open()
+       }
+
+
+
+
+
+
+
+    }
 
     onFilePathChanged: {
         initOnFileChanged();

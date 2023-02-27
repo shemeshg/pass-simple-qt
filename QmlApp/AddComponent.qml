@@ -7,6 +7,10 @@ import Qt.labs.platform
 import DropdownWithList
 
 ColumnLayout {
+    property alias createEmptyFileNameId: createEmptyFileNameId
+    property alias fileDialogUpload: fileDialogUpload
+    property alias folderDialogUpload: folderDialogUpload
+
 
     FileDialog {
         id: fileDialogUpload

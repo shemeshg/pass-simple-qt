@@ -16,6 +16,7 @@
 #include <QGuiApplication>
 #include <QInputEvent>
 #include <QModelIndex>
+#include <QUuid>
 
 class MainQmlType : public QObject
 {
@@ -35,6 +36,7 @@ class MainQmlType : public QObject
     Q_PROPERTY(
             QStringList searchResult READ searchResult WRITE setSearchResult NOTIFY searchResultChanged)
     Q_PROPERTY(QString selectedText READ selectedText WRITE setSelectedText NOTIFY selectedTextChanged)
+    Q_PROPERTY(QString menubarCommStr READ menubarCommStr WRITE setMenubarCommStr NOTIFY menubarCommStrChanged)
     // hygen Q_PROPERTY
     QML_ELEMENT
 
@@ -76,6 +78,17 @@ public:
     };
 
     void setSelectedText(const QString &selectedText);
+    QString menubarCommStr()
+    {
+        return m_menubarCommStr;
+    };
+
+    void setMenubarCommStr(const QString &menubarCommStr)
+    {
+
+        m_menubarCommStr = menubarCommStr + " " + QUuid::createUuid().toString();
+        emit menubarCommStrChanged();
+    }
     // hygen public
 
     GpgIdManageType *gpgIdManageType() { return &m_gpgIdManageType; }
@@ -149,6 +162,7 @@ signals:
     void appSettingsTypeChanged();
     void searchResultChanged();
     void selectedTextChanged();
+    void menubarCommStrChanged();
     // hygen signals
 
 private:
@@ -171,6 +185,7 @@ private:
 
     QStringList m_searchResult;
     QString m_selectedText;
+    QString m_menubarCommStr;
     // hygen private
 
     void runSafeFromException(std::function<void()> callback);

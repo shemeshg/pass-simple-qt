@@ -121,6 +121,22 @@ MainWindow::MainWindow(QWidget *parent)
                      &QQmlApplicationEngine::quit,
                      this,
                      &QGuiApplication::quit);
+
+    connect(addItemAct, &QAction::triggered, this, [=]() {
+           mainqmltype->setMenubarCommStr("addItemAct");
+     });
+    connect(uploadFileAct, &QAction::triggered, this, [=]() {
+           mainqmltype->setMenubarCommStr("uploadFileAct");
+     });
+    connect(uploadFolderAct, &QAction::triggered, this, [=]() {
+           mainqmltype->setMenubarCommStr("uploadFolderAct");
+     });
+    connect(downloadFileAct, &QAction::triggered, this, [=]() {
+           mainqmltype->setMenubarCommStr("downloadFileAct");
+     });
+    connect(downloadFolderAct, &QAction::triggered, this, [=]() {
+           mainqmltype->setMenubarCommStr("downloadFolderAct");
+     });
 }
 
 MainWindow::~MainWindow()

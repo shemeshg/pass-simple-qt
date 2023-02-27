@@ -64,6 +64,11 @@ Item {
         value: mainqmltype.filePath
     }
 
+    Binding {
+        target: qmlAppComponent
+        property: "menubarCommStr"
+        value: mainqmltype.menubarCommStr
+    }
 
     Binding {
         target: qmlAppComponent
