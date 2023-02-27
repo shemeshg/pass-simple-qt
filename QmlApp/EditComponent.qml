@@ -233,8 +233,7 @@ ColumnLayout {
             width: parent.width
             height: parent.height
             Layout.fillWidth: true
-            Layout.fillHeight: true
-            Keys.onPressed: notifyStr("*");
+            Layout.fillHeight: true            
             background: Rectangle {
                 color: "white"
             }
