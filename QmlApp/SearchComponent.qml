@@ -13,6 +13,7 @@ ColumnLayout {
 
     property string currentSearchFolder: passwordStorePathStr
     property var  searchResultModel: []
+    property alias findTextId: findTextId
 
     Timer {
         id: timer

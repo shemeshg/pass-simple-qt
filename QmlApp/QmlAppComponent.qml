@@ -100,9 +100,7 @@ ColumnLayout {
 
         let action = menubarCommStr.split(" ")[0];
         if (action==="addItemAct"){
-            columnLayoutHomeId.toolbarId.currentIndex = 1
-            columnLayoutHomeId.addComponentId.createEmptyFileNameId.forceActiveFocus()
-
+            columnLayoutHomeId.toolbarId.currentIndex = 1            
         }
         if(Boolean(nearestGpg)){
             if (action==="uploadFileAct"){
@@ -142,6 +140,7 @@ ColumnLayout {
 
 
     SearchComponent {
+        id: searchComponentID
     }
 
     SHowSettingsComponent {
@@ -202,7 +201,7 @@ ColumnLayout {
             Button {
                 onClicked: {
                     isShowSearch = true
-
+                    searchComponentID.findTextId.forceActiveFocus();
                 }
 
                 icon.name: "search"
