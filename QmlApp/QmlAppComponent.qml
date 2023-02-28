@@ -200,8 +200,7 @@ ColumnLayout {
             }
             Button {
                 onClicked: {
-                    isShowSearch = true
-                    searchComponentID.findTextId.forceActiveFocus();
+                    isShowSearch = true                    
                 }
 
                 icon.name: "search"

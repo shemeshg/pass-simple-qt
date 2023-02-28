@@ -23,12 +23,6 @@ ColumnLayout {
         Layout.fillWidth: true
         width: parent.width
 
-        onCurrentIndexChanged: {
-            if (currentIndex===1){
-                columnLayoutHomeId.addComponentId.createEmptyFileNameId.forceActiveFocus();
-            }
-        }
-
         TabButton {
             text: qsTr("Edit")
         }

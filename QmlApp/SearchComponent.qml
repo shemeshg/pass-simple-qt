@@ -13,7 +13,12 @@ ColumnLayout {
 
     property string currentSearchFolder: passwordStorePathStr
     property var  searchResultModel: []
-    property alias findTextId: findTextId
+
+    onVisibleChanged: {
+        if (visible) {
+            findTextId.forceActiveFocus();
+        }
+    }
 
     Timer {
         id: timer

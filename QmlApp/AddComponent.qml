@@ -6,20 +6,25 @@ import QtQuick.Dialogs
 import Qt.labs.platform
 import DropdownWithList
 
-ColumnLayout {
-    property alias createEmptyFileNameId: createEmptyFileNameId
+ColumnLayout {    
     property alias fileDialogUpload: fileDialogUpload
     property alias folderDialogUpload: folderDialogUpload
+
+    onVisibleChanged: {
+        if (visible) {
+            createEmptyFileNameId.forceActiveFocus();
+        }
+    }
 
 
     FileDialog {
         id: fileDialogUpload
         title: "Choose file to upload"
-        fileMode: FileDialog.OpenFile        
+        fileMode: FileDialog.OpenFile
         onAccepted: {
             fileDialogUpload.files.forEach((f)=> {
-                getMainqmltype().encryptUpload( fullPathFolder, f);
-            })
+                                               getMainqmltype().encryptUpload( fullPathFolder, f);
+                                           })
 
 
         }
