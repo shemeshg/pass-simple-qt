@@ -38,23 +38,6 @@ ColumnLayout {
             onSelectedTextChanged: {
                 getMainqmltype().selectedText = selectedText
             }
-            property bool ctrlPressed: false
-            Keys.onPressed: (event)=>{
-                if (event.key === Qt.Key_Control) {
-                    ctrlPressed = true
-                }
-                if (ctrlPressed && event.key === Qt.Key_Plus){
-                    textEditComponentId.font.pixelSize++
-                }
-                if (ctrlPressed && event.key === Qt.Key_Minus){
-                    textEditComponentId.font.pixelSize--
-                }
-            }
-            Keys.onReleased: (event)=> {
-                if (event.key === Qt.Key_Control) {
-                    ctrlPressed = false
-                }
-            }
         }
         Item {
             height: 2

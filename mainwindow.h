@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QModelIndex>
 #include <QTreeView>
+#include <QShortcut>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -32,10 +33,13 @@ private slots:
                               const QItemSelection & /*oldSelection*/);
     void about() { QMessageBox::about(this, tr("About Menu"), tr("Version %1").arg(PROJECT_VER)); }
 
+
 private:
     Ui::MainWindow *ui;
     QFileSystemModel filesystemModel;
     QFileIconProvider iconProvider;
     MainQmlType *mainqmltype;
     QModelIndex treeIndex;
+    QShortcut *keyZoomIn;
+    QShortcut *keyZoomOut;
 };

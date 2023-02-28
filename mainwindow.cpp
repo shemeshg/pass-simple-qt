@@ -8,6 +8,7 @@
 #include <QSystemTrayIcon>
 #include <QTimer>
 
+
 #include "./ui_mainwindow.h"
 #include "UiGuard.h"
 #include "mainwindow.h"
@@ -121,6 +122,29 @@ MainWindow::MainWindow(QWidget *parent)
                      &QQmlApplicationEngine::quit,
                      this,
                      &QGuiApplication::quit);
+
+    keyZoomIn = new QShortcut(this);
+    //Qt::CTRL + Qt::Key\_P
+    keyZoomIn->setKeys({Qt::CTRL + Qt::Key_Plus,Qt::CTRL + Qt::Key_Equal});
+    connect(keyZoomIn, &QShortcut::activated, this, [=]() {
+        QFont font = QApplication::font();
+        font.setPointSize(font.pointSize()+1);
+        QApplication::setFont(font);
+        ui->quickWidget->setSource(QUrl("qrc:/mainQml.qml"));
+        QTimer::singleShot(10, this, SLOT(indexHasChanged()));
+     });
+
+
+    keyZoomOut = new QShortcut(this);
+    keyZoomOut->setKey(Qt::CTRL + Qt::Key_Minus);
+    connect(keyZoomOut, &QShortcut::activated, this, [=]() {
+        QFont font = QApplication::font();
+        font.setPointSize(font.pointSize()-1);
+        QApplication::setFont(font);
+        ui->quickWidget->setSource(QUrl("qrc:/mainQml.qml"));
+        QTimer::singleShot(10, this, SLOT(indexHasChanged()));
+     });
+
 
     connect(addItemAct, &QAction::triggered, this, [=]() {
            mainqmltype->setMenubarCommStr("addItemAct");

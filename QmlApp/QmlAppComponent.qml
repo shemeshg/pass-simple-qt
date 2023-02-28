@@ -44,6 +44,7 @@ ColumnLayout {
     function refreshToolBar(){
         //walkaround "Qt Quick Layouts: Polish loop detected. Aborting after two iterations."
         delaySetTimeOut(100, function() {
+            if (!columnLayoutHomeId){return;}
             let i = columnLayoutHomeId.toolbarId.currentIndex
             columnLayoutHomeId.toolbarId.currentIndex = 4;
             columnLayoutHomeId.toolbarId.currentIndex = i;
