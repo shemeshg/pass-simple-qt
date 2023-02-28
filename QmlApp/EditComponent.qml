@@ -15,6 +15,7 @@ ColumnLayout {
     property alias folderDialogDownload: folderDialogDownload
     property alias fileDialogDownload: fileDialogDownload
 
+
     function preferYamlIfYamlIsValidOnFileChange(){
         delaySetTimeOut(100, function() {
             if ( isPreviewId.checked && editComponentId.visible) {
@@ -257,6 +258,24 @@ ColumnLayout {
             onSelectedTextChanged: {
                 getMainqmltype().selectedText = selectedText
             }
+            property bool ctrlPressed: false
+            Keys.onPressed: (event)=>{
+                if (event.key === Qt.Key_Control) {
+                    ctrlPressed = true
+                }
+                if (ctrlPressed && event.key === Qt.Key_Plus){
+                    decryptedTextId.font.pixelSize++
+                }
+                if (ctrlPressed && event.key === Qt.Key_Minus){
+                    decryptedTextId.font.pixelSize--
+                }
+            }
+            Keys.onReleased: (event)=> {
+                if (event.key === Qt.Key_Control) {
+                    ctrlPressed = false
+                }
+            }
+
         }
 
 
