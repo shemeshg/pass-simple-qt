@@ -130,8 +130,12 @@ MainWindow::MainWindow(QWidget *parent)
         QFont font = QApplication::font();
         font.setPointSize(font.pointSize()+1);
         QApplication::setFont(font);
+        QString  s = mainqmltype->filePath();
         ui->quickWidget->setSource(QUrl("qrc:/mainQml.qml"));
-        QTimer::singleShot(10, this, SLOT(indexHasChanged()));
+        if (treeViewItemSelected){
+            QTimer::singleShot(10, this, SLOT(indexHasChanged()));
+        }
+
      });
 
 
@@ -142,7 +146,9 @@ MainWindow::MainWindow(QWidget *parent)
         font.setPointSize(font.pointSize()-1);
         QApplication::setFont(font);
         ui->quickWidget->setSource(QUrl("qrc:/mainQml.qml"));
-        QTimer::singleShot(10, this, SLOT(indexHasChanged()));
+        if (treeViewItemSelected){
+            QTimer::singleShot(10, this, SLOT(indexHasChanged()));
+        }
      });
 
 
@@ -176,6 +182,7 @@ void MainWindow::indexHasChanged()
     auto idx = treeIndex.model()->index(treeIndex.row(), 0, treeIndex.parent());
     try {
         mainqmltype->setFilePath(filesystemModel.filePath(idx));
+        treeViewItemSelected = true;
     } catch (const std::exception &e) {
         qDebug() << e.what();
     }

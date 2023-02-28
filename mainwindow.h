@@ -42,4 +42,6 @@ private:
     QModelIndex treeIndex;
     QShortcut *keyZoomIn;
     QShortcut *keyZoomOut;
+
+    bool treeViewItemSelected = false;
 };
