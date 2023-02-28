@@ -121,6 +121,7 @@ ColumnLayout {
                 if(classInitialized){
                     initOnFileChanged();
                 }
+                refreshToolBar()
             }
             visible: waitItems.indexOf(filePath) === -1 &&
                      noneWaitItems.indexOf(filePath) === -1
