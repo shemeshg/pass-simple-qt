@@ -24,7 +24,6 @@ ColumnLayout {
                         (!editYamlComponentId.editYamlType.isYamlValid &&
                          isYamlShow.checked)){
 
-
                     isYamlShow.checked = !isYamlShow.checked
                 }
             }

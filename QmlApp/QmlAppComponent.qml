@@ -78,7 +78,9 @@ ColumnLayout {
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
         classInitialized = mainLayout.getGpgIdManageType().classInitialized
         gpgPubKeysFolderExists = mainLayout.getGpgIdManageType().gpgPubKeysFolderExists
-        columnLayoutHomeId.editComponentId.preferYamlIfYamlIsValidOnFileChange()
+        if (mainLayout.getMainqmltype().appSettingsType.preferYamlView) {
+            columnLayoutHomeId.editComponentId.preferYamlIfYamlIsValidOnFileChange()
+        }
         notifyStr("")
         refreshToolBar()
 

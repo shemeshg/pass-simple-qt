@@ -12,6 +12,7 @@ ColumnLayout {
     width: parent.width
 
     property bool isUseClipboard: mainLayout.getMainqmltype().appSettingsType.useClipboard
+    property bool isPreferYamlView: mainLayout.getMainqmltype().appSettingsType.preferYamlView
 
     FolderDialog {
         id: selectStorePathDialogId
@@ -38,6 +39,7 @@ ColumnLayout {
                                    vscodeExecPath.text,
                                    autoTypeCmd.text,
                                    useClipboard.checked,
+                                    preferYamlView.checked,
                                    fontSize.text,
                                     ctxSigner.displayText);
     }
@@ -146,6 +148,15 @@ ColumnLayout {
                 id: fontSize
                 text: mainLayout.getMainqmltype().appSettingsType.fontSize
                 Layout.fillWidth: true
+            }
+        }
+        Switch {
+            id: preferYamlView
+            visible: isShowPreview
+            text: qsTr("Prefer Yaml view if Yaml valid")
+            checked: isPreferYamlView;
+            onCheckedChanged: {
+                saveSettingsComponent();
             }
         }
         Switch {

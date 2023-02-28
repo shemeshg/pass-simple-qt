@@ -105,6 +105,7 @@ public:
                                             QString vscodeExecPath,
                                             QString autoTypeCmd,
                                             bool useClipboard,
+                                            bool preferYamlView,
                                             int fontSize,
                                             QString ctxSigner);
 

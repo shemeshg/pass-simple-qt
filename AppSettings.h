@@ -21,6 +21,7 @@ class AppSettings : public QObject
     Q_PROPERTY(QString autoTypeCmd READ autoTypeCmd WRITE setAutoTypeCmd NOTIFY autoTypeCmdChanged)
     Q_PROPERTY(QString ctxSigner READ ctxSigner WRITE setCtxSigner NOTIFY ctxSignerChanged)
     Q_PROPERTY(bool useClipboard READ useClipboard WRITE setUseClipboard NOTIFY useClipboardChanged)
+    Q_PROPERTY(bool preferYamlView READ preferYamlView WRITE setPreferYamlView NOTIFY preferYamlViewChanged)
     Q_PROPERTY(int fontSize READ fontSize WRITE setfontSize NOTIFY fontSizeChanged)
     Q_PROPERTY(QString appVer READ appVer CONSTANT )
     QML_ELEMENT
@@ -39,7 +40,9 @@ public:
     const QString autoTypeCmd() const;
     void setAutoTypeCmd(const QString &autoTypeCmd);
     bool useClipboard() const { return m_useClipboard; };
+    bool preferYamlView() const { return m_preferYamlView; };
     void setUseClipboard(const bool useClipboard);
+    void setPreferYamlView(const bool preferYamlView);
     int fontSize() const { return m_fontSize; };
     void setfontSize(const int fontSize);
     QString appVer() const;;
@@ -51,6 +54,7 @@ signals:
     void vscodeExecPathChanged();
     void autoTypeCmdChanged();
     void useClipboardChanged();
+    void preferYamlViewChanged();
     void fontSizeChanged();
     void ctxSignerChanged();
 
@@ -63,5 +67,6 @@ private:
     QString m_autoTypeCmd;
     QString m_ctxSigner;
     bool m_useClipboard;
+    bool m_preferYamlView;
     int m_fontSize;
 };

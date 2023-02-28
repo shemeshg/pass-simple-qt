@@ -164,7 +164,8 @@ void MainQmlType::initGpgIdManage()
     }
 }
 
-void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpFolderPath, QString gitExecPath, QString vscodeExecPath, QString autoTypeCmd, bool useClipboard, int fontSize, QString ctxSigner)
+void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpFolderPath, QString gitExecPath, QString vscodeExecPath, QString autoTypeCmd,
+                                         bool useClipboard, bool preferYamlView, int fontSize, QString ctxSigner)
 {
     appSettings.setPasswordStorePath(passwordStorePath);
     appSettings.setTmpFolderPath(tmpFolderPath);
@@ -173,6 +174,7 @@ void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpF
     appSettings.setVscodeExecPath(vscodeExecPath);
     appSettings.setAutoTypeCmd(autoTypeCmd);
     appSettings.setUseClipboard(useClipboard);
+    appSettings.setPreferYamlView(preferYamlView);
     appSettings.setfontSize(fontSize);
     appSettings.setCtxSigner(ctxSigner);
 

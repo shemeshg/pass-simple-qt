@@ -12,6 +12,7 @@ AppSettings::AppSettings(QObject *parent)
     m_autoTypeCmd = settings.value("autoTypeCmd", "").toString();
     m_ctxSigner = settings.value("ctxSigner", "").toString();
     m_useClipboard = settings.value("useClipboard", "").toBool();
+    m_preferYamlView = settings.value("preferYamlView", "").toBool();
     m_fontSize = settings.value("fontSize", "14").toInt();
 }
 
@@ -135,6 +136,15 @@ void AppSettings::setUseClipboard(const bool useClipboard)
     m_useClipboard = useClipboard;
     settings.setValue("useClipboard", m_useClipboard);
     emit useClipboardChanged();
+}
+
+void AppSettings::setPreferYamlView(const bool preferYamlView)
+{
+    if (preferYamlView == m_preferYamlView)
+        return;
+    m_preferYamlView = preferYamlView;
+    settings.setValue("preferYamlView", m_preferYamlView);
+    emit preferYamlViewChanged();
 }
 
 void AppSettings::setfontSize(const int fontSize)
