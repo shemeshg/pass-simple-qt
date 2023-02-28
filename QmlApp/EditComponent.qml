@@ -15,6 +15,21 @@ ColumnLayout {
     property alias folderDialogDownload: folderDialogDownload
     property alias fileDialogDownload: fileDialogDownload
 
+    function preferYamlIfYamlIsValidOnFileChange(){
+        delaySetTimeOut(100, function() {
+            if ( isPreviewId.checked && editComponentId.visible) {
+                if(
+                        (editYamlComponentId.editYamlType.isYamlValid &&
+                         !isYamlShow.checked) ||
+                        (!editYamlComponentId.editYamlType.isYamlValid &&
+                         isYamlShow.checked)){
+
+
+                    isYamlShow.checked = !isYamlShow.checked
+                }
+            }
+        })
+    }
 
     function doShowYAML(){
         if (!showYamlEdit && editYamlComponentId.editYamlType.isYamlValid){
@@ -80,7 +95,7 @@ ColumnLayout {
             visible: Boolean(nearestGpg)
             text: "download folder content"
             onClicked: {
-               onClicked: {
+                onClicked: {
                     folderDialogDownload.open();
                 }
             }
@@ -126,7 +141,6 @@ ColumnLayout {
             visible: waitItems.indexOf(filePath) === -1 &&
                      noneWaitItems.indexOf(filePath) === -1
         }
-
 
 
         Shortcut {
@@ -232,12 +246,12 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
-        TextArea { 
-            id: decryptedTextId            
+        TextArea {
+            id: decryptedTextId
             width: parent.width
             height: parent.height
             Layout.fillWidth: true
-            Layout.fillHeight: true            
+            Layout.fillHeight: true
             background: Rectangle {
                 color: "white"
             }

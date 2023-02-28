@@ -61,7 +61,6 @@ ColumnLayout {
     }
 
     function initOnFileChanged(){
-        refreshToolBar()
         clearSystemTrayIconEntries();
         if (isShowPreview){
             columnLayoutHomeId.editComponentId.decryptedTextId.text = mainLayout.getDecrypted();
@@ -79,7 +78,10 @@ ColumnLayout {
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
         classInitialized = mainLayout.getGpgIdManageType().classInitialized
         gpgPubKeysFolderExists = mainLayout.getGpgIdManageType().gpgPubKeysFolderExists
+        columnLayoutHomeId.editComponentId.preferYamlIfYamlIsValidOnFileChange()
         notifyStr("")
+        refreshToolBar()
+
     }
 
     InputTypeType {
