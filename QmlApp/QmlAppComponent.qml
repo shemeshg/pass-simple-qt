@@ -78,9 +78,11 @@ ColumnLayout {
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
         classInitialized = mainLayout.getGpgIdManageType().classInitialized
         gpgPubKeysFolderExists = mainLayout.getGpgIdManageType().gpgPubKeysFolderExists
-        if (mainLayout.getMainqmltype().appSettingsType.preferYamlView) {
+
+        if (showSettingsComponentId.isPreferYamlView){
             columnLayoutHomeId.editComponentId.preferYamlIfYamlIsValidOnFileChange()
         }
+
         notifyStr("")
         refreshToolBar()
 
@@ -148,18 +150,26 @@ ColumnLayout {
     }
 
     SHowSettingsComponent {
+        id: showSettingsComponentId
     }
 
-    Timer {
-        id: setTimeoutTimer
+    Component {
+        id: delayCallerComponent
+        Timer {
+        }
     }
 
-    function delaySetTimeOut(delayTime, cb) {
-        setTimeoutTimer.interval = delayTime;
-        setTimeoutTimer.repeat = false;
-        setTimeoutTimer.triggered.connect(cb);
-        setTimeoutTimer.start();
+    function delaySetTimeOut( interval, callback ) {
+        var delayCaller = delayCallerComponent.createObject( null,
+                { "interval": interval, "repeat": false } );
+        delayCaller.triggered.connect( function () {
+            callback();
+            delayCaller.destroy();
+        } );
+        delayCaller.start();
     }
+
+
 
     function notifyStr(str, withTimeout=false){
         statusLabelId.text = str

@@ -155,7 +155,7 @@ ColumnLayout {
             visible: isShowPreview
             text: qsTr("Prefer Yaml view if Yaml valid")
             checked: isPreferYamlView;
-            onCheckedChanged: {
+            onCheckedChanged: {                
                 saveSettingsComponent();
             }
         }
