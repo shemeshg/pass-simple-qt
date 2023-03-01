@@ -16,7 +16,9 @@ ColumnLayout {
         DatetimeComponent {
             dateTime.datetimeStr: inputText
             onDatetimeChanged: (text)=>{
-                              textChangedSignal(text)
+                                   if(inputType === "datetime"){
+                                       textChangedSignal(text)
+                                   }
                                }
         }
     }
