@@ -107,6 +107,9 @@ ColumnLayout {
 
         let action = menubarCommStr.split(" ")[0];
         if (action==="addItemAct"){
+            isShowSettings = false
+            isShowSearch = false
+            isShowLog = false
             columnLayoutHomeId.toolbarId.currentIndex = 1            
         }
         if(Boolean(nearestGpg)){

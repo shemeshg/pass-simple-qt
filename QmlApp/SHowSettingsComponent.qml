@@ -93,7 +93,7 @@ ColumnLayout {
         spacing: 8
 
         Label {
-            text: "Private personal Id: "
+            text: "Private personal Id: " +mainLayout.getMainqmltype().appSettingsType.ctxSigner
         }
         ComboBox {
             id: ctxSigner
@@ -155,18 +155,12 @@ ColumnLayout {
             visible: isShowPreview
             text: qsTr("Prefer Yaml view if Yaml valid")
             checked: isPreferYamlView;
-            onCheckedChanged: {                
-                saveSettingsComponent();
-            }
         }
         Switch {
             id: useClipboard
             visible: isShowPreview
             text: qsTr("Use clipboard")
             checked: isUseClipboard;
-            onCheckedChanged: {
-                saveSettingsComponent();
-            }
         }
     }
 }
