@@ -125,7 +125,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     keyZoomIn = new QShortcut(this);
     //Qt::CTRL + Qt::Key\_P
-    keyZoomIn->setKeys({Qt::CTRL + Qt::Key_Plus,Qt::CTRL + Qt::Key_Equal});
+    keyZoomIn->setKeys({Qt::CTRL | Qt::Key_Plus,Qt::CTRL | Qt::Key_Equal});
     connect(keyZoomIn, &QShortcut::activated, this, [=]() {
         QFont font = QApplication::font();
         font.setPointSize(font.pointSize()+1);
@@ -140,7 +140,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     keyZoomOut = new QShortcut(this);
-    keyZoomOut->setKey(Qt::CTRL + Qt::Key_Minus);
+    keyZoomOut->setKeys({Qt::CTRL | Qt::Key_Minus, Qt::CTRL | Qt::Key_Underscore});
     connect(keyZoomOut, &QShortcut::activated, this, [=]() {
         QFont font = QApplication::font();
         font.setPointSize(font.pointSize()-1);
