@@ -93,7 +93,7 @@ ColumnLayout {
         spacing: 8
 
         Label {
-            text: "Private personal Id: " +mainLayout.getMainqmltype().appSettingsType.ctxSigner
+            text: "Private personal Id: "
         }
         ComboBox {
             id: ctxSigner
