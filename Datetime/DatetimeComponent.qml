@@ -36,7 +36,6 @@ ColumnLayout {
         TextField {
             Layout.fillWidth: true
             id: input
-            //text: datetimeStr
             inputMask: datetimeInputMaskString
             validator: DateTimeValidator {
                 datetimeFormat: datetimeFormatString
@@ -46,7 +45,8 @@ ColumnLayout {
                 datetimeComponentId.datetimeChanged(text)
             }
             onTextEdited: {
-                dateTime.datetimeStr = text                
+                dateTime.datetimeStr = text
+                daysDiffId.text = dateTime.daysDiff;
             }
         }
 
@@ -55,8 +55,7 @@ ColumnLayout {
             text: "In"
         }
         TextField {
-            id: daysDiffId
-            text: dateTime.daysDiff
+            id: daysDiffId            
             validator: IntValidator {}
             onTextEdited: {
                 if (Number(text)){
