@@ -9,33 +9,44 @@ ColumnLayout {
     id: datetimeComponentId
     signal datetimeChanged(string text);
 
-    property alias dateTime: dateTime
+    property string  datetimeFormatString: "yyyy-MM-dd HH:mm"
+    property string  datetimeInputMaskString: "9999-99-99 99:99"
+    property string  datetimeStr: ""
 
     width: parent.width
     height: parent.height
 
+
+
     DatetimeType {
         id: dateTime
-        datetimeFormat: "dd/MM/yyyy HH:mm:ss"
+        datetimeFormat: datetimeFormatString
+
     }
 
 
     RowLayout {
+        Component.onCompleted:{
+            dateTime.datetimeStr = datetimeStr;
+            input.text = dateTime.datetimeStr;
+            daysDiffId.text = dateTime.daysDiff;
+
+        }
 
         TextField {
             Layout.fillWidth: true
             id: input
-            text : dateTime.datetimeStr
-            inputMask: "99/99/9999 99:99:99"
+            //text: datetimeStr
+            inputMask: datetimeInputMaskString
             validator: DateTimeValidator {
-                datetimeFormat: "dd/MM/yyyy HH:mm:ss"
+                datetimeFormat: datetimeFormatString
             }
             onTextChanged: {
                 acceptableInput ? statusId.text = "" : statusId.text = qsTr("Input not acceptable");
                 datetimeComponentId.datetimeChanged(text)
             }
             onTextEdited: {
-                dateTime.datetimeStr = text
+                dateTime.datetimeStr = text                
             }
         }
 
@@ -44,6 +55,7 @@ ColumnLayout {
             text: "In"
         }
         TextField {
+            id: daysDiffId
             text: dateTime.daysDiff
             validator: IntValidator {}
             onTextEdited: {
@@ -52,6 +64,7 @@ ColumnLayout {
                 } else {
                     dateTime.daysDiff = 0;
                 }
+                input.text = dateTime.datetimeStr
             }
         }
         Text {

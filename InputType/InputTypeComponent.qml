@@ -14,7 +14,7 @@ ColumnLayout {
     RowLayout {
         visible: inputType === "datetime"
         DatetimeComponent {
-            dateTime.datetimeStr: inputText
+            datetimeStr: inputText
             onDatetimeChanged: (text)=>{
                                    if(inputType === "datetime"){
                                        textChangedSignal(text)
