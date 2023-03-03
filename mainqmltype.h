@@ -129,11 +129,13 @@ public:
 
     Q_INVOKABLE QString getNearestGit();
 
+    Q_INVOKABLE QString getNearestTemplateGpg();
+
     Q_INVOKABLE QString getNearestGpgId();
 
     Q_INVOKABLE QString getFullPathFolder();
 
-    Q_INVOKABLE void createEmptyEncryptedFile(QString fullPathFolder, QString fileName);
+    Q_INVOKABLE void createEmptyEncryptedFile(QString fullPathFolder, QString fileName, QString templatePath);
 
     Q_INVOKABLE bool fileExists(QString fullPathFolder, QString fileName);
 

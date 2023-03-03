@@ -68,6 +68,7 @@ ColumnLayout {
         }
 
         columnLayoutHomeId.metaDataComponentId.nearestGit = mainLayout.getNearestGit();
+        columnLayoutHomeId.addComponentId.nearestTemplateGpg = mainLayout.getNearestTemplateGpg();
         nearestGpg = mainLayout.getNearestGpgId();
         fullPathFolder = getMainqmltype().getFullPathFolder();
         hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId());

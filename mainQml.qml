@@ -20,6 +20,10 @@ Item {
         return mainqmltype.getNearestGit();
     }
 
+    function getNearestTemplateGpg() {
+        return mainqmltype.getNearestTemplateGpg();
+    }
+
     function getNearestGpgId() {
         return mainqmltype.getNearestGpgId();
     }

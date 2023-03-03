@@ -9,6 +9,7 @@ import DropdownWithList
 ColumnLayout {    
     property alias fileDialogUpload: fileDialogUpload
     property alias folderDialogUpload: folderDialogUpload
+    property string nearestTemplateGpg: ""
 
     onVisibleChanged: {
         if (visible) {
@@ -49,8 +50,8 @@ ColumnLayout {
             text: "Destination folder:" + fullPathFolder
         }
         Label {
-            text: "Create empty encrypted text file"
-        }
+            text: "Create new text file"
+        }        
         RowLayout {
             TextField {
                 id: createEmptyFileNameId
@@ -70,11 +71,16 @@ ColumnLayout {
                 text: "add";
                 enabled: Boolean(nearestGpg) && Boolean( createEmptyFileNameId.text)
                 onClicked: {
-                    getMainqmltype().createEmptyEncryptedFile(fullPathFolder, createEmptyFileNameId.text)
+                    getMainqmltype().createEmptyEncryptedFile(fullPathFolder, createEmptyFileNameId.text, nearestTemplateGpg)
                     createEmptyFileNameId.text = ""
                 }
             }
         }
+        Label {
+            text: "template.gpg: " + nearestTemplateGpg
+        }
+
+
         RowLayout{
             Label {
                 text: "Upload"

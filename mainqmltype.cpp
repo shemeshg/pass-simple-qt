@@ -288,6 +288,17 @@ QString MainQmlType::getNearestGit()
     return ret;
 }
 
+QString MainQmlType::getNearestTemplateGpg()
+{
+    QString ret = "";
+    runSafeFromException([&]() {
+        ret = QString::fromStdString(
+                    passHelper.getNearestTemplateGpg(passFile->getFullPath(),
+                                             appSettings.passwordStorePath().toStdString()));
+    });
+    return ret;
+}
+
 QString MainQmlType::getNearestGpgId()
 {
     QString ret = "";
@@ -306,14 +317,15 @@ QString MainQmlType::getFullPathFolder()
     return ret;
 }
 
-void MainQmlType::createEmptyEncryptedFile(QString fullPathFolder, QString fileName)
+void MainQmlType::createEmptyEncryptedFile(QString fullPathFolder, QString fileName,  QString templatePath)
 {
     std::filesystem::path p = fullPathFolder.toStdString();
     fileName = fileName + ".gpg";
     p = p / fileName.toStdString();
 
-    runSafeFromException([&]() {
-        std::string s = R"V0G0N(user name: ""
+    if (templatePath.isEmpty()){
+        runSafeFromException([&]() {
+            std::string s = R"V0G0N(user name: ""
 password: ""
 home page: ""
 totp: ""
@@ -324,8 +336,16 @@ fields type:
   totp: totp
   home page: url
   description: textedit)V0G0N";
-        passFile->encryptStringToFile(s, p, m_gpgIdManageType.getEncryptTo());
-    });
+            passFile->encryptStringToFile(s, p, m_gpgIdManageType.getEncryptTo());
+        });
+    } else {
+        runSafeFromException([&]() {
+            std::filesystem::path  t = templatePath.toStdString();
+            t = t / "template.gpg";
+            std::filesystem::copy_file(t,p);
+        });
+    }
+
 }
 
 bool MainQmlType::fileExists(QString fullPathFolder, QString fileName)
