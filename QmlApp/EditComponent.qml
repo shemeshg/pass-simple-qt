@@ -102,6 +102,13 @@ ColumnLayout {
             rightPadding: 8
         }
     }
+    Text {
+        visible: isGpgFile
+        text: "<h2>" +
+            filePath.replace(fullPathFolder,"").substring(1,filePath.replace(fullPathFolder,"").length-4) +
+              "</h2>"
+    }
+
     RowLayout {
         visible: waitItems.indexOf(filePath) > -1 ||
                  noneWaitItems.indexOf(filePath) > -1
