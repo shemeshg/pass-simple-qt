@@ -7,5 +7,6 @@
         <file>icons/icons8-upload-file-64.png</file>
         <file>icons/icons8-download-file-64.png</file>
         <file>icons/icons8-logout-64.png</file>
+        <file>icons/icons8-info-64.png</file>
     </qresource>
 </RCC>

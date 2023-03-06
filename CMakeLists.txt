@@ -33,6 +33,7 @@ set(PROJECT_SOURCES
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    about.ui
     qwidgetqrc.qrc
     ${TS_FILES}
     ${APP_ICON_RESOURCE_WINDOWS}

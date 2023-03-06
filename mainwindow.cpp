@@ -9,7 +9,8 @@
 #include <QTimer>
 
 
-#include "./ui_mainwindow.h"
+#include "ui_mainwindow.h"
+#include "ui_about.h"
 #include "UiGuard.h"
 #include "mainwindow.h"
 
@@ -49,27 +50,51 @@ MainWindow::MainWindow(QWidget *parent)
     trayIcon->setIcon(QIcon(":/icon.png"));
     trayIcon->show();
 
-    QAction *addItemAct = new QAction(QIcon("://icons/icons8-add-file-64.png"),tr("Add Item"), this);
+    auto actionAddItem = new QAction(QIcon("://icons/icons8-add-file-64.png"),tr("Add Item"), this);
+    auto actionUploadFile = new QAction(QIcon("://icons/icons8-upload-file-64.png"),tr("Upload file"), this);
+    auto actionUploadFolder = new QAction(QIcon("://icons/icons8-upload-folder-67.png"),tr("Upload folder content"), this);
+    auto actionDownloadFile = new QAction(QIcon("://icons/icons8-download-file-64.png"),tr("Download file"), this);
+    auto actionDownloadFolder = new QAction(QIcon("://icons/icons8-download-folder-67.png"),tr("Download folder content"), this);
+    auto actionAbout = new QAction(QIcon("://icons/icons8-info-64.png"),tr("Quit"), this);
+    auto actionQuit = new QAction(QIcon("://icons/icons8-logout-64.png"),tr("Quit"), this);
 
-    QAction *uploadFileAct = new QAction(QIcon("://icons/icons8-upload-file-64.png"),tr("Upload file"), this);
-    QAction *uploadFolderAct = new QAction(QIcon("://icons/icons8-upload-folder-67.png"),tr("Upload folder content"), this);
+    actionQuit->setStatusTip(tr("Quit"));
+    connect(actionQuit, &QAction::triggered, this, &QApplication::quit);
 
-    QAction *downloadFileAct = new QAction(QIcon("://icons/icons8-download-file-64.png"),tr("Download file"), this);
-    QAction *downloadFolderAct = new QAction(QIcon("://icons/icons8-download-folder-67.png"),tr("Download folder content"), this);
+    connect(actionAddItem, &QAction::triggered, this, [=]() {
+        mainqmltype->setMenubarCommStr("addItemAct");
+    });
+    connect(actionUploadFile, &QAction::triggered, this, [=]() {
+       mainqmltype->setMenubarCommStr("uploadFileAct");
+    });
+    connect(actionUploadFolder, &QAction::triggered, this, [=]() {
+       mainqmltype->setMenubarCommStr("uploadFolderAct");
+    });
+    connect(actionDownloadFile, &QAction::triggered, this, [=]() {
+        mainqmltype->setMenubarCommStr("downloadFileAct");
+    });
+    connect(actionDownloadFolder, &QAction::triggered, this, [=]() {
+       mainqmltype->setMenubarCommStr("downloadFolderAct");
+    });
+    connect(actionAbout, &QAction::triggered, this, [=]() {
+        auto aboutDialog = new QDialog(this);
+        auto aboutUI = new Ui::AboutDialog();
+        aboutUI->setupUi(aboutDialog);
+        aboutUI->versionLabel->setText(AppSettings::appVer());
+        aboutDialog->exec();
+    });
 
-    QAction *quitQtAct = new QAction(QIcon("://icons/icons8-logout-64.png"),tr("Quit"), this);
-    quitQtAct->setStatusTip(tr("Quit"));
-    connect(quitQtAct, &QAction::triggered, this, &QApplication::quit);
-
-    ui->toolBar->addAction(addItemAct);
+    ui->toolBar->addAction(actionAddItem);
     ui->toolBar->addSeparator();
-    ui->toolBar->addAction(downloadFileAct);
-    ui->toolBar->addAction(downloadFolderAct);
+    ui->toolBar->addAction(actionUploadFile);
+    ui->toolBar->addAction(actionUploadFolder);
     ui->toolBar->addSeparator();
-    ui->toolBar->addAction(uploadFileAct);
-    ui->toolBar->addAction(uploadFolderAct);
+    ui->toolBar->addAction(actionDownloadFile);
+    ui->toolBar->addAction(actionDownloadFolder);
     ui->toolBar->addSeparator();
-    ui->toolBar->addAction(quitQtAct);
+    ui->toolBar->addAction(actionAbout);
+    ui->toolBar->addSeparator();
+    ui->toolBar->addAction(actionQuit);
 
     filesystemModel.setIconProvider(&iconProvider);
     filesystemModel.setRootPath("");
@@ -149,23 +174,6 @@ MainWindow::MainWindow(QWidget *parent)
         if (treeViewItemSelected){
             QTimer::singleShot(10, this, SLOT(indexHasChanged()));
         }
-     });
-
-
-    connect(addItemAct, &QAction::triggered, this, [=]() {
-           mainqmltype->setMenubarCommStr("addItemAct");
-     });
-    connect(uploadFileAct, &QAction::triggered, this, [=]() {
-           mainqmltype->setMenubarCommStr("uploadFileAct");
-     });
-    connect(uploadFolderAct, &QAction::triggered, this, [=]() {
-           mainqmltype->setMenubarCommStr("uploadFolderAct");
-     });
-    connect(downloadFileAct, &QAction::triggered, this, [=]() {
-           mainqmltype->setMenubarCommStr("downloadFileAct");
-     });
-    connect(downloadFolderAct, &QAction::triggered, this, [=]() {
-           mainqmltype->setMenubarCommStr("downloadFolderAct");
      });
 }
 

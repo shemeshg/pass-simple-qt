@@ -156,6 +156,6 @@ void AppSettings::setfontSize(const int fontSize)
     emit fontSizeChanged();
 }
 
-QString AppSettings::appVer() const {
+QString AppSettings::appVer() {
     return "App:" + QString(PROJECT_VER) + " qt:" + qVersion();
 }

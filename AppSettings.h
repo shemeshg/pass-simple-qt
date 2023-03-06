@@ -45,7 +45,7 @@ public:
     void setPreferYamlView(const bool preferYamlView);
     int fontSize() const { return m_fontSize; };
     void setfontSize(const int fontSize);
-    QString appVer() const;;
+    static QString appVer();
 
 signals:
     void passwordStorePathChanged();
