@@ -21,6 +21,10 @@ ColumnLayout {
                                    }
                                }
         }
+        Item {
+            height: 2
+            width: 15
+        }
     }
 
     RowLayout {
