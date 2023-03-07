@@ -50,13 +50,13 @@ MainWindow::MainWindow(QWidget *parent)
     trayIcon->setIcon(QIcon(":/icon.png"));
     trayIcon->show();
 
-    auto actionAddItem = new QAction(QIcon("://icons/icons8-add-file-64.png"),tr("Add Item"), this);
-    auto actionUploadFile = new QAction(QIcon("://icons/icons8-upload-file-64.png"),tr("Upload file"), this);
-    auto actionUploadFolder = new QAction(QIcon("://icons/icons8-upload-folder-67.png"),tr("Upload folder content"), this);
-    auto actionDownloadFile = new QAction(QIcon("://icons/icons8-download-file-64.png"),tr("Download file"), this);
-    auto actionDownloadFolder = new QAction(QIcon("://icons/icons8-download-folder-67.png"),tr("Download folder content"), this);
-    auto actionAbout = new QAction(QIcon("://icons/icons8-info-64.png"),tr("Quit"), this);
-    auto actionQuit = new QAction(QIcon("://icons/icons8-logout-64.png"),tr("Quit"), this);
+    auto actionAddItem = new QAction(QIcon("://icons/outline_add_file_black_24dp.png"),tr("Add Item"), this);
+    auto actionUploadFile = new QAction(QIcon("://icons/outline_file_upload_black_24dp.png"),tr("Upload file"), this);
+    auto actionUploadFolder = new QAction(QIcon("://icons/outline_drive_folder_upload_black_24dp.png"),tr("Upload folder content"), this);
+    auto actionDownloadFile = new QAction(QIcon("://icons/outline_file_download_black_24dp.png"),tr("Download file"), this);
+    auto actionDownloadFolder = new QAction(QIcon("://icons/outline_drive_folder_download_black_24dp.png"),tr("Download folder content"), this);
+    auto actionAbout = new QAction(QIcon("://icons/outline_info_black_24dp.png"),tr("About"), this);
+    auto actionQuit = new QAction(QIcon("://icons/outline_exit_to_app_black_24dp.png"),tr("Quit"), this);
 
     actionQuit->setStatusTip(tr("Quit"));
     connect(actionQuit, &QAction::triggered, this, &QApplication::quit);

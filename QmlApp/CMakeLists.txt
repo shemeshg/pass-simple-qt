@@ -34,10 +34,10 @@ qt6_add_qml_module(QmlApp
             TextEditComponent.qml
         RESOURCES
             icons/icons8-locked-with-key-48.png
-            icons/icons8-shop-80.png
-            icons/icons8-automation-50.png
-            icons/icons8-search-more-50.png
-            icons/icons8-tree-structure-80.png
+            icons/outline_settings_black_24dp.png
+            icons/outline_account_tree_black_24dp.png
+            icons/outline_store_black_24dp.png
+            icons/outline_search_black_24dp.png
         )
 
 
