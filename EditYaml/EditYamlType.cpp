@@ -64,7 +64,7 @@ void EditYamlType::setText(const QString &text)
             try {
                 if (yamlContent["fields type"][key]) {
                     inputType = QString::fromStdString(
-                        yamlContent["fields type"][key].as<std::string>());
+                                yamlContent["fields type"][key].as<std::string>());
                 }
             } catch (...) {
                 // TODO - should we log this somehow?
@@ -104,6 +104,18 @@ void EditYamlType::setYamlModel(const QVariantList &yamlModel)
         return;
 
     m_yamlModel = yamlModel;
+
+    YAML::Node nodeData;
+    YAML::Node nodeType;
+
+    for (QVariantList::ConstIterator j = yamlModel.begin();
+         j != yamlModel.end(); j++)
+    {
+        nodeData[j->toMap().value("key").toString().toStdString()] = j->toMap().value("val").toString().toStdString();
+        nodeType[j->toMap().value("key").toString().toStdString()] = j->toMap().value("inputType").toString().toStdString();
+    }
+    yamlContent = nodeData;
+    yamlContent["fields type"] = nodeType;
     emit yamlModelChanged();
 }
 
