@@ -35,9 +35,6 @@ ColumnLayout {
         TabButton {
             text: qsTr("Auth")
         }
-        TabButton {
-            text: qsTr("About")
-        }
     }
 
     StackLayout {
@@ -56,28 +53,6 @@ ColumnLayout {
         }
         ManageGpgIdComponent {
             id: manageGpgIdComponentId
-        }
-        ColumnLayout {
-            Label {
-                text: mainLayout.getMainqmltype().appSettingsType.appVer
-            }
-            TextEdit {
-                readOnly: true
-                text: `
-Doc:
-    https://shemeshg.github.io/pass-simple-mdbook/install.html
-
-git:
-    https://github.com/shemeshg/pass-simple-qt
-
-Download:
-    https://sourceforge.net/projects/pass-simple/
-
-`
-
-        }
-
-
         }
     }
 
