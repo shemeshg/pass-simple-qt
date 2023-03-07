@@ -56,15 +56,17 @@ ColumnLayout {
             onCheckedChanged: {
                 isEditFieldsType = !isEditFieldsType;
             }
-            bottomPadding: 20;
+
         }
         Button {
-            Layout.alignment: Qt.AlignTop
             visible: isEditFieldsType
-            text: "Add"
             onClicked: {
                 addDialog.open()
             }
+            icon.name: "Add"
+            ToolTip.text: "Add"
+            icon.source: "icons/outline_control_point_black_24dp.png"
+            ToolTip.visible: hovered
         }
     }
 
@@ -159,11 +161,12 @@ ColumnLayout {
                     ComboBox {
                         id: selectedInputType
                         visible: isEditFieldsType
+                        height: moveUpId.height
                         model: ["textedit", "text","url","password","totp","datetime"]
                         Component.onCompleted: {
                             currentIndex = find(modelData.inputType);
                         }
-                        width: 200
+                        //width: 200
                         onActivated:    {
                             editYamlType.sendChangeType(modelData.key,currentText);
                             inputTypeComponentId.inputType = currentText;
@@ -171,36 +174,48 @@ ColumnLayout {
 
                     }
                     Button {
+                        id: moveUpId
                         visible: isEditFieldsType
-                        text: "Up "
                         onClicked: ()=>{
                                        arrayMove(index, index - 1)
                                    }
+                        icon.name: "Up"
+                        ToolTip.text: "Up"
+                        icon.source: "icons/outline_move_up_black_24dp.png"
+                        ToolTip.visible: hovered
 
                     }
                     Button {
                         visible: isEditFieldsType
-                        text: "Down"
                         onClicked: ()=>{
                                        arrayMove(index, index + 1)
                                    }
+                        icon.name: "Down"
+                        ToolTip.text: "Down"
+                        icon.source: "icons/outline_move_down_black_24dp.png"
+                        ToolTip.visible: hovered
                     }
                     Button {
                         visible: isEditFieldsType
-                        text: "Ren"
                         onClicked: ()=>{
                                 dialogRowIdx = index;
                                 renameDialog.open();
-
                                    }
+                        icon.name: "Rename"
+                        ToolTip.text: "Rename"
+                        icon.source: "icons/outline_edit_black_24dp.png"
+                        ToolTip.visible: hovered
                     }
                     Button {
                         visible: isEditFieldsType
-                        text: "Del"
                         onClicked: {
                             dialogRowIdx = index;
                             addDialog.open()
                         }
+                        icon.name: "Delete"
+                        ToolTip.text: "Delete"
+                        icon.source: "icons/outline_remove_circle_outline_black_24dp.png"
+                        ToolTip.visible: hovered
                     }
                 }
                 Row{
