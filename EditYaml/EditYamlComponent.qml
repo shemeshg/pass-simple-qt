@@ -59,6 +59,47 @@ ColumnLayout {
         }
     }
 
+    function arrayMove(oldIndex: number, newIndex) {
+        let arr = editYamlType.yamlModel;
+          while (oldIndex < 0) {
+              oldIndex += arr.length;
+          }
+          while (newIndex < 0) {
+              newIndex += arr.length;
+          }
+          if (newIndex >= arr.length) {
+              newIndex = 0 ;
+          }
+          let newArry = [...arr]
+          newArry.splice(newIndex, 0, newArry.splice(oldIndex, 1)[0]);
+          editYamlType.yamlModel = newArry;
+      }
+
+    property int dialogRowIdx: -1
+    Dialog {
+        id: renameDialog
+        title: "Set field name"
+        width: parent.width * 0.75
+
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        TextField {
+            id: fieldName
+            focus: true
+            text: dialogRowIdx > -1 ? editYamlType.yamlModel[dialogRowIdx].key : ""
+            width: parent.width
+
+        }
+        onAccepted: {
+            let newArry = [...editYamlType.yamlModel]
+            newArry[dialogRowIdx].key = fieldName.text
+            editYamlType.yamlModel = newArry;
+        }
+        onClosed: {
+            dialogRowIdx = -1;
+        }
+    }
+
+
     ListView {
         id: yamlModelListViewId
         model: editYamlType.yamlModel
@@ -71,7 +112,8 @@ ColumnLayout {
 
         flickableDirection: Flickable.VerticalFlick
         boundsBehavior: Flickable.StopAtBounds
-        delegate:         ColumnLayout {
+
+        delegate: ColumnLayout {
                 width: yamlModelListViewId.width
                 Row{
                     Layout.fillWidth: true
@@ -94,6 +136,35 @@ ColumnLayout {
                             inputTypeComponentId.inputType = currentText;
                         }
 
+                    }
+                    Button {
+                        text: "Up "
+                        onClicked: ()=>{
+                                       arrayMove(index, index - 1)
+                                   }
+
+                    }
+                    Button {
+                        text: "Down"
+                        onClicked: ()=>{
+                                       arrayMove(index, index + 1)
+                                   }
+                    }
+                    Button {
+                        text: "Ren"
+                        onClicked: ()=>{
+                                dialogRowIdx = index;
+                                renameDialog.open();
+
+                                   }
+                    }
+                    Button {
+                        text: "Del"
+                        onClicked: {
+                            let newArry = [...editYamlType.yamlModel]
+                            newArry.splice(index,1)
+                            editYamlType.yamlModel = newArry;
+                        }
                     }
                 }
                 Row{
