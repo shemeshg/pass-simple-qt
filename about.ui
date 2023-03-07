@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>&lt;h1&gt;Pass Simple Qt&lt;/h1&gt;</string>
+      <string>&lt;h1&gt;Pass Simple&lt;/h1&gt;</string>
      </property>
     </widget>
    </item>
@@ -111,7 +111,7 @@
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="text">
-          <string>&lt;a href=&quot;https://github.com/shemeshg/pass-simple-qt&quot;&gt;https://github.com/shemeshg/pass-simple-qt&lt;/a&gt;</string>
+          <string>&lt;a href=&quot;https://sourceforge.net/projects/pass-simple/&quot;&gt;https://sourceforge.net/projects/pass-simple/&lt;/a&gt;</string>
          </property>
          <property name="openExternalLinks">
           <bool>true</bool>

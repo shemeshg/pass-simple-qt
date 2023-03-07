@@ -46,7 +46,7 @@ ColumnLayout {
         delaySetTimeOut(100, function() {
             if (!columnLayoutHomeId){return;}
             let i = columnLayoutHomeId.toolbarId.currentIndex
-            columnLayoutHomeId.toolbarId.currentIndex = 4;
+            columnLayoutHomeId.toolbarId.currentIndex = 2;
             columnLayoutHomeId.toolbarId.currentIndex = i;
         })
 
