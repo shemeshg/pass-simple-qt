@@ -59,6 +59,7 @@ ColumnLayout {
 
         }
         Button {
+            id: addDialogButtonId
             visible: isEditFieldsType
             onClicked: {
                 addDialog.open()
@@ -68,6 +69,11 @@ ColumnLayout {
             icon.source: "icons/outline_control_point_black_24dp.png"
             ToolTip.visible: hovered
         }
+        Item {
+            height: addDialogButtonId.height + 5
+            width: 1
+        }
+
     }
 
     function arrayMove(oldIndex: number, newIndex) {
@@ -136,7 +142,7 @@ ColumnLayout {
     }
 
     ListView {
-        id: yamlModelListViewId
+        id: yamlModelListViewId        
         model: editYamlType.yamlModel
         visible: editYamlType.isYamlValid
         clip: true
@@ -153,26 +159,6 @@ ColumnLayout {
                 Row{
                     Layout.fillWidth: true
 
-                    Text {
-                        text:  modelData.key + ": "                       
-                        padding: 8
-
-                    }
-                    ComboBox {
-                        id: selectedInputType
-                        visible: isEditFieldsType
-                        height: moveUpId.height
-                        model: ["textedit", "text","url","password","totp","datetime"]
-                        Component.onCompleted: {
-                            currentIndex = find(modelData.inputType);
-                        }
-                        //width: 200
-                        onActivated:    {
-                            editYamlType.sendChangeType(modelData.key,currentText);
-                            inputTypeComponentId.inputType = currentText;
-                        }
-
-                    }
                     Button {
                         id: moveUpId
                         visible: isEditFieldsType
@@ -217,6 +203,28 @@ ColumnLayout {
                         icon.source: "icons/outline_remove_circle_outline_black_24dp.png"
                         ToolTip.visible: hovered
                     }
+
+                    Text {
+                        text:  modelData.key + ": "                       
+                        padding: 8
+
+                    }
+                    ComboBox {
+                        id: selectedInputType
+                        visible: isEditFieldsType
+                        height: moveUpId.height
+                        model: ["textedit", "text","url","password","totp","datetime"]
+                        Component.onCompleted: {
+                            currentIndex = find(modelData.inputType);
+                        }
+                        //width: 200
+                        onActivated:    {
+                            editYamlType.sendChangeType(modelData.key,currentText);
+                            inputTypeComponentId.inputType = currentText;
+                        }
+
+                    }
+
                 }
                 Row{
                     Layout.fillWidth: true
