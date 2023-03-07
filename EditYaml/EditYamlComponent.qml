@@ -195,8 +195,10 @@ ColumnLayout {
                     Button {
                         visible: isEditFieldsType
                         onClicked: {
-                            dialogRowIdx = index;
-                            addDialog.open()
+                            let newArry = [...editYamlType.yamlModel]
+                            newArry.splice(index,1)
+                            editYamlType.yamlModel = newArry;
+
                         }
                         icon.name: "Delete"
                         ToolTip.text: "Delete"
