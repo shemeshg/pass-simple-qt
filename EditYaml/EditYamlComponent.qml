@@ -48,6 +48,7 @@ ColumnLayout {
 
     RowLayout {
         visible: editYamlType.isYamlValid
+
         Switch {
             id: idEditFieldsType
             text: qsTr("Edit fields type")
@@ -55,7 +56,17 @@ ColumnLayout {
             onCheckedChanged: {
                 isEditFieldsType = !isEditFieldsType;
             }
-            bottomPadding: 20;
+
+        }
+        Button {
+            visible: isEditFieldsType
+            onClicked: {
+                addDialog.open()
+            }
+            icon.name: "Add"
+            ToolTip.text: "Add"
+            icon.source: "icons/outline_control_point_black_24dp.png"
+            ToolTip.visible: hovered
         }
     }
 
@@ -100,6 +111,30 @@ ColumnLayout {
     }
 
 
+    Dialog {
+        id: addDialog
+        title: "Set new field name"
+        width: parent.width * 0.75
+
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        TextField {
+            id: newFieldName
+            focus: true
+            text: ""
+            width: parent.width
+
+        }
+        onAccepted: {
+            if (!newFieldName.text){return;}
+            let newArry = [...editYamlType.yamlModel]
+            newArry.push({inputType: "textedit", key: newFieldName.text, val: ""})
+            editYamlType.yamlModel = newArry;
+        }
+        onClosed: {
+            dialogRowIdx = -1;
+        }
+    }
+
     ListView {
         id: yamlModelListViewId
         model: editYamlType.yamlModel
@@ -126,11 +161,12 @@ ColumnLayout {
                     ComboBox {
                         id: selectedInputType
                         visible: isEditFieldsType
+                        height: moveUpId.height
                         model: ["textedit", "text","url","password","totp","datetime"]
                         Component.onCompleted: {
                             currentIndex = find(modelData.inputType);
                         }
-                        width: 200
+                        //width: 200
                         onActivated:    {
                             editYamlType.sendChangeType(modelData.key,currentText);
                             inputTypeComponentId.inputType = currentText;
@@ -138,33 +174,48 @@ ColumnLayout {
 
                     }
                     Button {
-                        text: "Up "
+                        id: moveUpId
+                        visible: isEditFieldsType
                         onClicked: ()=>{
                                        arrayMove(index, index - 1)
                                    }
+                        icon.name: "Up"
+                        ToolTip.text: "Up"
+                        icon.source: "icons/outline_move_up_black_24dp.png"
+                        ToolTip.visible: hovered
 
                     }
                     Button {
-                        text: "Down"
+                        visible: isEditFieldsType
                         onClicked: ()=>{
                                        arrayMove(index, index + 1)
                                    }
+                        icon.name: "Down"
+                        ToolTip.text: "Down"
+                        icon.source: "icons/outline_move_down_black_24dp.png"
+                        ToolTip.visible: hovered
                     }
                     Button {
-                        text: "Ren"
+                        visible: isEditFieldsType
                         onClicked: ()=>{
                                 dialogRowIdx = index;
                                 renameDialog.open();
-
                                    }
+                        icon.name: "Rename"
+                        ToolTip.text: "Rename"
+                        icon.source: "icons/outline_edit_black_24dp.png"
+                        ToolTip.visible: hovered
                     }
                     Button {
-                        text: "Del"
+                        visible: isEditFieldsType
                         onClicked: {
-                            let newArry = [...editYamlType.yamlModel]
-                            newArry.splice(index,1)
-                            editYamlType.yamlModel = newArry;
+                            dialogRowIdx = index;
+                            addDialog.open()
                         }
+                        icon.name: "Delete"
+                        ToolTip.text: "Delete"
+                        icon.source: "icons/outline_remove_circle_outline_black_24dp.png"
+                        ToolTip.visible: hovered
                     }
                 }
                 Row{

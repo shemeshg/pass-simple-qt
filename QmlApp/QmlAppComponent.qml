@@ -196,14 +196,14 @@ ColumnLayout {
             Button {
                 onClicked: { mainLayout.toggleFilepan()}
                 icon.name: "Hide/Show treeview"
-                icon.source: "icons/icons8-tree-structure-80.png"
+                icon.source: "icons/outline_account_tree_black_24dp.png"
                 ToolTip.visible: hovered
                 ToolTip.text: "Hide/Show treeview"
             }
             Button {
                 onClicked: { mainLayout.getMainqmltype().openStoreInFileBrowser(fullPathFolder)}
                 icon.name: "Open store in file browser"
-                icon.source: "icons/icons8-shop-80.png"
+                icon.source: "icons/outline_store_black_24dp"
                 ToolTip.visible: hovered
                 ToolTip.text: "Open store in file browser"
             }
@@ -213,7 +213,7 @@ ColumnLayout {
 
                 }
                 icon.name: "Settings"
-                icon.source: "icons/icons8-automation-50.png"
+                icon.source: "icons/outline_settings_black_24dp.png"
                 ToolTip.visible: hovered
                 ToolTip.text: "Settings"
             }
@@ -223,7 +223,7 @@ ColumnLayout {
                 }
 
                 icon.name: "search"
-                icon.source: "icons/icons8-search-more-50"
+                icon.source: "icons/outline_search_black_24dp.png"
                 ToolTip.visible: hovered
                 ToolTip.text: "search"
 
