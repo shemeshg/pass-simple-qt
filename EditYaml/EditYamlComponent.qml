@@ -48,6 +48,7 @@ ColumnLayout {
 
     RowLayout {
         visible: editYamlType.isYamlValid
+
         Switch {
             id: idEditFieldsType
             text: qsTr("Edit fields type")
@@ -56,6 +57,14 @@ ColumnLayout {
                 isEditFieldsType = !isEditFieldsType;
             }
             bottomPadding: 20;
+        }
+        Button {
+            Layout.alignment: Qt.AlignTop
+            visible: isEditFieldsType
+            text: "Add"
+            onClicked: {
+                addDialog.open()
+            }
         }
     }
 
@@ -100,6 +109,30 @@ ColumnLayout {
     }
 
 
+    Dialog {
+        id: addDialog
+        title: "Set new field name"
+        width: parent.width * 0.75
+
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        TextField {
+            id: newFieldName
+            focus: true
+            text: ""
+            width: parent.width
+
+        }
+        onAccepted: {
+            if (!newFieldName.text){return;}
+            let newArry = [...editYamlType.yamlModel]
+            newArry.push({inputType: "textedit", key: newFieldName.text, val: ""})
+            editYamlType.yamlModel = newArry;
+        }
+        onClosed: {
+            dialogRowIdx = -1;
+        }
+    }
+
     ListView {
         id: yamlModelListViewId
         model: editYamlType.yamlModel
@@ -138,6 +171,7 @@ ColumnLayout {
 
                     }
                     Button {
+                        visible: isEditFieldsType
                         text: "Up "
                         onClicked: ()=>{
                                        arrayMove(index, index - 1)
@@ -145,12 +179,14 @@ ColumnLayout {
 
                     }
                     Button {
+                        visible: isEditFieldsType
                         text: "Down"
                         onClicked: ()=>{
                                        arrayMove(index, index + 1)
                                    }
                     }
                     Button {
+                        visible: isEditFieldsType
                         text: "Ren"
                         onClicked: ()=>{
                                 dialogRowIdx = index;
@@ -159,11 +195,11 @@ ColumnLayout {
                                    }
                     }
                     Button {
+                        visible: isEditFieldsType
                         text: "Del"
                         onClicked: {
-                            let newArry = [...editYamlType.yamlModel]
-                            newArry.splice(index,1)
-                            editYamlType.yamlModel = newArry;
+                            dialogRowIdx = index;
+                            addDialog.open()
                         }
                     }
                 }
