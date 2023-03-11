@@ -80,9 +80,15 @@ ScrollView{
             id: nearestGpgIdId
             text:"GpgId : " + nearestGpg
         }
-        Text {
-            id: getDecryptedSignedById
-            text:"DecryptedSignedBy : "
+        RowLayout {
+            Label {
+                text: "Signed By: "
+            }
+
+            Text {
+                id: getDecryptedSignedById
+                text:""
+            }
         }
         Text {
             text:"<h2>Wait Items</h2>"

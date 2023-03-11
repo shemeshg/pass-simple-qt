@@ -61,6 +61,12 @@ ColumnLayout {
 
     }
 
+    function decryptedSignedByFullId(idStr, allKeys){
+        let retStr = allKeys.filter((row)=>{return row.search(idStr) !== -1})[0]
+        if(!retStr){retStr=idStr}
+        return retStr;
+    }
+
     function initOnFileChanged(){
         clearSystemTrayIconEntries();
         if (isShowPreview){
@@ -73,10 +79,11 @@ ColumnLayout {
         fullPathFolder = getMainqmltype().getFullPathFolder();
         hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId());
         isGpgFile = filePath.slice(-4)===".gpg";
-        columnLayoutHomeId.metaDataComponentId.getDecryptedSignedById.text = "DecryptedSignedBy : " + mainLayout.getDecryptedSignedBy()
+        let allKeys =  mainLayout.getGpgIdManageType().allKeys
+        columnLayoutHomeId.metaDataComponentId.getDecryptedSignedById.text =  decryptedSignedByFullId(mainLayout.getDecryptedSignedBy(), allKeys)
         columnLayoutHomeId.metaDataComponentId.gitResponseId.text = ""
         columnLayoutHomeId.manageGpgIdComponentId.badEntriesRepeater.model = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
-        columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.allItems = mainLayout.getGpgIdManageType().allKeys
+        columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.allItems = allKeys
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
         classInitialized = mainLayout.getGpgIdManageType().classInitialized
         gpgPubKeysFolderExists = mainLayout.getGpgIdManageType().gpgPubKeysFolderExists
