@@ -32,6 +32,7 @@ qt6_add_qml_module(QmlApp
             SearchComponent.qml
             SHowSettingsComponent.qml
             TextEditComponent.qml
+            RenameDialog.qml
         RESOURCES
             icons/icons8-locked-with-key-48.png
             icons/outline_settings_black_24dp.png
