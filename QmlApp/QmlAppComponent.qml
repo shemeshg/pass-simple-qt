@@ -150,7 +150,7 @@ ColumnLayout {
     onExceptionCounterChanged: {
         isShowLog = Boolean(exceptionCounter);
         if (isShowLog){
-            exceptionAndLogId.logTextId.textEdit.text = exceptionStr;
+            exceptionAndLogId.logTextId.textEdit.text = exceptionStr;            
         } else {
             exceptionAndLogId.logTextId.textEdit.text = "";
         }

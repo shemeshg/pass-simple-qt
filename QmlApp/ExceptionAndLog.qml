@@ -14,7 +14,7 @@ ColumnLayout {
     Button {
         id: navigateBackFromLogId
         text: "Back"
-        onClicked: { exceptionCounter = 0 ;isShowLog = false;}
+        onClicked: { exceptionCounter = 0 ;isShowLog = false;isGpgFile=false;}
 
     }
     Row{

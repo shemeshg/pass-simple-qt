@@ -449,6 +449,9 @@ void MainQmlType::runSafeFromException(std::function<void ()> callback)
     } catch (const std::exception &e) {
         setExceptionStr(e.what());
         setExceptionCounter(exceptionCounter() + 1);
+
+        treeView->setCurrentIndex(filesystemModel->index(appSettings.passwordStorePath()));
+        setFilePath(appSettings.passwordStorePath());
     } catch (...) {
     }
 }
