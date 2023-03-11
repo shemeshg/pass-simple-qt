@@ -49,7 +49,7 @@ ColumnLayout {
             onClicked: isShowSearch = false
         }
         Button {
-            text: "Show regex"
+            text: "regex"
             onClicked: {
                 textFindRegexId.visible = !textFindRegexId.visible
                 textSearchRegexId.visible = !textSearchRegexId.visible
