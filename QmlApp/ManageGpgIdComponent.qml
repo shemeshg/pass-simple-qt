@@ -24,6 +24,9 @@ ColumnLayout {
     Text {
         text: "<h1>Manage .gpg-id<h1>"
     }
+    Text {
+        text: "gpg-id: " + nearestGpg
+    }
     Button {
         text: "Import and trust a new public key"
         enabled: classInitialized
