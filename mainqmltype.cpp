@@ -48,7 +48,7 @@ void MainQmlType::setFilePath(const QString &filePath)
     try {
         m_gpgIdManageType.init(m_filePath.toStdString(),
                                appSettings.passwordStorePath().toStdString(),
-                               &passHelper);
+                               passHelper.get());
     } catch (...) {
         qDebug() << "Just failed \n"; // Block of code to handle errors
     }
@@ -140,7 +140,7 @@ void MainQmlType::doSearch(QString rootFolderToSearch, QString FolderToSearch, Q
 {
     m_searchResult.clear();
     emit searchResultChanged();
-    passHelper.searchDown(rootFolderToSearch.toStdString(),
+    passHelper->searchDown(rootFolderToSearch.toStdString(),
                           FolderToSearch.toStdString(),
                           fileRegExStr.toStdString(),
                           [&](std::string path) {
@@ -154,9 +154,9 @@ void MainQmlType::initGpgIdManage()
     try {
         m_gpgIdManageType.init(appSettings.passwordStorePath().toStdString(),
                                appSettings.passwordStorePath().toStdString(),
-                               &passHelper);
+                               passHelper.get());
         if (!appSettings.ctxSigner().isEmpty()) {
-            passHelper.setCtxSigner({appSettings.ctxSigner().split(" ")[0].toStdString()});
+            passHelper->setCtxSigner({appSettings.ctxSigner().split(" ")[0].toStdString()});
         }
     } catch (...) {
         qDebug() << "Bad signer Id \n"; // Block of code to handle errors
@@ -281,7 +281,7 @@ QString MainQmlType::getNearestGit()
     QString ret = "";
     runSafeFromException([&]() {
         ret = QString::fromStdString(
-                    passHelper.getNearestGit(passFile->getFullPath(),
+                    passHelper->getNearestGit(passFile->getFullPath(),
                                              appSettings.passwordStorePath().toStdString()));
     });
     return ret;
@@ -292,7 +292,7 @@ QString MainQmlType::getNearestTemplateGpg()
     QString ret = "";
     runSafeFromException([&]() {
         ret = QString::fromStdString(
-                    passHelper.getNearestTemplateGpg(passFile->getFullPath(),
+                    passHelper->getNearestTemplateGpg(passFile->getFullPath(),
                                              appSettings.passwordStorePath().toStdString()));
     });
     return ret;
@@ -303,7 +303,7 @@ QString MainQmlType::getNearestGpgId()
     QString ret = "";
     runSafeFromException([&]() {
         ret = QString::fromStdString(
-                    passHelper.getNearestGpgId(passFile->getFullPath(),
+                    passHelper->getNearestGpgId(passFile->getFullPath(),
                                                appSettings.passwordStorePath().toStdString()));
     });
     return ret;
@@ -383,7 +383,7 @@ void MainQmlType::decryptFolderDownload(QString fullPathFolder, QString toFolder
 {
     const QUrl url(toFolderName);
     runSafeFromException([&]() {
-        passHelper.decryptFolderToFolder(fullPathFolder.toStdString(),
+        passHelper->decryptFolderToFolder(fullPathFolder.toStdString(),
                                          url.toLocalFile().toStdString());
     });
 }
@@ -392,7 +392,7 @@ void MainQmlType::encryptFolderUpload(QString fromFolderName, QString fullPathFo
 {
     const QUrl url(fromFolderName);
     runSafeFromException([&]() {
-        passHelper.encryptFolderToFolder(url.toLocalFile().toStdString(),
+        passHelper->encryptFolderToFolder(url.toLocalFile().toStdString(),
                                          fullPathFolder.toStdString(),
                                          m_gpgIdManageType.getEncryptTo());
     });

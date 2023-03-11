@@ -175,8 +175,8 @@ private:
     QString m_filePath;
     int m_filePanSize;
     QSplitter *splitter;
-    PassHelper passHelper{};
-    std::unique_ptr<PassFile> passFile = passHelper.getPassFile("");
+    std::unique_ptr<PassHelper> passHelper = std::make_unique<PassHelper>();
+    std::unique_ptr<PassFile> passFile = passHelper->getPassFile("");
     GpgIdManageType m_gpgIdManageType;
     WatchWaitAndNoneWaitRunCmd watchWaitAndNoneWaitRunCmd{};
     QStringList m_waitItems;
