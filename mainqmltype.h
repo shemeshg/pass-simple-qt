@@ -155,6 +155,8 @@ public:
 
     Q_INVOKABLE void trayMenuAdd(QString _username, QString _password, QString _fieldstype);
 
+    Q_INVOKABLE void renameGpgFile(QString filePathFrom, QString filePathTo);
+
 signals:
     void filePathChanged();
     void filePanSizeChanged();

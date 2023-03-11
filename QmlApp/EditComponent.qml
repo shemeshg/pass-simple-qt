@@ -3,7 +3,7 @@ import QmlApp
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Dialogs
-import Qt.labs.platform
+//import Qt.labs.platform
 
 import DropdownWithList
 import EditYaml
@@ -44,6 +44,39 @@ ColumnLayout {
             mainLayout.openExternalEncryptNoWait();
         }
     }
+
+
+
+    Dialog {
+        id: renameDialog
+        title: "Set  name"
+        width: parent.width * 0.75
+
+        standardButtons: Dialog.Ok | Dialog.Cancel
+
+        TextField {
+            id: fieldName
+            focus: true
+            text: ""
+            width: parent.width
+
+        }
+        onOpened: {
+            fieldName.text = filePath.replace(fullPathFolder,"").substring(1,filePath.replace(fullPathFolder,"").length-4)
+        }
+        onAccepted: {
+            if (saveBtnId.visible && saveBtnId.enabled){
+                saveBtnId.clicked()
+                mainLayout.getMainqmltype().renameGpgFile(filePath, fullPathFolder + "/" + fieldName.text + ".gpg")
+
+            }
+        }
+        onClosed: {
+            fieldName.text = filePath.replace(fullPathFolder,"").substring(1,filePath.replace(fullPathFolder,"").length-4)
+        }
+
+    }
+
 
     FolderDialog {
         id: fileDialogDownload
@@ -102,11 +135,25 @@ ColumnLayout {
             rightPadding: 8
         }
     }
-    Text {
-        visible: isGpgFile
-        text: "<h2>" +
-            filePath.replace(fullPathFolder,"").substring(1,filePath.replace(fullPathFolder,"").length-4) +
-              "</h2>"
+    RowLayout {
+        Text {
+            visible: isGpgFile
+            text: "<h2>" +
+                filePath.replace(fullPathFolder,"").substring(1,filePath.replace(fullPathFolder,"").length-4) +
+                  "</h2>"
+            Layout.fillWidth: true
+        }
+        Button {
+            visible: isGpgFile
+            onClicked: ()=>{
+                           renameDialog.open();
+                       }
+            icon.name: "Save and Rename"
+            ToolTip.text: "Save and Rename"
+            icon.source: "icons/outline_edit_black_24dp.png"
+            ToolTip.visible: hovered
+        }
+
     }
 
     RowLayout {

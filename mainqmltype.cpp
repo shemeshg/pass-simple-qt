@@ -1,7 +1,6 @@
 #include "mainqmltype.h"
 #include "InputType/totp.h"
-#include "config.h"
-
+#include <QTimer>
 
 MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,
                          QTreeView *treeView,
@@ -433,6 +432,14 @@ void MainQmlType::trayMenuAdd(QString _username, QString _password, QString _fie
         }
     });
     autoTypeFields->addAction(a);
+}
+
+void MainQmlType::renameGpgFile(QString filePathFrom, QString filePathTo){
+    std::filesystem::rename(filePathFrom.toStdString(),filePathTo.toStdString());
+
+    QTimer::singleShot(1000, [=](){
+        treeView->setCurrentIndex(filesystemModel->index(filePathTo));
+    } );
 }
 
 void MainQmlType::runSafeFromException(std::function<void ()> callback)
