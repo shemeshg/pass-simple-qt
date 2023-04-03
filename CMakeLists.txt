@@ -132,9 +132,21 @@ set_target_properties(pass-simple PROPERTIES
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
-    OUTPUT_NAME "Pass-simple"
+    OUTPUT_NAME "pass-simple"
 )
 
+if(LINUX)
+    set(CPACK_PACKAGE_NAME pass-simple)
+    set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "My amazing application")
+    set(CPACK_PACKAGE_VENDOR "shemeshg")
+    set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_NAME})
+    set(CPACK_VERBATIM_VARIABLES ON)
+    set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/pass-simple")
+    set(CPACK_DEBIAN_PACKAGE_MAINTAINER "shemeshg <https://github.com/shemeshg>")
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS "libxcb-cursor-dev,libc6,libstdc++6,libgcc-s1,pass,gnupg2,libyaml-cpp-dev,libgpgme-dev,libgpgmepp-dev")
+    INSTALL(FILES pass-simple.desktop DESTINATION /usr/share/applications)
+    include(CPack)
+endif()
 
 
 qt_add_qml_module(pass-simple
@@ -167,7 +179,7 @@ if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(pass-simple)
 endif()
 
-# Generate the deployment script for the target MyApp.
+# Generate the deployment script for the target pass-simple.
 qt_generate_deploy_qml_app_script(
     TARGET pass-simple
     OUTPUT_SCRIPT deploy_script
