@@ -18,7 +18,6 @@ qt6_add_qml_module(EditYaml
         SOURCES
             EditYamlType.h 
             EditYamlType.cpp
-            qrc.qrc
         QML_FILES
             EditYamlComponent.qml
         RESOURCES

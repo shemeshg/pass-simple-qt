@@ -8,7 +8,6 @@ qt6_add_qml_module(Datetime
             DatetimeType.cpp
             datetimevalidator.h
             datetimevalidator.cpp
-            qrc.qrc
         QML_FILES
             DatetimeComponent.qml
         )

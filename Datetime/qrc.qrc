@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>DatetimeComponent.qml</file>
-    </qresource>
-</RCC>

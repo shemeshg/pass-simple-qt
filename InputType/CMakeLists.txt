@@ -4,7 +4,6 @@ qt6_add_qml_module(InputType
         SOURCES
             InputTypeType.h 
             InputTypeType.cpp
-            qrc.qrc
         QML_FILES
             InputTypeComponent.qml
         )

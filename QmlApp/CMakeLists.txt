@@ -20,7 +20,6 @@ qt6_add_qml_module(QmlApp
         SOURCES
             QmlAppType.h 
             QmlAppType.cpp
-            qrc.qrc
         QML_FILES
             QmlAppComponent.qml
             EditComponent.qml

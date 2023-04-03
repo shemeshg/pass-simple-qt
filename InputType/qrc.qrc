@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>InputTypeComponent.qml</file>
-    </qresource>
-</RCC>
