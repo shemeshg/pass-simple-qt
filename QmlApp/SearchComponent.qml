@@ -13,6 +13,7 @@ ColumnLayout {
 
     property string currentSearchFolder: passwordStorePathStr
     property var  searchResultModel: []
+    property bool regexVisible : false
 
     onVisibleChanged: {
         if (visible) {
@@ -51,8 +52,7 @@ ColumnLayout {
         Button {
             text: "regex"
             onClicked: {
-                textFindRegexId.visible = !textFindRegexId.visible
-                textSearchRegexId.visible = !textSearchRegexId.visible
+                regexVisible = !regexVisible
             }
         }
         Button {
@@ -88,8 +88,7 @@ ColumnLayout {
             }
         }
         ColumnLayout {
-            id: textFindRegexId
-            visible: false
+            visible: regexVisible
             Label {
                 text: "std::regex"
             }
@@ -115,8 +114,7 @@ ColumnLayout {
         }
 
         ColumnLayout {
-            id: textSearchRegexId
-            visible: false
+            visible: regexVisible
             Label {
                 text: "std::regex"
             }
