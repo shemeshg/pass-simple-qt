@@ -145,6 +145,7 @@ if(LINUX)
     set(CPACK_DEBIAN_PACKAGE_MAINTAINER "shemeshg <https://github.com/shemeshg>")
     set(CPACK_DEBIAN_PACKAGE_DEPENDS "libxcb-cursor-dev,libc6,libstdc++6,libgcc-s1,pass,gnupg2,libyaml-cpp-dev,libgpgme-dev,libgpgmepp-dev")
     INSTALL(FILES pass-simple.desktop DESTINATION /usr/share/applications)
+    install(FILES pass-simple.png DESTINATION /usr/share/icons/hicolor/256x256/apps)
     include(CPack)
 endif()
 
