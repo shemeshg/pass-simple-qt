@@ -203,7 +203,7 @@ ColumnLayout {
             Button {
                 onClicked: { mainLayout.toggleFilepan()}
                 icon.name: "Hide/Show treeview"
-                icon.source: "icons/outline_account_tree_black_24dp"
+                icon.source: "icons/account_tree_FILL0_wght400_GRAD0_opsz48"
                 ToolTip.visible: hovered
                 ToolTip.text: "Hide/Show treeview"
             }

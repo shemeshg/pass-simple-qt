@@ -40,6 +40,7 @@ qt6_add_qml_module(QmlApp
             icons/outline_store_black_24dp.png
             icons/outline_search_black_24dp.png
             icons/outline_edit_black_24dp.png
+            icons/account_tree_FILL0_wght400_GRAD0_opsz48.svg
         )
 
 
