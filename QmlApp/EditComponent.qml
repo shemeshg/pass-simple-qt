@@ -280,9 +280,6 @@ ColumnLayout {
             height: parent.height
             Layout.fillWidth: true
             Layout.fillHeight: true
-            background: Rectangle {
-                color: "white"
-            }
             onSelectedTextChanged: {
                 getMainqmltype().selectedText = selectedText
             }

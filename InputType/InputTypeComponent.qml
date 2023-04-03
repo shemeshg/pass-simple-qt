@@ -38,9 +38,6 @@ ColumnLayout {
                 textChangedSignal(textEditComponentId.text)
                 inputText = textEditComponentId.text
             }
-            background: Rectangle {
-                color: "white"
-            }
             onSelectedTextChanged: {
                 getMainqmltype().selectedText = selectedText
             }

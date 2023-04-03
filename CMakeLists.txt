@@ -16,7 +16,7 @@ CMAKE_POLICY(SET CMP0071 NEW)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent LabsFolderListModel)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent LabsFolderListModel)
-
+qt_standard_project_setup(REQUIRES 6.5)
 
 set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/rc.qrc")
 add_subdirectory(QmlApp)
@@ -33,8 +33,7 @@ set(PROJECT_SOURCES
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
-    about.ui
-    qwidgetqrc.qrc
+    about.ui   
     ${TS_FILES}
     ${APP_ICON_RESOURCE_WINDOWS}
 )
@@ -153,7 +152,7 @@ qt_add_qml_module(pass-simple
         InputType/Clock.cpp
   AppSettings.cpp AppSettings.h
         # hygen srcs
-    QML_FILES mainQml.qml
+    QML_FILES Main.qml
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
@@ -167,3 +166,13 @@ install(TARGETS pass-simple
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(pass-simple)
 endif()
+
+# Generate the deployment script for the target MyApp.
+qt_generate_deploy_qml_app_script(
+    TARGET pass-simple
+    OUTPUT_SCRIPT deploy_script
+    NO_UNSUPPORTED_PLATFORM_ERROR
+)
+
+# Call the deployment script on "cmake --install".
+install(SCRIPT ${deploy_script})

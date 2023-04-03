@@ -71,9 +71,6 @@ ScrollView{
             Layout.fillWidth: true;
             width: parent.width
             readOnly: true
-            background: Rectangle {
-                color: "white"
-            }
         }
 
         Text {
