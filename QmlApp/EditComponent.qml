@@ -16,6 +16,7 @@ ColumnLayout {
     property alias fileDialogDownload: fileDialogDownload
 
 
+
     function preferYamlIfYamlIsValidOnFileChange(){
         delaySetTimeOut(100, function() {
             if ( isPreviewId && isPreviewId.checked && editComponentId.visible) {
@@ -298,6 +299,17 @@ ColumnLayout {
     }
 
     ScrollView {
+        ToolTip {
+            id: toolTip
+        }
+
+        HoverHandler {
+            id: hoverHandler
+            onHoveredChanged: {
+                if (hovered)
+                    toolTip.hide()
+            }
+        }
 
         visible: isGpgFile && isShowPreview && !showYamlEdit
         height: parent.height
@@ -312,6 +324,20 @@ ColumnLayout {
            readOnly: true
            visible: showMdId.checked
            textFormat: TextEdit.MarkdownText
+           onLinkActivated: (link)=>{
+                                if (link.includes("://")){
+                                    Qt.openUrlExternally(link)
+                                }
+                            }
+           onLinkHovered: (link) => {
+               if (link.length === 0)
+                   return
+
+               // Show the ToolTip at the mouse cursor, plus some margins so the mouse doesn't get in the way.
+               toolTip.x = hoverHandler.point.position.x + 8
+               toolTip.y = hoverHandler.point.position.y + 8
+               toolTip.show(link)
+           }
         }
 
         TextArea {
