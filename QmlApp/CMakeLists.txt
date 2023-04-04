@@ -34,10 +34,10 @@ qt6_add_qml_module(QmlApp
             RenameDialog.qml
         RESOURCES
             icons/icons8-locked-with-key-48.png
-            icons/settings_fill0_wght400_grad0_opsz48.svg
-            icons/store_fill0_wght400_grad0_opsz48.svg
-            icons/search_fill0_wght400_grad0_opsz48.svg
-            icons/edit_fill0_wght400_grad0_opsz48.svg
+            icons/settings_FILL0_wght400_GRAD0_opsz48.svg
+            icons/store_FILL0_wght400_GRAD0_opsz48.svg
+            icons/search_FILL0_wght400_GRAD0_opsz48.svg
+            icons/edit_FILL0_wght400_GRAD0_opsz48.svg
             icons/account_tree_FILL0_wght400_GRAD0_opsz48.svg
         )
 

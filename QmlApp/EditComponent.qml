@@ -124,7 +124,7 @@ ColumnLayout {
                        }
             icon.name: "Save and Rename"
             ToolTip.text: "Save and Rename"
-            icon.source: "icons/edit_fill0_wght400_grad0_opsz48.svg"
+            icon.source: "icons/edit_FILL0_wght400_GRAD0_opsz48.svg"
             ToolTip.visible: hovered
         }
 
