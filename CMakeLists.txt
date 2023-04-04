@@ -144,8 +144,21 @@ if(LINUX)
     set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/pass-simple")
     set(CPACK_DEBIAN_PACKAGE_MAINTAINER "shemeshg <https://github.com/shemeshg>")
     set(CPACK_DEBIAN_PACKAGE_DEPENDS "libxcb-cursor-dev,libc6,libstdc++6,libgcc-s1,pass,gnupg2,libyaml-cpp-dev,libgpgme-dev,libgpgmepp-dev")
-    INSTALL(FILES pass-simple.desktop DESTINATION /usr/share/applications)
-    install(FILES pass-simple.png DESTINATION /usr/share/icons/hicolor/256x256/apps)
+    INSTALL(FILES pass-simple.desktop DESTINATION share/applications)
+    install(FILES pass-simple.png DESTINATION share/icons/hicolor/256x256/apps)
+
+    # dynamically configured debian control scripts
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/script/postinst
+                   ${CMAKE_CURRENT_BINARY_DIR}/script/postinst)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/script/prerm
+                   ${CMAKE_CURRENT_BINARY_DIR}/script/prerm)
+
+
+    set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_BINARY_DIR}/script/postinst;${CMAKE_CURRENT_BINARY_DIR}/script/prerm;")
+
+
+    set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA, ./script/postinst)
+    set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA, ./script/prerm)
     include(CPack)
 endif()
 
