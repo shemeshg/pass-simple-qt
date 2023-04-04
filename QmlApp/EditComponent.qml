@@ -276,6 +276,7 @@ ColumnLayout {
 
         TextArea {
             id: decryptedTextId
+            font.family: getMainqmltype().fixedFont
             width: parent.width
             height: parent.height
             Layout.fillWidth: true
@@ -294,7 +295,7 @@ ColumnLayout {
         Layout.fillHeight: true
         visible: isGpgFile
         EditYamlComponent {
-            id: editYamlComponentId
+            id: editYamlComponentId            
             visible: isShowPreview && showYamlEdit
             text: decryptedTextId.text
             width: parent.width

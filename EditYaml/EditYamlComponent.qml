@@ -104,7 +104,6 @@ ColumnLayout {
             focus: true
             text: dialogRowIdx > -1 ? editYamlType.yamlModel[dialogRowIdx].key : ""
             width: parent.width
-
         }
         onAccepted: {
             let newArry = [...editYamlType.yamlModel]

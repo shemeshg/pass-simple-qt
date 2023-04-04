@@ -35,6 +35,7 @@ ColumnLayout {
 
         TextField {
             Layout.fillWidth: true
+            font.family: getMainqmltype().fixedFont
             id: input
             inputMask: datetimeInputMaskString
             validator: DateTimeValidator {
@@ -55,7 +56,8 @@ ColumnLayout {
             text: "In"
         }
         TextField {
-            id: daysDiffId            
+            id: daysDiffId
+            font.family: getMainqmltype().fixedFont
             validator: IntValidator {}
             onTextEdited: {
                 if (Number(text)){

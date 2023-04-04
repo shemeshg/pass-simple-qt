@@ -1,6 +1,7 @@
 #include "mainqmltype.h"
 #include "InputType/totp.h"
 #include <QTimer>
+#include <QFontDatabase>
 
 MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,
                          QTreeView *treeView,
@@ -54,6 +55,12 @@ void MainQmlType::setFilePath(const QString &filePath)
     }
 
     emit filePathChanged();
+}
+
+QString MainQmlType::fixedFont()
+{
+    const QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+    return font.family();
 }
 
 int MainQmlType::filePanSize()

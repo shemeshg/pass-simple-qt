@@ -7,7 +7,7 @@
 #include <QScroller>
 #include <QSystemTrayIcon>
 #include <QTimer>
-
+#include <QFontDatabase>
 
 #include "ui_mainwindow.h"
 #include "ui_about.h"
@@ -134,12 +134,6 @@ MainWindow::MainWindow(QWidget *parent)
     context->setContextProperty(QStringLiteral("mainqmltype"), mainqmltype);
 
     mainqmltype->setFilePanSize(150);
-
-    QFont font = QApplication::font();
-    font.setStyleHint (QFont::Monospace);
-    font.setFamily("Courier");
-    font.setFixedPitch (true);
-    QApplication::setFont(font);
 
     setQmlSource();
 
