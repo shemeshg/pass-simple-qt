@@ -263,7 +263,18 @@ ColumnLayout {
         }
     }
 
-
+    Row {
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        visible: isGpgFile
+        EditYamlComponent {
+            id: editYamlComponentId
+            visible: isGpgFile && isShowPreview && showYamlEdit
+            text: decryptedTextId.text
+            width: parent.width
+            height: parent.height
+        }
+    }
 
     ScrollView {
 
@@ -290,17 +301,6 @@ ColumnLayout {
 
     }
 
-    Row {
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-        visible: isGpgFile
-        EditYamlComponent {
-            id: editYamlComponentId            
-            visible: isShowPreview && showYamlEdit
-            text: decryptedTextId.text
-            width: parent.width
-            height: parent.height
-        }
-    }
+
 
 }
