@@ -138,7 +138,8 @@ ColumnLayout {
         }
     }
 
-    Row{
+    RowLayout{
+
         Shortcut {
             sequence: "Ctrl+E"
             onActivated: {
@@ -261,6 +262,26 @@ ColumnLayout {
                      waitItems.indexOf(filePath) === -1 &&
                      noneWaitItems.indexOf(filePath) === -1
         }
+        Item {
+            height: 2
+            width: 2
+            Layout.fillWidth: true
+        }
+        Switch {
+            id: showMdId
+            checked: false
+            text: "M↓"
+            onCheckedChanged: {
+                if (checked){
+
+                } else {
+
+                }
+
+            }
+        }
+
+
     }
 
     Row {
@@ -285,6 +306,14 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
+        TextEdit {
+           id: mdDecryptedTextId
+           text: decryptedTextId.text
+           readOnly: true
+           visible: showMdId.checked
+           textFormat: TextEdit.MarkdownText
+        }
+
         TextArea {
             id: decryptedTextId
             font.family: getMainqmltype().fixedFont
@@ -295,6 +324,7 @@ ColumnLayout {
             onSelectedTextChanged: {
                 getMainqmltype().selectedText = selectedText
             }
+            visible: !showMdId.checked
 
         }
 
