@@ -135,7 +135,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     mainqmltype->setFilePanSize(150);
 
-    ui->quickWidget->setSource(QUrl("qrc:/qt/qml/MainQml/Main.qml"));
+    QFont font = QApplication::font();
+    font.setStyleHint (QFont::Monospace);
+    font.setFamily("Courier");
+    font.setFixedPitch (true);
+    QApplication::setFont(font);
+
+    setQmlSource();
+
 
 
     // selection changes shall trigger a slot
@@ -157,8 +164,8 @@ MainWindow::MainWindow(QWidget *parent)
         QFont font = QApplication::font();
         font.setPointSize(font.pointSize()+1);
         QApplication::setFont(font);
-        QString  s = mainqmltype->filePath();
-        ui->quickWidget->setSource(QUrl("qrc:/qt/qml/MainQml/Main.qml"));
+        //QString  s = mainqmltype->filePath();
+        setQmlSource();
         if (treeViewItemSelected){
             QTimer::singleShot(10, this, SLOT(indexHasChanged()));
         }
@@ -172,7 +179,7 @@ MainWindow::MainWindow(QWidget *parent)
         QFont font = QApplication::font();
         font.setPointSize(font.pointSize()-1);
         QApplication::setFont(font);
-        ui->quickWidget->setSource(QUrl("qrc:/qt/qml/MainQml/Main.qml"));
+        setQmlSource();
         if (treeViewItemSelected){
             QTimer::singleShot(10, this, SLOT(indexHasChanged()));
         }
@@ -203,6 +210,11 @@ void MainWindow::selectionChangedSlot(const QItemSelection & /*newSelection*/,
 {
     treeIndex = ui->treeView->selectionModel()->currentIndex();
     QTimer::singleShot(10, this, SLOT(indexHasChanged()));
+}
+
+void MainWindow::setQmlSource()
+{
+    ui->quickWidget->setSource(QUrl("qrc:/qt/qml/MainQml/Main.qml"));
 }
 
 void MainWindow::on_splitter_splitterMoved(int pos, int index)

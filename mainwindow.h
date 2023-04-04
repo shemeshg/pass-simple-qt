@@ -44,4 +44,6 @@ private:
     QShortcut *keyZoomOut;
 
     bool treeViewItemSelected = false;
+
+    void setQmlSource();
 };
