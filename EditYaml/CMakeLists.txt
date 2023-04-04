@@ -21,9 +21,9 @@ qt6_add_qml_module(EditYaml
         QML_FILES
             EditYamlComponent.qml
         RESOURCES
-                icons/outline_control_point_black_24dp.png
-                icons/outline_edit_black_24dp.png
-                icons/outline_move_down_black_24dp.png
-                icons/outline_move_up_black_24dp.png
-                icons/outline_remove_circle_outline_black_24dp.png
+                icons/control_point_black_24dp.svg
+                icons/edit_fill0_wght400_grad0_opsz48.svg
+                icons/move_down_black_24dp.svg
+                icons/move_up_black_24dp.svg
+                icons/remove_circle_outline_black_24dp.svg
     )

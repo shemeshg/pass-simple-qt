@@ -210,7 +210,7 @@ ColumnLayout {
             Button {
                 onClicked: { mainLayout.getMainqmltype().openStoreInFileBrowser(fullPathFolder)}
                 icon.name: "Open store in file browser"
-                icon.source: "icons/outline_store_black_24dp"
+                icon.source: "icons/store_fill0_wght400_grad0_opsz48.svg"
                 ToolTip.visible: hovered
                 ToolTip.text: "Open store in file browser"
             }
@@ -220,7 +220,7 @@ ColumnLayout {
 
                 }
                 icon.name: "Settings"
-                icon.source: "icons/outline_settings_black_24dp.png"
+                icon.source: "icons/settings_fill0_wght400_grad0_opsz48.svg"
                 ToolTip.visible: hovered
                 ToolTip.text: "Settings"
             }
@@ -230,7 +230,7 @@ ColumnLayout {
                 }
 
                 icon.name: "search"
-                icon.source: "icons/outline_search_black_24dp.png"
+                icon.source: "icons/search_fill0_wght400_grad0_opsz48.svg"
                 ToolTip.visible: hovered
                 ToolTip.text: "search"
 

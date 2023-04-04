@@ -66,7 +66,7 @@ ColumnLayout {
             }
             icon.name: "Add"
             ToolTip.text: "Add"
-            icon.source: "icons/outline_control_point_black_24dp.png"
+            icon.source: "icons/control_point_black_24dp.svg"
             ToolTip.visible: hovered
         }
         Item {
@@ -167,7 +167,7 @@ ColumnLayout {
                                    }
                         icon.name: "Up"
                         ToolTip.text: "Up"
-                        icon.source: "icons/outline_move_up_black_24dp.png"
+                        icon.source: "icons/move_up_black_24dp.svg"
                         ToolTip.visible: hovered
 
                     }
@@ -178,7 +178,7 @@ ColumnLayout {
                                    }
                         icon.name: "Down"
                         ToolTip.text: "Down"
-                        icon.source: "icons/outline_move_down_black_24dp.png"
+                        icon.source: "icons/move_down_black_24dp.svg"
                         ToolTip.visible: hovered
                     }
                     Button {
@@ -189,7 +189,7 @@ ColumnLayout {
                                    }
                         icon.name: "Rename"
                         ToolTip.text: "Rename"
-                        icon.source: "icons/outline_edit_black_24dp.png"
+                        icon.source: "icons/edit_fill0_wght400_grad0_opsz48.svg"
                         ToolTip.visible: hovered
                     }
                     Button {
@@ -202,7 +202,7 @@ ColumnLayout {
                         }
                         icon.name: "Delete"
                         ToolTip.text: "Delete"
-                        icon.source: "icons/outline_remove_circle_outline_black_24dp.png"
+                        icon.source: "icons/remove_circle_outline_black_24dp.svg"
                         ToolTip.visible: hovered
                     }
 
