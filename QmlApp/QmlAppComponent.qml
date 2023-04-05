@@ -41,24 +41,12 @@ ColumnLayout {
     property string passwordStorePathStr: mainLayout.getMainqmltype().appSettingsType.passwordStorePath
     property var allPrivateKeys: []
 
-    function refreshToolBar(){
-        //walkaround "Qt Quick Layouts: Polish loop detected. Aborting after two iterations."
-        delaySetTimeOut(200, function() {
-            if (!columnLayoutHomeId){return;}
-            let i = columnLayoutHomeId.toolbarId.currentIndex
-            columnLayoutHomeId.toolbarId.currentIndex = 2;
-            columnLayoutHomeId.toolbarId.currentIndex = i;
-        })
-
-
-    }
 
     Component.onCompleted:{
         mainLayout.getMainqmltype().initGpgIdManage();
         allPrivateKeys = mainLayout.getGpgIdManageType().allPrivateKeys;
         getMainqmltype().filePath = passwordStorePathStr;
-        refreshToolBar();
-
+        columnLayoutHomeId.editComponentId.setLoaderShowYamlEditComponent();
     }
 
     function decryptedSignedByFullId(idStr, allKeys){
@@ -93,7 +81,7 @@ ColumnLayout {
         }
 
         notifyStr("")
-        refreshToolBar()
+        columnLayoutHomeId.editComponentId.setLoaderShowYamlEditComponent();
 
     }
 

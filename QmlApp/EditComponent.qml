@@ -14,27 +14,40 @@ ColumnLayout {
     property alias folderDialogDownload: folderDialogDownload
     property alias fileDialogDownload: fileDialogDownload
     property string decryptedText: ""
+    onDecryptedTextChanged: {
+        loaderShowYamlEditComponent.editYamlType.text = decryptedText;
+    }
 
+    function setLoaderShowYamlEditComponent(){
+        if (isGpgFile && isShowPreview && showYamlEdit){
+            loaderShowYamlEditComponent.sourceComponent = doShowYamlEditComponent;
+        } else if (isGpgFile && isShowPreview && !showYamlEdit) {
+            loaderShowYamlEditComponent.sourceComponent = dontShowYamlEditComponent;
+        } else {
+            loaderShowYamlEditComponent.sourceComponent = undefined
+        }
+    }
 
     function preferYamlIfYamlIsValidOnFileChange(){
-        delaySetTimeOut(100, function() {
-            if ( isPreviewId && isPreviewId.checked && editComponentId.visible) {
-                if(
-                        (loaderShowYamlEditComponent.editYamlType.isYamlValid &&
-                         !isYamlShow.checked) ||
-                        (!loaderShowYamlEditComponent.editYamlType.isYamlValid &&
-                         isYamlShow.checked)){
+        if ( isPreviewId && isPreviewId.checked && editComponentId.visible) {
+            if(
+                    (loaderShowYamlEditComponent.editYamlType.isYamlValid &&
+                     !isYamlShow.checked) ||
+                    (!loaderShowYamlEditComponent.editYamlType.isYamlValid &&
+                     isYamlShow.checked)){
 
-                    isYamlShow.checked = !isYamlShow.checked
-                }
+                isYamlShow.checked = !isYamlShow.checked
+
             }
-        })
+        }
+        setLoaderShowYamlEditComponent();
     }
 
     function doShowYAML(){
         if (!showYamlEdit && loaderShowYamlEditComponent.editYamlType.isYamlValid){
             decryptedText = loaderShowYamlEditComponent.editYamlType.getUpdatedText()
         }
+        setLoaderShowYamlEditComponent();
     }
 
     function doExternalOpen(){
@@ -165,7 +178,7 @@ ColumnLayout {
                 if(classInitialized){
                     initOnFileChanged();
                 }
-                refreshToolBar()
+                setLoaderShowYamlEditComponent();
             }
             visible: waitItems.indexOf(filePath) === -1 &&
                      noneWaitItems.indexOf(filePath) === -1
@@ -304,25 +317,12 @@ ColumnLayout {
                 }
             }
         }
-
-        sourceComponent:   {
-            if (isGpgFile && isShowPreview && showYamlEdit){
-                return doShowYamlEditComponent;
-            } else if (isGpgFile && isShowPreview && !showYamlEdit) {
-                return dontShowYamlEditComponent;
-            } else {
-                return undefined
-            }
-        }
-
     }
 
     Component {
         id: doShowYamlEditComponent
 
         Row {
-
-
             Layout.fillWidth: true
             Layout.fillHeight: true
             visible: isGpgFile
@@ -395,9 +395,6 @@ ColumnLayout {
                     getMainqmltype().selectedText = selectedText
                 }
                 visible: !showMdId.checked
-                onTextChanged: {
-                    editYamlType.text = decryptedText
-                }
             }
 
 
