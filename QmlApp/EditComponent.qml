@@ -287,11 +287,11 @@ ColumnLayout {
 
 
     Loader {
+        id: loaderShowYamlEditComponent
         width: parent.width
         height: parent.height
         Layout.fillWidth: true
         Layout.fillHeight: true
-        id: loaderShowYamlEditComponent
         property alias editYamlType: editYamlType
         EditYamlType {
             id: editYamlType
