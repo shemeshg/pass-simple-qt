@@ -14,9 +14,11 @@ ColumnLayout {
     property alias folderDialogDownload: folderDialogDownload
     property alias fileDialogDownload: fileDialogDownload
     property string decryptedText: ""
+
     onDecryptedTextChanged: {
         loaderShowYamlEditComponent.editYamlType.text = decryptedText;
     }
+
 
     function setLoaderShowYamlEditComponent(){
         if (isGpgFile && isShowPreview && showYamlEdit){
@@ -395,6 +397,9 @@ ColumnLayout {
                     getMainqmltype().selectedText = selectedText
                 }
                 visible: !showMdId.checked
+                onTextChanged: {
+                    decryptedText = text
+                }
             }
 
 
