@@ -113,7 +113,7 @@ ColumnLayout {
         Text {
             visible: isGpgFile
             text: "<h2>" +
-                filePath.replace(fullPathFolder,"").substring(1,filePath.replace(fullPathFolder,"").length-4) +
+                  filePath.replace(fullPathFolder,"").substring(1,filePath.replace(fullPathFolder,"").length-4) +
                   "</h2>"
             Layout.fillWidth: true
         }
@@ -291,42 +291,31 @@ ColumnLayout {
         height: parent.height
         Layout.fillWidth: true
         Layout.fillHeight: true
-       id: loaderShowYamlEditComponent
-       property alias editYamlType: editYamlType
-       EditYamlType {
-           id: editYamlType
-           onYamlModelChanged: {
-               clearSystemTrayIconEntries()
-               for(var idx in yamlModel){
-                   addSystemTrayIconEntries(yamlModel[idx].key,
-                                            yamlModel[idx].val,
-                                            yamlModel[idx].inputType)
-               }
-           }
-       }
-
-       sourceComponent:   {
-           if (isGpgFile && isShowPreview && showYamlEdit){
-               return dummyComponent;
-               //return doShowYamlEditComponent;
-           } else if (isGpgFile && isShowPreview && !showYamlEdit) {
-               //return dummyComponent
-               return dontShowYamlEditComponent;
-           } else {
-               return undefined
-           }
-       }
-
-    }
-
-    Component {
-        id: dummyComponent
-        Text {
-            text: "***************" + decryptedText
+        id: loaderShowYamlEditComponent
+        property alias editYamlType: editYamlType
+        EditYamlType {
+            id: editYamlType
+            onYamlModelChanged: {
+                clearSystemTrayIconEntries()
+                for(var idx in yamlModel){
+                    addSystemTrayIconEntries(yamlModel[idx].key,
+                                             yamlModel[idx].val,
+                                             yamlModel[idx].inputType)
+                }
+            }
         }
+
+        sourceComponent:   {
+            if (isGpgFile && isShowPreview && showYamlEdit){
+                return doShowYamlEditComponent;
+            } else if (isGpgFile && isShowPreview && !showYamlEdit) {
+                return dontShowYamlEditComponent;
+            } else {
+                return undefined
+            }
+        }
+
     }
-
-
 
     Component {
         id: doShowYamlEditComponent
@@ -372,25 +361,25 @@ ColumnLayout {
 
 
             TextEdit {
-               id: mdDecryptedTextId
-               text: decryptedText
-               readOnly: true
-               visible: showMdId.checked
-               textFormat: TextEdit.MarkdownText
-               onLinkActivated: (link)=>{
-                                    if (link.includes("://")){
-                                        Qt.openUrlExternally(link)
-                                    }
-                                }
-               onLinkHovered: (link) => {
-                   if (link.length === 0)
-                       return
+                id: mdDecryptedTextId
+                text: decryptedText
+                readOnly: true
+                visible: showMdId.checked
+                textFormat: TextEdit.MarkdownText
+                onLinkActivated: (link)=>{
+                                     if (link.includes("://")){
+                                         Qt.openUrlExternally(link)
+                                     }
+                                 }
+                onLinkHovered: (link) => {
+                                   if (link.length === 0)
+                                   return
 
-                   // Show the ToolTip at the mouse cursor, plus some margins so the mouse doesn't get in the way.
-                   toolTip.x = hoverHandler.point.position.x + 8
-                   toolTip.y = hoverHandler.point.position.y + 8
-                   toolTip.show(link)
-               }
+                                   // Show the ToolTip at the mouse cursor, plus some margins so the mouse doesn't get in the way.
+                                   toolTip.x = hoverHandler.point.position.x + 8
+                                   toolTip.y = hoverHandler.point.position.y + 8
+                                   toolTip.show(link)
+                               }
             }
 
 
@@ -406,7 +395,9 @@ ColumnLayout {
                     getMainqmltype().selectedText = selectedText
                 }
                 visible: !showMdId.checked
-
+                onTextChanged: {
+                    editYamlType.text = decryptedText
+                }
             }
 
 
