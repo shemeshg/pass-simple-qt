@@ -6,8 +6,6 @@ import InputType
 
 
 ColumnLayout {
-    property alias text: editYamlType.text
-    property alias  editYamlType: editYamlType
     property bool isEditFieldsType: false
     height: parent.height
     width:  parent.width
@@ -20,18 +18,7 @@ ColumnLayout {
     }
 
 
-    EditYamlType {
-        id: editYamlType
-        onYamlModelChanged: {
-            clearSystemTrayIconEntries()
-            for(var idx in yamlModel){
-                addSystemTrayIconEntries(yamlModel[idx].key,
-                                         yamlModel[idx].val,
-                                         yamlModel[idx].inputType)
-            }
-        }
 
-    }
 
 
     Row{

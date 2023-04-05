@@ -10,20 +10,19 @@ import EditYaml
 
 
 ColumnLayout {
-    property alias decryptedTextId: decryptedTextId
     property bool showYamlEdit: true
     property alias folderDialogDownload: folderDialogDownload
     property alias fileDialogDownload: fileDialogDownload
-
+    property string decryptedText: ""
 
 
     function preferYamlIfYamlIsValidOnFileChange(){
         delaySetTimeOut(100, function() {
             if ( isPreviewId && isPreviewId.checked && editComponentId.visible) {
                 if(
-                        (editYamlComponentId.editYamlType.isYamlValid &&
+                        (loaderShowYamlEditComponent.editYamlType.isYamlValid &&
                          !isYamlShow.checked) ||
-                        (!editYamlComponentId.editYamlType.isYamlValid &&
+                        (!loaderShowYamlEditComponent.editYamlType.isYamlValid &&
                          isYamlShow.checked)){
 
                     isYamlShow.checked = !isYamlShow.checked
@@ -33,8 +32,8 @@ ColumnLayout {
     }
 
     function doShowYAML(){
-        if (!showYamlEdit && editYamlComponentId.editYamlType.isYamlValid){
-            decryptedTextId.text = editYamlComponentId.editYamlType.getUpdatedText()
+        if (!showYamlEdit && loaderShowYamlEditComponent.editYamlType.isYamlValid){
+            decryptedText = loaderShowYamlEditComponent.editYamlType.getUpdatedText()
         }
     }
 
@@ -212,12 +211,12 @@ ColumnLayout {
         Button {
             id: saveBtnId
             text: "&Save"
-            enabled: hasEffectiveGpgIdFile && (!showYamlEdit || showYamlEdit && editYamlComponentId.editYamlType.isYamlValid)
+            enabled: hasEffectiveGpgIdFile && (!showYamlEdit || showYamlEdit && loaderShowYamlEditComponent.editYamlType.isYamlValid)
             onClicked:{
                 if (showYamlEdit){
-                    decryptedTextId.text = editYamlComponentId.editYamlType.getUpdatedText()
+                    decryptedText = loaderShowYamlEditComponent.editYamlType.getUpdatedText()
                 }
-                mainLayout.encrypt(decryptedTextId.text)
+                mainLayout.encrypt(decryptedText)
                 notifyStr("* Saved", true)
             }
             visible: isShowPreview
@@ -285,74 +284,134 @@ ColumnLayout {
 
     }
 
-    Row {
+
+
+    Loader {
+        width: parent.width
+        height: parent.height
         Layout.fillWidth: true
         Layout.fillHeight: true
-        visible: isGpgFile
-        EditYamlComponent {
-            id: editYamlComponentId
-            visible: isGpgFile && isShowPreview && showYamlEdit
-            text: decryptedTextId.text
-            width: parent.width
-            height: parent.height
+       id: loaderShowYamlEditComponent
+       property alias editYamlType: editYamlType
+       EditYamlType {
+           id: editYamlType
+           onYamlModelChanged: {
+               clearSystemTrayIconEntries()
+               for(var idx in yamlModel){
+                   addSystemTrayIconEntries(yamlModel[idx].key,
+                                            yamlModel[idx].val,
+                                            yamlModel[idx].inputType)
+               }
+           }
+       }
+
+       sourceComponent:   {
+           if (isGpgFile && isShowPreview && showYamlEdit){
+               return dummyComponent;
+               //return doShowYamlEditComponent;
+           } else if (isGpgFile && isShowPreview && !showYamlEdit) {
+               //return dummyComponent
+               return dontShowYamlEditComponent;
+           } else {
+               return undefined
+           }
+       }
+
+    }
+
+    Component {
+        id: dummyComponent
+        Text {
+            text: "***************" + decryptedText
         }
     }
 
-    ScrollView {
-        ToolTip {
-            id: toolTip
-        }
 
-        HoverHandler {
-            id: hoverHandler
-            onHoveredChanged: {
-                if (hovered)
-                    toolTip.hide()
-            }
-        }
 
-        visible: isGpgFile && isShowPreview && !showYamlEdit
-        height: parent.height
-        width: parent.width
-        clip: true
-        Layout.fillWidth: true
-        Layout.fillHeight: true
+    Component {
+        id: doShowYamlEditComponent
 
-        TextEdit {
-           id: mdDecryptedTextId
-           text: decryptedTextId.text
-           readOnly: true
-           visible: showMdId.checked
-           textFormat: TextEdit.MarkdownText
-           onLinkActivated: (link)=>{
-                                if (link.includes("://")){
-                                    Qt.openUrlExternally(link)
-                                }
-                            }
-           onLinkHovered: (link) => {
-               if (link.length === 0)
-                   return
+        Row {
 
-               // Show the ToolTip at the mouse cursor, plus some margins so the mouse doesn't get in the way.
-               toolTip.x = hoverHandler.point.position.x + 8
-               toolTip.y = hoverHandler.point.position.y + 8
-               toolTip.show(link)
-           }
-        }
 
-        TextArea {
-            id: decryptedTextId
-            font.family: getMainqmltype().fixedFont
-            width: parent.width
-            height: parent.height
             Layout.fillWidth: true
             Layout.fillHeight: true
-            onSelectedTextChanged: {
-                getMainqmltype().selectedText = selectedText
+            visible: isGpgFile
+            EditYamlComponent {
+                id: editYamlComponentId
+                visible: isGpgFile && isShowPreview && showYamlEdit
+                width: parent.width
+                height: parent.height
             }
-            visible: !showMdId.checked
+        }
+    }
+
+    Component {
+        id: dontShowYamlEditComponent
+
+
+
+        ScrollView {
+            ToolTip {
+                id: toolTip
+            }
+
+            HoverHandler {
+                id: hoverHandler
+                onHoveredChanged: {
+                    if (hovered)
+                        toolTip.hide()
+                }
+            }
+
+            height: parent.height
+            width: parent.width
+            clip: true
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+
+            TextEdit {
+               id: mdDecryptedTextId
+               text: decryptedText
+               readOnly: true
+               visible: showMdId.checked
+               textFormat: TextEdit.MarkdownText
+               onLinkActivated: (link)=>{
+                                    if (link.includes("://")){
+                                        Qt.openUrlExternally(link)
+                                    }
+                                }
+               onLinkHovered: (link) => {
+                   if (link.length === 0)
+                       return
+
+                   // Show the ToolTip at the mouse cursor, plus some margins so the mouse doesn't get in the way.
+                   toolTip.x = hoverHandler.point.position.x + 8
+                   toolTip.y = hoverHandler.point.position.y + 8
+                   toolTip.show(link)
+               }
+            }
+
+
+            TextArea {
+                id: decryptedTextId
+                text: decryptedText
+                font.family: getMainqmltype().fixedFont
+                width: parent.width
+                height: parent.height
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                onSelectedTextChanged: {
+                    getMainqmltype().selectedText = selectedText
+                }
+                visible: !showMdId.checked
+
+            }
+
 
         }
+
 
 
     }

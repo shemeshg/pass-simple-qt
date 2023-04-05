@@ -70,7 +70,7 @@ ColumnLayout {
     function initOnFileChanged(){
         clearSystemTrayIconEntries();
         if (isShowPreview){
-            columnLayoutHomeId.editComponentId.decryptedTextId.text = mainLayout.getDecrypted();
+            columnLayoutHomeId.editComponentId.decryptedText = mainLayout.getDecrypted();
         }
 
         columnLayoutHomeId.metaDataComponentId.nearestGit = mainLayout.getNearestGit();
