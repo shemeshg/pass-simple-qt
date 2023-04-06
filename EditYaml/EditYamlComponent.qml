@@ -53,7 +53,7 @@ ColumnLayout {
             }
             icon.name: "Add"
             ToolTip.text: "Add"
-            icon.source: "icons/control_point_black_24dp.svg"
+            icon.source: Qt.resolvedUrl("icons/control_point_black_24dp.svg")
             ToolTip.visible: hovered
         }
         Item {
@@ -153,7 +153,7 @@ ColumnLayout {
                                    }
                         icon.name: "Up"
                         ToolTip.text: "Up"
-                        icon.source: "icons/move_up_black_24dp.svg"
+                        icon.source: Qt.resolvedUrl("icons/move_up_black_24dp.svg")
                         ToolTip.visible: hovered
 
                     }
@@ -164,7 +164,7 @@ ColumnLayout {
                                    }
                         icon.name: "Down"
                         ToolTip.text: "Down"
-                        icon.source: "icons/move_down_black_24dp.svg"
+                        icon.source: Qt.resolvedUrl("icons/move_down_black_24dp.svg")
                         ToolTip.visible: hovered
                     }
                     Button {
@@ -175,7 +175,7 @@ ColumnLayout {
                                    }
                         icon.name: "Rename"
                         ToolTip.text: "Rename"
-                        icon.source: "icons/edit_FILL0_wght400_GRAD0_opsz48.svg"
+                        icon.source: Qt.resolvedUrl("icons/edit_FILL0_wght400_GRAD0_opsz48.svg")
                         ToolTip.visible: hovered
                     }
                     Button {
@@ -188,7 +188,7 @@ ColumnLayout {
                         }
                         icon.name: "Delete"
                         ToolTip.text: "Delete"
-                        icon.source: "icons/remove_circle_outline_black_24dp.svg"
+                        icon.source: Qt.resolvedUrl("icons/remove_circle_outline_black_24dp.svg")
                         ToolTip.visible: hovered
                     }
 

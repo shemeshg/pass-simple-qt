@@ -191,14 +191,14 @@ ColumnLayout {
             Button {
                 onClicked: { mainLayout.toggleFilepan()}
                 icon.name: "Hide/Show treeview"
-                icon.source: "icons/account_tree_FILL0_wght400_GRAD0_opsz48"
+                icon.source: Qt.resolvedUrl("icons/account_tree_FILL0_wght400_GRAD0_opsz48.svg")
                 ToolTip.visible: hovered
                 ToolTip.text: "Hide/Show treeview"
             }
             Button {
                 onClicked: { mainLayout.getMainqmltype().openStoreInFileBrowser(fullPathFolder)}
                 icon.name: "Open store in file browser"
-                icon.source: "icons/store_FILL0_wght400_GRAD0_opsz48.svg"
+                icon.source: Qt.resolvedUrl("icons/store_FILL0_wght400_GRAD0_opsz48.svg")
                 ToolTip.visible: hovered
                 ToolTip.text: "Open store in file browser"
             }
@@ -208,7 +208,7 @@ ColumnLayout {
 
                 }
                 icon.name: "Settings"
-                icon.source: "icons/settings_FILL0_wght400_GRAD0_opsz48.svg"
+                icon.source: Qt.resolvedUrl("icons/settings_FILL0_wght400_GRAD0_opsz48.svg")
                 ToolTip.visible: hovered
                 ToolTip.text: "Settings"
             }
@@ -218,7 +218,7 @@ ColumnLayout {
                 }
 
                 icon.name: "search"
-                icon.source: "icons/search_FILL0_wght400_GRAD0_opsz48.svg"
+                icon.source: Qt.resolvedUrl("icons/search_FILL0_wght400_GRAD0_opsz48.svg")
                 ToolTip.visible: hovered
                 ToolTip.text: "search"
 
