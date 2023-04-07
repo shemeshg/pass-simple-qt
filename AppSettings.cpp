@@ -37,7 +37,7 @@ void AppSettings::setPasswordStorePath(const QString &passwordStorePath)
 
 const QString AppSettings::tmpFolderPath() const
 {
-    if (!QDir(m_tmpFolderPath).exists()) {
+    if (m_tmpFolderPath.isEmpty() ||  !QDir(m_tmpFolderPath).exists()) {
         QString tmpFolderPathDefault = QDir::tempPath();
 #ifdef __linux__
         if (QDir("/dev/shm").exists()) {
