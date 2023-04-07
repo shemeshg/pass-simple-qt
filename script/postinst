@@ -2,3 +2,4 @@
 echo "*** Running postinst"
 cp /opt/pass-simple/share/applications/pass-simple.desktop /usr/share/applications/pass-simple.desktop
 cp /opt/pass-simple/share/icons/hicolor/256x256/apps/pass-simple.png /usr/share/icons/hicolor/256x256/apps/pass-simple.png
+chmod 777 /opt/pass-simple/bin/pass-simple.sh

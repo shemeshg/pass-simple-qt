@@ -1,10 +1,10 @@
 [Desktop Entry]
 Type=Application
-Name=pass-simple.sh
+Name=pass simple
 Version=1.0
 GenericName=Password Manager
 Comment=GUI for the standard unix password store
-Exec=/opt/pass-simple/bin/pass-simple
+Exec=/opt/pass-simple/bin/pass-simple.sh
 Icon=/usr/share/icons/hicolor/256x256/apps/pass-simple.png
 Terminal=false
 Categories=Security;Utility;
