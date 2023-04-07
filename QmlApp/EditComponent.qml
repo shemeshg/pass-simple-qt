@@ -186,6 +186,15 @@ ColumnLayout {
                      noneWaitItems.indexOf(filePath) === -1
         }
 
+        Shortcut {
+            sequence: "Ctrl+M"
+            onActivated: {
+                if ( isPreviewId.checked && editComponentId.visible &&
+                       !showYamlEdit ){
+                    showMdId.checked = !showMdId.checked
+                }
+            }
+        }
 
         Shortcut {
             sequence: "Ctrl+L"
@@ -285,15 +294,8 @@ ColumnLayout {
         Switch {
             id: showMdId
             checked: false
-            text: "M↓"
-            onCheckedChanged: {
-                if (checked){
-
-                } else {
-
-                }
-
-            }
+            text: qsTr("<u>M</u>↓")
+            visible: !showYamlEdit
         }
 
 
