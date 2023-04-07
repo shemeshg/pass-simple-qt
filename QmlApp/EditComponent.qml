@@ -300,7 +300,6 @@ ColumnLayout {
     }
 
 
-
     Loader {
         id: loaderShowYamlEditComponent
         width: parent.width
@@ -340,8 +339,6 @@ ColumnLayout {
     Component {
         id: dontShowYamlEditComponent
 
-
-
         ScrollView {
             ToolTip {
                 id: toolTip
@@ -361,52 +358,68 @@ ColumnLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-
-            TextEdit {
-                id: mdDecryptedTextId
-                text: decryptedText
-                readOnly: true
-                visible: showMdId.checked
-                textFormat: TextEdit.MarkdownText
-                onLinkActivated: (link)=>{
-                                     if (link.includes("://")){
-                                         Qt.openUrlExternally(link)
-                                     }
-                                 }
-                onLinkHovered: (link) => {
-                                   if (link.length === 0)
-                                   return
-
-                                   // Show the ToolTip at the mouse cursor, plus some margins so the mouse doesn't get in the way.
-                                   toolTip.x = hoverHandler.point.position.x + 8
-                                   toolTip.y = hoverHandler.point.position.y + 8
-                                   toolTip.show(link)
-                               }
-            }
-
-
-            TextArea {
-                id: decryptedTextId
-                text: decryptedText
-                font.family: getMainqmltype().fixedFont
+            Loader {
                 width: parent.width
                 height: parent.height
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                onSelectedTextChanged: {
-                    getMainqmltype().selectedText = selectedText
-                }
-                visible: !showMdId.checked
-                onTextChanged: {
-                    decryptedText = text
-                }
+                sourceComponent: showMdId.checked ? mdDecryptedTextIdComponent : decryptedTextIdComponent
+
             }
 
 
+            Component {
+                id:mdDecryptedTextIdComponent
+
+                TextEdit {
+                    id: mdDecryptedTextId
+
+                    width: parent.width
+                    height: parent.height
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    text: decryptedText
+                    readOnly: true
+                    visible: showMdId.checked
+                    textFormat: TextEdit.MarkdownText
+                    onLinkActivated: (link)=>{
+                                         if (link.includes("://")){
+                                             Qt.openUrlExternally(link)
+                                         }
+                                     }
+                    onLinkHovered: (link) => {
+                                       if (link.length === 0)
+                                       return
+
+                                       // Show the ToolTip at the mouse cursor, plus some margins so the mouse doesn't get in the way.
+                                       toolTip.x = hoverHandler.point.position.x + 8
+                                       toolTip.y = hoverHandler.point.position.y + 8
+                                       toolTip.show(link)
+                                   }
+                }
+            }
+
+            Component {
+                id: decryptedTextIdComponent
+                TextArea {
+                    id: decryptedTextId
+                    text: decryptedText
+                    font.family: getMainqmltype().fixedFont
+                    width: parent.width
+                    height: parent.height
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    onSelectedTextChanged: {
+                        getMainqmltype().selectedText = selectedText
+                    }
+                    visible: !showMdId.checked
+                    onTextChanged: {
+                        decryptedText = text
+                    }
+                }
+            }
         }
-
-
-
     }
 
 
