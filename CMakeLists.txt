@@ -147,6 +147,7 @@ if(LINUX)
     set(CPACK_DEBIAN_PACKAGE_DEPENDS "libxcb-cursor-dev,libc6,libstdc++6,libgcc-s1,pass,gnupg2,libyaml-cpp-dev,libgpgme-dev,libgpgmepp-dev")
     INSTALL(FILES pass-simple.desktop DESTINATION share/applications)
     install(FILES pass-simple.png DESTINATION share/icons/hicolor/256x256/apps)
+    install(FILES script/pass-simple.sh DESTINATION bin)
 
     # dynamically configured debian control scripts
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/script/postinst
