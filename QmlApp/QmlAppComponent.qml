@@ -182,6 +182,16 @@ ColumnLayout {
     }
 
 
+    function refreshToolBar(){
+        //walkaround "Qt Quick Layouts: Polish loop detected. Aborting after two iterations."
+        delaySetTimeOut(100, function() {
+            let i = columnLayoutHomeId.toolbarId.currentIndex
+            columnLayoutHomeId.toolbarId.currentIndex = 4;
+            columnLayoutHomeId.toolbarId.currentIndex = i;
+        })
+
+
+    }
 
     function notifyStr(str, withTimeout=false){
         statusLabelId.text = str

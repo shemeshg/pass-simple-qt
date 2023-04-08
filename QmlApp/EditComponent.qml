@@ -181,6 +181,7 @@ ColumnLayout {
                     initOnFileChanged();
                 }
                 setLoaderShowYamlEditComponent();
+                refreshToolBar(); //Walk around Bug on linux only
             }
             visible: waitItems.indexOf(filePath) === -1 &&
                      noneWaitItems.indexOf(filePath) === -1
