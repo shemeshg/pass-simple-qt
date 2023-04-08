@@ -385,7 +385,8 @@ ColumnLayout {
                     readOnly: true
                     visible: showMdId.checked
                     textFormat: TextEdit.MarkdownText
-                    onLinkActivated: doUrlRedirect(link)
+                    onLinkActivated: (link)=>{
+                                         doUrlRedirect(link);}
                     onLinkHovered: (link) => {
                                        if (link.length === 0)
                                        return

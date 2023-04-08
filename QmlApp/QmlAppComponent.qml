@@ -50,6 +50,8 @@ ColumnLayout {
     }
 
     function doUrlRedirect(link){
+        if (link.length === 0)
+        return
         if (link.includes("://")){
             Qt.openUrlExternally(link)
         } else if (link.startsWith("/")){
