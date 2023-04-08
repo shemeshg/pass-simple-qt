@@ -449,6 +449,18 @@ void MainQmlType::renameGpgFile(QString filePathFrom, QString filePathTo){
     } );
 }
 
+void MainQmlType::tryRedirectLocalLink(QString link)
+{
+    std::filesystem::path destination = std::filesystem::path( passFile->getFullPathFolder()) ;
+    destination = destination / ( link.toStdString() + ".gpg");
+
+    if (!std::filesystem::exists(destination)){return;}
+    std::string rel =  std::filesystem::relative(destination, appSettings.passwordStorePath().toStdString());
+    if(QString::fromStdString(rel).startsWith(".")){return;};
+
+    treeView->setCurrentIndex(filesystemModel->index(QString::fromStdString(destination)));
+}
+
 void MainQmlType::runSafeFromException(std::function<void ()> callback)
 {
     try {

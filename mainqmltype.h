@@ -160,6 +160,8 @@ public:
 
     Q_INVOKABLE void renameGpgFile(QString filePathFrom, QString filePathTo);
 
+    Q_INVOKABLE void tryRedirectLocalLink(QString link);
+
 signals:
     void filePathChanged();
     void filePanSizeChanged();

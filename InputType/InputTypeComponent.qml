@@ -83,11 +83,7 @@ ColumnLayout {
         Button {
             text: "@"
             visible: inputType === "url"
-            onClicked: Qt.openUrlExternally(textField.text);
-            enabled: textField.text.startsWith("file://") ||
-                     textField.text.startsWith("http://") ||
-                     textField.text.startsWith("https://")
-
+            onClicked: doUrlRedirect(textField.text)
         }
         Button {
             text: "*"

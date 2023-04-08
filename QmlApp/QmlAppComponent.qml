@@ -49,6 +49,16 @@ ColumnLayout {
         columnLayoutHomeId.editComponentId.setLoaderShowYamlEditComponent();
     }
 
+    function doUrlRedirect(link){
+        if (link.includes("://")){
+            Qt.openUrlExternally(link)
+        } else if (link.startsWith("/")){
+           return; //only relative path allowed
+        } else {
+           getMainqmltype().tryRedirectLocalLink(link)
+        }
+    }
+
     function decryptedSignedByFullId(idStr, allKeys){
         let retStr = allKeys.filter((row)=>{return row.search(idStr) !== -1})[0]
         if(!retStr){retStr=idStr}

@@ -385,11 +385,7 @@ ColumnLayout {
                     readOnly: true
                     visible: showMdId.checked
                     textFormat: TextEdit.MarkdownText
-                    onLinkActivated: (link)=>{
-                                         if (link.includes("://")){
-                                             Qt.openUrlExternally(link)
-                                         }
-                                     }
+                    onLinkActivated: doUrlRedirect(link)
                     onLinkHovered: (link) => {
                                        if (link.length === 0)
                                        return
