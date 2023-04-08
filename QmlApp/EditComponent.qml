@@ -290,12 +290,13 @@ ColumnLayout {
             height: 2
             width: 2
             Layout.fillWidth: true
+            visible: !showYamlEdit && isShowPreview
         }
         Switch {
             id: showMdId
             checked: false
             text: qsTr("<u>M</u>↓")
-            visible: !showYamlEdit
+            visible: !showYamlEdit && isShowPreview
         }
 
 
