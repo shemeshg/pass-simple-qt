@@ -3,7 +3,6 @@ import QmlApp
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Dialogs
-import Qt.labs.platform
 import DropdownWithList
 
 
@@ -19,7 +18,7 @@ ColumnLayout {
         title: "Select folder"
         //fileMode: FileDialog.OpenFile
         onAccepted: {
-            let path = selectStorePathDialogId.folder.toString();
+            let path = selectStorePathDialogId.currentFolder.toString();
             path = path.replace(/^(file:\/{3})/,"");
                     // unescape html codes like '%23' for '#'
             path = decodeURIComponent(path);
