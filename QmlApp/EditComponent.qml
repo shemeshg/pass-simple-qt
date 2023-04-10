@@ -73,11 +73,10 @@ ColumnLayout {
         onAccepted: {
             var filename = filePath.replace(/^.*[\\\/]/, '')
             filename = filename.substr(0,filename.length-4)
-            getMainqmltype().decryptDownload(fileDialogDownload.currentFolder + "/" +  filename)
+            getMainqmltype().decryptDownload(fileDialogDownload.folder + "/" +  filename)
         }
         onRejected: {
         }
-        //fileMode: FileDialog.SaveFile
     }
 
 
@@ -85,11 +84,10 @@ ColumnLayout {
         id: folderDialogDownload
         title: "Choose folder to download"
         onAccepted: {
-            getMainqmltype().decryptFolderDownload(fullPathFolder, folderDialogDownload.currentFolder)
+            getMainqmltype().decryptFolderDownload(fullPathFolder, folderDialogDownload.folder)
         }
         onRejected: {
         }
-        //fileMode: FileDialog.SaveFile
     }
 
     RowLayout {

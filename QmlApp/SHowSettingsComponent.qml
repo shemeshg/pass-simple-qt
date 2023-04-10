@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Dialogs
 import DropdownWithList
-
+import Qt.labs.platform
 
 ColumnLayout {
     visible: isShowSettings
@@ -16,9 +16,8 @@ ColumnLayout {
     FolderDialog {
         id: selectStorePathDialogId
         title: "Select folder"
-        //fileMode: FileDialog.OpenFile
         onAccepted: {
-            let path = selectStorePathDialogId.currentFolder.toString();
+            let path = selectStorePathDialogId.folder.toString();
             path = path.replace(/^(file:\/{3})/,"");
                     // unescape html codes like '%23' for '#'
             path = decodeURIComponent(path);

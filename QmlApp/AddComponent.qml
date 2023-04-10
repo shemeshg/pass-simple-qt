@@ -37,7 +37,7 @@ ColumnLayout {
         id: folderDialogUpload
         title: "Choose folder to upload"
         onAccepted: {
-            getMainqmltype().encryptFolderUpload(folderDialogUpload.currentFolder, fullPathFolder)
+            getMainqmltype().encryptFolderUpload(folderDialogUpload.folder, fullPathFolder)
         }
         onRejected: {
         }
