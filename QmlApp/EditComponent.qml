@@ -111,7 +111,6 @@ ColumnLayout {
             rightPadding: 8
         }
         Button {
-
             visible: Boolean(nearestGpg)
             text: "download folder content"
             onClicked: {
