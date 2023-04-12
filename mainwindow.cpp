@@ -13,14 +13,11 @@
 #include "ui_about.h"
 #include "UiGuard.h"
 #include "mainwindow.h"
-#include <QQuickStyle>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    QQuickStyle::setStyle("Fusion");
-
     ui->setupUi(this);
 
     AppSettings as;
