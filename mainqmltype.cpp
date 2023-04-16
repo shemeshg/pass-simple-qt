@@ -333,12 +333,14 @@ void MainQmlType::createEmptyEncryptedFile(QString fullPathFolder, QString fileN
         runSafeFromException([&]() {
             std::string s = R"V0G0N(user name: ""
 password: ""
+expire: ""
 home page: ""
 totp: ""
 description: ""
 fields type:
   user name: text
   password: password
+  expire: datetime
   totp: totp
   home page: url
   description: textedit)V0G0N";
