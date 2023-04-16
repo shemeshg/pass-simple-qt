@@ -273,7 +273,7 @@ QString MainQmlType::getDecrypted()
 QString MainQmlType::getDecryptedSignedBy()
 {
     if (passFile->isGpgFile()) {
-        passFile->decrypt();
+        //passFile->decrypt();
 
         QString ret = "";
         runSafeFromException(

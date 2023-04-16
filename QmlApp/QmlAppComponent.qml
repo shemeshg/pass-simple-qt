@@ -62,6 +62,7 @@ ColumnLayout {
     }
 
     function decryptedSignedByFullId(idStr, allKeys){
+        if(!Boolean(idStr)){return "";}
         let retStr = allKeys.filter((row)=>{return row.search(idStr) !== -1})[0]
         if(!retStr){retStr=idStr}
         return retStr;
