@@ -30,9 +30,9 @@ ColumnLayout {
         }
     }
 
-    function preferYamlIfYamlIsValidOnFileChange(){
+    function preferYamlIfYamlIsValidOnFileChange(){        
         var doLoaderShowYamlCreation = true;
-        if ( isPreviewId && isPreviewId.checked && editComponentId.visible) {
+        if ( isPreviewId && isPreviewId.checked) {
             if(
                     (loaderShowYamlEditComponent.editYamlType.isYamlValid &&
                      !isYamlShow.checked) ||

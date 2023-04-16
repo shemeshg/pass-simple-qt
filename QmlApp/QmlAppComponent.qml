@@ -68,7 +68,6 @@ ColumnLayout {
     }
 
     function initOnFileChanged(){
-        console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRRR")
         clearSystemTrayIconEntries();
         if (isShowPreview){
             columnLayoutHomeId.editComponentId.decryptedText = mainLayout.getDecrypted();
