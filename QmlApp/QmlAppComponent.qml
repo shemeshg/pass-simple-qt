@@ -45,8 +45,7 @@ ColumnLayout {
     Component.onCompleted:{
         mainLayout.getMainqmltype().initGpgIdManage();
         allPrivateKeys = mainLayout.getGpgIdManageType().allPrivateKeys;
-        getMainqmltype().filePath = passwordStorePathStr;
-        columnLayoutHomeId.editComponentId.setLoaderShowYamlEditComponent();
+        getMainqmltype().filePath = passwordStorePathStr;        
     }
 
     function doUrlRedirect(link){
@@ -69,6 +68,7 @@ ColumnLayout {
     }
 
     function initOnFileChanged(){
+        console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRRR")
         clearSystemTrayIconEntries();
         if (isShowPreview){
             columnLayoutHomeId.editComponentId.decryptedText = mainLayout.getDecrypted();
@@ -91,10 +91,12 @@ ColumnLayout {
 
         if (showSettingsComponentId.isPreferYamlView){
             columnLayoutHomeId.editComponentId.preferYamlIfYamlIsValidOnFileChange()
+        } else {
+            columnLayoutHomeId.editComponentId.setLoaderShowYamlEditComponent();
         }
 
         notifyStr("")
-        columnLayoutHomeId.editComponentId.setLoaderShowYamlEditComponent();
+
 
     }
 

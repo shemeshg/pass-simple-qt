@@ -20,7 +20,7 @@ ColumnLayout {
     }
 
 
-    function setLoaderShowYamlEditComponent(){
+    function setLoaderShowYamlEditComponent(){        
         if (isGpgFile && isShowPreview && showYamlEdit){
             loaderShowYamlEditComponent.sourceComponent = doShowYamlEditComponent;
         } else if (isGpgFile && isShowPreview && !showYamlEdit) {
@@ -31,6 +31,7 @@ ColumnLayout {
     }
 
     function preferYamlIfYamlIsValidOnFileChange(){
+        var doLoaderShowYamlCreation = true;
         if ( isPreviewId && isPreviewId.checked && editComponentId.visible) {
             if(
                     (loaderShowYamlEditComponent.editYamlType.isYamlValid &&
@@ -39,17 +40,21 @@ ColumnLayout {
                      isYamlShow.checked)){
 
                 isYamlShow.checked = !isYamlShow.checked
-
+                doLoaderShowYamlCreation = false
             }
         }
-        setLoaderShowYamlEditComponent();
+        if(doLoaderShowYamlCreation){
+            setLoaderShowYamlEditComponent();
+        }
     }
 
     function doShowYAML(){
         if (!showYamlEdit && loaderShowYamlEditComponent.editYamlType.isYamlValid){
             decryptedText = loaderShowYamlEditComponent.editYamlType.getUpdatedText()
         }
-        setLoaderShowYamlEditComponent();
+        if (isGpgFile){
+            setLoaderShowYamlEditComponent();
+        }
     }
 
     function doExternalOpen(){
@@ -177,7 +182,11 @@ ColumnLayout {
                 if(classInitialized){
                     initOnFileChanged();
                 }
-                setLoaderShowYamlEditComponent();
+                if (isGpgFile){
+                    setLoaderShowYamlEditComponent();
+                }
+
+
                 refreshToolBar(); //Walk around Bug on linux only
             }
             visible: waitItems.indexOf(filePath) === -1 &&
