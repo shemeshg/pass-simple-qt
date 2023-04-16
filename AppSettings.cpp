@@ -12,7 +12,7 @@ AppSettings::AppSettings(QObject *parent)
     m_autoTypeCmd = settings.value("autoTypeCmd", "").toString();
     m_ctxSigner = settings.value("ctxSigner", "").toString();
     m_useClipboard = settings.value("useClipboard", "").toBool();
-    m_preferYamlView = settings.value("preferYamlView", "").toBool();
+    m_preferYamlView = settings.value("preferYamlView", true).toBool();
     m_fontSize = settings.value("fontSize", "14").toInt();
 }
 
