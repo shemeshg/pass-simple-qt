@@ -63,8 +63,9 @@ void GpgIdManageType::importAllGpgPubKeysFolder()
     qDebug() << "Finished importAllGpgPubKeysFolder\n";
 }
 
-void GpgIdManageType::saveChanges(QStringList keysFound)
+QString GpgIdManageType::saveChanges(QStringList keysFound)
 {
+    QString currentFile = "";
     try {
         m_gpgIdManage.keysFoundInGpgIdFile.clear();
 
@@ -76,10 +77,16 @@ void GpgIdManageType::saveChanges(QStringList keysFound)
         m_gpgIdManage.exportGpgIdToGpgPubKeysFolder();
         m_gpgIdManage.reInit();
         m_gpgIdManage.reEncryptStoreFolder(
-            [&](std::string s) { qDebug() << "Re-Encrypt " << QString::fromStdString(s) << "\n"; });
+            [&](std::string s) {
+                currentFile = QString::fromStdString(s);
+                qDebug() << "Re-Encrypt " << currentFile << "\n";
+            });
 
     } catch (const std::exception &e) {
-        qDebug() << QString(e.what());
+        qDebug() <<"Error "<< QString(e.what());
+        return "Error:\n" + currentFile + "\n" + e.what() + "\n";
+
     }
     qDebug() << "Finished saveChanges\n";
+    return "";
 }

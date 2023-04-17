@@ -61,10 +61,10 @@ ColumnLayout {
             reencryptBtnId.enabled = false;
             eencryptTextId.text = "Running... This might take long, Please wait"
             delay(1000, function() {
-                mainLayout.getGpgIdManageType().saveChanges(dropdownWithListComponentId.selectedItems);
+                var returnStatus = mainLayout.getGpgIdManageType().saveChanges(dropdownWithListComponentId.selectedItems);
                 initOnFileChanged();
                 reencryptBtnId.enabled = true;
-                eencryptTextId.text = ""
+                eencryptTextId.text = returnStatus
               })
 
         }
