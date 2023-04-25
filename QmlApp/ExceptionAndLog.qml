@@ -7,9 +7,8 @@ import QtQuick.Dialogs
 import DropdownWithList
 
 ColumnLayout {
-    id: exceptionAndLogId;
-    visible: isShowLog;
-    property alias logTextId: logTextId
+    property bool showLog: false;
+    property string logText: ""
 
     Button {
         id: navigateBackFromLogId
@@ -20,8 +19,8 @@ ColumnLayout {
     Row{
         Layout.fillWidth: true
         TextEditComponent {
-            id: logTextId
-            visible: isShowLog
+            textEditText: logText
+            visible: showLog
             width: parent.width
         }
 
