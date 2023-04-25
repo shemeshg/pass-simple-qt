@@ -37,7 +37,7 @@ ColumnLayout {
             visible: inputType === "textedit"
             text: inputText
             wrapMode: TextEdit.WrapAnywhere
-            onTextChanged:   {
+            onTextChanged:   {                
                 textChangedSignal(textEditComponentId.text)
                 inputText = textEditComponentId.text
             }
@@ -61,7 +61,7 @@ ColumnLayout {
         }
         Timer {
             interval: 500; running: inputType === "totp"; repeat: true
-            onTriggered: totpText = getMainqmltype().getTotp(textField.text)
+            onTriggered: totpText = getMainqmltype().getTotp(inputText)
         }
         TextField {
             id: textField
@@ -84,7 +84,7 @@ ColumnLayout {
         Button {
             text: "@"
             visible: inputType === "url"
-            onClicked: doUrlRedirect(textField.text)
+            onClicked: doUrlRedirect(inputText)
         }
         Button {
             text: "*"
