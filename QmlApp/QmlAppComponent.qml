@@ -80,8 +80,8 @@ ColumnLayout {
         hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId());
         isGpgFile = filePath.slice(-4)===".gpg";
         let allKeys =  mainLayout.getGpgIdManageType().allKeys
-        columnLayoutHomeId.metaDataComponentId.getDecryptedSignedById.text =  decryptedSignedByFullId(mainLayout.getDecryptedSignedBy(), allKeys)
-        columnLayoutHomeId.metaDataComponentId.gitResponseId.text = ""
+        columnLayoutHomeId.metaDataComponentId.decryptedSignedById =  decryptedSignedByFullId(mainLayout.getDecryptedSignedBy(), allKeys)
+        columnLayoutHomeId.metaDataComponentId.gitResponseId = ""
         columnLayoutHomeId.manageGpgIdComponentId.badEntriesRepeater.model = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.allItems = allKeys
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.selectedItems = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile

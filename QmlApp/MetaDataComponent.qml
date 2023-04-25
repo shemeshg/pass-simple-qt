@@ -13,8 +13,8 @@ ScrollView{
     Layout.fillHeight: true
 
     property string nearestGit: ""
-    property alias getDecryptedSignedById: getDecryptedSignedById
-    property alias gitResponseId: gitResponseId
+    property string decryptedSignedById: ""
+    property string gitResponseId: ""
 
 
     ColumnLayout {
@@ -42,7 +42,7 @@ ScrollView{
                 enabled: nearestGit
                 onClicked: {
                     let s= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"status"]," 2>&1");
-                    gitResponseId.text = s;
+                    gitResponseId = s;
                 }
             }
             Button{
@@ -51,7 +51,7 @@ ScrollView{
                 onClicked: {
                     let addAll= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"add","."]," 2>&1");
                     let commitAm= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"commit","-am","pass simple"]," 2>&1");
-                    gitResponseId.text = "Add:\n" + addAll + "\n" +"Commit:\n"+ commitAm;
+                    gitResponseId = "Add:\n" + addAll + "\n" +"Commit:\n"+ commitAm;
                 }
             }
             Button{
@@ -61,13 +61,13 @@ ScrollView{
 
                     let pull= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"pull"]," 2>&1");
                     let push= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"push"]," 2>&1");
-                    gitResponseId.text = "Pull:\n"+ pull + "\nPush:\n" + push;
+                    gitResponseId = "Pull:\n"+ pull + "\nPush:\n" + push;
                 }
             }
 
         }
         TextArea {
-            id: gitResponseId
+            text: gitResponseId
             Layout.fillWidth: true;
             width: parent.width
             readOnly: true
@@ -83,8 +83,7 @@ ScrollView{
             }
 
             Text {
-                id: getDecryptedSignedById
-                text:""
+                text: decryptedSignedById
             }
         }
         Text {
