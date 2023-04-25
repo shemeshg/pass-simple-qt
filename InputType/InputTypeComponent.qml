@@ -8,8 +8,10 @@ import Datetime
 ColumnLayout {
     id: columnLayoutId
     property string inputType: "" //totp,url,text,textedit
-    property string  inputText: ""
+    property string inputText: ""
+    property string totpText: ""
     signal textChangedSignal(s: string)
+
 
     RowLayout {
         visible: inputType === "datetime"
@@ -59,7 +61,7 @@ ColumnLayout {
         }
         Timer {
             interval: 500; running: inputType === "totp"; repeat: true
-            onTriggered: totpId.text = getMainqmltype().getTotp(textField.text)
+            onTriggered: totpText = getMainqmltype().getTotp(textField.text)
         }
         TextField {
             id: textField
@@ -74,9 +76,8 @@ ColumnLayout {
             rightPadding: 8
         }
         TextField {
-            id: totpId
             font.family: getMainqmltype().fixedFont
-            text: ""
+            text: totpText
             readOnly: true
             visible: inputType === "totp"
         }
