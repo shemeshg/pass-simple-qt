@@ -56,9 +56,6 @@ ColumnLayout {
                  inputType === "url" ||
                  inputType === "totp" ||
                  inputType === "password"
-        InputTypeType {
-            id: inputTypeType
-        }
         Timer {
             interval: 500; running: inputType === "totp"; repeat: true
             onTriggered: totpText = getMainqmltype().getTotp(inputText)

@@ -99,11 +99,6 @@ ColumnLayout {
 
     }
 
-    InputTypeType {
-        id: inputTypeTypeDecodeId
-    }
-
-
     function clearSystemTrayIconEntries() {
         mainLayout.getMainqmltype().trayMenuClear();
     }
