@@ -9,6 +9,7 @@ import DropdownWithList
 ColumnLayout {
     property bool showLog: false;
     property string logText: ""
+    visible: showLog
 
     Button {
         id: navigateBackFromLogId
@@ -19,8 +20,7 @@ ColumnLayout {
     Row{
         Layout.fillWidth: true
         TextEditComponent {
-            textEditText: logText
-            visible: showLog
+            textEditText: logText            
             width: parent.width
         }
 
