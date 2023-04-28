@@ -9,9 +9,9 @@ void EditYamlType::setText(const QString &text)
     emit textChanged();
 
     setIsYamlValid(true);
-    if (m_text.startsWith("#") || m_text.startsWith("-")) {
+    if (m_text.startsWith("#") || m_text.startsWith("-") || m_text.isEmpty()) {
         setIsYamlValid(false);
-        setYamlErrorMsg("YAML should not start with # or -");
+        setYamlErrorMsg("YAML should not start with # or - or be empty");
         return;
     }
     setYamlErrorMsg("");

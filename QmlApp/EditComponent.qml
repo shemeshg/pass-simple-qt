@@ -55,6 +55,7 @@ ColumnLayout {
         if (isGpgFile){
             setLoaderShowYamlEditComponent();
         }
+        refreshToolBar(); //Walk around Bug on linux only
     }
 
     function doExternalOpen(){
@@ -417,6 +418,8 @@ ColumnLayout {
                     height: parent.height
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    placeholderText: "Enter text here, YAML can not start with '-' or '#'"
+                    placeholderTextColor: "black"
                     onSelectedTextChanged: {
                         getMainqmltype().selectedText = selectedText
                     }
