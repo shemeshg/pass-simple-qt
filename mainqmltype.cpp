@@ -208,7 +208,9 @@ void MainQmlType::encrypt(QString s)
 {
     if (passFile->isGpgFile()) {
         runSafeFromException(
-                    [&]() { passFile->encrypt(s.toStdString(), m_gpgIdManageType.getEncryptTo()); });
+            [&]() {
+                passFile->encrypt(s.toStdString(), m_gpgIdManageType.getEncryptTo());
+            });
     }
 }
 
