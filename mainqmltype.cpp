@@ -51,7 +51,7 @@ void MainQmlType::setFilePath(const QString &filePath)
                                appSettings.passwordStorePath().toStdString(),
                                passHelper.get());
     } catch (...) {
-        qDebug() << "Just failed \n"; // Block of code to handle errors
+        qDebug() << "MainQmlType::setFilePath(const QString &filePath) Just failed \n"; // Block of code to handle errors
     }
 
     emit filePathChanged();

@@ -190,11 +190,12 @@ ColumnLayout {
 
     }
 
-    function notifyStr(str, withTimeout=false){
+    function notifyStr(str, withTimeout=false, callback=()=>{}){
         statusLabelId.text = str
         if (withTimeout){
             delaySetTimeOut(1000, function() {
                 statusLabelId.text = ""
+                callback();
             })
         }
 

@@ -14,6 +14,7 @@ ColumnLayout {
     property alias folderDialogDownload: folderDialogDownload
     property alias fileDialogDownload: fileDialogDownload
     property string decryptedText: ""
+    property bool isSaving: false
 
     onDecryptedTextChanged: {
         loaderShowYamlEditComponent.editYamlType.text = decryptedText;
@@ -243,13 +244,17 @@ ColumnLayout {
         Button {
             id: saveBtnId
             text: "&Save"
-            enabled: hasEffectiveGpgIdFile && (!showYamlEdit || showYamlEdit && loaderShowYamlEditComponent.editYamlType.isYamlValid)
+            enabled: hasEffectiveGpgIdFile && (!showYamlEdit || showYamlEdit &&
+                   loaderShowYamlEditComponent.editYamlType.isYamlValid) && !isSaving
             onClicked:{
                 if (showYamlEdit){
                     decryptedText = loaderShowYamlEditComponent.editYamlType.getUpdatedText()
                 }
+                isSaving = true
                 mainLayout.encrypt(decryptedText)
-                notifyStr("* Saved", true)
+                notifyStr("* Saved", true,()=>{
+                          isSaving=false;
+                          })
             }
             visible: isShowPreview
 
