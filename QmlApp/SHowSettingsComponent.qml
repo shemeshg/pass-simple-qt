@@ -40,6 +40,7 @@ ColumnLayout {
                                     preferYamlView.checked,
                                    fontSize.text,
                                     ctxSigner.displayText);
+        passwordStorePathStr = mainLayout.getMainqmltype().appSettingsType.passwordStorePath
     }
 
     RowLayout {
