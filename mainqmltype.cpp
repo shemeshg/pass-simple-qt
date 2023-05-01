@@ -209,7 +209,11 @@ void MainQmlType::encrypt(QString s)
     if (passFile->isGpgFile()) {
         runSafeFromException(
             [&]() {
-                passFile->encrypt(s.toStdString(), m_gpgIdManageType.getEncryptTo());
+                // It worth opening dedicated gpg session for stability
+                std::unique_ptr<PassHelper> phLocal = std::make_unique<PassHelper>();
+                std::unique_ptr<PassFile> pfLocal = phLocal->getPassFile(passFile->getFullPath());
+
+                pfLocal->encrypt(s.toStdString(), m_gpgIdManageType.getEncryptTo());
             });
     }
 }
