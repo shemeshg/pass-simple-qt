@@ -20,10 +20,10 @@ MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,
         QStringList waitString, noneWaitString;
 
         for (auto &itm : watchWaitAndNoneWaitRunCmd.waitItems) {
-            waitString.push_back(QString::fromStdString(itm.uniqueId));
+            waitString.push_back(QString::fromStdString(itm->uniqueId));
         }
         for (auto &itm : watchWaitAndNoneWaitRunCmd.noneWaitItems) {
-            noneWaitString.push_back(QString::fromStdString(itm.uniqueId));
+            noneWaitString.push_back(QString::fromStdString(itm->uniqueId));
         }
         setWaitItems(waitString);
         setNoneWaitItems(noneWaitString);
