@@ -33,7 +33,7 @@ ColumnLayout {
         onClicked: { fileDialogImportAndTrustId.open()}
     }
     Button {
-        text: "Import all public keys in .gpg-pub-keys/"
+        text: "Import all public keys in .gpg-keys/"
         enabled: classInitialized && gpgPubKeysFolderExists
         onClicked: {
             mainLayout.getGpgIdManageType().importAllGpgPubKeysFolder();
@@ -56,7 +56,7 @@ ColumnLayout {
         id: reencryptBtnId
         enabled: classInitialized  && badEntriesRepeater.model.length === 0
                  && dropdownWithListComponentId.selectedItems.length > 0
-        text: "Save changes to .gpg-id \n Recreate.gpg-pub-keys/ \n Re-encrypt all .gpg-id related files"
+        text: "Save changes to .gpg-id \n Recreate.gpg-keys/ \n Re-encrypt all .gpg-id related files"
         onClicked: {
             reencryptBtnId.enabled = false;
             eencryptTextId.text = "Running... This might take long, Please wait"
