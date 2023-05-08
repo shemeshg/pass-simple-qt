@@ -12,6 +12,7 @@ ColumnLayout {
 
     property bool isUseClipboard: mainLayout.getMainqmltype().appSettingsType.useClipboard
     property bool isPreferYamlView: mainLayout.getMainqmltype().appSettingsType.preferYamlView
+    property bool isDoSign: mainLayout.getMainqmltype().appSettingsType.doSign
 
     FolderDialog {
         id: selectStorePathDialogId
@@ -37,6 +38,7 @@ ColumnLayout {
                                    vscodeExecPath.text,
                                    autoTypeCmd.text,
                                    useClipboard.checked,
+                                    doSign.checked,
                                     preferYamlView.checked,
                                    fontSize.text,
                                     ctxSigner.displayText);
@@ -160,6 +162,12 @@ ColumnLayout {
             visible: isShowPreview
             text: qsTr("Use clipboard")
             checked: isUseClipboard;
+        }
+        Switch {
+            id: doSign
+            visible: isShowPreview
+            text: qsTr("Sign")
+            checked: isDoSign;
         }
     }
 }

@@ -50,7 +50,7 @@ public:
     QStringList allKeys() const;
     Q_INVOKABLE void importPublicKeyAndTrust(const QString &urlString);
     Q_INVOKABLE void importAllGpgPubKeysFolder();
-    Q_INVOKABLE QString saveChanges(QStringList keysFound);
+    Q_INVOKABLE QString saveChanges(QStringList keysFound, bool doSign);
 
 signals:
 

@@ -61,7 +61,9 @@ ColumnLayout {
             reencryptBtnId.enabled = false;
             eencryptTextId.text = "Running... This might take long, Please wait"
             delay(1000, function() {
-                var returnStatus = mainLayout.getGpgIdManageType().saveChanges(dropdownWithListComponentId.selectedItems);
+                var returnStatus = mainLayout.getGpgIdManageType().
+                    saveChanges(dropdownWithListComponentId.selectedItems,
+                                mainLayout.getMainqmltype().appSettingsType.doSign);
                 initOnFileChanged();
                 reencryptBtnId.enabled = true;
                 eencryptTextId.text = returnStatus

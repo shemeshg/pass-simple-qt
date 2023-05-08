@@ -11,7 +11,8 @@ AppSettings::AppSettings(QObject *parent)
     m_vscodeExecPath = settings.value("vscodeExecPath", "").toString();
     m_autoTypeCmd = settings.value("autoTypeCmd", "").toString();
     m_ctxSigner = settings.value("ctxSigner", "").toString();
-    m_useClipboard = settings.value("useClipboard", "").toBool();
+    m_useClipboard = settings.value("useClipboard", false).toBool();
+    m_doSign = settings.value("doSign", false).toBool();
     m_preferYamlView = settings.value("preferYamlView", true).toBool();
     m_fontSize = settings.value("fontSize", "14").toInt();
 }
@@ -136,6 +137,15 @@ void AppSettings::setUseClipboard(const bool useClipboard)
     m_useClipboard = useClipboard;
     settings.setValue("useClipboard", m_useClipboard);
     emit useClipboardChanged();
+}
+
+void AppSettings::setDoSign(const bool doSign)
+{
+    if (doSign == m_doSign)
+        return;
+    m_doSign = doSign;
+    settings.setValue("doSign", m_doSign);
+    emit doSignChanged();
 }
 
 void AppSettings::setPreferYamlView(const bool preferYamlView)

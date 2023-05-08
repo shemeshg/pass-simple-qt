@@ -63,7 +63,7 @@ void GpgIdManageType::importAllGpgPubKeysFolder()
     qDebug() << "Finished importAllGpgPubKeysFolder\n";
 }
 
-QString GpgIdManageType::saveChanges(QStringList keysFound)
+QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign)
 {
     QString currentFile = "";
     try {
@@ -80,7 +80,8 @@ QString GpgIdManageType::saveChanges(QStringList keysFound)
             [&](std::string s) {
                 currentFile = QString::fromStdString(s);
                 qDebug() << "Re-Encrypt " << currentFile << "\n";
-            });
+            },
+            doSign);
 
     } catch (const std::exception &e) {
         qDebug() <<"Error "<< QString(e.what());

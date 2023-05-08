@@ -171,7 +171,7 @@ void MainQmlType::initGpgIdManage()
 }
 
 void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpFolderPath, QString gitExecPath, QString vscodeExecPath, QString autoTypeCmd,
-                                         bool useClipboard, bool preferYamlView, int fontSize, QString ctxSigner)
+                                         bool useClipboard, bool doSign, bool preferYamlView, int fontSize, QString ctxSigner)
 {
     appSettings.setPasswordStorePath(passwordStorePath);
     appSettings.setTmpFolderPath(tmpFolderPath);
@@ -180,6 +180,7 @@ void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpF
     appSettings.setVscodeExecPath(vscodeExecPath);
     appSettings.setAutoTypeCmd(autoTypeCmd);
     appSettings.setUseClipboard(useClipboard);
+    appSettings.setDoSign(doSign);
     appSettings.setPreferYamlView(preferYamlView);
     appSettings.setfontSize(fontSize);
     appSettings.setCtxSigner(ctxSigner);
@@ -213,7 +214,8 @@ void MainQmlType::encrypt(QString s)
                 std::unique_ptr<PassHelper> phLocal = std::make_unique<PassHelper>();
                 std::unique_ptr<PassFile> pfLocal = phLocal->getPassFile(passFile->getFullPath());
 
-                pfLocal->encrypt(s.toStdString(), m_gpgIdManageType.getEncryptTo());
+                pfLocal->encrypt(s.toStdString(),
+                                 m_gpgIdManageType.getEncryptTo(), appSettings.doSign());
             });
     }
 }
