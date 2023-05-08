@@ -12,7 +12,6 @@ ScrollView{
     Layout.fillWidth: true
     Layout.fillHeight: true
 
-    property string nearestGit: ""
     property string decryptedSignedById: ""
     property string gitResponseId: ""
 

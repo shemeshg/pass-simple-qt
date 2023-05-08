@@ -34,11 +34,13 @@ ColumnLayout {
     property bool isShowLog: false
     property bool isShowSettings: false
     property bool isShowSearch: false
+    property bool isSaving: false
 
     property string showLogText: ""
     property string nearestGpg: ""
     property string fullPathFolder: ""
     property string passwordStorePathStr: mainLayout.getMainqmltype().appSettingsType.passwordStorePath
+    property string nearestGit: ""
     property var allPrivateKeys: []
 
 
@@ -72,8 +74,7 @@ ColumnLayout {
         if (isShowPreview){
             columnLayoutHomeId.editComponentId.decryptedText = mainLayout.getDecrypted();
         }
-
-        columnLayoutHomeId.metaDataComponentId.nearestGit = mainLayout.getNearestGit();
+        nearestGit = mainLayout.getNearestGit();
         columnLayoutHomeId.addComponentId.nearestTemplateGpg = mainLayout.getNearestTemplateGpg();
         nearestGpg = mainLayout.getNearestGpgId();
         fullPathFolder = getMainqmltype().getFullPathFolder();
@@ -247,7 +248,36 @@ ColumnLayout {
                 id: statusLabelId
                 text: ""
                 Layout.alignment: Qt.AlignRight
+                Layout.fillWidth: true
 
+            }
+            Shortcut {
+                sequence: "Ctrl+Y"
+                onActivated: {
+                    if (syncBtn.enabled){
+                        syncBtn.clicked()
+                    }
+                }
+            }
+            Button {
+                id: syncBtn
+                onClicked: {
+                isSaving = true
+                notifyStr("* add all, commit, pull, putsh", true,()=>{
+                              getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"add","."]," 2>&1");
+                              getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"commit","-am","pass simple"]," 2>&1");
+                              getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"pull"]," 2>&1");
+                              getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"push"]," 2>&1");
+                              isSaving = false
+                          })
+
+                }
+                icon.name: "sync"
+                icon.source:
+                    Qt.resolvedUrl("icons/sync_black_24dp.svg")
+                ToolTip.visible: hovered
+                ToolTip.text: "<b>Cmd Y</b> commit pull push "
+                enabled: Boolean(nearestGit) && !isSaving
             }
         }
         Row{

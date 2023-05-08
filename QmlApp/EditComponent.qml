@@ -14,7 +14,7 @@ ColumnLayout {
     property alias folderDialogDownload: folderDialogDownload
     property alias fileDialogDownload: fileDialogDownload
     property string decryptedText: ""
-    property bool isSaving: false
+
 
     onDecryptedTextChanged: {
         loaderShowYamlEditComponent.editYamlType.text = decryptedText;
