@@ -9,7 +9,7 @@ void GpgIdManageType::init(std::string _currentPath, std::string _stopPath, Pass
 QStringList GpgIdManageType::keysNotFoundInGpgIdFile() const
 {
     QStringList l;
-    for (auto r : m_gpgIdManage.KeysNotFoundInGpgIdFile) {
+    for (const auto &r : m_gpgIdManage.KeysNotFoundInGpgIdFile) {
         l.append(QString::fromStdString(r));
     }
     return l;
