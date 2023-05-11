@@ -57,12 +57,6 @@ void MainQmlType::setFilePath(const QString &filePath)
     emit filePathChanged();
 }
 
-QString MainQmlType::fixedFont()
-{
-    const QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
-    return font.family();
-}
-
 int MainQmlType::filePanSize()
 {
     return m_filePanSize;

@@ -418,7 +418,6 @@ ColumnLayout {
                 TextArea {
                     id: decryptedTextId
                     text: decryptedText
-                    font.family: getMainqmltype().fixedFont
                     width: parent.width
                     height: parent.height
                     Layout.fillWidth: true

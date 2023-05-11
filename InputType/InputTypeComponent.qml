@@ -31,7 +31,6 @@ ColumnLayout {
 
     RowLayout {
         TextArea {
-            font.family: getMainqmltype().fixedFont
             Layout.fillWidth: true
             id: textEditComponentId
             visible: inputType === "textedit"
@@ -62,7 +61,6 @@ ColumnLayout {
         }
         TextField {
             id: textField
-            font.family: getMainqmltype().fixedFont
             text: inputText
             onTextChanged: {
                 textChangedSignal(text)
@@ -73,7 +71,6 @@ ColumnLayout {
             rightPadding: 8
         }
         TextField {
-            font.family: getMainqmltype().fixedFont
             text: totpText
             readOnly: true
             visible: inputType === "totp"

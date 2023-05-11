@@ -23,7 +23,6 @@ class MainQmlType : public QObject
     Q_OBJECT
     Q_PROPERTY(QString filePath READ filePath WRITE setFilePath NOTIFY filePathChanged)
     Q_PROPERTY(int filePanSize READ filePanSize WRITE setFilePanSize NOTIFY filePanSizeChanged)
-    Q_PROPERTY(QString fixedFont READ fixedFont CONSTANT)
     Q_PROPERTY(GpgIdManageType *gpgIdManageType READ gpgIdManageType CONSTANT)
     Q_PROPERTY(QStringList waitItems READ waitItems WRITE setWaitItems NOTIFY waitItemsChanged)
     Q_PROPERTY(QStringList noneWaitItems READ noneWaitItems WRITE setNoneWaitItems NOTIFY
@@ -51,8 +50,6 @@ public:
 
     QString filePath();
     void setFilePath(const QString &filePath);
-
-    QString fixedFont();
 
     int filePanSize();
     void setFilePanSize(const int &filePanSize);
