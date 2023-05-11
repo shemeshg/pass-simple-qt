@@ -3,7 +3,7 @@
 
 void GpgIdManageType::init(std::string _currentPath, std::string _stopPath)
 {
-    std::unique_ptr<GpgIdManage> m_gpgIdManage=std::make_unique<GpgIdManage>(_currentPath,_stopPath);
+    m_gpgIdManage=std::make_unique<GpgIdManage>(_currentPath,_stopPath);
 }
 
 QStringList GpgIdManageType::keysNotFoundInGpgIdFile() const
@@ -75,7 +75,7 @@ QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign)
 
         m_gpgIdManage->saveBackGpgIdFile();
         m_gpgIdManage->exportGpgIdToGpgPubKeysFolder();
-        m_gpgIdManage->reInit();
+        m_gpgIdManage=std::make_unique<GpgIdManage>(m_gpgIdManage->currentPath,m_gpgIdManage->stopPath);
         m_gpgIdManage->reEncryptStoreFolder(
             [&](std::string s) {
                 currentFile = QString::fromStdString(s);
