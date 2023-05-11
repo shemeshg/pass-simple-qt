@@ -48,8 +48,7 @@ void MainQmlType::setFilePath(const QString &filePath)
     passFile->setFullPath(m_filePath.toStdString());
     try {
         m_gpgIdManageType.init(m_filePath.toStdString(),
-                               appSettings.passwordStorePath().toStdString(),
-                               passHelper.get());
+                               appSettings.passwordStorePath().toStdString());
     } catch (...) {
         qDebug() << "MainQmlType::setFilePath(const QString &filePath) Just failed \n"; // Block of code to handle errors
     }
@@ -154,8 +153,7 @@ void MainQmlType::initGpgIdManage()
 {
     try {
         m_gpgIdManageType.init(appSettings.passwordStorePath().toStdString(),
-                               appSettings.passwordStorePath().toStdString(),
-                               passHelper.get());
+                               appSettings.passwordStorePath().toStdString());
         if (!appSettings.ctxSigner().isEmpty()) {
             passHelper->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});
         }

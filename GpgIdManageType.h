@@ -26,24 +26,24 @@ public:
     explicit GpgIdManageType(QObject *parent = nullptr)
         : QObject(parent){};
 
-    void init(std::string _currentPath, std::string _stopPath, PassHelper *_ph);
-    const std::vector<std::string> &getEncryptTo() const { return m_gpgIdManage.encryptTo; }
-    const QString currentPath() const { return QString::fromStdString(m_gpgIdManage.currentPath); };
-    const QString stopPath() const { return QString::fromStdString(m_gpgIdManage.stopPath); };
+    void init(std::string _currentPath, std::string _stopPath);
+    const std::vector<std::string> &getEncryptTo() const { return m_gpgIdManage->encryptTo; }
+    const QString currentPath() const { return QString::fromStdString(m_gpgIdManage->currentPath); };
+    const QString stopPath() const { return QString::fromStdString(m_gpgIdManage->stopPath); };
     const QString nearestGpgIdFolder()
     {
-        return QString::fromStdString(m_gpgIdManage.nearestGpgIdFolder);
+        return QString::fromStdString(m_gpgIdManage->nearestGpgIdFolder);
     };
     const QString gpgPubKeysFolder() const
     {
-        return QString::fromStdString(m_gpgIdManage.gpgPubKeysFolder);
+        return QString::fromStdString(m_gpgIdManage->gpgPubKeysFolder);
     };
     const QString nearestGpgIdFile() const
     {
-        return QString::fromStdString(m_gpgIdManage.nearestGpgIdFile);
+        return QString::fromStdString(m_gpgIdManage->nearestGpgIdFile);
     };
-    bool gpgPubKeysFolderExists() const { return m_gpgIdManage.gpgPubKeysFolderExists; };
-    bool classInitialized() const { return m_gpgIdManage.classInitialized; };
+    bool gpgPubKeysFolderExists() const { return m_gpgIdManage->gpgPubKeysFolderExists; };
+    bool classInitialized() const { return m_gpgIdManage->classInitialized; };
     QStringList keysNotFoundInGpgIdFile() const;
     QStringList keysFoundInGpgIdFile() const;
     QStringList allPrivateKeys() const;
@@ -55,5 +55,5 @@ public:
 signals:
 
 private:
-    GpgIdManage m_gpgIdManage;
+    std::unique_ptr<GpgIdManage> m_gpgIdManage=std::make_unique<GpgIdManage>("","");
 };
