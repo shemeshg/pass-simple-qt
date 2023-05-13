@@ -386,7 +386,7 @@ ColumnLayout {
             Component {
                 id:mdDecryptedTextIdComponent
 
-                TextEdit {
+                TextArea {
                     id: mdDecryptedTextId
 
                     width: parent.width
