@@ -99,7 +99,7 @@ ColumnLayout {
 
     RowLayout {
         width: parent.width
-        Text {
+        Label {
             visible: isGpgFile
             text: "<h1>Edit<h1>"
             Layout.fillWidth: true
@@ -110,8 +110,7 @@ ColumnLayout {
 
         Button {
             visible: isGpgFile
-            text: "download file"
-            enabled: isGpgFile
+            text: "download file"            
             onClicked: {
                 fileDialogDownload.open()
             }
@@ -125,11 +124,11 @@ ColumnLayout {
                     folderDialogDownload.open();
                 }
             }
-            rightPadding: 8
+            rightPadding: 8            
         }
     }
     RowLayout {
-        Text {
+        Label {
             visible: isGpgFile
             text: "<h2>" +
                   filePath.replace(fullPathFolder,"").substring(1,filePath.replace(fullPathFolder,"").length-4) +
@@ -152,7 +151,7 @@ ColumnLayout {
     RowLayout {
         visible: waitItems.indexOf(filePath) > -1 ||
                  noneWaitItems.indexOf(filePath) > -1
-        Text {
+        Label {
             text: "File opened externally"
         }
     }

@@ -22,7 +22,7 @@ ColumnLayout {
 
 
     Row{
-        Text { text:  Error + ": " + editYamlType.yamlErrorMsg }
+        Label { text:  Error + ": " + editYamlType.yamlErrorMsg }
         visible: !editYamlType.isYamlValid
     }
 
@@ -192,7 +192,7 @@ ColumnLayout {
                         ToolTip.visible: hovered
                     }
 
-                    Text {
+                    Label {
                         text:  modelData.key + ": "                       
                         padding: 8
 

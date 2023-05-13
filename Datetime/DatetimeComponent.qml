@@ -51,7 +51,7 @@ ColumnLayout {
         }
 
 
-        Text {
+        Label {
             text: "In"
         }
         TextField {
@@ -66,14 +66,14 @@ ColumnLayout {
                 input.text = dateTime.datetimeStr
             }
         }
-        Text {
+        Label {
             text: "days"
 
         }
 
     }
 
-    Text {
+    Label {
         id: statusId
         text: ""
     }

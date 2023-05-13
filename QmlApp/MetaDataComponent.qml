@@ -23,16 +23,16 @@ ScrollView{
         Layout.fillWidth: true
         Layout.fillHeight: true
 
-        Text {
+        Label {
             text: "<h1>Meta data<h1>"
 
         }
 
-        Text {
+        Label {
             id: nameId
             text:"File : " + filePath
         }
-        Text {
+        Label {
             text:"Git : " + nearestGit
         }
         RowLayout{
@@ -72,7 +72,7 @@ ScrollView{
             readOnly: true
         }
 
-        Text {
+        Label {
             id: nearestGpgIdId
             text:"GpgId : " + nearestGpg
         }
@@ -81,11 +81,11 @@ ScrollView{
                 text: "Signed By: "
             }
 
-            Text {
+            Label {
                 text: decryptedSignedById
             }
         }
-        Text {
+        Label {
             text:"<h2>Wait Items</h2>"
         }
         Repeater {
@@ -103,7 +103,7 @@ ScrollView{
             }
         }
 
-        Text {
+        Label {
             text:"<h2>None Wait Items</h2>"
         }
         Repeater {

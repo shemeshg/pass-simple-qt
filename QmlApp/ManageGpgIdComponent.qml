@@ -21,10 +21,10 @@ ColumnLayout {
         }
     }
 
-    Text {
+    Label {
         text: "<h1>Manage .gpg-id<h1>"
     }
-    Text {
+    Label {
         text: "gpg-id: " + nearestGpg
     }
     Button {
@@ -71,12 +71,12 @@ ColumnLayout {
 
         }
     }
-    Text {
+    Label {
         id: eencryptTextId
         text: ""
     }
 
-    Text {
+    Label {
         text: "<h2>Bad .gpg-id entries<h2>"
         visible: badEntriesRepeater.model.length > 0
     }
