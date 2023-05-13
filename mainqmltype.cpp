@@ -331,18 +331,18 @@ void MainQmlType::createEmptyEncryptedFile(QString fullPathFolder, QString fileN
 
     if (templatePath.isEmpty()){
         runSafeFromException([&]() {
-            std::string s = R"V0G0N(user name: ""
+            std::string s = R"V0G0N(user: ""
 password: ""
 expire: ""
-home page: ""
+home: ""
 totp: ""
 description: ""
 fields type:
-  user name: text
+  user: text
   password: password
   expire: datetime
   totp: totp
-  home page: url
+  home: url
   description: textedit)V0G0N";
             passFile->encryptStringToFile(s, p, m_gpgIdManageType.getEncryptTo());
         });
