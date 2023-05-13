@@ -38,7 +38,7 @@
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QFrame" name="frame">
+      <widget class="QFrame" name="frame1">
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
@@ -73,7 +73,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QFrame" name="frame">
+      <widget class="QFrame" name="frame2">
        <property name="baseSize">
         <size>
          <width>0</width>
