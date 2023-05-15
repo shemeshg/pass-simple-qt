@@ -43,6 +43,7 @@ ColumnLayout {
     property string nearestGit: ""
     property var allPrivateKeys: []
 
+    SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active; }
 
     Component.onCompleted:{
         mainLayout.getMainqmltype().initGpgIdManage();

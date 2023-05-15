@@ -12,11 +12,11 @@ Dialog {
 
     TextField {
         id: fieldName
-        focus: true
         text: ""
         width: parent.width
-
     }
+
+
     onOpened: {
         fieldName.text = filePath.replace(fullPathFolder,"").substring(1,filePath.replace(fullPathFolder,"").length-4)
     }

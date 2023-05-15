@@ -389,6 +389,9 @@ ColumnLayout {
                 TextArea {
                     id: mdDecryptedTextId
 
+                    selectionColor: systemPalette.highlight
+                    selectedTextColor: systemPalette.highlightedText
+
                     width: parent.width
                     height: parent.height
                     Layout.fillWidth: true
@@ -430,6 +433,8 @@ ColumnLayout {
                     onTextChanged: {
                         decryptedText = text
                     }
+                    selectionColor: systemPalette.highlight
+                    selectedTextColor: systemPalette.highlightedText
                 }
             }
         }

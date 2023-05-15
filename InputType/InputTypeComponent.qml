@@ -43,6 +43,9 @@ ColumnLayout {
             onSelectedTextChanged: {
                 getMainqmltype().selectedText = selectedText
             }
+            selectionColor: systemPalette.highlight
+            selectedTextColor: systemPalette.highlightedText
+
         }
         Item {
             height: 2
