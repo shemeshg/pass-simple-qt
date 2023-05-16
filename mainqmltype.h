@@ -104,6 +104,7 @@ public:
                                             QString gitExecPath,
                                             QString vscodeExecPath,
                                             QString autoTypeCmd,
+                                            QString binaryExts,
                                             bool useClipboard,
                                             bool doSign,
                                             bool preferYamlView,

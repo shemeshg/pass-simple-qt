@@ -37,6 +37,7 @@ ColumnLayout {
                                    gitExecPath.text,
                                    vscodeExecPath.text,
                                    autoTypeCmd.text,
+                                    binaryExts.text,
                                    useClipboard.checked,
                                     doSign.checked,
                                     preferYamlView.checked,
@@ -168,6 +169,19 @@ ColumnLayout {
             visible: isShowPreview
             text: qsTr("Sign")
             checked: isDoSign;
+        }
+        ColumnLayout {
+            Layout.fillWidth: true
+            Label {
+                text: "Binary extensions"
+            }
+            TextArea {
+                id: binaryExts
+                selectionColor: systemPalette.highlight
+                selectedTextColor: systemPalette.highlightedText
+                text: mainLayout.getMainqmltype().appSettingsType.binaryExts
+                Layout.fillWidth: true
+            }
         }
     }
 }

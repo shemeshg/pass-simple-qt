@@ -25,6 +25,7 @@ class AppSettings : public QObject
     Q_PROPERTY(bool preferYamlView READ preferYamlView WRITE setPreferYamlView NOTIFY preferYamlViewChanged)
     Q_PROPERTY(int fontSize READ fontSize WRITE setfontSize NOTIFY fontSizeChanged)
     Q_PROPERTY(QString appVer READ appVer CONSTANT )
+    Q_PROPERTY(QString binaryExts READ binaryExts WRITE setBinaryExts NOTIFY binaryExtsChanged)
     QML_ELEMENT
 public:
     AppSettings(QObject *parent = nullptr);
@@ -39,7 +40,9 @@ public:
     QString vscodeExecPath() const;
     void setVscodeExecPath(const QString &vscodeExecPath);
     const QString autoTypeCmd() const;
-    void setAutoTypeCmd(const QString &autoTypeCmd);
+    void setAutoTypeCmd(const QString &autoTypeCmd);    
+    const QString binaryExts() const;
+    void setBinaryExts(const QString &binaryExts);
     bool useClipboard() const { return m_useClipboard; };
     bool doSign() const { return m_doSign; };
     bool preferYamlView() const { return m_preferYamlView; };
@@ -56,6 +59,7 @@ signals:
     void gitExecPathChanged();
     void vscodeExecPathChanged();
     void autoTypeCmdChanged();
+    void binaryExtsChanged();
     void useClipboardChanged();
     void doSignChanged();
     void preferYamlViewChanged();
@@ -69,6 +73,7 @@ private:
     QString m_gitExecPath;
     QString m_vscodeExecPath;
     QString m_autoTypeCmd;
+    QString m_binaryExts;
     QString m_ctxSigner;
     bool m_useClipboard;
     bool m_doSign;

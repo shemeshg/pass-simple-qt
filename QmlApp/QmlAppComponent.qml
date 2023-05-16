@@ -73,7 +73,7 @@ ColumnLayout {
 
     function getIsBinary(){
         let file = filePath.substring(1,filePath.length-4)
-        let extensions = ".pdf\n.zip\n".toLowerCase()
+        let extensions = mainLayout.getMainqmltype().appSettingsType.binaryExts.toLowerCase()
         let initialValue = 0
         let ret = extensions.split("\n").reduce(
           (accumulator, currentValue) => {

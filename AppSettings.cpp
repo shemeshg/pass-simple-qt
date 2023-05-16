@@ -10,6 +10,7 @@ AppSettings::AppSettings(QObject *parent)
     m_gitExecPath = settings.value("gitExecPath", "").toString();
     m_vscodeExecPath = settings.value("vscodeExecPath", "").toString();
     m_autoTypeCmd = settings.value("autoTypeCmd", "").toString();
+    m_binaryExts = settings.value("binaryExts", "").toString();
     m_ctxSigner = settings.value("ctxSigner", "").toString();
     m_useClipboard = settings.value("useClipboard", false).toBool();
     m_doSign = settings.value("doSign", false).toBool();
@@ -108,6 +109,28 @@ void AppSettings::setVscodeExecPath(const QString &vscodeExecPath)
 
     emit vscodeExecPathChanged();
 }
+
+
+const QString AppSettings::binaryExts() const
+{
+    if (m_binaryExts.isEmpty()) {
+
+        return QString{".zip\n.pdf"};
+    }
+    return m_binaryExts;
+}
+
+void AppSettings::setBinaryExts(const QString &binaryExts)
+{
+    if (binaryExts == m_binaryExts)
+        return;
+    m_binaryExts = binaryExts;
+    settings.setValue("binaryExts", m_binaryExts);
+    emit binaryExtsChanged();
+}
+
+
+
 
 const QString AppSettings::autoTypeCmd() const
 {
