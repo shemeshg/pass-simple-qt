@@ -27,6 +27,7 @@ ColumnLayout {
     property bool isShowPreview: true
     property bool hasEffectiveGpgIdFile: false
     property bool isGpgFile: false
+    property bool isBinaryFile: false
 
     property var waitItems: []
     property var noneWaitItems: []
@@ -70,8 +71,27 @@ ColumnLayout {
         return retStr;
     }
 
+    function getIsBinary(){
+        let file = filePath.substring(1,filePath.length-4)
+        let extensions = ".pdf\n.zip\n".toLowerCase()
+        let initialValue = 0
+        let ret = extensions.split("\n").reduce(
+          (accumulator, currentValue) => {
+            if (Boolean(currentValue) && file.slice(currentValue.length * -1) === currentValue){
+                return accumulator+1;
+            }
+            return accumulator
+          },
+          initialValue
+        );
+
+        return Boolean(ret)
+    }
+
     function initOnFileChanged(){
         clearSystemTrayIconEntries();
+        isBinaryFile = getIsBinary();
+        if (isBinaryFile){isShowPreview = false;}
         if (isShowPreview){
             columnLayoutHomeId.editComponentId.decryptedText = mainLayout.getDecrypted();
         }
@@ -80,7 +100,7 @@ ColumnLayout {
         nearestGpg = mainLayout.getNearestGpgId();
         fullPathFolder = getMainqmltype().getFullPathFolder();
         hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId());
-        isGpgFile = filePath.slice(-4)===".gpg";
+        isGpgFile = filePath.slice(-4)===".gpg";        
         let allKeys =  mainLayout.getGpgIdManageType().allKeys
         columnLayoutHomeId.metaDataComponentId.decryptedSignedById =  decryptedSignedByFullId(mainLayout.getDecryptedSignedBy(), allKeys)
         columnLayoutHomeId.metaDataComponentId.gitResponseId = ""

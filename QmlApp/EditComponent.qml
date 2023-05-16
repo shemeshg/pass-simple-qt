@@ -156,13 +156,19 @@ ColumnLayout {
         }
     }
 
+    Label {
+        text: "<h3>Binary file can upload/download only</h3>"
+        visible: isGpgFile && isBinaryFile
+    }
+
     RowLayout{
+        visible: isGpgFile && !isBinaryFile
 
         Shortcut {
             sequence: "Ctrl+E"
             onActivated: {
                 if ( isPreviewId.visible && editComponentId.visible
-                        ){
+                        && !isBinaryFile){
                     isPreviewId.checked = !isPreviewId.checked
                     isShowPreview = isPreviewId.checked
                     if(classInitialized){
@@ -173,7 +179,6 @@ ColumnLayout {
             }
         }
 
-        visible: isGpgFile
         Switch {
             id: isPreviewId
             text: qsTr("Pr<u>e</u>view")
@@ -191,14 +196,15 @@ ColumnLayout {
                 refreshToolBar(); //Walk around Bug on linux only
             }
             visible: waitItems.indexOf(filePath) === -1 &&
-                     noneWaitItems.indexOf(filePath) === -1
+                     noneWaitItems.indexOf(filePath) === -1 &&
+                     !isBinaryFile
         }
 
         Shortcut {
             sequence: "Ctrl+M"
             onActivated: {
                 if ( isPreviewId.checked && editComponentId.visible &&
-                       !showYamlEdit ){
+                       !showYamlEdit && !isBinaryFile ){
                     showMdId.checked = !showMdId.checked
                 }
             }
@@ -208,7 +214,7 @@ ColumnLayout {
             sequence: "Ctrl+L"
             onActivated: {
                 if ( isPreviewId.checked && editComponentId.visible
-                        ){
+                        && !isBinaryFile){
 
                     isYamlShow.checked = !isYamlShow.checked
                     showYamlEdit = isYamlShow.checked;
@@ -234,7 +240,7 @@ ColumnLayout {
         Shortcut {
             sequence: StandardKey.Save
             onActivated: {
-                if (saveBtnId.visible && saveBtnId.enabled){
+                if (saveBtnId.visible && saveBtnId.enabled && !isBinaryFile){
                     saveBtnId.clicked()
                 }
             }
@@ -244,7 +250,8 @@ ColumnLayout {
             id: saveBtnId
             text: "&Save"
             enabled: hasEffectiveGpgIdFile && (!showYamlEdit || showYamlEdit &&
-                   loaderShowYamlEditComponent.editYamlType.isYamlValid) && !isSaving
+                   loaderShowYamlEditComponent.editYamlType.isYamlValid) &&
+                     !isSaving && !isBinaryFile
             onClicked:{
                 if (showYamlEdit){
                     decryptedText = loaderShowYamlEditComponent.editYamlType.getUpdatedText()
@@ -264,9 +271,10 @@ ColumnLayout {
         Shortcut {
             sequence: "Ctrl+O"
             onActivated: {
-                if ( editComponentId.visible && !isShowPreview &&
+                if (  editComponentId.visible && !isShowPreview &&
                         waitItems.indexOf(filePath) === -1 &&
-                        noneWaitItems.indexOf(filePath) === -1){
+                        noneWaitItems.indexOf(filePath) === -1 &&
+                        !isBinaryFile){
                     doExternalOpen()
                 }
             }
@@ -279,14 +287,15 @@ ColumnLayout {
             }
             visible: !isShowPreview &&
                      waitItems.indexOf(filePath) === -1 &&
-                     noneWaitItems.indexOf(filePath) === -1
+                     noneWaitItems.indexOf(filePath) === -1 && !isBinaryFile
         }
         Button {
             text: "Close File browser item"
             onClicked: {
                 mainLayout.closeExternalEncryptNoWait();
             }
-            visible: !isShowPreview && noneWaitItems.indexOf(filePath) > -1
+            visible: !isShowPreview && noneWaitItems.indexOf(filePath) > -1 &&
+                     !isBinaryFile
         }
 
 
@@ -296,7 +305,8 @@ ColumnLayout {
             width: 200
             visible: !isShowPreview &&
                      waitItems.indexOf(filePath) === -1 &&
-                     noneWaitItems.indexOf(filePath) === -1
+                     noneWaitItems.indexOf(filePath) === -1 &&
+                     !isBinaryFile
         }
         Item {
             height: 2
@@ -308,7 +318,7 @@ ColumnLayout {
             id: showMdId
             checked: false
             text: qsTr("<u>M</u>↓")
-            visible: !showYamlEdit && isShowPreview
+            visible: !showYamlEdit && isShowPreview && !isBinaryFile
         }
 
 
