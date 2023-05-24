@@ -203,7 +203,7 @@ void MainWindow::selectionChangedSlot(const QItemSelection & /*newSelection*/,
                                       const QItemSelection & /*oldSelection*/)
 {
     treeIndex = ui->treeView->selectionModel()->currentIndex();
-    QTimer::singleShot(10, this, SLOT(indexHasChanged()));
+    indexHasChanged();
 }
 
 void MainWindow::setQmlSource()
