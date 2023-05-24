@@ -163,9 +163,7 @@ ColumnLayout {
     }
 
     onFilePathChanged: {
-        delaySetTimeOut(10, function() {
             initOnFileChanged();
-        })
     }
 
     onExceptionCounterChanged: {

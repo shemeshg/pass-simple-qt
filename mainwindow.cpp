@@ -160,7 +160,7 @@ MainWindow::MainWindow(QWidget *parent)
         QApplication::setFont(font);
         //QString  s = mainqmltype->filePath();
         setQmlSource();
-        if (treeViewItemSelected){
+        if (treeViewItemSelected){            
             QTimer::singleShot(10, this, SLOT(indexHasChanged()));
         }
 
@@ -174,7 +174,7 @@ MainWindow::MainWindow(QWidget *parent)
         font.setPointSize(font.pointSize()-1);
         QApplication::setFont(font);
         setQmlSource();
-        if (treeViewItemSelected){
+        if (treeViewItemSelected){            
             QTimer::singleShot(10, this, SLOT(indexHasChanged()));
         }
      });
@@ -196,14 +196,14 @@ void MainWindow::indexHasChanged()
         treeViewItemSelected = true;
     } catch (const std::exception &e) {
         qDebug() << e.what();
-    }
+    }    
 }
 
 void MainWindow::selectionChangedSlot(const QItemSelection & /*newSelection*/,
                                       const QItemSelection & /*oldSelection*/)
 {
     treeIndex = ui->treeView->selectionModel()->currentIndex();
-    indexHasChanged();
+    QTimer::singleShot(10, this, SLOT(indexHasChanged()));
 }
 
 void MainWindow::setQmlSource()
