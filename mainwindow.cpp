@@ -116,6 +116,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->treeView->setColumnWidth(1, 10);
     ui->treeView->setColumnWidth(2, 10);
 
+    ui->treeView->setDragEnabled(true);
+
     // Make it flickable on touchscreens
     QScroller::grabGesture(ui->treeView, QScroller::TouchGesture);
 

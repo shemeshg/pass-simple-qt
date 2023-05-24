@@ -45,7 +45,8 @@ void MainQmlType::setFilePath(const QString &filePath)
         return;
 
     m_filePath = filePath;
-    passFile->setFullPath(m_filePath.toStdString());
+    passHelper = std::make_unique<PassHelper>();
+    passFile = passHelper->getPassFile(m_filePath.toStdString());
     try {
         m_gpgIdManageType.init(m_filePath.toStdString(),
                                appSettings.passwordStorePath().toStdString());
