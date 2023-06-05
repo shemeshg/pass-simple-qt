@@ -108,6 +108,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->treeView->setAnimated(false);
     ui->treeView->setIndentation(20);
     ui->treeView->setSortingEnabled(true);
+    ui->treeView->header()->setSortIndicator(0,Qt::SortOrder::AscendingOrder);
 
     // const QSize availableSize = ui->treeView->size(); //ui->treeView->screen()
     //->availableGeometry().size();

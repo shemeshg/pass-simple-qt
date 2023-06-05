@@ -173,7 +173,9 @@ ColumnLayout {
                 }
                 Button {
                     text: "select"
-                    onClicked: getMainqmltype().setTreeViewSelected(modelData)
+                    onClicked: {
+                        getMainqmltype().setTreeViewSelected(modelData)
+                    }
                 }
             }
 

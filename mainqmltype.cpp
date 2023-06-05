@@ -186,7 +186,13 @@ void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpF
 
 void MainQmlType::setTreeViewSelected(QString path)
 {
-    treeView->setCurrentIndex(filesystemModel->index(path));
+    try {
+        treeView->setCurrentIndex(filesystemModel->index(path));
+    }
+    catch(...)
+    {
+        qDebug()<<"Error setTreeViewSelected "<<path;
+    }
 }
 
 void MainQmlType::toggleFilepan()
