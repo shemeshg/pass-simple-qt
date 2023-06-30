@@ -141,9 +141,20 @@ void MainQmlType::doSearch(QString rootFolderToSearch, QString FolderToSearch, Q
 {
     m_searchResult.clear();
     emit searchResultChanged();
+
+    QVector<QString> extentions = appSettings.binaryExts().split("\n");
+    std::vector<std::string> stdExtentions;
+    for (const auto& elem : extentions)
+    {
+        if (!elem.isEmpty()){
+            stdExtentions.push_back(elem.toStdString());
+        }
+    }
+
     passHelper->searchDown(rootFolderToSearch.toStdString(),
                           FolderToSearch.toStdString(),
                           fileRegExStr.toStdString(),
+                           stdExtentions,
                           [&](std::string path) {
         m_searchResult.push_back(QString::fromStdString(path));
         emit searchResultChanged();
