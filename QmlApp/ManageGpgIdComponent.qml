@@ -45,12 +45,7 @@ ColumnLayout {
         Timer {
             id: timer
         }
-        function delay(delayTime, cb) {
-            timer.interval = delayTime;
-            timer.repeat = false;
-            timer.triggered.connect(cb);
-            timer.start();
-        }
+
 
 
         id: reencryptBtnId
@@ -60,7 +55,7 @@ ColumnLayout {
         onClicked: {
             reencryptBtnId.enabled = false;
             eencryptTextId.text = "Running... This might take long, Please wait"
-            delay(1000, function() {
+            delaySetTimeOut(1000, function() {
                 var returnStatus = mainLayout.getGpgIdManageType().
                     saveChanges(dropdownWithListComponentId.selectedItems,
                                 mainLayout.getMainqmltype().appSettingsType.doSign);

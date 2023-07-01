@@ -24,18 +24,13 @@ ColumnLayout {
     Timer {
         id: timer
     }
-    function delay(delayTime, cb) {
-        timer.interval = delayTime;
-        timer.repeat = false;
-        timer.triggered.connect(cb);
-        timer.start();
-    }
+
     function doSearchAction(){
 
         btnRunSearchId.enabled = false
         searchStatusLabelId.visible= true
         searchResultModel=[]
-        delay(10, function() {
+        delaySetTimeOut(10, function() {
             getMainqmltype().doSearch(currentSearchFolder,
                                       textFieldFileSearch.text,
                                       textFieldContentSearch.text,
