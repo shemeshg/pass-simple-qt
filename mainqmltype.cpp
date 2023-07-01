@@ -137,7 +137,10 @@ void MainQmlType::setSelectedText(const QString &selectedText)
     emit selectedTextChanged();
 }
 
-void MainQmlType::doSearch(QString rootFolderToSearch, QString FolderToSearch, QString fileRegExStr)
+void MainQmlType::doSearch(QString rootFolderToSearch,
+                           QString FolderToSearch,
+                           QString fileRegExStr,
+                           bool isMemCash)
 {
     m_searchResult.clear();
     emit searchResultChanged();
@@ -155,6 +158,8 @@ void MainQmlType::doSearch(QString rootFolderToSearch, QString FolderToSearch, Q
                           FolderToSearch.toStdString(),
                           fileRegExStr.toStdString(),
                            stdExtentions,
+                           isMemCash,
+                           searchMemCash,
                           [&](std::string path) {
         m_searchResult.push_back(QString::fromStdString(path));
         emit searchResultChanged();

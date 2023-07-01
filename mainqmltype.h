@@ -95,7 +95,8 @@ public:
 
     Q_INVOKABLE void doSearch(QString rootFolderToSearch,
                               QString FolderToSearch,
-                              QString fileRegExStr);
+                              QString fileRegExStr,
+                              bool isMemCash);
 
     Q_INVOKABLE void initGpgIdManage();
 
@@ -208,6 +209,8 @@ private:
     std::string escapeshellarg(std::string str);
 
     std::string escapeAppleScript(std::string str);
+
+    std::map<std::string, std::string> searchMemCash;
 };
 
 #endif // MAINQMLTYPE_H

@@ -36,7 +36,10 @@ ColumnLayout {
         searchStatusLabelId.visible= true
         searchResultModel=[]
         delay(10, function() {
-            getMainqmltype().doSearch(currentSearchFolder, textFieldFileSearch.text,textFieldContentSearch.text)
+            getMainqmltype().doSearch(currentSearchFolder,
+                                      textFieldFileSearch.text,
+                                      textFieldContentSearch.text,
+                                      isMemCash.checked)
             searchResultModel = getMainqmltype().searchResult
             btnRunSearchId.enabled = true
             searchStatusLabelId.visible=false;
@@ -101,8 +104,20 @@ ColumnLayout {
                 }
             }
         }
-        Label {
-            text: "Contain"
+        RowLayout{
+            Label {
+                text: "Contain"
+            }
+            Item {
+                height: 2
+                width: 2
+                Layout.fillWidth: true
+            }
+            Switch {
+                id: isMemCash
+                checked: false
+                text: qsTr("mem.cash")
+            }
         }
         TextField {
             id: searchTextId
