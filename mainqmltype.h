@@ -162,6 +162,14 @@ public:
 
     Q_INVOKABLE void tryRedirectLocalLink(QString link);
 
+    Q_INVOKABLE void doMainUiDisable(){
+        emit mainUiDisable();
+    }
+
+    Q_INVOKABLE void doMainUiEnable(){
+        emit mainUiEnable();
+    }
+
 signals:
     void filePathChanged();
     void filePanSizeChanged();
@@ -173,6 +181,8 @@ signals:
     void searchResultChanged();
     void selectedTextChanged();
     void menubarCommStrChanged();
+    void mainUiDisable();
+    void mainUiEnable();
     // hygen signals
 
 private:

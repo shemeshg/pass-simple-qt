@@ -143,9 +143,10 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
                            QString fileRegExStr,
                            bool isMemCash)
 {
-    m_searchResult.clear();
-    emit searchResultChanged();
     runSafeFromException([&]() {
+        QStringList result_strings;
+        setSearchResult(result_strings);
+
 
         QVector<QString> extentions = appSettings.binaryExts().split("\n");
         std::vector<std::string> stdExtentions;
@@ -157,16 +158,18 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
         }
 
         passHelper->searchDown(rootFolderToSearch.toStdString(),
-                              FolderToSearch.toStdString(),
-                              fileRegExStr.toStdString(),
+                               FolderToSearch.toStdString(),
+                               fileRegExStr.toStdString(),
                                stdExtentions,
                                isMemCash,
                                searchMemCash,
-                              [&](std::string path) {
-            m_searchResult.push_back(QString::fromStdString(path));
-            emit searchResultChanged();
-        });
+                               [&](std::string path) {
+                                   result_strings.push_back(QString::fromStdString(path));
+                               });
+        setSearchResult(result_strings);
     });
+
+
 }
 
 void MainQmlType::initGpgIdManage()
@@ -493,7 +496,7 @@ void MainQmlType::tryRedirectLocalLink(QString link)
 
 void MainQmlType::runSafeFromException(std::function<void ()> callback)
 {
-    try {        
+    try {
         callback();
     } catch (const std::exception &e) {
         setExceptionStr(e.what());

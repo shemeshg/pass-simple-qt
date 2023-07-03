@@ -135,6 +135,14 @@ MainWindow::MainWindow(QWidget *parent)
                                   autoTypeFields,
                                   autoTypeSelected,
                                   ui->quickWidget); // NOLINT
+
+    connect(mainqmltype, &MainQmlType::mainUiDisable, this, [=]() {
+        QWidget::setEnabled(false);
+    });
+    connect(mainqmltype, &MainQmlType::mainUiEnable, this, [=]() {
+        QWidget::setEnabled(true);
+    });
+
     context->setContextProperty(QStringLiteral("mainqmltype"), mainqmltype);
 
     mainqmltype->setFilePanSize(150);

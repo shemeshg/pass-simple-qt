@@ -21,12 +21,9 @@ ColumnLayout {
         }
     }
 
-    Timer {
-        id: timer
-    }
 
     function doSearchAction(){
-
+        getMainqmltype().doMainUiDisable();
         btnRunSearchId.enabled = false
         searchStatusLabelId.visible= true
         searchResultModel=[]
@@ -38,6 +35,7 @@ ColumnLayout {
             searchResultModel = getMainqmltype().searchResult
             btnRunSearchId.enabled = true
             searchStatusLabelId.visible=false;
+            getMainqmltype().doMainUiEnable();
         })
 
     }
