@@ -141,6 +141,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(mainqmltype, &MainQmlType::mainUiEnable, this, [=]() {
         QWidget::setEnabled(true);
+        ui->quickWidget->setFocus();
     });
 
     context->setContextProperty(QStringLiteral("mainqmltype"), mainqmltype);
