@@ -66,7 +66,7 @@ MainWindow::MainWindow(QWidget *parent)
         ui->quickWidget->setFocus();
     });
     connect(actionUploadFile, &QAction::triggered, this, [=]() {
-       mainqmltype->setMenubarCommStr("uploadFileAct");
+        mainqmltype->setMenubarCommStr("uploadFileAct");
     });
     connect(actionUploadFolder, &QAction::triggered, this, [=]() {
        mainqmltype->setMenubarCommStr("uploadFolderAct");

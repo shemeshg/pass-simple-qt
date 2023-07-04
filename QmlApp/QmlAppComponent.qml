@@ -141,16 +141,20 @@ ColumnLayout {
         }
         if(Boolean(nearestGpg)){
             if (action==="uploadFileAct"){
+                mainLayout.getMainqmltype().mainUiDisable()
                 columnLayoutHomeId.addComponentId.fileDialogUpload.open()
             }
             if (action==="uploadFolderAct"){
+                mainLayout.getMainqmltype().mainUiDisable()
                 columnLayoutHomeId.addComponentId.folderDialogUpload.open()
             }
             if (action==="downloadFolderAct"){
+                mainLayout.getMainqmltype().mainUiDisable()
                 columnLayoutHomeId.editComponentId.folderDialogDownload.open();
             }
         }
         if (isGpgFile && action==="downloadFileAct"){
+            mainLayout.getMainqmltype().mainUiDisable()
             columnLayoutHomeId.editComponentId.fileDialogDownload.open()
         }
 

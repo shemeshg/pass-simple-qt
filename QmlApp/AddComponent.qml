@@ -26,10 +26,10 @@ ColumnLayout {
             fileDialogUpload.files.forEach((f)=> {
                                                getMainqmltype().encryptUpload( fullPathFolder, f);
                                            })
-
-
+            getMainqmltype().doMainUiEnable()
         }
         onRejected: {
+            getMainqmltype().doMainUiEnable()
         }
     }
 
@@ -38,8 +38,10 @@ ColumnLayout {
         title: "Choose folder to upload"
         onAccepted: {
             getMainqmltype().encryptFolderUpload(folderDialogUpload.folder, fullPathFolder)
+            getMainqmltype().doMainUiEnable()
         }
         onRejected: {
+            getMainqmltype().doMainUiEnable()
         }
     }
 
