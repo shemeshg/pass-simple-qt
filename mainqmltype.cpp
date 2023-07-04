@@ -385,6 +385,8 @@ fields type:
         });
     }
 
+    treeView->setCurrentIndex(filesystemModel->index(p.c_str()));
+    setFilePath(p.c_str());
 }
 
 bool MainQmlType::fileExists(QString fullPathFolder, QString fileName)
