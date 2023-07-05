@@ -24,13 +24,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-public slots:
-    void indexHasChanged();
+
 
 private slots:
     void on_splitter_splitterMoved(int pos, int index);
-    void selectionChangedSlot(const QItemSelection & /*newSelection*/,
-                              const QItemSelection & /*oldSelection*/);
+    void selectionChangedSlot(const QItemSelection &current /*newSelection*/,
+                              const QItemSelection previous /*oldSelection*/);
+    void currentChangedSlot(const QModelIndex &current, const QModelIndex &previous);
+
     void about() { QMessageBox::about(this, tr("About Menu"), tr("Version %1").arg(PROJECT_VER)); }
 
 

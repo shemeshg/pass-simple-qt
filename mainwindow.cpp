@@ -11,7 +11,6 @@
 
 #include "ui_mainwindow.h"
 #include "ui_about.h"
-#include "UiGuard.h"
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -155,9 +154,17 @@ MainWindow::MainWindow(QWidget *parent)
     // selection changes shall trigger a slot
     QItemSelectionModel *selectionModel = ui->treeView->selectionModel();
     connect(selectionModel,
-            SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
+            &QItemSelectionModel::selectionChanged,
             this,
-            SLOT(selectionChangedSlot(const QItemSelection &, const QItemSelection &)));
+            &MainWindow::selectionChangedSlot
+            );
+
+    connect(selectionModel,
+        &QItemSelectionModel::currentChanged,
+        this,
+        &MainWindow::currentChangedSlot
+            );
+
 
     QObject::connect(ui->quickWidget->engine(),
                      &QQmlApplicationEngine::quit,
@@ -198,25 +205,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::indexHasChanged()
-{
-    UiGuard guard(this);
-    // get the text of the selected item
 
-    auto idx = treeIndex.model()->index(treeIndex.row(), 0, treeIndex.parent());
+
+void MainWindow::selectionChangedSlot(const QItemSelection &current /*newSelection*/,
+                                      const QItemSelection previous /*oldSelection*/)
+{
+
+}
+
+void MainWindow::currentChangedSlot(const QModelIndex &current, const QModelIndex &previous)
+{
     try {
+        treeIndex = current; //ui->treeView->selectionModel()->currentIndex();
+        auto idx = treeIndex.model()->index(treeIndex.row(), 0, treeIndex.parent());
         mainqmltype->setFilePath(filesystemModel.filePath(idx));
         treeViewItemSelected = true;
     } catch (const std::exception &e) {
         qDebug() << e.what();
-    }    
-}
-
-void MainWindow::selectionChangedSlot(const QItemSelection & /*newSelection*/,
-                                      const QItemSelection & /*oldSelection*/)
-{
-    treeIndex = ui->treeView->selectionModel()->currentIndex();
-    QTimer::singleShot(10, this, SLOT(indexHasChanged()));
+    }
 }
 
 void MainWindow::setQmlSource()
