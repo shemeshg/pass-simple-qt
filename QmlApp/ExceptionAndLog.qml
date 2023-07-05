@@ -7,23 +7,33 @@ import QtQuick.Dialogs
 import DropdownWithList
 
 ColumnLayout {
-    property bool showLog: false;
-    property string logText: ""
-    visible: showLog
+    property int exceptionCounter: 0
+    property string exceptionStr: ""
+
+    onExceptionCounterChanged: {
+        isShowLog = Boolean(exceptionCounter);
+    }
+
+    visible: isShowLog
+    width: parent.width
+    height : parent.height
+    Layout.fillWidth: true
+
 
     Button {
         id: navigateBackFromLogId
         text: "Back"
-        onClicked: { exceptionCounter = 0 ;isShowLog = false;isGpgFile=false;}
-
-    }
-    Row{
-        Layout.fillWidth: true
-        TextEditComponent {
-            textEditText: logText            
-            width: parent.width
+        onClicked: {
+            exceptionCounter = 0 ;
+            mainqmltype.filePath = ""
         }
 
     }
+    TextEdit {
+        Layout.fillWidth: true
+        text: exceptionStr
+        readOnly: true
+    }
+
 
 }

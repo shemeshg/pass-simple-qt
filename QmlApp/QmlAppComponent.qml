@@ -16,8 +16,7 @@ ColumnLayout {
     //contentHeight: columnLayoutHomeId.height + 90   // Same
     //clip : true
 
-    property int filePanSize: 0
-    property int exceptionCounter: 0
+    property int filePanSize: 0    
     property string menubarCommStr: ""
     property string exceptionStr: ""
     property string filePath: ""
@@ -32,12 +31,12 @@ ColumnLayout {
     property var waitItems: []
     property var noneWaitItems: []
 
-    property bool isShowLog: false
+
     property bool isShowSettings: false
     property bool isShowSearch: false
     property bool isSaving: false
 
-    property string showLogText: ""
+
     property string nearestGpg: ""
     property string fullPathFolder: ""
     property string passwordStorePathStr: mainLayout.getMainqmltype().appSettingsType.passwordStorePath
@@ -170,17 +169,8 @@ ColumnLayout {
             initOnFileChanged();
     }
 
-    onExceptionCounterChanged: {
-        isShowLog = Boolean(exceptionCounter);
-        if (isShowLog){
-            showLogText = exceptionStr;
-        } else {
-            showLogText = ""
-        }
-    }
 
-
-    SearchComponent {
+    SearchComponent {        
         id: searchComponentID
     }
 
@@ -232,8 +222,8 @@ ColumnLayout {
         width: parent.width
         height : parent.height
         Layout.fillWidth: true
-        visible: !isShowLog && !isShowSettings && !isShowSearch;
-        RowLayout{
+        visible: !isShowSettings && !isShowSearch;
+        RowLayout{            
             Button {
                 onClicked: { mainLayout.toggleFilepan()}
                 icon.name: "Hide/Show treeview"
@@ -316,14 +306,7 @@ ColumnLayout {
             id: columnLayoutHomeId
         }
     }
-    ColumnLayout {
-        width: parent.width
-        ExceptionAndLog {
-            showLog: isShowLog
-            logText: showLogText
 
-        }
-    }
 
 
 

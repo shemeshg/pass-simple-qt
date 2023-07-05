@@ -15,9 +15,6 @@ ColumnLayout {
 
     id: columnLayoutHomeId
 
-
-
-    visible: !isShowLog;
     TabBar {
         id: toolbarId
         Layout.fillWidth: true

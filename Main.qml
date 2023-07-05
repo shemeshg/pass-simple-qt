@@ -7,6 +7,8 @@ Item {
 
     id: mainLayout
 
+    property bool isShowLog: false
+
     function getMainqmltype(){
         return mainqmltype;
     }
@@ -52,6 +54,11 @@ Item {
     QmlAppComponent {
         id: qmlAppComponent
         anchors.fill: parent
+        visible: !isShowLog
+    }
+
+    ExceptionAndLog {
+        id: exceptionAndLog
     }
 
     Binding {
@@ -86,12 +93,13 @@ Item {
     }
 
     Binding {
-        target: qmlAppComponent
+        target: exceptionAndLog
         property: "exceptionCounter"
         value: mainqmltype.exceptionCounter
     }
+
     Binding {
-        target: qmlAppComponent
+        target: exceptionAndLog
         property: "exceptionStr"
         value: mainqmltype.exceptionStr
     }

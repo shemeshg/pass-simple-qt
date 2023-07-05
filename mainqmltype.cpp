@@ -143,7 +143,7 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
                            QString fileRegExStr,
                            bool isMemCash)
 {
-    runSafeFromException([&]() {
+    runSafeFromException([&]() {        
         QStringList result_strings;
         setSearchResult(result_strings);
 
@@ -507,10 +507,7 @@ void MainQmlType::runSafeFromException(std::function<void ()> callback)
         callback();
     } catch (const std::exception &e) {
         setExceptionStr(e.what());
-        setExceptionCounter(exceptionCounter() + 1);
-
-        treeView->setCurrentIndex(filesystemModel->index(appSettings.passwordStorePath()));
-        setFilePath(appSettings.passwordStorePath());
+        setExceptionCounter(exceptionCounter() + 1);        
     } catch (...) {
     }
 }
