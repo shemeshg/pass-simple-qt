@@ -11,7 +11,7 @@ MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,
                          QMenu *autoTypeFields,
                          QAction *autoTypeSelected,
                          QObject *parent)
-    : QObject(parent)
+    : JsAsync(parent)
     , splitter{s}
     , treeView{treeView}
     , filesystemModel{filesystemModel}
@@ -179,24 +179,11 @@ void MainQmlType::doSearchAsync(QString rootFolderToSearch,
                                 QString fileRegExStr,
                                 bool isMemCash,
                                 const QJSValue &callback)
-{
-    auto *watcher = new QFutureWatcher<int>(this);
-    QObject::connect(watcher, &QFutureWatcher<int>::finished, this, [this, watcher, callback]() {
-        int returnValue = watcher->result();
-        QJSValue cbCopy(callback);
-        QJSEngine *engine = qjsEngine(this);
-        cbCopy.call(QJSValueList { engine->toScriptValue(returnValue) });
-        watcher->deleteLater();
-    });
-    watcher->setFuture(QtConcurrent::run( [=]() {
+{    
+    makeAsync<int>(callback,[=]() {
         doSearch(rootFolderToSearch, FolderToSearch, fileRegExStr, isMemCash);
         return 0;
-    }));
-
-
-
-
-
+    });
 }
 
 void MainQmlType::initGpgIdManage()

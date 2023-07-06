@@ -6,8 +6,9 @@
 #include <QJSEngine>
 
 #include "GpgIdManage.h"
+#include "JsAsync.h"
 
-class GpgIdManageType : public QObject
+class GpgIdManageType : public JsAsync
 {
     Q_OBJECT
     Q_PROPERTY(QString currentPath READ currentPath CONSTANT)
@@ -25,7 +26,7 @@ class GpgIdManageType : public QObject
 
 public:
     explicit GpgIdManageType(QObject *parent = nullptr)
-        : QObject(parent){};
+        : JsAsync(parent){};
 
     void init(std::string _currentPath, std::string _stopPath);
     const std::vector<std::string> &getEncryptTo() const { return m_gpgIdManage->encryptTo; }
@@ -63,4 +64,5 @@ signals:
 
 private:
     std::unique_ptr<GpgIdManage> m_gpgIdManage=std::make_unique<GpgIdManage>("","");
+
 };

@@ -172,6 +172,7 @@ qt_add_qml_module(pass-simple
     SOURCES
         mainqmltype.h mainqmltype.cpp
         GpgIdManageType.h GpgIdManageType.cpp
+        JsAsync.h JsAsync.cpp
         UiGuard.h UiGuard.cpp
         InputType/totp.h
         InputType/totp.cpp

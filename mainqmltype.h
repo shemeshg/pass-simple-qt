@@ -19,7 +19,9 @@
 #include <QUuid>
 #include <QJSEngine>
 
-class MainQmlType : public QObject
+#include "JsAsync.h"
+
+class MainQmlType : public JsAsync
 {
     Q_OBJECT
     Q_PROPERTY(QString filePath READ filePath WRITE setFilePath NOTIFY filePathChanged)
