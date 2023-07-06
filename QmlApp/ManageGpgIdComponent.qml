@@ -56,7 +56,7 @@ ColumnLayout {
             reencryptBtnId.enabled = false;
             eencryptTextId.text = "Running... This might take long, Please wait"
             mainLayout.getMainqmltype().doMainUiDisable()
-            delaySetTimeOut(1000, function() {
+
             mainLayout.getGpgIdManageType().
                     saveChangesAsync(dropdownWithListComponentId.selectedItems,
                                 mainLayout.getMainqmltype().appSettingsType.doSign,
@@ -67,7 +67,7 @@ ColumnLayout {
                                  mainLayout.getMainqmltype().doMainUiEnable()
                                      });
 
-              })
+
 
         }
     }
