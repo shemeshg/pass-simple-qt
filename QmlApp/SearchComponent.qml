@@ -28,14 +28,18 @@ ColumnLayout {
         searchStatusLabelId.visible= true
         searchResultModel=[]
         delaySetTimeOut(10, function() {
-            getMainqmltype().doSearch(currentSearchFolder,
+            getMainqmltype().doSearchAsync(currentSearchFolder,
                                       textFieldFileSearch.text,
                                       textFieldContentSearch.text,
-                                      isMemCash.checked)
-            searchResultModel = getMainqmltype().searchResult
-            btnRunSearchId.enabled = true
-            searchStatusLabelId.visible=false;
-            getMainqmltype().doMainUiEnable();
+                                      isMemCash.checked,
+                                      ()=>{
+           searchResultModel = getMainqmltype().searchResult
+           btnRunSearchId.enabled = true
+           searchStatusLabelId.visible=false;
+           getMainqmltype().doMainUiEnable();
+
+                                           })
+
         })
 
     }

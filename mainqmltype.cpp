@@ -2,6 +2,8 @@
 #include "InputType/totp.h"
 #include <QTimer>
 #include <QFontDatabase>
+#include <QtConcurrent>
+
 
 MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,
                          QTreeView *treeView,
@@ -168,6 +170,31 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
                                });
         setSearchResult(result_strings);
     });
+
+
+}
+
+void MainQmlType::doSearchAsync(QString rootFolderToSearch,
+                                QString FolderToSearch,
+                                QString fileRegExStr,
+                                bool isMemCash,
+                                const QJSValue &callback)
+{
+    auto *watcher = new QFutureWatcher<int>(this);
+    QObject::connect(watcher, &QFutureWatcher<int>::finished, this, [this, watcher, callback]() {
+        int returnValue = watcher->result();
+        QJSValue cbCopy(callback);
+        QJSEngine *engine = qjsEngine(this);
+        cbCopy.call(QJSValueList { engine->toScriptValue(returnValue) });
+        watcher->deleteLater();
+    });
+    watcher->setFuture(QtConcurrent::run( [=]() {
+        doSearch(rootFolderToSearch, FolderToSearch, fileRegExStr, isMemCash);
+        return 0;
+    }));
+
+
+
 
 
 }

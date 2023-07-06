@@ -17,6 +17,7 @@
 #include <QInputEvent>
 #include <QModelIndex>
 #include <QUuid>
+#include <QJSEngine>
 
 class MainQmlType : public QObject
 {
@@ -93,10 +94,17 @@ public:
 
     GpgIdManageType *gpgIdManageType() { return &m_gpgIdManageType; }
 
+
     Q_INVOKABLE void doSearch(QString rootFolderToSearch,
                               QString FolderToSearch,
                               QString fileRegExStr,
                               bool isMemCash);
+
+    Q_INVOKABLE void doSearchAsync(QString rootFolderToSearch,
+                              QString FolderToSearch,
+                              QString fileRegExStr,
+                                   bool isMemCash,
+                                   const QJSValue &callback);
 
     Q_INVOKABLE void initGpgIdManage();
 
@@ -221,6 +229,7 @@ private:
     std::string escapeAppleScript(std::string str);
 
     std::map<std::string, std::string> searchMemCash;
+
 };
 
 #endif // MAINQMLTYPE_H
