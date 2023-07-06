@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QUrl>
 #include <qqmlregistration.h>
+#include <QJSEngine>
 
 #include "GpgIdManage.h"
 
@@ -51,6 +52,12 @@ public:
     Q_INVOKABLE void importPublicKeyAndTrust(const QString &urlString);
     Q_INVOKABLE void importAllGpgPubKeysFolder();
     Q_INVOKABLE QString saveChanges(QStringList keysFound, bool doSign);
+    Q_INVOKABLE void saveChangesAsync(QStringList keysFound,
+                                      bool doSign,
+                                    const QJSValue &callback);
+
+
+
 
 signals:
 

@@ -57,13 +57,16 @@ ColumnLayout {
             eencryptTextId.text = "Running... This might take long, Please wait"
             mainLayout.getMainqmltype().doMainUiDisable()
             delaySetTimeOut(1000, function() {
-                var returnStatus = mainLayout.getGpgIdManageType().
-                    saveChanges(dropdownWithListComponentId.selectedItems,
-                                mainLayout.getMainqmltype().appSettingsType.doSign);
-                initOnFileChanged();
-                reencryptBtnId.enabled = true;
-                eencryptTextId.text = returnStatus
-                mainLayout.getMainqmltype().doMainUiEnable()
+            mainLayout.getGpgIdManageType().
+                    saveChangesAsync(dropdownWithListComponentId.selectedItems,
+                                mainLayout.getMainqmltype().appSettingsType.doSign,
+                                (returnStatus)=>{
+                                 initOnFileChanged();
+                                 reencryptBtnId.enabled = true;
+                                 eencryptTextId.text = returnStatus
+                                 mainLayout.getMainqmltype().doMainUiEnable()
+                                     });
+
               })
 
         }

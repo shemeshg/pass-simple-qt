@@ -1,5 +1,6 @@
 #include "GpgIdManageType.h"
 #include <QDebug>
+#include <QtConcurrent>
 
 void GpgIdManageType::init(std::string _currentPath, std::string _stopPath)
 {
@@ -90,4 +91,19 @@ QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign)
     }
     qDebug() << "Finished saveChanges\n";
     return "";
+}
+
+void GpgIdManageType::saveChangesAsync(QStringList keysFound, bool doSign, const QJSValue &callback)
+{
+    auto *watcher = new QFutureWatcher<QString>(this);
+    QObject::connect(watcher, &QFutureWatcher<QString>::finished, this, [this, watcher, callback]() {
+        QString returnValue = watcher->result();
+        QJSValue cbCopy(callback);
+        QJSEngine *engine = qjsEngine(this);
+        cbCopy.call(QJSValueList { engine->toScriptValue(returnValue) });
+        watcher->deleteLater();
+    });
+    watcher->setFuture(QtConcurrent::run( [=]() {
+        return saveChanges(keysFound, doSign);
+    }));
 }
