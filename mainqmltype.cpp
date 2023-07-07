@@ -315,6 +315,13 @@ QString MainQmlType::getDecrypted()
         return "";
 }
 
+void MainQmlType::getDecryptedAsync(const QJSValue &callback)
+{
+    makeAsync<QString>(callback,[=]() {
+        return getDecrypted();
+    });
+}
+
 QString MainQmlType::getDecryptedSignedBy()
 {
     if (passFile->isGpgFile()) {

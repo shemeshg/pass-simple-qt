@@ -137,6 +137,7 @@ public:
     Q_INVOKABLE void closeExternalEncryptNoWait();
 
     Q_INVOKABLE QString getDecrypted();
+    Q_INVOKABLE void getDecryptedAsync(const QJSValue &callback);
 
     Q_INVOKABLE QString getDecryptedSignedBy();
 
@@ -179,6 +180,7 @@ public:
     Q_INVOKABLE void doMainUiEnable(){
         emit mainUiEnable();
     }
+
 
 signals:
     void filePathChanged();

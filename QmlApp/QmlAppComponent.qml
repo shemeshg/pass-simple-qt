@@ -87,19 +87,13 @@ ColumnLayout {
         return Boolean(ret)
     }
 
-    function initOnFileChanged(){
-        clearSystemTrayIconEntries();
-        isBinaryFile = getIsBinary();
-        if (isBinaryFile){isShowPreview = false;}
-        if (isShowPreview){
-            columnLayoutHomeId.editComponentId.decryptedText = mainLayout.getDecrypted();
-        }
+    function populateDecryptedUiFields(){
         nearestGit = mainLayout.getNearestGit();
         columnLayoutHomeId.addComponentId.nearestTemplateGpg = mainLayout.getNearestTemplateGpg();
         nearestGpg = mainLayout.getNearestGpgId();
         fullPathFolder = getMainqmltype().getFullPathFolder();
         hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId());
-        isGpgFile = filePath.slice(-4)===".gpg";        
+        isGpgFile = filePath.slice(-4)===".gpg";
         let allKeys =  mainLayout.getGpgIdManageType().allKeys
         columnLayoutHomeId.metaDataComponentId.decryptedSignedById =  decryptedSignedByFullId(mainLayout.getDecryptedSignedBy(), allKeys)
         columnLayoutHomeId.metaDataComponentId.gitResponseId = ""
@@ -116,6 +110,25 @@ ColumnLayout {
         }
 
         notifyStr("")
+    }
+
+    function initOnFileChanged(){
+        clearSystemTrayIconEntries();
+        isBinaryFile = getIsBinary();
+        if (isBinaryFile){isShowPreview = false;}
+
+        if (isShowPreview){
+            getMainqmltype().doMainUiDisable();
+            columnLayoutHomeId.editComponentId.decryptedText = "Loading..."
+            getMainqmltype().getDecryptedAsync((s)=>{
+                columnLayoutHomeId.editComponentId.decryptedText = s;
+            populateDecryptedUiFields();
+            getMainqmltype().doMainUiEnable();
+                                         })
+        } else {
+            populateDecryptedUiFields();
+        }
+
 
 
     }
