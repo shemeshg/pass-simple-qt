@@ -34,7 +34,6 @@ public:
     void setYamlModel(const QVariantList &yamlModel);
 
     Q_INVOKABLE QString getUpdatedText();
-    Q_INVOKABLE void sendChangeType(QString key, QString typeVal);
     Q_INVOKABLE void sendChangeVal(QString key, QString val);
 
 signals:

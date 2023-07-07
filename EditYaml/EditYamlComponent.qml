@@ -140,7 +140,7 @@ ColumnLayout {
         flickableDirection: Flickable.VerticalFlick
         boundsBehavior: Flickable.StopAtBounds
 
-        delegate: ColumnLayout {
+        delegate: ColumnLayout {                
                 width: yamlModelListViewId.width
                 Row{
                     Layout.fillWidth: true
@@ -207,8 +207,17 @@ ColumnLayout {
                         }
                         //width: 200
                         onActivated:    {
-                            editYamlType.sendChangeType(modelData.key,currentText);
+                            let newArry = [...editYamlType.yamlModel]
+
+                            for (let i=0;i<newArry.length;i++){
+
+                                if (newArry[i].key === modelData.key){
+                                    newArry[i].inputType = currentText
+                                }
+                            }
+                            editYamlType.yamlModel = newArry;
                             inputTypeComponentId.inputType = currentText;
+
                         }
 
                     }

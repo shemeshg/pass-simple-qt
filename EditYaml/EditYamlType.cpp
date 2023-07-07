@@ -132,10 +132,7 @@ QString EditYamlType::getUpdatedText()
     return QString::fromStdString(ss.str());
 }
 
-void EditYamlType::sendChangeType(QString key, QString typeVal)
-{
-    yamlContent["fields type"][key.toStdString()] = typeVal.toStdString();
-}
+
 
 void EditYamlType::sendChangeVal(QString key, QString val)
 {
