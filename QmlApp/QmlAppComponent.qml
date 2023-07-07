@@ -119,7 +119,7 @@ ColumnLayout {
 
         if (isShowPreview){
             getMainqmltype().doMainUiDisable();
-            columnLayoutHomeId.editComponentId.decryptedText = "Loading..."
+            columnLayoutHomeId.editComponentId.decryptedText = "status: Loading..."
             getMainqmltype().getDecryptedAsync((s)=>{
                 columnLayoutHomeId.editComponentId.decryptedText = s;
             populateDecryptedUiFields();
