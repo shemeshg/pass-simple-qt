@@ -135,12 +135,19 @@ MainWindow::MainWindow(QWidget *parent)
                                   autoTypeSelected,
                                   ui->quickWidget); // NOLINT
 
+    static bool isQuickWidgetFocus = ui->quickWidget->hasFocus();
     connect(mainqmltype, &MainQmlType::mainUiDisable, this, [=]() {
+        isQuickWidgetFocus = ui->quickWidget->hasFocus();
         QWidget::setEnabled(false);
     });
     connect(mainqmltype, &MainQmlType::mainUiEnable, this, [=]() {
         QWidget::setEnabled(true);
-        ui->quickWidget->setFocus();
+        if(isQuickWidgetFocus){
+            ui->quickWidget->setFocus();
+        } else {
+            ui->treeView->setFocus();
+        }
+
     });
 
     context->setContextProperty(QStringLiteral("mainqmltype"), mainqmltype);
