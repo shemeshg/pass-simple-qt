@@ -121,6 +121,7 @@ ColumnLayout {
             getMainqmltype().doMainUiDisable();
             columnLayoutHomeId.editComponentId.decryptedText = "status: Loading..."
             getMainqmltype().getDecryptedAsync((s)=>{
+                clearSystemTrayIconEntries();
                 columnLayoutHomeId.editComponentId.decryptedText = s;
             populateDecryptedUiFields();
             getMainqmltype().doMainUiEnable();
