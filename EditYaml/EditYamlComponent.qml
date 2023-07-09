@@ -21,7 +21,7 @@ ColumnLayout {
 
 
 
-    Row{
+    RowLayout{
         Label { text:  Error + ": " + editYamlType.yamlErrorMsg }
         visible: !editYamlType.isYamlValid
     }
@@ -142,9 +142,40 @@ ColumnLayout {
 
         delegate: ColumnLayout {                
                 width: yamlModelListViewId.width
-                Row{
+                RowLayout{
                     Layout.fillWidth: true
+                    Label {
+                        text:  modelData.key + ": "
+                        padding: 8
 
+                    }
+                    ComboBox {
+                        id: selectedInputType
+                        visible: isEditFieldsType
+                        height: moveUpId.height
+                        model: ["textedit", "text","url","password","totp","datetime"]
+                        Component.onCompleted: {
+                            currentIndex = find(modelData.inputType);
+                        }
+                        //width: 200
+                        onActivated:    {
+                            let newArry = [...editYamlType.yamlModel]
+
+                            for (let i=0;i<newArry.length;i++){
+
+                                if (newArry[i].key === modelData.key){
+                                    newArry[i].inputType = currentText
+                                }
+                            }
+                            editYamlType.yamlModel = newArry;
+                            inputTypeComponentId.inputType = currentText;
+
+                        }
+
+                    }
+                    Item {
+                        Layout.fillWidth: true
+                    }
                     Button {
                         id: moveUpId
                         visible: isEditFieldsType
@@ -189,38 +220,14 @@ ColumnLayout {
                         icon.name: "Delete"
                         ToolTip.text: "Delete"
                         icon.source: Qt.resolvedUrl("icons/remove_circle_outline_black_24dp.svg")
-                        ToolTip.visible: hovered
+                        ToolTip.visible: hovered                        
+                    }
+                    Item {
+                        width: 10;
+
                     }
 
-                    Label {
-                        text:  modelData.key + ": "                       
-                        padding: 8
 
-                    }
-                    ComboBox {
-                        id: selectedInputType
-                        visible: isEditFieldsType
-                        height: moveUpId.height
-                        model: ["textedit", "text","url","password","totp","datetime"]
-                        Component.onCompleted: {
-                            currentIndex = find(modelData.inputType);
-                        }
-                        //width: 200
-                        onActivated:    {
-                            let newArry = [...editYamlType.yamlModel]
-
-                            for (let i=0;i<newArry.length;i++){
-
-                                if (newArry[i].key === modelData.key){
-                                    newArry[i].inputType = currentText
-                                }
-                            }
-                            editYamlType.yamlModel = newArry;
-                            inputTypeComponentId.inputType = currentText;
-
-                        }
-
-                    }
 
                 }
                 Row{
