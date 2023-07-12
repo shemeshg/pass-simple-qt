@@ -251,8 +251,16 @@ void MainQmlType::encrypt(QString s)
                 std::unique_ptr<PassHelper> phLocal = std::make_unique<PassHelper>();
                 std::unique_ptr<PassFile> pfLocal = phLocal->getPassFile(passFile->getFullPath());
 
-                pfLocal->encrypt(s.toStdString(),
-                                 m_gpgIdManageType.getEncryptTo(), appSettings.doSign());
+                try {
+                    pfLocal->encrypt(s.toStdString(),
+                                     m_gpgIdManageType.getEncryptTo(), appSettings.doSign());
+                }
+                catch (const std::exception& e) {
+                    std::this_thread::sleep_for(std::chrono::seconds(1));
+                    pfLocal->encrypt(s.toStdString(),
+                                     m_gpgIdManageType.getEncryptTo(), appSettings.doSign());
+                }
+
             });
     }
 }
