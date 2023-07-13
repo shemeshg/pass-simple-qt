@@ -34,15 +34,17 @@ private slots:
 
     void about() { QMessageBox::about(this, tr("About Menu"), tr("Version %1").arg(PROJECT_VER)); }
 
+    void initFileSystemModel(QString filePath);
 
 private:
     Ui::MainWindow *ui;
-    QFileSystemModel filesystemModel;
+    QFileSystemModel *filesystemModel;
     QFileIconProvider iconProvider;
     MainQmlType *mainqmltype;
     QModelIndex treeIndex;
     QShortcut *keyZoomIn;
     QShortcut *keyZoomOut;
+    AppSettings appSettings;
 
     bool treeViewItemSelected = false;
 

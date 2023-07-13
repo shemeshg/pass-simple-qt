@@ -195,6 +195,7 @@ signals:
     void menubarCommStrChanged();
     void mainUiDisable();
     void mainUiEnable();
+    void initFileSystemModel(QString filePath);
     // hygen signals
 
 private:

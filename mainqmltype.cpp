@@ -234,6 +234,7 @@ void MainQmlType::setTreeViewSelected(QString path)
 void MainQmlType::toggleFilepan()
 {
     if (m_filePanSize == 0) {
+        initFileSystemModel(filePath());
         splitter->setSizes(QList<int>({150, 400}));
         setFilePanSize(150);
     } else {
@@ -415,8 +416,7 @@ fields type:
     }
 
     try {
-      setFilePath(p.c_str());
-      treeView->setCurrentIndex(filesystemModel->index(p.c_str()));
+        emit initFileSystemModel(QString::fromStdString(p));
     } catch (...) {
       qDebug()<<p.c_str()<<" failed";
     }
@@ -512,10 +512,12 @@ void MainQmlType::trayMenuAdd(QString _username, QString _password, QString _fie
 
 void MainQmlType::renameGpgFile(QString filePathFrom, QString filePathTo){
     std::filesystem::rename(filePathFrom.toStdString(),filePathTo.toStdString());
+    emit initFileSystemModel(filePathTo);
 
-    QTimer::singleShot(1000, [=](){
-        treeView->setCurrentIndex(filesystemModel->index(filePathTo));
-    } );
+
+
+
+
 }
 
 void MainQmlType::tryRedirectLocalLink(QString link)

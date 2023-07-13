@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    AppSettings as;
+
 
     QSystemTrayIcon *trayIcon = new QSystemTrayIcon(this);
     QMenu *trayIconMenu = new QMenu(this);
@@ -96,13 +96,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->toolBar->addSeparator();
     ui->toolBar->addAction(actionQuit);
 
-    filesystemModel.setIconProvider(&iconProvider);
-    filesystemModel.setRootPath("");
-    //filesystemModel.setOption(QFileSystemModel::DontWatchForChanges);
-    filesystemModel.setFilter( // QDir::Hidden |
-        QDir::NoDotAndDotDot | QDir::AllDirs | QDir::AllEntries);
+    initFileSystemModel("");
 
-    ui->treeView->setModel(&filesystemModel);
     ui->splitter->setSizes(QList<int>({150, 400})); // INT_MAX
 
     // Demonstrating look and feel features
@@ -129,7 +124,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
 
     QQmlContext *context = ui->quickWidget->rootContext();
-    mainqmltype = new MainQmlType(&filesystemModel,
+    mainqmltype = new MainQmlType(filesystemModel,
                                   ui->treeView,
                                   ui->splitter,
                                   autoTypeFields,
@@ -150,6 +145,10 @@ MainWindow::MainWindow(QWidget *parent)
         }
 
     });
+    connect(mainqmltype, &MainQmlType::initFileSystemModel, this, [=](QString filePath) {
+        initFileSystemModel(filePath);
+
+    });
 
     context->setContextProperty(QStringLiteral("mainqmltype"), mainqmltype);
 
@@ -159,19 +158,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    // selection changes shall trigger a slot
-    QItemSelectionModel *selectionModel = ui->treeView->selectionModel();
-    connect(selectionModel,
-            &QItemSelectionModel::selectionChanged,
-            this,
-            &MainWindow::selectionChangedSlot
-            );
 
-    connect(selectionModel,
-        &QItemSelectionModel::currentChanged,
-        this,
-        &MainWindow::currentChangedSlot
-            );
 
 
     QObject::connect(ui->quickWidget->engine(),
@@ -226,11 +213,61 @@ void MainWindow::currentChangedSlot(const QModelIndex &current, const QModelInde
     try {
         treeIndex = current; //ui->treeView->selectionModel()->currentIndex();
         auto idx = treeIndex.model()->index(treeIndex.row(), 0, treeIndex.parent());
-        mainqmltype->setFilePath(filesystemModel.filePath(idx));
+        mainqmltype->setFilePath(filesystemModel->filePath(idx));
         treeViewItemSelected = true;
     } catch (const std::exception &e) {
         qDebug() << e.what();
     }
+}
+
+void MainWindow::initFileSystemModel(QString filePath)
+{
+    /*
+    if(filesystemModel != nullptr) {
+        filesystemModel->deleteLater();
+    }
+    */
+
+    filesystemModel = new QFileSystemModel(this);
+    filesystemModel->setIconProvider(&iconProvider);
+    filesystemModel->setRootPath("");
+    filesystemModel->setOption(QFileSystemModel::DontWatchForChanges);
+    filesystemModel->setFilter( // QDir::Hidden |
+        QDir::NoDotAndDotDot | QDir::AllDirs | QDir::AllEntries);
+
+    ui->treeView->setModel(filesystemModel);
+
+    QString rootPath = appSettings.passwordStorePath();
+
+    if (!rootPath.isEmpty()) {
+        const QModelIndex rootIndex = filesystemModel->index(QDir::cleanPath(rootPath));
+        if (rootIndex.isValid())
+            ui->treeView->setRootIndex(rootIndex);
+    }
+
+    // selection changes shall trigger a slot
+    QItemSelectionModel *selectionModel = ui->treeView->selectionModel();
+    connect(selectionModel,
+            &QItemSelectionModel::selectionChanged,
+            this,
+            &MainWindow::selectionChangedSlot
+            );
+
+    connect(selectionModel,
+            &QItemSelectionModel::currentChanged,
+            this,
+            &MainWindow::currentChangedSlot
+            );
+
+    QTimer::singleShot(500, this, [=](){
+        if(!filePath.isEmpty()){
+            const QModelIndex idx=filesystemModel->index(QDir::cleanPath(filePath));
+            if (idx.isValid()){
+                ui->treeView->setCurrentIndex(idx);
+            }
+        }
+    });
+
 }
 
 void MainWindow::setQmlSource()
