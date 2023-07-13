@@ -98,6 +98,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     filesystemModel.setIconProvider(&iconProvider);
     filesystemModel.setRootPath("");
+    filesystemModel.setOption(QFileSystemModel::DontWatchForChanges);
     filesystemModel.setFilter( // QDir::Hidden |
         QDir::NoDotAndDotDot | QDir::AllDirs | QDir::AllEntries);
 
