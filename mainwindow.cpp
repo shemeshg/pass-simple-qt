@@ -279,7 +279,11 @@ void MainWindow::setTreeviewCurrentIndex(QString filePath)
     if(!filePath.isEmpty()){
         const QModelIndex idx=filesystemModel->index(QDir::cleanPath(filePath));
         if (idx.isValid()){
-            ui->treeView->setCurrentIndex(idx);
+            try {
+                ui->treeView->setCurrentIndex(idx);
+            } catch (const std::exception &e) {
+                qDebug() << e.what();
+            }
         }
     }
 
