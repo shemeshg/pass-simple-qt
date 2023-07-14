@@ -264,9 +264,7 @@ void MainWindow::initFileSystemModel(QString filePath)
 
 
     QObject::connect(filesystemModel, &QFileSystemModel::directoryLoaded, [=](const QString &directory) {
-
         emit setTreeviewCurrentIndexSignal(filePath);
-        mainqmltype->setFilePath(filePath);
     });
 
 
