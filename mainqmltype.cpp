@@ -5,16 +5,13 @@
 #include <QtConcurrent>
 
 
-MainQmlType::MainQmlType(QFileSystemModel *filesystemModel,
-                         QTreeView *treeView,
+MainQmlType::MainQmlType(
                          QSplitter *s,
                          QMenu *autoTypeFields,
                          QAction *autoTypeSelected,
                          QObject *parent)
     : JsAsync(parent)
     , splitter{s}
-    , treeView{treeView}
-    , filesystemModel{filesystemModel}
     , autoTypeFields{autoTypeFields}
     , autoTypeSelected{autoTypeSelected}
 
@@ -222,13 +219,8 @@ void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpF
 
 void MainQmlType::setTreeViewSelected(QString path)
 {
-    try {
-        treeView->setCurrentIndex(filesystemModel->index(path));
-    }
-    catch(...)
-    {
-        qDebug()<<"Error setTreeViewSelected "<<path;
-    }
+    emit setTreeviewCurrentIndex(path);
+
 }
 
 void MainQmlType::toggleFilepan()
@@ -529,7 +521,7 @@ void MainQmlType::tryRedirectLocalLink(QString link)
     std::string rel =  std::filesystem::relative(destination, appSettings.passwordStorePath().toStdString());
     if(QString::fromStdString(rel).startsWith(".")){return;};
 
-    treeView->setCurrentIndex(filesystemModel->index(QString::fromStdString(destination)));
+    emit setTreeviewCurrentIndex(QString::fromStdString(destination));
 }
 
 void MainQmlType::runSafeFromException(std::function<void ()> callback)
@@ -545,13 +537,8 @@ void MainQmlType::runSafeFromException(std::function<void ()> callback)
 
 void MainQmlType::loadTreeView()
 {
-    QString rootPath = appSettings.passwordStorePath();
+    emit setRootTreeView(appSettings.passwordStorePath());
 
-    if (!rootPath.isEmpty()) {
-        const QModelIndex rootIndex = filesystemModel->index(QDir::cleanPath(rootPath));
-        if (rootIndex.isValid())
-            treeView->setRootIndex(rootIndex);
-    }
 }
 
 void MainQmlType::autoType(QString sequence)

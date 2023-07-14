@@ -124,8 +124,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
 
     QQmlContext *context = ui->quickWidget->rootContext();
-    mainqmltype = new MainQmlType(filesystemModel,
-                                  ui->treeView,
+    mainqmltype = new MainQmlType(
                                   ui->splitter,
                                   autoTypeFields,
                                   autoTypeSelected,
@@ -147,6 +146,23 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(mainqmltype, &MainQmlType::initFileSystemModel, this, [=](QString filePath) {
         initFileSystemModel(filePath);
+    });
+
+    connect(mainqmltype, &MainQmlType::setTreeviewCurrentIndex, this, [=](QString filePath) {
+        if(!filePath.isEmpty()){
+            const QModelIndex idx=filesystemModel->index(QDir::cleanPath(filePath));
+            if (idx.isValid()){
+                ui->treeView->setCurrentIndex(idx);
+            }
+        }
+    });
+
+    connect(mainqmltype, &MainQmlType::setRootTreeView, this, [=](QString rootPath) {
+        if (!rootPath.isEmpty()) {
+            const QModelIndex rootIndex = filesystemModel->index(QDir::cleanPath(rootPath));
+            if (rootIndex.isValid())
+                ui->treeView->setRootIndex(rootIndex);
+        }
 
     });
 
@@ -237,6 +253,7 @@ void MainWindow::initFileSystemModel(QString filePath)
 
     ui->treeView->setModel(filesystemModel);
 
+    AppSettings appSettings{};
     QString rootPath = appSettings.passwordStorePath();
 
     if (!rootPath.isEmpty()) {
@@ -259,6 +276,7 @@ void MainWindow::initFileSystemModel(QString filePath)
             &MainWindow::currentChangedSlot
             );
 
+
     QTimer::singleShot(500, this, [=](){
         if(!filePath.isEmpty()){
             const QModelIndex idx=filesystemModel->index(QDir::cleanPath(filePath));
@@ -267,6 +285,8 @@ void MainWindow::initFileSystemModel(QString filePath)
             }
         }
     });
+
+
 
 }
 

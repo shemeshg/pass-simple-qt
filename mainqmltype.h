@@ -44,8 +44,7 @@ class MainQmlType : public JsAsync
     QML_ELEMENT
 
 public:
-    explicit MainQmlType(QFileSystemModel *filesystemModel,
-                         QTreeView *treeView,
+    explicit MainQmlType(
                          QSplitter *s,
                          QMenu *autoTypeFields,
                          QAction *autoTypeSelected,
@@ -196,6 +195,8 @@ signals:
     void mainUiDisable();
     void mainUiEnable();
     void initFileSystemModel(QString filePath);
+    void setTreeviewCurrentIndex(QString path);
+    void setRootTreeView(QString path);
     // hygen signals
 
 private:
