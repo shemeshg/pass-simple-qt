@@ -6,7 +6,6 @@
 #include <QQmlContext>
 #include <QScroller>
 #include <QSystemTrayIcon>
-#include <QTimer>
 #include <QFontDatabase>
 
 #include "ui_mainwindow.h"
@@ -185,9 +184,6 @@ MainWindow::MainWindow(QWidget *parent)
         QApplication::setFont(font);
         //QString  s = mainqmltype->filePath();
         setQmlSource();
-        if (treeViewItemSelected){
-            QTimer::singleShot(200, this, SLOT(indexHasChanged()));
-        }
 
      });
 
@@ -199,9 +195,6 @@ MainWindow::MainWindow(QWidget *parent)
         font.setPointSize(font.pointSize()-1);
         QApplication::setFont(font);
         setQmlSource();
-        if (treeViewItemSelected){
-            QTimer::singleShot(200, this, SLOT(indexHasChanged()));
-        }
      });
 }
 
