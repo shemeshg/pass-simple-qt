@@ -409,6 +409,7 @@ fields type:
 
     try {
         emit initFileSystemModel(QString::fromStdString(p));
+        setFilePath(QString::fromStdString(p));
     } catch (...) {
       qDebug()<<p.c_str()<<" failed";
     }
@@ -505,11 +506,7 @@ void MainQmlType::trayMenuAdd(QString _username, QString _password, QString _fie
 void MainQmlType::renameGpgFile(QString filePathFrom, QString filePathTo){
     std::filesystem::rename(filePathFrom.toStdString(),filePathTo.toStdString());
     emit initFileSystemModel(filePathTo);
-
-
-
-
-
+    setFilePath(filePathTo);
 }
 
 void MainQmlType::tryRedirectLocalLink(QString link)

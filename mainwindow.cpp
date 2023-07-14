@@ -148,14 +148,8 @@ MainWindow::MainWindow(QWidget *parent)
         initFileSystemModel(filePath);
     });
 
-    connect(mainqmltype, &MainQmlType::setTreeviewCurrentIndex, this, [=](QString filePath) {
-        if(!filePath.isEmpty()){
-            const QModelIndex idx=filesystemModel->index(QDir::cleanPath(filePath));
-            if (idx.isValid()){
-                ui->treeView->setCurrentIndex(idx);
-            }
-        }
-    });
+    connect(mainqmltype, &MainQmlType::setTreeviewCurrentIndex, this, &MainWindow::setTreeviewCurrentIndex);
+    connect(this, &MainWindow::setTreeviewCurrentIndexSignal, this, &MainWindow::setTreeviewCurrentIndex);
 
     connect(mainqmltype, &MainQmlType::setRootTreeView, this, [=](QString rootPath) {
         if (!rootPath.isEmpty()) {
@@ -191,8 +185,8 @@ MainWindow::MainWindow(QWidget *parent)
         QApplication::setFont(font);
         //QString  s = mainqmltype->filePath();
         setQmlSource();
-        if (treeViewItemSelected){            
-            QTimer::singleShot(10, this, SLOT(indexHasChanged()));
+        if (treeViewItemSelected){
+            QTimer::singleShot(200, this, SLOT(indexHasChanged()));
         }
 
      });
@@ -205,8 +199,8 @@ MainWindow::MainWindow(QWidget *parent)
         font.setPointSize(font.pointSize()-1);
         QApplication::setFont(font);
         setQmlSource();
-        if (treeViewItemSelected){            
-            QTimer::singleShot(10, this, SLOT(indexHasChanged()));
+        if (treeViewItemSelected){
+            QTimer::singleShot(200, this, SLOT(indexHasChanged()));
         }
      });
 }
@@ -238,11 +232,6 @@ void MainWindow::currentChangedSlot(const QModelIndex &current, const QModelInde
 
 void MainWindow::initFileSystemModel(QString filePath)
 {
-    /*
-    if(filesystemModel != nullptr) {
-        filesystemModel->deleteLater();
-    }
-    */
 
     filesystemModel = new QFileSystemModel(this);
     filesystemModel->setIconProvider(&iconProvider);
@@ -260,7 +249,9 @@ void MainWindow::initFileSystemModel(QString filePath)
         const QModelIndex rootIndex = filesystemModel->index(QDir::cleanPath(rootPath));
         if (rootIndex.isValid())
             ui->treeView->setRootIndex(rootIndex);
+
     }
+
 
     // selection changes shall trigger a slot
     QItemSelectionModel *selectionModel = ui->treeView->selectionModel();
@@ -277,16 +268,29 @@ void MainWindow::initFileSystemModel(QString filePath)
             );
 
 
-    QTimer::singleShot(500, this, [=](){
-        if(!filePath.isEmpty()){
-            const QModelIndex idx=filesystemModel->index(QDir::cleanPath(filePath));
-            if (idx.isValid()){
-                ui->treeView->setCurrentIndex(idx);
-            }
-        }
+
+
+    QObject::connect(filesystemModel, &QFileSystemModel::directoryLoaded, [=](const QString &directory) {
+
+        emit setTreeviewCurrentIndexSignal(filePath);
+        mainqmltype->setFilePath(filePath);
     });
 
 
+
+
+
+}
+
+void MainWindow::setTreeviewCurrentIndex(QString filePath)
+{
+
+    if(!filePath.isEmpty()){
+        const QModelIndex idx=filesystemModel->index(QDir::cleanPath(filePath));
+        if (idx.isValid()){
+            ui->treeView->setCurrentIndex(idx);
+        }
+    }
 
 }
 

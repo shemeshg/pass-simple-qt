@@ -36,6 +36,11 @@ private slots:
 
     void initFileSystemModel(QString filePath);
 
+    void setTreeviewCurrentIndex(QString filePath);
+
+signals:
+    void setTreeviewCurrentIndexSignal(QString filePath);
+
 private:
     Ui::MainWindow *ui;
     QFileSystemModel *filesystemModel;
