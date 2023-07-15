@@ -265,7 +265,7 @@ void MainWindow::initFileSystemModel(QString filePath)
             );
     static bool setDirectoryLoadedOnce = false;
     setDirectoryLoadedOnce=false;
-    QObject::connect(filesystemModel, &QFileSystemModel::directoryLoaded, [=](const QString &directory) {
+    connections << QObject::connect(filesystemModel, &QFileSystemModel::directoryLoaded, [=](const QString &directory) {
         if (!setDirectoryLoadedOnce) {
             setDirectoryLoadedOnce = true;
             setTreeviewCurrentIndex(filePath);
