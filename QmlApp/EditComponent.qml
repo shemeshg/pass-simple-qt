@@ -171,14 +171,14 @@ ColumnLayout {
         Shortcut {
             sequence: "Ctrl+E"
             onActivated: {
+                if (columnLayoutHomeId.editComponentId.decryptedText == "status: Loading..."){
+                    return;
+                }
+
                 if ( isPreviewId.visible && editComponentId.visible
                         && !isBinaryFile){
                     isPreviewId.checked = !isPreviewId.checked
                     isShowPreview = isPreviewId.checked
-                    if(classInitialized){
-                        initOnFileChanged();
-                    }
-
                 }
             }
         }
