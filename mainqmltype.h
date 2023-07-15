@@ -212,8 +212,6 @@ private:
     QStringList m_noneWaitItems;
     int m_exceptionCounter = 0;
     QString m_exceptionStr;
-    QTreeView *treeView;
-    QFileSystemModel *filesystemModel;
     QMenu *autoTypeFields;
     QAction *autoTypeSelected;
 
