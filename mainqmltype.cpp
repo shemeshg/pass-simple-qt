@@ -220,7 +220,6 @@ void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpF
 void MainQmlType::setTreeViewSelected(QString path)
 {
     emit setTreeviewCurrentIndex(path);
-
 }
 
 void MainQmlType::toggleFilepan()

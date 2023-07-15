@@ -38,12 +38,11 @@ private slots:
 
     void setTreeviewCurrentIndex(QString filePath);
 
-signals:
-    void setTreeviewCurrentIndexSignal(QString filePath);
+
 
 private:
     Ui::MainWindow *ui;
-    QFileSystemModel *filesystemModel;
+    QFileSystemModel *filesystemModel = new QFileSystemModel(this);
     QFileIconProvider iconProvider;
     MainQmlType *mainqmltype;
     QModelIndex treeIndex;

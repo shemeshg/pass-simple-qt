@@ -7,6 +7,7 @@
 #include <QScroller>
 #include <QSystemTrayIcon>
 #include <QFontDatabase>
+#include <QTimer>
 
 #include "ui_mainwindow.h"
 #include "ui_about.h"
@@ -148,7 +149,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     connect(mainqmltype, &MainQmlType::setTreeviewCurrentIndex, this, &MainWindow::setTreeviewCurrentIndex);
-    connect(this, &MainWindow::setTreeviewCurrentIndexSignal, this, &MainWindow::setTreeviewCurrentIndex);
+
 
     connect(mainqmltype, &MainQmlType::setRootTreeView, this, [=](QString rootPath) {
         if (!rootPath.isEmpty()) {
@@ -225,7 +226,11 @@ void MainWindow::currentChangedSlot(const QModelIndex &current, const QModelInde
 
 void MainWindow::initFileSystemModel(QString filePath)
 {
-
+    static QList<QMetaObject::Connection> connections;
+    foreach (auto var, connections) {
+        QObject::disconnect(var);
+    }
+    filesystemModel->deleteLater();
     filesystemModel = new QFileSystemModel(this);
     filesystemModel->setIconProvider(&iconProvider);
     filesystemModel->setRootPath("");
@@ -248,24 +253,23 @@ void MainWindow::initFileSystemModel(QString filePath)
 
     // selection changes shall trigger a slot
     QItemSelectionModel *selectionModel = ui->treeView->selectionModel();
-    connect(selectionModel,
+    connections << connect(selectionModel,
             &QItemSelectionModel::selectionChanged,
             this,
             &MainWindow::selectionChangedSlot
             );
 
-    connect(selectionModel,
+    connections << connect(selectionModel,
             &QItemSelectionModel::currentChanged,
             this,
             &MainWindow::currentChangedSlot
             );
 
-
-
-
-    QObject::connect(filesystemModel, &QFileSystemModel::directoryLoaded, [=](const QString &directory) {
-        emit setTreeviewCurrentIndexSignal(filePath);
+    QTimer::singleShot(500,[=](){
+        setTreeviewCurrentIndex(filePath);
     });
+
+
 
 
 
