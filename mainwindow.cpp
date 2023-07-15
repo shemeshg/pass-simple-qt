@@ -7,7 +7,6 @@
 #include <QScroller>
 #include <QSystemTrayIcon>
 #include <QFontDatabase>
-#include <QTimer>
 
 #include "ui_mainwindow.h"
 #include "ui_about.h"
@@ -264,10 +263,16 @@ void MainWindow::initFileSystemModel(QString filePath)
             this,
             &MainWindow::currentChangedSlot
             );
-
-    QTimer::singleShot(500,[=](){
-        setTreeviewCurrentIndex(filePath);
+    static bool setDirectoryLoadedOnce = false;
+    setDirectoryLoadedOnce=false;
+    QObject::connect(filesystemModel, &QFileSystemModel::directoryLoaded, [=](const QString &directory) {
+        if (!setDirectoryLoadedOnce) {
+            setDirectoryLoadedOnce = true;
+            setTreeviewCurrentIndex(filePath);
+        }
     });
+
+
 
 
 
