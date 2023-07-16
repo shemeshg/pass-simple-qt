@@ -81,10 +81,10 @@ ColumnLayout {
             var filename = filePath.replace(/^.*[\\\/]/, '')
             filename = filename.substr(0,filename.length-4)
             getMainqmltype().decryptDownload(fileDialogDownload.folder + "/" +  filename)
-            getMainqmltype().doMainUiEnable()
+            doMainUiEnable()
         }
         onRejected: {
-            getMainqmltype().doMainUiEnable()
+            doMainUiEnable()
         }
     }
 
@@ -94,10 +94,10 @@ ColumnLayout {
         title: "Choose folder to download"
         onAccepted: {
             getMainqmltype().decryptFolderDownload(fullPathFolder, folderDialogDownload.folder)
-            getMainqmltype().doMainUiEnable()
+            doMainUiEnable()
         }
         onRejected: {
-            getMainqmltype().doMainUiEnable()
+            doMainUiEnable()
         }
     }
 
@@ -171,7 +171,7 @@ ColumnLayout {
         Shortcut {
             sequence: "Ctrl+E"
             onActivated: {
-                if (columnLayoutHomeId.editComponentId.decryptedText == "status: Loading..."){
+                if (isMainUiDisabled){
                     return;
                 }
 

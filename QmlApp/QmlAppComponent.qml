@@ -118,13 +118,13 @@ ColumnLayout {
         if (isBinaryFile){isShowPreview = false;}
 
         if (isShowPreview){
-            getMainqmltype().doMainUiDisable();
+            doMainUiDisable();
             columnLayoutHomeId.editComponentId.decryptedText = "status: Loading..."
             getMainqmltype().getDecryptedAsync((s)=>{
                 clearSystemTrayIconEntries();
                 columnLayoutHomeId.editComponentId.decryptedText = s;
             populateDecryptedUiFields();
-            getMainqmltype().doMainUiEnable();
+            doMainUiEnable();
                                          })
         } else {
             populateDecryptedUiFields();

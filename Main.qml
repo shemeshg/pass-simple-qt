@@ -8,6 +8,17 @@ Item {
     id: mainLayout
 
     property bool isShowLog: false
+    property bool isMainUiDisabled: false
+
+    function doMainUiDisable(){
+        isMainUiDisabled = true;
+        getMainqmltype().doMainUiDisable();
+    }
+
+    function doMainUiEnable(){
+        isMainUiDisabled = false;
+        getMainqmltype().doMainUiEnable();
+    }
 
     function getMainqmltype(){
         return mainqmltype;

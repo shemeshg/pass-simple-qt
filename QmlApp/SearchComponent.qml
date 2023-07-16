@@ -23,7 +23,7 @@ ColumnLayout {
 
 
     function doSearchAction(){
-        getMainqmltype().doMainUiDisable();
+        doMainUiDisable();
         btnRunSearchId.enabled = false
         searchStatusLabelId.visible= true
         searchResultModel=[]
@@ -36,7 +36,7 @@ ColumnLayout {
        searchResultModel = getMainqmltype().searchResult
        btnRunSearchId.enabled = true
        searchStatusLabelId.visible=false;
-       getMainqmltype().doMainUiEnable();
+       doMainUiEnable();
 
                                        })
 

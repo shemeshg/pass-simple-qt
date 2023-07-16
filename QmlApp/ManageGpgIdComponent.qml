@@ -55,7 +55,7 @@ ColumnLayout {
         onClicked: {
             reencryptBtnId.enabled = false;
             eencryptTextId.text = "Running... This might take long, Please wait"
-            mainLayout.getMainqmltype().doMainUiDisable()
+            mainLayout.doMainUiDisable()
 
             mainLayout.getGpgIdManageType().
                     saveChangesAsync(dropdownWithListComponentId.selectedItems,
@@ -64,7 +64,7 @@ ColumnLayout {
                                  initOnFileChanged();
                                  reencryptBtnId.enabled = true;
                                  eencryptTextId.text = returnStatus
-                                 mainLayout.getMainqmltype().doMainUiEnable()
+                                 mainLayout.doMainUiEnable()
                                      });
 
 
