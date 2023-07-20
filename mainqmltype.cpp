@@ -257,6 +257,14 @@ void MainQmlType::encrypt(QString s)
     }
 }
 
+void MainQmlType::encryptAsync(QString s, const QJSValue &callback)
+{
+    makeAsync<int>(callback,[=]() {
+        encrypt(s);
+        return 0;
+    });
+}
+
 void MainQmlType::openExternalEncryptWait()
 {
     if (passFile->isGpgFile()) {

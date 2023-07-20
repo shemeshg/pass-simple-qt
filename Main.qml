@@ -52,6 +52,10 @@ Item {
         return mainqmltype.encrypt(s);
     }
 
+    function encryptAsync(s, callback){
+        return mainqmltype.encryptAsync(s, callback);
+    }
+
     function openExternalEncryptWait(){
         return mainqmltype.openExternalEncryptWait();
     }

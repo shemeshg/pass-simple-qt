@@ -127,6 +127,9 @@ public:
 
     Q_INVOKABLE void encrypt(QString s);
 
+    Q_INVOKABLE void encryptAsync(QString s,
+                                   const QJSValue &callback);
+
     Q_INVOKABLE void openExternalEncryptWait();
 
     Q_INVOKABLE void openExternalEncryptNoWait();

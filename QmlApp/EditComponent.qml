@@ -244,6 +244,9 @@ ColumnLayout {
         Shortcut {
             sequence: StandardKey.Save
             onActivated: {
+                if (isMainUiDisabled){
+                    return;
+                }
                 if (saveBtnId.visible && saveBtnId.enabled && !isBinaryFile){
                     saveBtnId.clicked()
                 }
@@ -261,10 +264,13 @@ ColumnLayout {
                     decryptedText = loaderShowYamlEditComponent.editYamlType.getUpdatedText()
                 }
                 isSaving = true
-                mainLayout.encrypt(decryptedText)
-                notifyStr("* Saved", true,()=>{
-                          isSaving=false;
-                          })
+                doMainUiDisable();
+                notifyStr("* Saved", true)
+                mainLayout.encryptAsync(decryptedText,()=>{
+                                        isSaving=false;
+                                        doMainUiEnable();
+                                        })
+
             }
             visible: isShowPreview
 

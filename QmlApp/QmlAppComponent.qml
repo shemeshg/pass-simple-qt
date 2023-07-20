@@ -283,6 +283,9 @@ ColumnLayout {
             Shortcut {
                 sequence: "Ctrl+Y"
                 onActivated: {
+                    if (isMainUiDisabled){
+                        return;
+                    }
                     if (syncBtn.enabled){
                         syncBtn.clicked()
                     }
@@ -292,11 +295,13 @@ ColumnLayout {
                 id: syncBtn
                 onClicked: {
                 isSaving = true
+                doMainUiDisable();
                 notifyStr("* add all, commit, pull, putsh", true,()=>{
                               getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"add","."]," 2>&1");
                               getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"commit","-am","pass simple"]," 2>&1");
                               getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"pull"]," 2>&1");
                               getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"push"]," 2>&1");
+                              doMainUiEnable();
                               isSaving = false
                           })
 
