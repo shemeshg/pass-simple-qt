@@ -62,7 +62,12 @@ void AppSettings::setTmpFolderPath(const QString &tmpFolderPath)
 const QString AppSettings::gitExecPath() const
 {
     if (m_gitExecPath.isEmpty()) {
-        auto full_path = QStandardPaths::findExecutable("git");
+
+        auto full_path = QStandardPaths::findExecutable("git",{"/usr/local/bin","/opt/homebrew/bin"});
+        if (full_path.isEmpty()){
+            full_path = QStandardPaths::findExecutable("git");
+        }
+
         return full_path;
     }
     return m_gitExecPath;
@@ -90,7 +95,7 @@ QString AppSettings::vscodeExecPath() const
 {
     if (m_vscodeExecPath.isEmpty()) {
 
-            auto full_path = QStandardPaths::findExecutable("code",{"/usr/local/bin"});
+            auto full_path = QStandardPaths::findExecutable("code",{"/usr/local/bin","/opt/homebrew/bin"});
             if (full_path.isEmpty()){
                 full_path = QStandardPaths::findExecutable("code");
             }
