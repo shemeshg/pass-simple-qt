@@ -40,10 +40,40 @@ MainWindow::MainWindow(QWidget *parent)
     trayIconMenu->addAction(clearClipboard);
     trayIconMenu->addSeparator();
 
+    QAction *logoutAction = new QAction(tr("Logout"), this);
+    connect(logoutAction, &QAction::triggered, qApp, [=]() {
+        AppSettings appSettings{};
+        QString rootPath = appSettings.passwordStorePath();
+        mainqmltype->setTreeViewSelected(rootPath);
+
+        QProcess process;
+        auto full_path = QStandardPaths::findExecutable("gpgconf");
+        if (full_path.isEmpty()){
+            full_path = QStandardPaths::findExecutable("gpgconf",
+                QStringList() <<"/usr/local/bin");
+        }
+        if (full_path.isEmpty()){
+            qDebug()<<"could not found gpgconf";
+            return;
+        }
+        process.start(full_path, QStringList() <<"--kill"<<"gpg-agent");
+        if (!process.waitForStarted()){
+            qDebug()<<"could not start gpgconf";
+            return;
+        }
+        if (!process.waitForFinished()){
+            qDebug()<<"could not wait for gpgconf";
+            return;
+        }
+        process.readAll();
+
+    });
+    trayIconMenu->addAction(logoutAction);
+
     QAction *quitAction = new QAction(tr("&Quit"), this);
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
-
     trayIconMenu->addAction(quitAction);
+
     trayIcon->setContextMenu(trayIconMenu);
     trayIcon->setIcon(QIcon(":/icon.png"));
     trayIcon->show();
@@ -182,7 +212,10 @@ MainWindow::MainWindow(QWidget *parent)
         QFont font = QApplication::font();
         font.setPointSize(font.pointSize()+1);
         QApplication::setFont(font);
-        //QString  s = mainqmltype->filePath();
+
+        AppSettings appSettings{};
+        QString rootPath = appSettings.passwordStorePath();
+        mainqmltype->setTreeViewSelected(rootPath);
         setQmlSource();
 
      });
@@ -194,7 +227,12 @@ MainWindow::MainWindow(QWidget *parent)
         QFont font = QApplication::font();
         font.setPointSize(font.pointSize()-1);
         QApplication::setFont(font);
+
+        AppSettings appSettings{};
+        QString rootPath = appSettings.passwordStorePath();
+        mainqmltype->setTreeViewSelected(rootPath);
         setQmlSource();
+
      });
 }
 
