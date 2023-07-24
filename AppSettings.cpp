@@ -63,9 +63,9 @@ const QString AppSettings::gitExecPath() const
 {
     if (m_gitExecPath.isEmpty()) {
 
-        auto full_path = QStandardPaths::findExecutable("git",{"/usr/local/bin","/opt/homebrew/bin"});
+        auto full_path = QStandardPaths::findExecutable("git");
         if (full_path.isEmpty()){
-            full_path = QStandardPaths::findExecutable("git");
+            full_path = QStandardPaths::findExecutable("git",{"/usr/local/bin","/opt/homebrew/bin"});
         }
 
         return full_path;
@@ -95,9 +95,9 @@ QString AppSettings::vscodeExecPath() const
 {
     if (m_vscodeExecPath.isEmpty()) {
 
-            auto full_path = QStandardPaths::findExecutable("code",{"/usr/local/bin","/opt/homebrew/bin"});
+            auto full_path = QStandardPaths::findExecutable("code");
             if (full_path.isEmpty()){
-                full_path = QStandardPaths::findExecutable("code");
+                full_path = QStandardPaths::findExecutable("code",{"/usr/local/bin","/opt/homebrew/bin"});
             }
             return full_path;
     }
