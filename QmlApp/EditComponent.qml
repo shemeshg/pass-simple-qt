@@ -13,6 +13,7 @@ ColumnLayout {
     property bool showYamlEdit: true
     property alias folderDialogDownload: folderDialogDownload
     property alias fileDialogDownload: fileDialogDownload
+    property alias loaderShowYamlEditComponent: loaderShowYamlEditComponent
     property string decryptedText: ""
 
 
@@ -56,7 +57,6 @@ ColumnLayout {
         if (isGpgFile){
             setLoaderShowYamlEditComponent();
         }
-        refreshToolBar(); //Walk around Bug on linux only
     }
 
     function doExternalOpen(){
@@ -195,9 +195,6 @@ ColumnLayout {
                 if (isGpgFile){
                     setLoaderShowYamlEditComponent();
                 }
-
-
-                refreshToolBar(); //Walk around Bug on linux only
             }
             visible: waitItems.indexOf(filePath) === -1 &&
                      noneWaitItems.indexOf(filePath) === -1 &&
@@ -337,6 +334,7 @@ ColumnLayout {
 
     Loader {
         id: loaderShowYamlEditComponent
+        active: false
         width: parent.width
         height: parent.height
         Layout.fillWidth: true

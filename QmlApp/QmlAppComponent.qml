@@ -118,6 +118,7 @@ ColumnLayout {
         if (isBinaryFile){isShowPreview = false;}
 
         if (isShowPreview){
+            columnLayoutHomeId.editComponentId.loaderShowYamlEditComponent.active = false;
             doMainUiDisable();
             columnLayoutHomeId.editComponentId.decryptedText = "status: Loading..."
             getMainqmltype().getDecryptedAsync((s)=>{
@@ -125,6 +126,7 @@ ColumnLayout {
                 columnLayoutHomeId.editComponentId.decryptedText = s;
             populateDecryptedUiFields();
             doMainUiEnable();
+            columnLayoutHomeId.editComponentId.loaderShowYamlEditComponent.active = true;
                                          })
         } else {
             populateDecryptedUiFields();
@@ -208,17 +210,6 @@ ColumnLayout {
         delayCaller.start();
     }
 
-
-    function refreshToolBar(){
-        //walkaround "Qt Quick Layouts: Polish loop detected. Aborting after two iterations."
-        delaySetTimeOut(100, function() {
-            let i = columnLayoutHomeId.toolbarId.currentIndex
-            columnLayoutHomeId.toolbarId.currentIndex = 4;
-            columnLayoutHomeId.toolbarId.currentIndex = i;
-        })
-
-
-    }
 
     function notifyStr(str, withTimeout=false, callback=()=>{}){
         statusLabelId.text = str
