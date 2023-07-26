@@ -62,13 +62,7 @@ void AppSettings::setTmpFolderPath(const QString &tmpFolderPath)
 const QString AppSettings::gitExecPath() const
 {
     if (m_gitExecPath.isEmpty()) {
-
-        auto full_path = QStandardPaths::findExecutable("git");
-        if (full_path.isEmpty()){
-            full_path = QStandardPaths::findExecutable("git",{"/usr/local/bin","/opt/homebrew/bin"});
-        }
-
-        return full_path;
+        return getFindExecutable("git");
     }
     return m_gitExecPath;
 }
@@ -94,12 +88,7 @@ void AppSettings::setCtxSigner(const QString &ctxSigner)
 QString AppSettings::vscodeExecPath() const
 {
     if (m_vscodeExecPath.isEmpty()) {
-
-            auto full_path = QStandardPaths::findExecutable("code");
-            if (full_path.isEmpty()){
-                full_path = QStandardPaths::findExecutable("code",{"/usr/local/bin","/opt/homebrew/bin"});
-            }
-            return full_path;
+        return getFindExecutable("code");
     }
     return m_vscodeExecPath;
 }
@@ -196,4 +185,14 @@ void AppSettings::setfontSize(const int fontSize)
 
 QString AppSettings::appVer() {
     return "App:" + QString(PROJECT_VER) + " qt:" + qVersion();
+}
+
+const QString AppSettings::getFindExecutable(const QString &exec) const
+{
+    auto full_path = QStandardPaths::findExecutable(exec);
+    if (full_path.isEmpty()){
+        full_path = QStandardPaths::findExecutable(exec,{"/usr/local/bin","/opt/homebrew/bin"});
+    }
+
+    return full_path;
 }

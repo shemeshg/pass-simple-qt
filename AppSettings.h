@@ -53,6 +53,8 @@ public:
     void setfontSize(const int fontSize);
     static QString appVer();
 
+    const QString getFindExecutable(const QString &exec) const;
+
 signals:
     void passwordStorePathChanged();
     void tmpFolderPathChanged();

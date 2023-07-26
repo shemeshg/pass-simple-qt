@@ -47,10 +47,8 @@ MainWindow::MainWindow(QWidget *parent)
         mainqmltype->setTreeViewSelected(rootPath);
 
         QProcess process;
-        auto full_path = QStandardPaths::findExecutable("gpgconf");
-        if (full_path.isEmpty()){
-            full_path = QStandardPaths::findExecutable("gpgconf",{"/usr/local/bin","/opt/homebrew/bin"});
-        }
+        auto full_path = appSettings.getFindExecutable("gpgconf");
+
 
         if (full_path.isEmpty()){
             qDebug()<<"could not found gpgconf";
