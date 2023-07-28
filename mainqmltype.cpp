@@ -176,7 +176,7 @@ void MainQmlType::doSearchAsync(QString rootFolderToSearch,
                                 QString fileRegExStr,
                                 bool isMemCash,
                                 const QJSValue &callback)
-{    
+{
     makeAsync<int>(callback,[=]() {
         doSearch(rootFolderToSearch, FolderToSearch, fileRegExStr, isMemCash);
         return 0;
