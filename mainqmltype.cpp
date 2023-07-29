@@ -511,9 +511,10 @@ void MainQmlType::trayMenuAdd(QString _username, QString _password, QString _fie
 }
 
 void MainQmlType::renameGpgFile(QString filePathFrom, QString filePathTo){
-    std::filesystem::rename(filePathFrom.toStdString(),filePathTo.toStdString());
+    std::filesystem::copy(filePathFrom.toStdString(),filePathTo.toStdString());
     emit initFileSystemModel(filePathTo);
     setFilePath(filePathTo);
+    std::filesystem::remove(filePathFrom.toStdString());
 }
 
 void MainQmlType::tryRedirectLocalLink(QString link)
