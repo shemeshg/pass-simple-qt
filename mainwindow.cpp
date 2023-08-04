@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
         QString rootPath = appSettings.passwordStorePath();
         mainqmltype->setTreeViewSelected(rootPath);
 
-        QProcess process;
+
         auto full_path = appSettings.getFindExecutable("gpgconf");
 
 
@@ -54,17 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
             qDebug()<<"could not found gpgconf";
             return;
         }
-        process.start(full_path, QStringList() <<"--kill"<<"gpg-agent");
-        if (!process.waitForStarted()){
-            qDebug()<<"could not start gpgconf";
-            return;
-        }
-        if (!process.waitForFinished()){
-            qDebug()<<"could not wait for gpgconf";
-            return;
-        }
-        process.readAll();
-
+        QProcess::startDetached(full_path, QStringList() <<"--kill"<<"gpg-agent");
     });
     trayIconMenu->addAction(logoutAction);
 
