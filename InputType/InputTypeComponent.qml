@@ -31,6 +31,7 @@ ColumnLayout {
 
     RowLayout {
         TextArea {
+            property bool isKeyPressed : false
             Layout.fillWidth: true
             id: textEditComponentId
             visible: inputType === "textedit"
@@ -39,6 +40,13 @@ ColumnLayout {
             onTextChanged:   {                
                 textChangedSignal(textEditComponentId.text)
                 inputText = textEditComponentId.text
+                if (isKeyPressed){
+                    notifyStr("*")
+                    isKeyPressed = false;
+                }
+            }
+            Keys.onPressed: (event)=> {
+                isKeyPressed = true;
             }
             onSelectedTextChanged: {
                 getMainqmltype().selectedText = selectedText
@@ -69,6 +77,10 @@ ColumnLayout {
                 textChangedSignal(text)
                 textEditComponentId.text = text
             }
+            onTextEdited: {
+                notifyStr("*")
+            }
+
             Layout.fillWidth: true
             echoMode: (inputType === "totp" || inputType === "password") ? TextInput.Password : TextInput.Normal
             rightPadding: 8

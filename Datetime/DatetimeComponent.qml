@@ -34,6 +34,7 @@ ColumnLayout {
         }
 
         TextField {
+            property bool isKeyPressed : false
             Layout.fillWidth: true
             id: input
             inputMask: datetimeInputMaskString
@@ -43,10 +44,17 @@ ColumnLayout {
             onTextChanged: {
                 acceptableInput ? statusId.text = "" : statusId.text = qsTr("Input not acceptable");
                 datetimeComponentId.datetimeChanged(text)
+                if (isKeyPressed){
+                    notifyStr("*")
+                    isKeyPressed = false;
+                }
             }
             onTextEdited: {
                 dateTime.datetimeStr = text
                 daysDiffId.text = dateTime.daysDiff;
+            }
+            Keys.onPressed: (event)=> {
+                isKeyPressed = true;
             }
         }
 
@@ -64,6 +72,7 @@ ColumnLayout {
                     dateTime.daysDiff = 0;
                 }
                 input.text = dateTime.datetimeStr
+                notifyStr("*")
             }
         }
         Label {

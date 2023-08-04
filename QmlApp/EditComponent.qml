@@ -436,6 +436,7 @@ ColumnLayout {
             Component {
                 id: decryptedTextIdComponent
                 TextArea {
+                    property bool isKeyPressed : false
                     id: decryptedTextId
                     text: decryptedText
                     width: parent.width
@@ -450,7 +451,15 @@ ColumnLayout {
                     visible: !showMdId.checked
                     onTextChanged: {
                         decryptedText = text
+                        if (isKeyPressed){
+                            notifyStr("*")
+                            isKeyPressed = false;
+                        }
                     }
+                    Keys.onPressed: (event)=> {
+                        isKeyPressed = true;
+                    }
+
                     selectionColor: systemPalette.highlight
                     selectedTextColor: systemPalette.highlightedText
                 }
