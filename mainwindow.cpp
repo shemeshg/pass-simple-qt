@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    QFont font = QApplication::font();
+    font.setPointSize(appSettings.fontSize().toInt());
+    QApplication::setFont(font);
 
 
     QSystemTrayIcon *trayIcon = new QSystemTrayIcon(this);
@@ -197,7 +200,7 @@ MainWindow::MainWindow(QWidget *parent)
     //Qt::CTRL + Qt::Key\_P
     keyZoomIn->setKeys({Qt::CTRL | Qt::Key_Plus,Qt::CTRL | Qt::Key_Equal});
     connect(keyZoomIn, &QShortcut::activated, this, [=]() {
-        QFont font = QApplication::font();
+        QFont font = QApplication::font();        
         font.setPointSize(font.pointSize()+1);
         QApplication::setFont(font);
 

@@ -15,7 +15,7 @@ AppSettings::AppSettings(QObject *parent)
     m_useClipboard = settings.value("useClipboard", false).toBool();
     m_doSign = settings.value("doSign", false).toBool();
     m_preferYamlView = settings.value("preferYamlView", true).toBool();
-    m_fontSize = settings.value("fontSize", "14").toInt();
+    m_fontSize = settings.value("fontSize", "").toString();
 }
 
 const QString AppSettings::passwordStorePath() const
@@ -174,10 +174,11 @@ void AppSettings::setPreferYamlView(const bool preferYamlView)
     emit preferYamlViewChanged();
 }
 
-void AppSettings::setfontSize(const int fontSize)
+void AppSettings::setfontSize(const QString fontSize)
 {
     if (fontSize == m_fontSize)
         return;
+
     m_fontSize = fontSize;
     settings.setValue("fontSize", m_fontSize);
     emit fontSizeChanged();

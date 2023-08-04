@@ -118,7 +118,7 @@ public:
                                             bool useClipboard,
                                             bool doSign,
                                             bool preferYamlView,
-                                            int fontSize,
+                                            QString fontSize,
                                             QString ctxSigner);
 
     Q_INVOKABLE void setTreeViewSelected(QString path);

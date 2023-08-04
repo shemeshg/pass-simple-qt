@@ -51,6 +51,10 @@ ColumnLayout {
     }
 
     function saveSettingsComponent(){
+        if (!Number(fontSize.text) ){
+            fontSize.text = ""
+        }
+
         mainLayout.getMainqmltype().submit_AppSettingsType(
                                    passwordStorePathStr,
                                    tmpFolderPath.text,
@@ -162,7 +166,6 @@ ColumnLayout {
             }
         }
         ColumnLayout {
-            visible: false
             Label {
                 text: "Font size (reopen app required)"
             }

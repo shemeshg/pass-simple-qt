@@ -23,7 +23,7 @@ class AppSettings : public QObject
     Q_PROPERTY(bool useClipboard READ useClipboard WRITE setUseClipboard NOTIFY useClipboardChanged)
     Q_PROPERTY(bool doSign READ doSign WRITE setDoSign NOTIFY doSignChanged)
     Q_PROPERTY(bool preferYamlView READ preferYamlView WRITE setPreferYamlView NOTIFY preferYamlViewChanged)
-    Q_PROPERTY(int fontSize READ fontSize WRITE setfontSize NOTIFY fontSizeChanged)
+    Q_PROPERTY(QString fontSize READ fontSize WRITE setfontSize NOTIFY fontSizeChanged)
     Q_PROPERTY(QString appVer READ appVer CONSTANT )
     Q_PROPERTY(QString binaryExts READ binaryExts WRITE setBinaryExts NOTIFY binaryExtsChanged)
     QML_ELEMENT
@@ -49,9 +49,15 @@ public:
     void setUseClipboard(const bool useClipboard);
     void setDoSign(const bool doSign);
     void setPreferYamlView(const bool preferYamlView);
-    int fontSize() const { return m_fontSize; };
-    void setfontSize(const int fontSize);
+    QString fontSize() const {
+        if (m_fontSize.isEmpty()){
+            return QString::number(QApplication::font().pointSize());
+        }
+        return m_fontSize;
+    };
+    void setfontSize(const QString fontSize);
     static QString appVer();
+
 
     const QString getFindExecutable(const QString &exec) const;
 
@@ -80,5 +86,5 @@ private:
     bool m_useClipboard;
     bool m_doSign;
     bool m_preferYamlView;
-    int m_fontSize;
+    QString m_fontSize;
 };
