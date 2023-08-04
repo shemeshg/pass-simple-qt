@@ -14,6 +14,26 @@ ColumnLayout {
     property bool isPreferYamlView: mainLayout.getMainqmltype().appSettingsType.preferYamlView
     property bool isDoSign: mainLayout.getMainqmltype().appSettingsType.doSign
 
+    onVisibleChanged: {
+           if (visible){
+               isUseClipboard = mainLayout.getMainqmltype().appSettingsType.useClipboard
+                useClipboard.checked = isUseClipboard;
+               isPreferYamlView = mainLayout.getMainqmltype().appSettingsType.preferYamlView
+               preferYamlView.checked = isPreferYamlView
+               isDoSign = mainLayout.getMainqmltype().appSettingsType.doSign
+               doSign.checked = isDoSign
+               passwordStorePathStr = mainLayout.getMainqmltype().appSettingsType.passwordStorePath
+               ctxSigner.currentIndex = ctxSigner.find(mainLayout.getMainqmltype().appSettingsType.ctxSigner);
+               tmpFolderPath.text = mainLayout.getMainqmltype().appSettingsType.tmpFolderPath
+               gitExecPath.text = mainLayout.getMainqmltype().appSettingsType.gitExecPath
+               vscodeExecPath.text = mainLayout.getMainqmltype().appSettingsType.vscodeExecPath
+               autoTypeCmd.text = mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
+               fontSize.text = mainLayout.getMainqmltype().appSettingsType.fontSize
+               binaryExts.text = mainLayout.getMainqmltype().appSettingsType.binaryExts
+           }
+
+   }
+
     FolderDialog {
         id: selectStorePathDialogId
         title: "Select folder"
