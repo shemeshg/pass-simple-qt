@@ -16,6 +16,7 @@ AppSettings::AppSettings(QObject *parent)
     m_doSign = settings.value("doSign", false).toBool();
     m_preferYamlView = settings.value("preferYamlView", true).toBool();
     m_fontSize = settings.value("fontSize", "").toString();
+    m_commitMsg = settings.value("commitMsg", "").toString();
 }
 
 const QString AppSettings::passwordStorePath() const
@@ -182,6 +183,16 @@ void AppSettings::setfontSize(const QString fontSize)
     m_fontSize = fontSize;
     settings.setValue("fontSize", m_fontSize);
     emit fontSizeChanged();
+}
+
+void AppSettings::setCommitMsg(const QString commitMsg)
+{
+    if (commitMsg == m_commitMsg)
+        return;
+
+    m_commitMsg = commitMsg;
+    settings.setValue("commitMsg", m_commitMsg);
+    emit commitMsgChanged();
 }
 
 QString AppSettings::appVer() {

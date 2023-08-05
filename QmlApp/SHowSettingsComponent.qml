@@ -6,6 +6,7 @@ import QtQuick.Dialogs
 import DropdownWithList
 import Qt.labs.platform
 
+
 ColumnLayout {
     visible: isShowSettings
     width: parent.width
@@ -29,6 +30,7 @@ ColumnLayout {
                vscodeExecPath.text = mainLayout.getMainqmltype().appSettingsType.vscodeExecPath
                autoTypeCmd.text = mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
                fontSize.text = mainLayout.getMainqmltype().appSettingsType.fontSize
+               commitMsg.text = mainLayout.getMainqmltype().appSettingsType.commitMsg
                binaryExts.text = mainLayout.getMainqmltype().appSettingsType.binaryExts
            }
 
@@ -66,6 +68,7 @@ ColumnLayout {
                                     doSign.checked,
                                     preferYamlView.checked,
                                    fontSize.text,
+                                    commitMsg.text,
                                     ctxSigner.displayText);
         passwordStorePathStr = mainLayout.getMainqmltype().appSettingsType.passwordStorePath
     }
@@ -113,7 +116,16 @@ ColumnLayout {
         Layout.preferredHeight: 1
         color: "black"
     }
-
+    ColumnLayout {
+        Label {
+            text: "Commit Msg."
+        }
+        TextField {
+            id: commitMsg
+            text: mainLayout.getMainqmltype().appSettingsType.commitMsg
+            Layout.fillWidth: true
+        }
+    }
 
     ColumnLayout {
         spacing: 8
@@ -208,3 +220,5 @@ ColumnLayout {
         }
     }
 }
+
+

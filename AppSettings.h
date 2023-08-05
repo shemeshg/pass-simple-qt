@@ -24,6 +24,7 @@ class AppSettings : public QObject
     Q_PROPERTY(bool doSign READ doSign WRITE setDoSign NOTIFY doSignChanged)
     Q_PROPERTY(bool preferYamlView READ preferYamlView WRITE setPreferYamlView NOTIFY preferYamlViewChanged)
     Q_PROPERTY(QString fontSize READ fontSize WRITE setfontSize NOTIFY fontSizeChanged)
+    Q_PROPERTY(QString commitMsg READ commitMsg WRITE setCommitMsg NOTIFY commitMsgChanged)
     Q_PROPERTY(QString appVer READ appVer CONSTANT )
     Q_PROPERTY(QString binaryExts READ binaryExts WRITE setBinaryExts NOTIFY binaryExtsChanged)
     QML_ELEMENT
@@ -56,6 +57,15 @@ public:
         return m_fontSize;
     };
     void setfontSize(const QString fontSize);
+
+    QString commitMsg() const {
+        if (m_commitMsg.isEmpty()){
+            return "pass simple";
+        }
+        return m_commitMsg;
+    }
+    void setCommitMsg(const QString commitMsg);
+
     static QString appVer();
 
 
@@ -72,6 +82,7 @@ signals:
     void doSignChanged();
     void preferYamlViewChanged();
     void fontSizeChanged();
+    void commitMsgChanged();
     void ctxSignerChanged();
 
 private:
@@ -87,4 +98,5 @@ private:
     bool m_doSign;
     bool m_preferYamlView;
     QString m_fontSize;
+    QString m_commitMsg;
 };
