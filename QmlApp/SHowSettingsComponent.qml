@@ -6,11 +6,12 @@ import QtQuick.Dialogs
 import DropdownWithList
 import Qt.labs.platform
 
-
-ColumnLayout {
+ScrollView{
     visible: isShowSettings
+    height: parent.height
     width: parent.width
-
+    Layout.fillWidth: true
+    Layout.fillHeight: true
     property bool isUseClipboard: mainLayout.getMainqmltype().appSettingsType.useClipboard
     property bool isPreferYamlView: mainLayout.getMainqmltype().appSettingsType.preferYamlView
     property bool isDoSign: mainLayout.getMainqmltype().appSettingsType.doSign
@@ -73,6 +74,16 @@ ColumnLayout {
         passwordStorePathStr = mainLayout.getMainqmltype().appSettingsType.passwordStorePath
     }
 
+
+ColumnLayout {
+
+    height: parent.height
+    width: parent.width
+
+    Layout.fillWidth: true
+    Layout.fillHeight: true
+
+
     RowLayout {
         Button {
             text: "Back"
@@ -120,7 +131,7 @@ ColumnLayout {
         Label {
             text: "Commit Msg."
         }
-        TextField {
+        TextArea {
             id: commitMsg
             text: mainLayout.getMainqmltype().appSettingsType.commitMsg
             Layout.fillWidth: true
@@ -219,6 +230,7 @@ ColumnLayout {
             }
         }
     }
+}
 }
 
 

@@ -286,8 +286,7 @@ ColumnLayout {
                 id: syncBtn
                 onClicked: {
                 isSaving = true
-                doMainUiDisable();
-                console.log(mainLayout.getMainqmltype().appSettingsType.commitMsg)
+                doMainUiDisable();                
                 notifyStr("* add all, commit, pull, putsh", true,()=>{
                               getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"add","."]," 2>&1");
                               getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"commit","-am",
