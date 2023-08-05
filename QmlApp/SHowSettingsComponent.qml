@@ -71,7 +71,8 @@ ScrollView{
                                    fontSize.text,
                                     commitMsg.text,
                                     ctxSigner.displayText);
-        passwordStorePathStr = mainLayout.getMainqmltype().appSettingsType.passwordStorePath
+        passwordStorePathStr = mainLayout.getMainqmltype().appSettingsType.passwordStorePath;
+        isShowSettings = false;
     }
 
 
