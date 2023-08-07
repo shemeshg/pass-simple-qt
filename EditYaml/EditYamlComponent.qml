@@ -141,9 +141,9 @@ ColumnLayout {
 
         delegate: ColumnLayout {
             width: yamlModelListViewId.width
-            RowLayout{
-                Layout.fillWidth: true
 
+            RowLayout{
+                Layout.fillWidth: true                
                 Label {
                     text:  modelData.key + ": "
                     padding: 8
@@ -177,8 +177,11 @@ ColumnLayout {
 
 
                 Item {
-                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignTop
+
+                    width: 10
                     Rectangle {
+
                         width: parent.width
                         height:  10
                         color: "black"
@@ -242,7 +245,7 @@ ColumnLayout {
 
 
             }
-            Row{
+            RowLayout{
                 Layout.fillWidth: true
                 InputTypeComponent {
                     id: inputTypeComponentId                    
