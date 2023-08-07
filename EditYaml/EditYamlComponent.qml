@@ -153,11 +153,12 @@ ColumnLayout {
                     id: selectedInputType
                     visible: isEditFieldsType
                     height: moveUpId.height
-                    model: ["textedit", "text","url","password","totp","datetime"]
+                    model: ["textedit", "texteditMasked","text","url","password","totp","datetime"]
                     Component.onCompleted: {
                         currentIndex = find(modelData.inputType);
                     }
-                    //width: 200
+
+                    Layout.fillWidth: true
                     onActivated:    {
                         let newArry = [...editYamlType.yamlModel]
 
@@ -244,7 +245,7 @@ ColumnLayout {
             Row{
                 Layout.fillWidth: true
                 InputTypeComponent {
-                    id: inputTypeComponentId
+                    id: inputTypeComponentId                    
                     width: parent.width
                     inputText: modelData.val
                     inputType: modelData.inputType

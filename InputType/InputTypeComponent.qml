@@ -11,7 +11,7 @@ ColumnLayout {
     property string inputText: ""
     property string totpText: ""
     signal textChangedSignal(s: string)
-
+    property bool isTexteditMasked: true
 
     RowLayout {
         visible: inputType === "datetime"
@@ -30,11 +30,12 @@ ColumnLayout {
     }
 
     RowLayout {
+
         TextArea {
             property bool isKeyPressed : false
             Layout.fillWidth: true
             id: textEditComponentId
-            visible: inputType === "textedit"
+            visible: inputType === "textedit" || (inputType === "texteditMasked" && isTexteditMasked===false)
             text: inputText
             wrapMode: TextEdit.WrapAnywhere
             onTextChanged:   {                
@@ -53,6 +54,22 @@ ColumnLayout {
             }
             selectionColor: systemPalette.highlight
             selectedTextColor: systemPalette.highlightedText
+
+        }
+        Label {
+            padding: 8
+            Layout.fillWidth: true
+            text: "*********"
+            visible: inputType === "texteditMasked" && isTexteditMasked
+        }
+
+        Button {
+            Layout.alignment: Qt.AlignTop
+            text: "*"
+            visible: inputType === "texteditMasked"
+            onClicked: {
+                isTexteditMasked = !isTexteditMasked
+            }
 
         }
         Item {
