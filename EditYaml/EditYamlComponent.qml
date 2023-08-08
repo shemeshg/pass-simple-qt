@@ -128,6 +128,16 @@ ColumnLayout {
 
     ListView {
         id: yamlModelListViewId
+
+        Component {
+             id: myfooter
+             Item {
+                 width: parent.width
+                 height: 100
+             }
+        }
+        footer: myfooter
+
         model: editYamlType.yamlModel
         visible: editYamlType.isYamlValid
         clip: true
