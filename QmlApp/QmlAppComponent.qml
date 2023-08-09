@@ -119,8 +119,9 @@ ColumnLayout {
             }
 
             isShowPreview = false;
-
-            return;
+            if (forceUpdate){
+                return;
+            }
         } else if (isPreviousShowPreview){
             isShowPreview = true;
             isPreviousShowPreview = false;
@@ -128,7 +129,6 @@ ColumnLayout {
                 return;
             }
         }
-
 
 
         if (isShowPreview){
@@ -142,7 +142,7 @@ ColumnLayout {
             doMainUiEnable();
             columnLayoutHomeId.editComponentId.loaderShowYamlEditComponent.active = true;
                                          })
-        } else {
+        } else {            
             populateDecryptedUiFields();
         }
 
