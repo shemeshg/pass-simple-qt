@@ -200,20 +200,17 @@ ScrollView{
                 }
             }
             Switch {
-                id: preferYamlView
-                visible: isShowPreview
+                id: preferYamlView                
                 text: qsTr("Prefer Yaml view if Yaml valid")
                 checked: isPreferYamlView;
             }
             Switch {
                 id: useClipboard
-                visible: isShowPreview
                 text: qsTr("Use clipboard")
                 checked: isUseClipboard;
             }
             Switch {
                 id: doSign
-                visible: isShowPreview
                 text: qsTr("Sign")
                 checked: isDoSign;
             }

@@ -190,7 +190,7 @@ ColumnLayout {
             onCheckedChanged: {
                 isShowPreview = isPreviewId.checked
                 if(classInitialized){
-                    initOnFileChanged();
+                    initOnFileChanged(true);
                 }
                 if (isGpgFile){
                     setLoaderShowYamlEditComponent();

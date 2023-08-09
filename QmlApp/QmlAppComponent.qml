@@ -12,9 +12,6 @@ import InputType
 ColumnLayout {
     width: parent.width
     height : parent.height
-    //contentWidth: columnLayoutHomeId.width - 30   // The important part
-    //contentHeight: columnLayoutHomeId.height + 90   // Same
-    //clip : true
 
     property int filePanSize: 0    
     property string menubarCommStr: ""
@@ -27,6 +24,7 @@ ColumnLayout {
     property bool hasEffectiveGpgIdFile: false
     property bool isGpgFile: false
     property bool isBinaryFile: false
+    property bool isPreviousShowPreview: false
 
     property var waitItems: []
     property var noneWaitItems: []
@@ -112,10 +110,24 @@ ColumnLayout {
         notifyStr("")
     }
 
-    function initOnFileChanged(){
+    function initOnFileChanged(forceUpdate=false){
         clearSystemTrayIconEntries();
         isBinaryFile = getIsBinary();
-        if (isBinaryFile){isShowPreview = false;}
+        if (isBinaryFile){
+            if (isShowPreview){
+                isPreviousShowPreview = true;
+            }
+
+            isShowPreview = false;
+
+            return;
+        } else if (isPreviousShowPreview){
+            if (!forceUpdate){
+                isShowPreview = true;
+            }
+            isPreviousShowPreview = false;
+            return;
+        }
 
         if (isShowPreview){
             columnLayoutHomeId.editComponentId.loaderShowYamlEditComponent.active = false;
