@@ -373,6 +373,19 @@ ColumnLayout {
         id: dontShowYamlEditComponent
 
         ScrollView {
+            height: parent.height
+            width: parent.width
+            clip: true
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            ColumnLayout {
+                height: parent.height
+                width: parent.width
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
             ToolTip {
                 id: toolTip
             }
@@ -385,11 +398,7 @@ ColumnLayout {
                 }
             }
 
-            height: parent.height
-            width: parent.width
-            clip: true
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+
 
             Loader {
                 width: parent.width
@@ -400,6 +409,10 @@ ColumnLayout {
 
             }
 
+            Item {
+                Layout.fillWidth: true
+                height:  100
+            }
 
             Component {
                 id:mdDecryptedTextIdComponent
@@ -465,6 +478,7 @@ ColumnLayout {
                 }
             }
         }
+            }
     }
 
 
