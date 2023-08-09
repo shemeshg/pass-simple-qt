@@ -122,12 +122,14 @@ ColumnLayout {
 
             return;
         } else if (isPreviousShowPreview){
-            if (!forceUpdate){
-                isShowPreview = true;
-            }
+            isShowPreview = true;
             isPreviousShowPreview = false;
-            return;
+            if (forceUpdate){
+                return;
+            }
         }
+
+
 
         if (isShowPreview){
             columnLayoutHomeId.editComponentId.loaderShowYamlEditComponent.active = false;
