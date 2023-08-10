@@ -67,6 +67,14 @@ ColumnLayout {
         }
     }
 
+    function reloadAfterPreviewChanged(){
+        if(classInitialized){
+            initOnFileChanged();
+        }
+        if (isGpgFile){
+            setLoaderShowYamlEditComponent();
+        }
+    }
 
 
     RenameDialog {
@@ -177,24 +185,22 @@ ColumnLayout {
 
                 if ( isPreviewId.visible && editComponentId.visible
                         && !isBinaryFile){
+
                     isPreviewId.checked = !isPreviewId.checked
                     isShowPreview = isPreviewId.checked
+                    reloadAfterPreviewChanged();
                 }
             }
         }
+
 
         Switch {
             id: isPreviewId
             text: qsTr("Pr<u>e</u>view")
             checked: isShowPreview
-            onCheckedChanged: {
+            onToggled: {
                 isShowPreview = isPreviewId.checked
-                if(classInitialized){
-                    initOnFileChanged(true);
-                }
-                if (isGpgFile){
-                    setLoaderShowYamlEditComponent();
-                }
+                reloadAfterPreviewChanged();
             }
             visible: waitItems.indexOf(filePath) === -1 &&
                      noneWaitItems.indexOf(filePath) === -1 &&

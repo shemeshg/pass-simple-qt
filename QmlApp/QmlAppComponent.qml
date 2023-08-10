@@ -110,7 +110,7 @@ ColumnLayout {
         notifyStr("")
     }
 
-    function initOnFileChanged(forceUpdate=false){
+    function initOnFileChanged(){
         clearSystemTrayIconEntries();
         isBinaryFile = getIsBinary();
         if (isBinaryFile){
@@ -119,15 +119,9 @@ ColumnLayout {
             }
 
             isShowPreview = false;
-            if (forceUpdate){
-                return;
-            }
         } else if (isPreviousShowPreview){
             isShowPreview = true;
             isPreviousShowPreview = false;
-            if (forceUpdate){
-                return;
-            }
         }
 
 
