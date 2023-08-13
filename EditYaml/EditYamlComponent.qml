@@ -4,21 +4,20 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import InputType
 
-
 ColumnLayout {
     property bool isEditFieldsType: false
     height: parent.height
-    width:  parent.width
+    width: parent.width
 
     Component {
         id: menuItem
-        MenuItem {
-
-        }
+        MenuItem {}
     }
 
-    RowLayout{
-        Label { text:  Error + ": " + editYamlType.yamlErrorMsg }
+    RowLayout {
+        Label {
+            text: Error + ": " + editYamlType.yamlErrorMsg
+        }
         visible: !editYamlType.isYamlValid
     }
 
@@ -35,11 +34,10 @@ ColumnLayout {
         Switch {
             id: idEditFieldsType
             text: qsTr("Edit fields type")
-            checked: isEditFieldsType;
-            onCheckedChanged: {
-                isEditFieldsType = !isEditFieldsType;
+            checked: isEditFieldsType
+            onToggled: {
+                isEditFieldsType = !isEditFieldsType
             }
-
         }
         Button {
             id: addDialogButtonId
@@ -56,28 +54,26 @@ ColumnLayout {
             height: addDialogButtonId.height + 5
             width: 1
         }
-
     }
 
     property int markedRow: -1
-    function arrayMove(oldIndex: number, newIndex) {
-        let arr = editYamlType.yamlModel;
+    function arrayMove(oldIndex, newIndex) {
+        let arr = editYamlType.yamlModel
         while (oldIndex < 0) {
-            oldIndex += arr.length;
+            oldIndex += arr.length
         }
         while (newIndex < 0) {
-            newIndex += arr.length;
+            newIndex += arr.length
         }
         if (newIndex >= arr.length) {
-            newIndex = 0 ;
+            newIndex = 0
         }
         let newArry = [...arr]
-        newArry.splice(newIndex, 0, newArry.splice(oldIndex, 1)[0]);
+        newArry.splice(newIndex, 0, newArry.splice(oldIndex, 1)[0])
 
-        markedRow = newIndex;
-        editYamlType.yamlModel = newArry;
+        markedRow = newIndex
+        editYamlType.yamlModel = newArry
     }
-
 
     property int dialogRowIdx: -1
     Dialog {
@@ -95,10 +91,10 @@ ColumnLayout {
         onAccepted: {
             let newArry = [...editYamlType.yamlModel]
             newArry[dialogRowIdx].key = fieldName.text
-            editYamlType.yamlModel = newArry;
+            editYamlType.yamlModel = newArry
         }
         onClosed: {
-            dialogRowIdx = -1;
+            dialogRowIdx = -1
         }
     }
 
@@ -113,16 +109,21 @@ ColumnLayout {
             focus: true
             text: ""
             width: parent.width
-
         }
         onAccepted: {
-            if (!newFieldName.text){return;}
+            if (!newFieldName.text) {
+                return
+            }
             let newArry = [...editYamlType.yamlModel]
-            newArry.push({inputType: "textedit", key: newFieldName.text, val: ""})
-            editYamlType.yamlModel = newArry;
+            newArry.push({
+                             "inputType": "textedit",
+                             "key": newFieldName.text,
+                             "val": ""
+                         })
+            editYamlType.yamlModel = newArry
         }
         onClosed: {
-            dialogRowIdx = -1;
+            dialogRowIdx = -1
         }
     }
 
@@ -130,11 +131,11 @@ ColumnLayout {
         id: yamlModelListViewId
 
         Component {
-             id: myfooter
-             Item {
-                 width: parent.width
-                 height: 100
-             }
+            id: myfooter
+            Item {
+                width: parent.width
+                height: 100
+            }
         }
         footer: myfooter
 
@@ -152,39 +153,35 @@ ColumnLayout {
         delegate: ColumnLayout {
             width: yamlModelListViewId.width
 
-            RowLayout{
-                Layout.fillWidth: true                
+            RowLayout {
+                Layout.fillWidth: true
                 Label {
-                    text:  modelData.key + ": "
+                    text: modelData.key + ": "
                     padding: 8
-
                 }
                 ComboBox {
                     id: selectedInputType
                     visible: isEditFieldsType
                     height: moveUpId.height
-                    model: ["textedit", "texteditMasked","text","url","password","totp","datetime"]
+                    model: ["textedit", "texteditMasked", "text", "url", "password", "totp", "datetime"]
                     Component.onCompleted: {
-                        currentIndex = find(modelData.inputType);
+                        currentIndex = find(modelData.inputType)
                     }
 
                     Layout.fillWidth: true
-                    onActivated:    {
+                    onActivated: {
                         let newArry = [...editYamlType.yamlModel]
 
-                        for (let i=0;i<newArry.length;i++){
+                        for (var i = 0; i < newArry.length; i++) {
 
-                            if (newArry[i].key === modelData.key){
+                            if (newArry[i].key === modelData.key) {
                                 newArry[i].inputType = currentText
                             }
                         }
-                        editYamlType.yamlModel = newArry;
-                        inputTypeComponentId.inputType = currentText;
-
+                        editYamlType.yamlModel = newArry
+                        inputTypeComponentId.inputType = currentText
                     }
-
                 }
-
 
                 Item {
                     Layout.alignment: Qt.AlignTop
@@ -193,25 +190,22 @@ ColumnLayout {
                     Rectangle {
 
                         width: parent.width
-                        height:  10
+                        height: 10
                         color: "black"
-                        visible: isEditFieldsType && markedRow===index
+                        visible: isEditFieldsType && markedRow === index
                     }
-
-
                 }
 
                 Button {
                     id: moveUpId
                     visible: isEditFieldsType
-                    onClicked: ()=>{
+                    onClicked: () => {
                                    arrayMove(index, index - 1)
                                }
                     icon.name: "Up"
                     ToolTip.text: "Up"
                     icon.source: Qt.resolvedUrl("icons/move_up_black_24dp.svg")
                     ToolTip.visible: hovered
-
                 }
                 Button {
                     visible: isEditFieldsType
@@ -220,50 +214,48 @@ ColumnLayout {
                     }
                     icon.name: "Down"
                     ToolTip.text: "Down"
-                    icon.source: Qt.resolvedUrl("icons/move_down_black_24dp.svg")
+                    icon.source: Qt.resolvedUrl(
+                                     "icons/move_down_black_24dp.svg")
                     ToolTip.visible: hovered
                 }
                 Button {
                     visible: isEditFieldsType
-                    onClicked: ()=>{
-                                   dialogRowIdx = index;
-                                   renameDialog.open();
+                    onClicked: () => {
+                                   dialogRowIdx = index
+                                   renameDialog.open()
                                }
                     icon.name: "Rename"
                     ToolTip.text: "Rename"
-                    icon.source: Qt.resolvedUrl("icons/edit_FILL0_wght400_GRAD0_opsz48.svg")
+                    icon.source: Qt.resolvedUrl(
+                                     "icons/edit_FILL0_wght400_GRAD0_opsz48.svg")
                     ToolTip.visible: hovered
                 }
                 Button {
                     visible: isEditFieldsType
                     onClicked: {
                         let newArry = [...editYamlType.yamlModel]
-                        newArry.splice(index,1)
-                        editYamlType.yamlModel = newArry;
-
+                        newArry.splice(index, 1)
+                        editYamlType.yamlModel = newArry
                     }
                     icon.name: "Delete"
                     ToolTip.text: "Delete"
-                    icon.source: Qt.resolvedUrl("icons/remove_circle_outline_black_24dp.svg")
+                    icon.source: Qt.resolvedUrl(
+                                     "icons/remove_circle_outline_black_24dp.svg")
                     ToolTip.visible: hovered
                 }
                 Item {
-                    width: 10;
-
+                    width: 10
                 }
-
-
-
             }
-            RowLayout{
+            RowLayout {
                 Layout.fillWidth: true
                 InputTypeComponent {
-                    id: inputTypeComponentId                    
+                    id: inputTypeComponentId
                     width: parent.width
                     inputText: modelData.val
                     inputType: modelData.inputType
-                    onTextChangedSignal:  function(s){
-                        editYamlType.sendChangeVal(modelData.key,s);
+                    onTextChangedSignal: function (s) {
+                        editYamlType.sendChangeVal(modelData.key, s)
                     }
                 }
             }
@@ -275,4 +267,3 @@ ColumnLayout {
         }
     }
 }
-
