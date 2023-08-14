@@ -6,75 +6,86 @@ import QtQuick.Dialogs
 import DropdownWithList
 import Qt.labs.platform
 
-ScrollView{
+ScrollView {
     visible: isShowSettings
     height: parent.height
     width: parent.width
     Layout.fillWidth: true
     Layout.fillHeight: true
-    property bool isUseClipboard: mainLayout.getMainqmltype().appSettingsType.useClipboard
-    property bool isPreferYamlView: mainLayout.getMainqmltype().appSettingsType.preferYamlView
+    clip: true
+    contentWidth: columnLayoutHomeId.width - 30
+    contentHeight: columnLayoutHomeId.height + 200
+
+    property bool isUseClipboard: mainLayout.getMainqmltype(
+                                      ).appSettingsType.useClipboard
+    property bool isPreferYamlView: mainLayout.getMainqmltype(
+                                        ).appSettingsType.preferYamlView
     property bool isDoSign: mainLayout.getMainqmltype().appSettingsType.doSign
 
     onVisibleChanged: {
-        if (visible){
-            isUseClipboard = mainLayout.getMainqmltype().appSettingsType.useClipboard
-            useClipboard.checked = isUseClipboard;
-            isPreferYamlView = mainLayout.getMainqmltype().appSettingsType.preferYamlView
+        if (visible) {
+            isUseClipboard = mainLayout.getMainqmltype(
+                        ).appSettingsType.useClipboard
+            useClipboard.checked = isUseClipboard
+            isPreferYamlView = mainLayout.getMainqmltype(
+                        ).appSettingsType.preferYamlView
             preferYamlView.checked = isPreferYamlView
             isDoSign = mainLayout.getMainqmltype().appSettingsType.doSign
             doSign.checked = isDoSign
-            passwordStorePathStr = mainLayout.getMainqmltype().appSettingsType.passwordStorePath
-            ctxSigner.currentIndex = ctxSigner.find(mainLayout.getMainqmltype().appSettingsType.ctxSigner);
-            tmpFolderPath.text = mainLayout.getMainqmltype().appSettingsType.tmpFolderPath
-            gitExecPath.text = mainLayout.getMainqmltype().appSettingsType.gitExecPath
-            vscodeExecPath.text = mainLayout.getMainqmltype().appSettingsType.vscodeExecPath
-            autoTypeCmd.text = mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
+            passwordStorePathStr = mainLayout.getMainqmltype(
+                        ).appSettingsType.passwordStorePath
+            ctxSigner.currentIndex = ctxSigner.find(
+                        mainLayout.getMainqmltype().appSettingsType.ctxSigner)
+            tmpFolderPath.text = mainLayout.getMainqmltype(
+                        ).appSettingsType.tmpFolderPath
+            gitExecPath.text = mainLayout.getMainqmltype(
+                        ).appSettingsType.gitExecPath
+            vscodeExecPath.text = mainLayout.getMainqmltype(
+                        ).appSettingsType.vscodeExecPath
+            autoTypeCmd.text = mainLayout.getMainqmltype(
+                        ).appSettingsType.autoTypeCmd
             fontSize.text = mainLayout.getMainqmltype().appSettingsType.fontSize
-            commitMsg.text = mainLayout.getMainqmltype().appSettingsType.commitMsg
-            binaryExts.text = mainLayout.getMainqmltype().appSettingsType.binaryExts
+            commitMsg.text = mainLayout.getMainqmltype(
+                        ).appSettingsType.commitMsg
+            binaryExts.text = mainLayout.getMainqmltype(
+                        ).appSettingsType.binaryExts
         }
-
     }
 
     FolderDialog {
         id: selectStorePathDialogId
         title: "Select folder"
         onAccepted: {
-            let path = selectStorePathDialogId.folder.toString();
-            path = path.replace(/^(file:\/{3})/,"");
+            let path = selectStorePathDialogId.folder.toString()
+            path = path.replace(/^(file:\/{3})/, "")
             // unescape html codes like '%23' for '#'
-            path = decodeURIComponent(path);
+            path = decodeURIComponent(path)
 
             //path =  path.substring(0, path.lastIndexOf("/")) ;
             passwordStorePathStr = "/" + path
         }
         onRejected: {
+
         }
     }
 
-    function saveSettingsComponent(){
-        if (!Number(fontSize.text) ){
+    function saveSettingsComponent() {
+        if (!Number(fontSize.text)) {
             fontSize.text = ""
         }
 
-        mainLayout.getMainqmltype().submit_AppSettingsType(
-                    passwordStorePathStr,
-                    tmpFolderPath.text,
-                    gitExecPath.text,
-                    vscodeExecPath.text,
-                    autoTypeCmd.text,
-                    binaryExts.text,
-                    useClipboard.checked,
-                    doSign.checked,
-                    preferYamlView.checked,
-                    fontSize.text,
-                    commitMsg.text,
-                    ctxSigner.displayText);
-        passwordStorePathStr = mainLayout.getMainqmltype().appSettingsType.passwordStorePath;
-        isShowSettings = false;
+        mainLayout.getMainqmltype(
+                    ).submit_AppSettingsType(passwordStorePathStr,
+                                             tmpFolderPath.text, gitExecPath.text,
+                                             vscodeExecPath.text, autoTypeCmd.text,
+                                             binaryExts.text, useClipboard.checked,
+                                             doSign.checked, preferYamlView.checked,
+                                             fontSize.text, commitMsg.text,
+                                             ctxSigner.displayText)
+        passwordStorePathStr = mainLayout.getMainqmltype(
+                    ).appSettingsType.passwordStorePath
+        isShowSettings = false
     }
-
 
     ColumnLayout {
 
@@ -84,7 +95,6 @@ ScrollView{
         Layout.fillWidth: true
         Layout.fillHeight: true
 
-
         RowLayout {
             Button {
                 text: "Back"
@@ -92,7 +102,7 @@ ScrollView{
             }
             Button {
                 text: "Save"
-                onClicked: saveSettingsComponent();
+                onClicked: saveSettingsComponent()
             }
         }
         Rectangle {
@@ -106,21 +116,20 @@ ScrollView{
                 text: "Password Store Path:"
             }
             Button {
-                text:  "default"
+                text: "default"
                 onClicked: passwordStorePathStr = ""
             }
             Button {
-                text:  "select"
+                text: "select"
                 onClicked: selectStorePathDialogId.open()
             }
         }
 
         RowLayout {
             TextField {
-                text: passwordStorePathStr;
+                text: passwordStorePathStr
                 Layout.fillWidth: true
-                onTextChanged:
-                    passwordStorePathStr = text
+                onTextChanged: passwordStorePathStr = text
             }
         }
         Rectangle {
@@ -149,7 +158,8 @@ ScrollView{
                 id: ctxSigner
                 model: allPrivateKeys
                 Component.onCompleted: {
-                    currentIndex = find(mainLayout.getMainqmltype().appSettingsType.ctxSigner);
+                    currentIndex = find(mainLayout.getMainqmltype(
+                                            ).appSettingsType.ctxSigner)
                 }
                 Layout.fillWidth: true
             }
@@ -185,7 +195,8 @@ ScrollView{
                 }
                 TextField {
                     id: autoTypeCmd
-                    text: mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
+                    text: mainLayout.getMainqmltype(
+                              ).appSettingsType.autoTypeCmd
                     Layout.fillWidth: true
                 }
             }
@@ -200,19 +211,19 @@ ScrollView{
                 }
             }
             Switch {
-                id: preferYamlView                
+                id: preferYamlView
                 text: qsTr("Prefer Yaml view if Yaml valid")
-                checked: isPreferYamlView;
+                checked: isPreferYamlView
             }
             Switch {
                 id: useClipboard
                 text: qsTr("Use clipboard")
-                checked: isUseClipboard;
+                checked: isUseClipboard
             }
             Switch {
                 id: doSign
                 text: qsTr("Sign")
-                checked: isDoSign;
+                checked: isDoSign
             }
             ColumnLayout {
                 Layout.fillWidth: true
@@ -230,5 +241,3 @@ ScrollView{
         }
     }
 }
-
-

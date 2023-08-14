@@ -6,7 +6,7 @@ import QtQuick.Dialogs
 
 import DropdownWithList
 
-ScrollView{
+ScrollView {
     height: parent.height
     width: parent.width
     Layout.fillWidth: true
@@ -14,7 +14,6 @@ ScrollView{
 
     property string decryptedSignedById: ""
     property string gitResponseId: ""
-
 
     ColumnLayout {
         height: parent.height
@@ -25,56 +24,69 @@ ScrollView{
 
         Label {
             text: "<h1>Meta data<h1>"
-
         }
 
         Label {
             id: nameId
-            text:"File : " + filePath
+            text: "File : " + filePath
         }
         Label {
-            text:"Git : " + nearestGit
+            text: "Git : " + nearestGit
         }
-        RowLayout{
-            Button{
+        RowLayout {
+            Button {
                 text: "status"
                 enabled: nearestGit
                 onClicked: {
-                    let s= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"status"]," 2>&1");
-                    gitResponseId = s;
+                    let s = getMainqmltype().runCmd(
+                            [mainLayout.getMainqmltype(
+                                 ).appSettingsType.gitExecPath, "-C", nearestGit, "status"],
+                            " 2>&1")
+                    gitResponseId = s
                 }
             }
-            Button{
+            Button {
                 text: "add commit all"
                 enabled: nearestGit
                 onClicked: {
-                    let addAll= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"add","."]," 2>&1");
-                    let commitAm= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"commit","-am","pass simple"]," 2>&1");
-                    gitResponseId = "Add:\n" + addAll + "\n" +"Commit:\n"+ commitAm;
+                    let addAll = getMainqmltype().runCmd(
+                            [mainLayout.getMainqmltype(
+                                 ).appSettingsType.gitExecPath, "-C", nearestGit, "add", "."],
+                            " 2>&1")
+                    let commitAm = getMainqmltype().runCmd(
+                            [mainLayout.getMainqmltype(
+                                 ).appSettingsType.gitExecPath, "-C", nearestGit, "commit", "-am", "pass simple"],
+                            " 2>&1")
+                    gitResponseId = "Add:\n" + addAll + "\n" + "Commit:\n" + commitAm
                 }
             }
-            Button{
+            Button {
                 text: "pull push"
                 enabled: nearestGit
                 onClicked: {
 
-                    let pull= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"pull"]," 2>&1");
-                    let push= getMainqmltype().runCmd([mainLayout.getMainqmltype().appSettingsType.gitExecPath,"-C",nearestGit,"push"]," 2>&1");
-                    gitResponseId = "Pull:\n"+ pull + "\nPush:\n" + push;
+                    let pull = getMainqmltype().runCmd(
+                            [mainLayout.getMainqmltype(
+                                 ).appSettingsType.gitExecPath, "-C", nearestGit, "pull"],
+                            " 2>&1")
+                    let push = getMainqmltype().runCmd(
+                            [mainLayout.getMainqmltype(
+                                 ).appSettingsType.gitExecPath, "-C", nearestGit, "push"],
+                            " 2>&1")
+                    gitResponseId = "Pull:\n" + pull + "\nPush:\n" + push
                 }
             }
-
         }
         TextArea {
             text: gitResponseId
-            Layout.fillWidth: true;
+            Layout.fillWidth: true
             width: parent.width
             readOnly: true
         }
 
         Label {
             id: nearestGpgIdId
-            text:"GpgId : " + nearestGpg
+            text: "GpgId : " + nearestGpg
         }
         RowLayout {
             Label {
@@ -86,38 +98,34 @@ ScrollView{
             }
         }
         Label {
-            text:"<h2>Wait Items</h2>"
+            text: "<h2>Wait Items</h2>"
         }
         Repeater {
             model: waitItems
-            RowLayout{
+            RowLayout {
                 Label {
-                    text:  modelData
-
+                    text: modelData
                 }
                 Button {
                     text: "select"
                     onClicked: getMainqmltype().setTreeViewSelected(modelData)
                 }
-
             }
         }
 
         Label {
-            text:"<h2>None Wait Items</h2>"
+            text: "<h2>None Wait Items</h2>"
         }
         Repeater {
             model: noneWaitItems
-            RowLayout{
+            RowLayout {
                 Label {
-                    text:  modelData
-
+                    text: modelData
                 }
                 Button {
                     text: "select"
                     onClicked: getMainqmltype().setTreeViewSelected(modelData)
                 }
-
             }
         }
     }
