@@ -75,6 +75,30 @@ ColumnLayout {
         }
     }
 
+    FileDialog {
+        id: urlfileDialogUrlField
+        property TextField inField
+        title: "Choose file to upload"
+        fileMode: FileDialog.OpenFile
+        onAccepted: {
+            urlfileDialogUrlField.files.forEach(f => {
+                                                    getMainqmltype(
+                                                        ).encryptUpload(
+                                                        fullPathFolder, f, true)
+                                                    let filename = f.toString(
+                                                        ).replace(/^.*[\\\/]/,
+                                                                  '')
+                                                    //textField.text = "_files/" + filename
+                                                    inField.text = "_files/" + filename
+                                                })
+
+            doMainUiEnable()
+        }
+        onRejected: {
+            doMainUiEnable()
+        }
+    }
+
     RenameDialog {
         id: renameDialog
     }

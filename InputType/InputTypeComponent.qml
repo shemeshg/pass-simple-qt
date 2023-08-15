@@ -1,8 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import QtQuick.Dialogs
-import Qt.labs.platform
 import InputType
 import QmlApp
 import Datetime
@@ -16,30 +14,6 @@ ColumnLayout {
     property bool isTexteditMasked: true
 
     RowLayout {
-
-        FileDialog {
-            id: urlfileDialogUrlField
-
-            title: "Choose file to upload"
-            fileMode: FileDialog.OpenFile
-            onAccepted: {
-                urlfileDialogUrlField.files.forEach(f => {
-                                                        getMainqmltype(
-                                                            ).encryptUpload(
-                                                            fullPathFolder, f,
-                                                            true)
-                                                        let filename = f.toString(
-                                                            ).replace(
-                                                            /^.*[\\\/]/, '')
-                                                        textField.text = "_files/" + filename
-                                                    })
-
-                doMainUiEnable()
-            }
-            onRejected: {
-                doMainUiEnable()
-            }
-        }
 
         visible: inputType === "datetime"
         DatetimeComponent {
@@ -143,7 +117,7 @@ ColumnLayout {
             visible: inputType === "url" && textField.text === ""
             onClicked: () => {
                            mainLayout.getMainqmltype().mainUiDisable()
-
+                           urlfileDialogUrlField.inField = textField
                            urlfileDialogUrlField.open()
                        }
             icon.name: "Upload file"
