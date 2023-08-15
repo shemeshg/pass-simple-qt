@@ -56,7 +56,8 @@ ColumnLayout {
         if (link.includes("://")) {
             Qt.openUrlExternally(link)
         } else if (link.startsWith("/")) {
-            return //only relative path allowed
+            return
+            //only relative path allowed
         } else {
             getMainqmltype().tryRedirectLocalLink(link)
         }

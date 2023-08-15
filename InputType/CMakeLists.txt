@@ -6,4 +6,6 @@ qt6_add_qml_module(InputType
             InputTypeType.cpp
         QML_FILES
             InputTypeComponent.qml
+        RESOURCES
+            icons/outline_file_upload_black_24dp.png
         )

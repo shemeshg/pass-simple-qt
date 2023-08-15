@@ -156,7 +156,7 @@ public:
 
     Q_INVOKABLE bool fileExists(QString fullPathFolder, QString fileName);
 
-    Q_INVOKABLE void encryptUpload(QString fullPathFolder, QString fileName);
+    Q_INVOKABLE void encryptUpload(QString fullPathFolder, QString fileName, bool toFilesSubFolder=false);
 
     Q_INVOKABLE void decryptDownload(QString toFileName);
 

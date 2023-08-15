@@ -434,7 +434,7 @@ bool MainQmlType::fileExists(QString fullPathFolder, QString fileName)
     return (std::filesystem::exists(p));
 }
 
-void MainQmlType::encryptUpload(QString fullPathFolder, QString fileName)
+void MainQmlType::encryptUpload(QString fullPathFolder, QString fileName, bool toFilesSubFolder)
 {
     const QUrl url(fileName);
     const QString sourceName = url.toLocalFile();
@@ -442,6 +442,12 @@ void MainQmlType::encryptUpload(QString fullPathFolder, QString fileName)
     runSafeFromException([&]() {
         std::filesystem::path source = {sourceName.toStdString()};
         std::filesystem::path dest{fullPathFolder.toStdString()};
+        if (toFilesSubFolder) {
+            dest = dest / "_files";
+            if (!std::filesystem::exists(dest)){
+                std::filesystem::create_directory(dest);
+            }
+        }
         std::string fname = source.filename();
         fname = fname + ".gpg";
         dest = dest / fname;
