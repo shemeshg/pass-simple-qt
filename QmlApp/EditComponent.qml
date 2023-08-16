@@ -88,11 +88,10 @@ ColumnLayout {
                                                     let filename = f.toString(
                                                         ).replace(/^.*[\\\/]/,
                                                                   '')
-                                                    //textField.text = "_files/" + filename
                                                     inField.text = "_files/" + filename
                                                 })
-
             doMainUiEnable()
+            notifyStr("*")
         }
         onRejected: {
             doMainUiEnable()

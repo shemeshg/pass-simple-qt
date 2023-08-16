@@ -12,36 +12,31 @@ ColumnLayout {
     height: parent.height
 
     property string currentSearchFolder: passwordStorePathStr
-    property var  searchResultModel: []
-    property bool regexVisible : false
+    property var searchResultModel: []
+    property bool regexVisible: false
 
     onVisibleChanged: {
         if (visible) {
-            findTextId.forceActiveFocus();
+            findTextId.forceActiveFocus()
         }
     }
 
-
-    function doSearchAction(){
-        doMainUiDisable();
+    function doSearchAction() {
+        doMainUiDisable()
         btnRunSearchId.enabled = false
-        searchStatusLabelId.visible= true
-        searchResultModel=[]
+        searchStatusLabelId.visible = true
+        searchResultModel = []
 
         getMainqmltype().doSearchAsync(currentSearchFolder,
-                                  textFieldFileSearch.text,
-                                  textFieldContentSearch.text,
-                                  isMemCash.checked,
-                                  ()=>{
-       searchResultModel = getMainqmltype().searchResult
-       btnRunSearchId.enabled = true
-       searchStatusLabelId.visible=false;
-       doMainUiEnable();
-
+                                       textFieldFileSearch.text,
+                                       textFieldContentSearch.text,
+                                       isMemCash.checked, () => {
+                                           searchResultModel = getMainqmltype(
+                                               ).searchResult
+                                           btnRunSearchId.enabled = true
+                                           searchStatusLabelId.visible = false
+                                           doMainUiEnable()
                                        })
-
-
-
     }
 
     RowLayout {
@@ -62,7 +57,6 @@ ColumnLayout {
             onClicked: {
 
                 doSearchAction()
-
             }
         }
     }
@@ -94,14 +88,15 @@ ColumnLayout {
             }
             TextField {
                 id: textFieldFileSearch
-                text: ".*" + findTextId.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') +  ".*"
+                text: ".*" + findTextId.text.replace(
+                          /[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + ".*"
                 Layout.fillWidth: true
                 onAccepted: {
                     doSearchAction()
                 }
             }
         }
-        RowLayout{
+        RowLayout {
             Label {
                 text: "Contain"
             }
@@ -132,7 +127,8 @@ ColumnLayout {
             }
             TextField {
                 id: textFieldContentSearch
-                text: ".*" + searchTextId.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') +  ".*"
+                text: ".*" + searchTextId.text.replace(
+                          /[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + ".*"
                 Layout.fillWidth: true
                 onAccepted: {
                     doSearchAction()
@@ -144,7 +140,7 @@ ColumnLayout {
             Button {
                 text: "."
                 onClicked: {
-                    if(fullPathFolder){
+                    if (fullPathFolder) {
                         currentSearchFolder = fullPathFolder
                     }
                 }
@@ -177,20 +173,30 @@ ColumnLayout {
             Layout.fillHeight: true
             flickableDirection: Flickable.VerticalFlick
             boundsBehavior: Flickable.StopAtBounds
-            delegate: RowLayout{
+            delegate: RowLayout {
 
                 Label {
-                    text:  modelData.replace(passwordStorePathStr,"")
-
+                    text: modelData.replace(passwordStorePathStr, "")
                 }
                 Button {
-                    text: "select"
+                    text: "←"
                     onClicked: {
                         getMainqmltype().setTreeViewSelected(modelData)
                     }
+                    ToolTip.text: "Select"
+                    ToolTip.visible: hovered
+                }
+                Button {
+                    text: "☍"
+                    ToolTip.visible: hovered
+                    ToolTip.text: "Clipboard rel.path"
+                    onClicked: {
+                        getMainqmltype().clipboardRelPath(
+                                    fullPathFolder,
+                                    modelData.substr(0, modelData.length - 4))
+                    }
                 }
             }
-
         }
     }
 }

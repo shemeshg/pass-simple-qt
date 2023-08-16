@@ -537,6 +537,16 @@ void MainQmlType::tryRedirectLocalLink(QString link)
     emit setTreeviewCurrentIndex(QString::fromStdString(destination));
 }
 
+void MainQmlType::clipboardRelPath(QString path1, QString path2)
+{
+    const std::filesystem::path base{path1.toStdWString()},
+        to{path2.toStdString()};
+    QString s=QString::fromStdString( std::filesystem::relative(to, base).generic_string());
+
+    QGuiApplication::clipboard()->setText(s);
+
+}
+
 void MainQmlType::runSafeFromException(std::function<void ()> callback)
 {
     try {

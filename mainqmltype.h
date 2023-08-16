@@ -184,6 +184,7 @@ public:
         emit mainUiEnable();
     }
 
+    Q_INVOKABLE void clipboardRelPath(QString path1, QString path2);
 
 signals:
     void filePathChanged();
