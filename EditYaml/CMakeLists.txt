@@ -1,11 +1,9 @@
 # hygen add_subdirectory
+add_subdirectory(yaml-cpp)
 
-
-find_package(yaml-cpp REQUIRED)
-include_directories(${YAML_CPP_INCLUDE_DIR})
 link_libraries(
-yaml-cpp
-# hygen target_link_libraries
+    yaml-cpp
+    # hygen target_link_libraries
 )
 
 set(QML_IMPORT_PATH 

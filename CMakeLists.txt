@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
-set(CMAKE_TOOLCHAIN_FILE "/Volumes/TEMP/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
 
-project(pass-simple VERSION 0.78 LANGUAGES CXX)
+project(pass-simple VERSION 0.79 LANGUAGES CXX)
 
 include(cmake/CPM.cmake)
 CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
@@ -105,8 +104,7 @@ include_directories(${LibGpgError_INCLUDE_DIRS})
 # End LibGpgError
 add_subdirectory(gpgfactory/libpgpfactory)
 
-find_package(yaml-cpp REQUIRED)
-include_directories(${YAML_CPP_INCLUDE_DIR})
+
 
 
 set(TS_FILES ts/pass-simple_en_US.ts)
@@ -123,7 +121,6 @@ Qt${QT_VERSION_MAJOR}::QuickControls2
     DropdownWithList
     Datetime
     libpgpfactory
-    ${YAML_CPP_LIBRARIES}
 )
 
 set_target_properties(pass-simple PROPERTIES
@@ -143,7 +140,7 @@ if(LINUX)
     set(CPACK_VERBATIM_VARIABLES ON)
     set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/pass-simple")
     set(CPACK_DEBIAN_PACKAGE_MAINTAINER "shemeshg <https://github.com/shemeshg>")
-    set(CPACK_DEBIAN_PACKAGE_DEPENDS "libxcb-cursor-dev,libc6,libstdc++6,libgcc-s1,pass,gnupg2,libyaml-cpp-dev,libgpgme-dev,libgpgmepp-dev")
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS "libxcb-cursor-dev,libc6,libstdc++6,libgcc-s1,pass,gnupg2,libgpgme-dev,libgpgmepp-dev")
     INSTALL(FILES pass-simple.desktop DESTINATION share/applications)
     install(FILES pass-simple.png DESTINATION share/icons/hicolor/256x256/apps)
     install(FILES script/pass-simple.sh DESTINATION bin)

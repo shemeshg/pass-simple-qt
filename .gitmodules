@@ -4,3 +4,6 @@
 [submodule "gpgfactory"]
 	path = gpgfactory
 	url = https://github.com/shemeshg/gpgme-cmake-example.git
+[submodule "yaml-cpp"]
+	path = EditYaml/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git

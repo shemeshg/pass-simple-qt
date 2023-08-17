@@ -1,6 +1,6 @@
 #pragma once
 
-#include "yaml-cpp/yaml.h"
+#include <yaml-cpp/yaml.h>
 #include <string>
 #include <QDebug>
 #include <QObject>
