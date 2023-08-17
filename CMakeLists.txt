@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
+set(CMAKE_TOOLCHAIN_FILE "/Volumes/TEMP/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
 
-project(pass-simple VERSION 0.77 LANGUAGES CXX)
+project(pass-simple VERSION 0.78 LANGUAGES CXX)
 
 include(cmake/CPM.cmake)
 CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
@@ -107,11 +108,8 @@ add_subdirectory(gpgfactory/libpgpfactory)
 find_package(yaml-cpp REQUIRED)
 include_directories(${YAML_CPP_INCLUDE_DIR})
 
+
 set(TS_FILES ts/pass-simple_en_US.ts)
-
-
-
-
 
 
 target_link_libraries(pass-simple PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::QuickWidgets
@@ -124,8 +122,8 @@ Qt${QT_VERSION_MAJOR}::QuickControls2
     InputType
     DropdownWithList
     Datetime
-    libpgpfactory    
-	yaml-cpp
+    libpgpfactory
+    ${YAML_CPP_LIBRARIES}
 )
 
 set_target_properties(pass-simple PROPERTIES

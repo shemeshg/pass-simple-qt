@@ -92,6 +92,7 @@ ColumnLayout {
             let newArry = [...editYamlType.yamlModel]
             newArry[dialogRowIdx].key = fieldName.text
             editYamlType.yamlModel = newArry
+            notifyStr("*")
         }
         onClosed: {
             dialogRowIdx = -1
@@ -121,6 +122,7 @@ ColumnLayout {
                              "val": ""
                          })
             editYamlType.yamlModel = newArry
+            notifyStr("*")
         }
         onClosed: {
             dialogRowIdx = -1
@@ -201,6 +203,7 @@ ColumnLayout {
                     visible: isEditFieldsType
                     onClicked: () => {
                                    arrayMove(index, index - 1)
+                                   notifyStr("*")
                                }
                     icon.name: "Up"
                     ToolTip.text: "Up"
@@ -211,6 +214,7 @@ ColumnLayout {
                     visible: isEditFieldsType
                     onClicked: {
                         arrayMove(index, index + 1)
+                        notifyStr("*")
                     }
                     icon.name: "Down"
                     ToolTip.text: "Down"
@@ -236,6 +240,7 @@ ColumnLayout {
                         let newArry = [...editYamlType.yamlModel]
                         newArry.splice(index, 1)
                         editYamlType.yamlModel = newArry
+                        notifyStr("*")
                     }
                     icon.name: "Delete"
                     ToolTip.text: "Delete"

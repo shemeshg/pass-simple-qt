@@ -229,6 +229,31 @@ ColumnLayout {
     }
 }
 
+function doSync(syncMsg) {
+    isSaving = true
+    doMainUiDisable()
+    notifyStr("* add all, commit, pull, putsh", true, () => {
+                  getMainqmltype().runCmd(
+                      [mainLayout.getMainqmltype(
+                           ).appSettingsType.gitExecPath, "-C", nearestGit, "add", "."],
+                      " 2>&1")
+                  getMainqmltype().runCmd(
+                      [mainLayout.getMainqmltype(
+                           ).appSettingsType.gitExecPath, "-C", nearestGit, "commit", "-am", syncMsg],
+                      " 2>&1")
+                  getMainqmltype().runCmd(
+                      [mainLayout.getMainqmltype(
+                           ).appSettingsType.gitExecPath, "-C", nearestGit, "pull"],
+                      " 2>&1")
+                  getMainqmltype().runCmd(
+                      [mainLayout.getMainqmltype(
+                           ).appSettingsType.gitExecPath, "-C", nearestGit, "push"],
+                      " 2>&1")
+                  doMainUiEnable()
+                  isSaving = false
+              })
+}
+
 ColumnLayout {
     width: parent.width
     height: parent.height
@@ -290,40 +315,31 @@ ColumnLayout {
                     return
                 }
                 if (syncBtn.enabled) {
-                    syncBtn.clicked()
+                    doSync(mainLayout.getMainqmltype(
+                               ).appSettingsType.commitMsg)
                 }
             }
         }
+
         Button {
             id: syncBtn
-            onClicked: {
-                isSaving = true
-                doMainUiDisable()
-                notifyStr("* add all, commit, pull, putsh", true, () => {
-                              getMainqmltype().runCmd(
-                                  [mainLayout.getMainqmltype(
-                                       ).appSettingsType.gitExecPath, "-C", nearestGit, "add", "."],
-                                  " 2>&1")
-                              getMainqmltype().runCmd(
-                                  [mainLayout.getMainqmltype(
-                                       ).appSettingsType.gitExecPath, "-C", nearestGit, "commit", "-am", mainLayout.getMainqmltype(
-                                       ).appSettingsType.commitMsg], " 2>&1")
-                              getMainqmltype().runCmd(
-                                  [mainLayout.getMainqmltype(
-                                       ).appSettingsType.gitExecPath, "-C", nearestGit, "pull"],
-                                  " 2>&1")
-                              getMainqmltype().runCmd(
-                                  [mainLayout.getMainqmltype(
-                                       ).appSettingsType.gitExecPath, "-C", nearestGit, "push"],
-                                  " 2>&1")
-                              doMainUiEnable()
-                              isSaving = false
-                          })
+            MouseArea {
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                anchors.fill: parent
+                onClicked: mouse => {
+                    if (mouse.button === Qt.RightButton) {
+                        columnLayoutHomeId.customCommitMsgSyncDialog.open()
+                    } else if (mouse.button === Qt.LeftButton) {
+                        doSync(mainLayout.getMainqmltype(
+                                   ).appSettingsType.commitMsg)
+                    }
+                }
             }
+
             icon.name: "sync"
             icon.source: Qt.resolvedUrl("icons/sync_black_24dp.svg")
             ToolTip.visible: hovered
-            ToolTip.text: "<b>Cmd Y</b> commit pull push "
+            ToolTip.text: "<b>Cmd Y</b> commit pull push <br/> R.Click for custom msg."
             enabled: Boolean(nearestGit) && !isSaving
         }
     }
