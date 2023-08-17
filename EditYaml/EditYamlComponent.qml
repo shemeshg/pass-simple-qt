@@ -202,8 +202,8 @@ ColumnLayout {
                     id: moveUpId
                     visible: isEditFieldsType
                     onClicked: () => {
-                                   arrayMove(index, index - 1)
                                    notifyStr("*")
+                                   arrayMove(index, index - 1)
                                }
                     icon.name: "Up"
                     ToolTip.text: "Up"
@@ -213,8 +213,8 @@ ColumnLayout {
                 Button {
                     visible: isEditFieldsType
                     onClicked: {
-                        arrayMove(index, index + 1)
                         notifyStr("*")
+                        arrayMove(index, index + 1)
                     }
                     icon.name: "Down"
                     ToolTip.text: "Down"
@@ -237,10 +237,10 @@ ColumnLayout {
                 Button {
                     visible: isEditFieldsType
                     onClicked: {
+                        notifyStr("*")
                         let newArry = [...editYamlType.yamlModel]
                         newArry.splice(index, 1)
                         editYamlType.yamlModel = newArry
-                        notifyStr("*")
                     }
                     icon.name: "Delete"
                     ToolTip.text: "Delete"
