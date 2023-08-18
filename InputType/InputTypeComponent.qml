@@ -31,13 +31,45 @@ ColumnLayout {
     }
 
     RowLayout {
+        ToolTip {
+            id: toolTip
+        }
+        HoverHandler {
+            id: hoverHandler
+            onHoveredChanged: {
+                if (hovered)
+                    toolTip.hide()
+            }
+        }
+        TextArea {
+            visible: inputType === "textedit" && showMdId.checked
+            readOnly: true
+            text: inputText
+            textFormat: TextEdit.MarkdownText
+            wrapMode: TextEdit.WrapAnywhere
+            Layout.fillWidth: true
+            onLinkActivated: link => {
+                                 doUrlRedirect(link)
+                             }
+            onLinkHovered: link => {
+                               if (link.length === 0)
+                               return
+
+                               // Show the ToolTip at the mouse cursor, plus some margins so the mouse doesn't get in the way.
+                               toolTip.x = hoverHandler.point.position.x + 8
+                               toolTip.y = hoverHandler.point.position.y + 8
+                               toolTip.show(link, 3000)
+                           }
+        }
 
         TextArea {
             property bool isKeyPressed: false
             Layout.fillWidth: true
             id: textEditComponentId
-            visible: inputType === "textedit" || (inputType === "texteditMasked"
-                                                  && isTexteditMasked === false)
+            visible: (inputType === "textedit" && !showMdId.checked)
+                     || (inputType === "texteditMasked"
+                         && isTexteditMasked === false)
+
             text: inputText
             wrapMode: TextEdit.WrapAnywhere
             onTextChanged: {

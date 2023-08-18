@@ -230,7 +230,7 @@ ColumnLayout {
             sequence: "Ctrl+M"
             onActivated: {
                 if (isPreviewId.checked && editComponentId.visible
-                        && !showYamlEdit && !isBinaryFile) {
+                        && !isBinaryFile) {
                     showMdId.checked = !showMdId.checked
                 }
             }
@@ -334,13 +334,13 @@ ColumnLayout {
             height: 2
             width: 2
             Layout.fillWidth: true
-            visible: !showYamlEdit && isShowPreview
+            visible: isShowPreview
         }
         Switch {
             id: showMdId
             checked: false
             text: qsTr("<u>M</u>↓")
-            visible: !showYamlEdit && isShowPreview && !isBinaryFile
+            visible: isShowPreview && !isBinaryFile
         }
     }
 
