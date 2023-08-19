@@ -14,6 +14,7 @@ ColumnLayout {
     property alias fileDialogDownload: fileDialogDownload
     property alias loaderShowYamlEditComponent: loaderShowYamlEditComponent
     property string decryptedText: ""
+    property alias fileUrlDialogDownload: fileUrlDialogDownload
 
     onDecryptedTextChanged: {
         loaderShowYamlEditComponent.editYamlType.text = decryptedText
@@ -72,6 +73,21 @@ ColumnLayout {
         }
         if (isGpgFile) {
             setLoaderShowYamlEditComponent()
+        }
+    }
+    FolderDialog {
+        id: fileUrlDialogDownload
+        property string downloadFrom: ""
+        title: "Choose folder to download input field file"
+        onAccepted: {
+            var filename = downloadFrom.replace(/^.*[\\\/]/, '')
+            getMainqmltype().dectyptFileNameToFileName(
+                        fullPathFolder + "/" + downloadFrom + ".gpg",
+                        folder + "/" + filename)
+            doMainUiEnable()
+        }
+        onRejected: {
+            doMainUiEnable()
         }
     }
 

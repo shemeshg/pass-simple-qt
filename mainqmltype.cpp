@@ -463,6 +463,12 @@ void MainQmlType::decryptDownload(QString toFileName)
     runSafeFromException([&]() { passFile->decryptToFile(url.toLocalFile().toStdString()); });
 }
 
+void MainQmlType::dectyptFileNameToFileName(QString fromFileName, QString toFileName)
+{
+    const QUrl url(toFileName);
+    runSafeFromException([&]() { passFile->dectyptFileNameToFileName(fromFileName.toStdString(),  url.toLocalFile().toStdString()); });
+}
+
 void MainQmlType::decryptFolderDownload(QString fullPathFolder, QString toFolderName)
 {
     const QUrl url(toFolderName);

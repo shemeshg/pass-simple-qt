@@ -13,6 +13,23 @@ ColumnLayout {
     signal textChangedSignal(string s)
     property bool isTexteditMasked: true
 
+    function isValidFileRedirect(link) {
+        if (link.length === 0) {
+            return false
+        } else if (link.includes("://")) {
+            return false
+        } else if (link.startsWith("/")) {
+            return false
+            //only relative path allowed
+        } else if (!getIsBinary(link + ".gpg")) {
+            return false
+        } else if (!getMainqmltype().fileExists(fullPathFolder, link)) {
+            return false
+        } else {
+            return true
+        }
+    }
+
     RowLayout {
 
         visible: inputType === "datetime"
@@ -144,6 +161,19 @@ ColumnLayout {
             text: "@"
             visible: inputType === "url" && textField.text !== ""
             onClicked: doUrlRedirect(inputText)
+        }
+
+        Button {
+            visible: inputType === "url" && isValidFileRedirect(textField.text)
+            onClicked: () => {
+                           editComponentId.fileUrlDialogDownload.downloadFrom = textField.text
+                           editComponentId.fileUrlDialogDownload.open()
+                       }
+            icon.name: "Download file"
+            ToolTip.text: "Download file"
+            icon.source: Qt.resolvedUrl(
+                             "icons/outline_file_download_black_24dp.png")
+            ToolTip.visible: hovered
         }
         Button {
             visible: inputType === "url" && textField.text === ""

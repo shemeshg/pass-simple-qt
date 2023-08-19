@@ -160,6 +160,8 @@ public:
 
     Q_INVOKABLE void decryptDownload(QString toFileName);
 
+    Q_INVOKABLE void dectyptFileNameToFileName(QString fromFileName,QString toFileName);
+
     Q_INVOKABLE void decryptFolderDownload(QString fullPathFolder, QString toFolderName);
 
     Q_INVOKABLE void encryptFolderUpload(QString fromFolderName, QString fullPathFolder);

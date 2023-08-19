@@ -14,7 +14,9 @@ ColumnLayout {
     property alias toolbarId: toolbarId
     property alias customCommitMsgSyncDialog: customCommitMsgSyncDialog
 
+
     id: columnLayoutHomeId
+
 
     Dialog {
         id: customCommitMsgSyncDialog

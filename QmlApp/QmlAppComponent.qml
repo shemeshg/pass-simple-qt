@@ -76,8 +76,8 @@ ColumnLayout {
         return retStr
     }
 
-    function getIsBinary() {
-        let file = filePath.substring(1, filePath.length - 4)
+    function getIsBinary(fullPathToFile) {
+        let file = fullPathToFile.substring(1, fullPathToFile.length - 4)
         let extensions = mainLayout.getMainqmltype(
                 ).appSettingsType.binaryExts.toLowerCase()
         let initialValue = 0
@@ -125,7 +125,7 @@ ColumnLayout {
 
     function initOnFileChanged() {
         clearSystemTrayIconEntries()
-        isBinaryFile = getIsBinary()
+        isBinaryFile = getIsBinary(filePath)
         if (isBinaryFile) {
             if (isShowPreview) {
                 isPreviousShowPreview = true
