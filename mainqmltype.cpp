@@ -165,6 +165,7 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
                                [&](std::string path) {
                                    result_strings.push_back(QString::fromStdString(path));
                                });
+        result_strings.sort(Qt::CaseInsensitive);
         setSearchResult(result_strings);
     });
 
