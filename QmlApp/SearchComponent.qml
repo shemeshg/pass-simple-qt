@@ -196,6 +196,10 @@ ColumnLayout {
                                     modelData.substr(0, modelData.length - 4))
                     }
                 }
+                Label {
+                    visible: modelData === filePath
+                    text: "⬤"
+                }
             }
         }
     }
