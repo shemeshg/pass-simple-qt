@@ -59,7 +59,8 @@ ColumnLayout {
             }
         }
         TextArea {
-            visible: inputType === "textedit" && showMdId.checked
+            visible: (inputType === "textedit" || inputType === "texteditMasked"
+                      && isTexteditMasked === false) && showMdId.checked
             readOnly: true
             text: inputText
             textFormat: TextEdit.MarkdownText
@@ -85,7 +86,7 @@ ColumnLayout {
             id: textEditComponentId
             visible: (inputType === "textedit" && !showMdId.checked)
                      || (inputType === "texteditMasked"
-                         && isTexteditMasked === false)
+                         && isTexteditMasked === false && !showMdId.checked)
 
             text: inputText
             wrapMode: TextEdit.WrapAnywhere
