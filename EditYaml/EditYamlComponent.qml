@@ -77,13 +77,9 @@ ColumnLayout {
     }
 
     property int dialogRowIdx: -1
-    Dialog {
+    CoreDialogYesNo {
         id: renameDialog
         title: "Set field name"
-        width: parent.width * 0.75
-        palette.buttonText: systemPalette.buttonText
-
-        standardButtons: Dialog.Ok | Dialog.Cancel
         TextField {
             id: fieldName
             focus: true
@@ -101,13 +97,10 @@ ColumnLayout {
         }
     }
 
-    Dialog {
+    CoreDialogYesNo {
         id: addDialog
         title: "Set new field name"
-        width: parent.width * 0.75
-        palette.buttonText: systemPalette.buttonText
 
-        standardButtons: Dialog.Ok | Dialog.Cancel
         TextField {
             id: newFieldName
             focus: true

@@ -16,13 +16,15 @@ ColumnLayout {
 
     id: columnLayoutHomeId
 
-    Dialog {
+    CoreDialogYesNo {
+        id: coreDialogYesNo
+    }
+
+    CoreDialogYesNo {
         id: customCommitMsgSyncDialog
         title: "Custom commit msg"
         width: parent.width * 0.75
-        palette.buttonText: systemPalette.buttonText
 
-        standardButtons: Dialog.Ok | Dialog.Cancel
         CoreTextArea {
             id: fieldName
             focus: true
@@ -32,9 +34,6 @@ ColumnLayout {
                       ).appSettingsType.commitMsg
         onAccepted: {
             doSync(fieldName.text)
-        }
-        onClosed: {
-            return
         }
     }
 

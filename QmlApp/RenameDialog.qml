@@ -3,13 +3,9 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Dialogs
 
-Dialog {
+CoreDialogYesNo {
     id: renameDialog
     title: "Set  name"
-    width: parent.width * 0.75
-    palette.buttonText: systemPalette.buttonText
-
-    standardButtons: Dialog.Ok | Dialog.Cancel
 
     TextField {
         id: fieldName
