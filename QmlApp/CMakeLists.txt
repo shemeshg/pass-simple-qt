@@ -42,6 +42,7 @@ qt6_add_qml_module(QmlApp
             icons/sync_black_24dp.svg
             QML_FILES CoreButton.qml
             QML_FILES CoreTextArea.qml
+            QML_FILES CoreSwitch.qml
         )
 
 

@@ -234,7 +234,7 @@ ColumnLayout {
             }
         }
 
-        Switch {
+        CoreSwitch {
             id: isPreviewId
             text: qsTr("Pr<u>e</u>view")
             checked: isShowPreview
@@ -269,7 +269,7 @@ ColumnLayout {
             }
         }
 
-        Switch {
+        CoreSwitch {
             id: isYamlShow
             visible: isShowPreview
             text: qsTr("YAM<u>L</u>")
@@ -356,7 +356,7 @@ ColumnLayout {
             Layout.fillWidth: true
             visible: isShowPreview
         }
-        Switch {
+        CoreSwitch {
             id: showMdId
             checked: false
             text: qsTr("<u>M</u>↓")

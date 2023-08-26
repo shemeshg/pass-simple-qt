@@ -210,17 +210,17 @@ ScrollView {
                     Layout.fillWidth: true
                 }
             }
-            Switch {
+            CoreSwitch {
                 id: preferYamlView
                 text: qsTr("Prefer Yaml view if Yaml valid")
                 checked: isPreferYamlView
             }
-            Switch {
+            CoreSwitch {
                 id: useClipboard
                 text: qsTr("Use clipboard")
                 checked: isUseClipboard
             }
-            Switch {
+            CoreSwitch {
                 id: doSign
                 text: qsTr("Sign")
                 checked: isDoSign

@@ -32,14 +32,13 @@ ColumnLayout {
     RowLayout {
         visible: editYamlType.isYamlValid
 
-        Switch {
+        CoreSwitch {
             id: idEditFieldsType
             text: qsTr("Edit fields type")
             checked: isEditFieldsType
             onToggled: {
                 isEditFieldsType = !isEditFieldsType
-            }
-            palette.buttonText: systemPalette.buttonText
+            }            
         }
 
         CoreButton {

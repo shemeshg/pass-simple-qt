@@ -104,7 +104,7 @@ ColumnLayout {
                 width: 2
                 Layout.fillWidth: true
             }
-            Switch {
+            CoreSwitch {
                 id: isMemCash
                 checked: false
                 text: qsTr("mem.cash")
