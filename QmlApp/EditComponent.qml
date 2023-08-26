@@ -189,16 +189,15 @@ ColumnLayout {
                                           "").length - 4) + "</h2>"
             Layout.fillWidth: true
         }
-        Button {
+        CoreButton {
             visible: isGpgFile
             onClicked: () => {
                            renameDialog.open()
                        }
             icon.name: "Save and Rename"
-            ToolTip.text: "Save and Rename"
+            hooverText: "Save and Rename"
             icon.source: Qt.resolvedUrl(
                              "icons/edit_FILL0_wght400_GRAD0_opsz48.svg")
-            ToolTip.visible: hovered
         }
     }
 

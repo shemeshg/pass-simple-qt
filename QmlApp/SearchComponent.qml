@@ -140,15 +140,14 @@ ColumnLayout {
         }
 
         RowLayout {
-            Button {
+            CoreButton {
                 text: "."
                 onClicked: {
                     if (fullPathFolder) {
                         currentSearchFolder = fullPathFolder
                     }
                 }
-                ToolTip.text: "Set search folder to current treeview selected folder"
-                ToolTip.visible: hovered
+                hooverText: "Set search folder to current treeview selected folder"
             }
             Label {
                 text: "In: " + currentSearchFolder
@@ -181,25 +180,21 @@ ColumnLayout {
                 Label {
                     text: modelData.replace(passwordStorePathStr, "")
                 }
-                Button {
+                CoreButton {
                     text: "←"
                     onClicked: {
                         getMainqmltype().setTreeViewSelected(modelData)
                     }
-                    ToolTip.text: "Select"
-                    ToolTip.visible: hovered
-                    palette.buttonText: systemPalette.buttonText
+                    hooverText: "Select"
                 }
-                Button {
+                CoreButton {
                     text: "☍"
-                    ToolTip.visible: hovered
-                    ToolTip.text: "Clipboard rel.path"
+                    hooverText: "Clipboard rel.path"
                     onClicked: {
                         getMainqmltype().clipboardRelPath(
                                     fullPathFolder,
                                     modelData.substr(0, modelData.length - 4))
                     }
-                    palette.buttonText: systemPalette.buttonText
                 }
                 Label {
                     visible: modelData === filePath

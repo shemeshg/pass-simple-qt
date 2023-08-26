@@ -260,17 +260,16 @@ ColumnLayout {
     Layout.fillWidth: true
     visible: !isShowSettings && !isShowSearch
     RowLayout {
-        Button {
+        CoreButton {
             onClicked: {
                 mainLayout.toggleFilepan()
             }
             icon.name: "Hide/Show treeview"
             icon.source: Qt.resolvedUrl(
                              "icons/account_tree_FILL0_wght400_GRAD0_opsz48.svg")
-            ToolTip.visible: hovered
-            ToolTip.text: "Hide/Show treeview"
+            hooverText: "Hide/Show treeview"
         }
-        Button {
+        CoreButton {
             onClicked: {
                 mainLayout.getMainqmltype().openStoreInFileBrowser(
                     fullPathFolder)
@@ -278,20 +277,18 @@ ColumnLayout {
             icon.name: "Open store in file browser"
             icon.source: Qt.resolvedUrl(
                              "icons/store_FILL0_wght400_GRAD0_opsz48.svg")
-            ToolTip.visible: hovered
-            ToolTip.text: "Open store in file browser"
+            hooverText: "Open store in file browser"
         }
-        Button {
+        CoreButton {
             onClicked: {
                 isShowSettings = true
             }
             icon.name: "Settings"
             icon.source: Qt.resolvedUrl(
                              "icons/settings_FILL0_wght400_GRAD0_opsz48.svg")
-            ToolTip.visible: hovered
-            ToolTip.text: "Settings"
+            hooverText: "Settings"
         }
-        Button {
+        CoreButton {
             onClicked: {
                 isShowSearch = true
             }
@@ -299,8 +296,7 @@ ColumnLayout {
             icon.name: "search"
             icon.source: Qt.resolvedUrl(
                              "icons/search_FILL0_wght400_GRAD0_opsz48.svg")
-            ToolTip.visible: hovered
-            ToolTip.text: "search"
+            hooverText: "search"
         }
         Label {
             id: statusLabelId
@@ -321,7 +317,7 @@ ColumnLayout {
             }
         }
 
-        Button {
+        CoreButton {
             id: syncBtn
             MouseArea {
                 acceptedButtons: Qt.LeftButton | Qt.RightButton
@@ -338,8 +334,7 @@ ColumnLayout {
 
             icon.name: "sync"
             icon.source: Qt.resolvedUrl("icons/sync_black_24dp.svg")
-            ToolTip.visible: hovered
-            ToolTip.text: "<b>Cmd Y</b> commit pull push <br/> R.Click for custom msg."
+            hooverText: "<b>Cmd Y</b> commit pull push <br/> R.Click for custom msg."
             palette.buttonText: systemPalette.buttonText
             enabled: Boolean(nearestGit) && !isSaving
         }

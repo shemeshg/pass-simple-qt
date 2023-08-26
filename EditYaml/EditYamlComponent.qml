@@ -3,6 +3,7 @@ import EditYaml
 import QtQuick.Controls
 import QtQuick.Layouts
 import InputType
+import QmlApp
 
 ColumnLayout {
     property bool isEditFieldsType: false
@@ -40,17 +41,16 @@ ColumnLayout {
             }
             palette.buttonText: systemPalette.buttonText
         }
-        Button {
+
+        CoreButton {
             id: addDialogButtonId
             visible: isEditFieldsType
             onClicked: {
                 addDialog.open()
             }
             icon.name: "Add"
-            ToolTip.text: "Add"
+            hooverText: "Add"
             icon.source: Qt.resolvedUrl("icons/control_point_black_24dp.svg")
-            ToolTip.visible: hovered
-            palette.buttonText: systemPalette.buttonText
         }
         Item {
             height: addDialogButtonId.height + 5
@@ -203,7 +203,7 @@ ColumnLayout {
                     }
                 }
 
-                Button {
+                CoreButton {
                     id: moveUpId
                     visible: isEditFieldsType
                     onClicked: () => {
@@ -211,38 +211,35 @@ ColumnLayout {
                                    arrayMove(index, index - 1)
                                }
                     icon.name: "Up"
-                    ToolTip.text: "Up"
+                    hooverText: "Up"
                     icon.source: Qt.resolvedUrl("icons/move_up_black_24dp.svg")
                     palette.buttonText: systemPalette.buttonText
-                    ToolTip.visible: hovered
                 }
-                Button {
+                CoreButton {
                     visible: isEditFieldsType
                     onClicked: {
                         notifyStr("*")
                         arrayMove(index, index + 1)
                     }
                     icon.name: "Down"
-                    ToolTip.text: "Down"
+                    hooverText: "Down"
                     icon.source: Qt.resolvedUrl(
                                      "icons/move_down_black_24dp.svg")
                     palette.buttonText: systemPalette.buttonText
-                    ToolTip.visible: hovered
                 }
-                Button {
+                CoreButton {
                     visible: isEditFieldsType
                     onClicked: () => {
                                    dialogRowIdx = index
                                    renameDialog.open()
                                }
                     icon.name: "Rename"
-                    ToolTip.text: "Rename"
+                    hooverText: "Rename"
                     icon.source: Qt.resolvedUrl(
                                      "icons/edit_FILL0_wght400_GRAD0_opsz48.svg")
                     palette.buttonText: systemPalette.buttonText
-                    ToolTip.visible: hovered
                 }
-                Button {
+                CoreButton {
                     visible: isEditFieldsType
                     onClicked: {
                         notifyStr("*")
@@ -251,11 +248,10 @@ ColumnLayout {
                         editYamlType.yamlModel = newArry
                     }
                     icon.name: "Delete"
-                    ToolTip.text: "Delete"
+                    hooverText: "Delete"
                     icon.source: Qt.resolvedUrl(
                                      "icons/remove_circle_outline_black_24dp.svg")
                     palette.buttonText: systemPalette.buttonText
-                    ToolTip.visible: hovered
                 }
                 Item {
                     width: 10

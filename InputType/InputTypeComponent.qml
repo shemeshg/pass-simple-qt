@@ -170,20 +170,18 @@ ColumnLayout {
             palette.buttonText: systemPalette.buttonText
         }
 
-        Button {
+        CoreButton {
             visible: inputType === "url" && isValidFileRedirect(textField.text)
             onClicked: () => {
                            editComponentId.fileUrlDialogDownload.downloadFrom = textField.text
                            editComponentId.fileUrlDialogDownload.open()
                        }
             icon.name: "Download file"
-            ToolTip.text: "Download file"
+            hooverText: "Download file"
             icon.source: Qt.resolvedUrl(
                              "icons/outline_file_download_black_24dp.png")
-            ToolTip.visible: hovered
-            palette.buttonText: systemPalette.buttonText
         }
-        Button {
+        CoreButton {
             visible: inputType === "url" && textField.text === ""
             onClicked: () => {
                            mainLayout.getMainqmltype().mainUiDisable()
@@ -191,11 +189,9 @@ ColumnLayout {
                            urlfileDialogUrlField.open()
                        }
             icon.name: "Upload file"
-            ToolTip.text: "Upload file"
+            hooverText: "Upload file"
             icon.source: Qt.resolvedUrl(
                              "icons/outline_file_upload_black_24dp.png")
-            ToolTip.visible: hovered
-            palette.buttonText: systemPalette.buttonText
         }
         Button {
             text: "*"
