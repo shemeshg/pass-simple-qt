@@ -4,66 +4,57 @@ import DropdownWithList
 import QtQuick.Controls
 import QtQuick.Layouts
 
-
-
-
 ColumnLayout {
     property alias selectedItems: dropdownWithListTypeId.selectedItems
     property alias notSelectedItems: dropdownWithListTypeId.notSelectedItems
     property alias allItems: dropdownWithListTypeId.allItems
 
-
     DropdownWithListType {
-        id:   dropdownWithListTypeId
+        id: dropdownWithListTypeId
     }
 
-
-    Column{
-        Row{
+    Column {
+        Row {
             Label {
-                text:  "<h2>Groups membered</h2>"
+                text: "<h2>Groups membered</h2>"
                 visible: dropdownWithListTypeId.selectedItems.length > 0
             }
-
         }
         Repeater {
             model: dropdownWithListTypeId.selectedItems
-            RowLayout{
+            RowLayout {
                 Label {
-                    text:  modelData
+                    text: modelData
                 }
                 Button {
                     text: "remove"
-                    onClicked: dropdownWithListTypeId.addNotSelectedItem(modelData)
+                    onClicked: dropdownWithListTypeId.addNotSelectedItem(
+                                   modelData)
+                    palette.buttonText: systemPalette.buttonText
                 }
             }
         }
-        Row{
+        Row {
             Label {
-                text:  "<h2>Select groups to add</h2>"
+                text: "<h2>Select groups to add</h2>"
                 visible: dropdownWithListTypeId.notSelectedItems.length > 0
             }
         }
-        Column{
+        Column {
             Repeater {
                 model: dropdownWithListTypeId.notSelectedItems
-                RowLayout{
+                RowLayout {
                     Label {
-                        text:  modelData
+                        text: modelData
                     }
                     Button {
                         text: "add"
-                        onClicked: dropdownWithListTypeId.addSelectedItem(modelData)
+                        onClicked: dropdownWithListTypeId.addSelectedItem(
+                                       modelData)
+                        palette.buttonText: systemPalette.buttonText
                     }
                 }
             }
         }
     }
-
-
-
-
 }
-
-
-

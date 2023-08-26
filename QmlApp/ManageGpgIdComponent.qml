@@ -14,10 +14,12 @@ ColumnLayout {
         id: fileDialogImportAndTrustId
         title: "Please choose a .pub file to import and trust"
         onAccepted: {
-            mainLayout.getGpgIdManageType().importPublicKeyAndTrust(fileDialogImportAndTrustId.selectedFile);
-            initOnFileChanged();
+            mainLayout.getGpgIdManageType().importPublicKeyAndTrust(
+                        fileDialogImportAndTrustId.selectedFile)
+            initOnFileChanged()
         }
         onRejected: {
+
         }
     }
 
@@ -30,15 +32,19 @@ ColumnLayout {
     Button {
         text: "Import and trust a new public key"
         enabled: classInitialized
-        onClicked: { fileDialogImportAndTrustId.open()}
+        onClicked: {
+            fileDialogImportAndTrustId.open()
+        }
+        palette.buttonText: systemPalette.buttonText
     }
     Button {
         text: "Import all public keys in .public-keys/"
         enabled: classInitialized && gpgPubKeysFolderExists
         onClicked: {
-            mainLayout.getGpgIdManageType().importAllGpgPubKeysFolder();
-            initOnFileChanged();
+            mainLayout.getGpgIdManageType().importAllGpgPubKeysFolder()
+            initOnFileChanged()
         }
+        palette.buttonText: systemPalette.buttonText
     }
 
     Button {
@@ -46,30 +52,26 @@ ColumnLayout {
             id: timer
         }
 
-
-
         id: reencryptBtnId
-        enabled: classInitialized  && badEntriesRepeater.model.length === 0
+        enabled: classInitialized && badEntriesRepeater.model.length === 0
                  && dropdownWithListComponentId.selectedItems.length > 0
         text: "Save changes to .gpg-id \n Recreate .public-keys/ \n Re-encrypt all .gpg-id related files"
         onClicked: {
-            reencryptBtnId.enabled = false;
+            reencryptBtnId.enabled = false
             eencryptTextId.text = "Running... This might take long, Please wait"
             mainLayout.doMainUiDisable()
 
-            mainLayout.getGpgIdManageType().
-                    saveChangesAsync(dropdownWithListComponentId.selectedItems,
-                                mainLayout.getMainqmltype().appSettingsType.doSign,
-                                (returnStatus)=>{
-                                 initOnFileChanged();
-                                 reencryptBtnId.enabled = true;
-                                 eencryptTextId.text = returnStatus
-                                 mainLayout.doMainUiEnable()
-                                     });
-
-
-
+            mainLayout.getGpgIdManageType().saveChangesAsync(
+                        dropdownWithListComponentId.selectedItems,
+                        mainLayout.getMainqmltype().appSettingsType.doSign,
+                        returnStatus => {
+                            initOnFileChanged()
+                            reencryptBtnId.enabled = true
+                            eencryptTextId.text = returnStatus
+                            mainLayout.doMainUiEnable()
+                        })
         }
+        palette.buttonText: systemPalette.buttonText
     }
     Label {
         id: eencryptTextId
@@ -84,13 +86,12 @@ ColumnLayout {
     Repeater {
         id: badEntriesRepeater
         model: []
-        RowLayout{
+        RowLayout {
             Label {
-                text:  modelData
+                text: modelData
             }
         }
     }
-
 
     DropdownWithListComponent {
         id: dropdownWithListComponentId

@@ -44,6 +44,7 @@ ScrollView {
                             " 2>&1")
                     gitResponseId = s
                 }
+                palette.buttonText: systemPalette.buttonText
             }
             Button {
                 text: "add commit all"
@@ -59,6 +60,7 @@ ScrollView {
                             " 2>&1")
                     gitResponseId = "Add:\n" + addAll + "\n" + "Commit:\n" + commitAm
                 }
+                palette.buttonText: systemPalette.buttonText
             }
             Button {
                 text: "pull push"
@@ -76,6 +78,7 @@ ScrollView {
                     gitResponseId = "Pull:\n" + pull + "\nPush:\n" + push
                 }
             }
+            palette.buttonText: systemPalette.buttonText
         }
         TextArea {
             text: gitResponseId
@@ -109,6 +112,7 @@ ScrollView {
                 Button {
                     text: "select"
                     onClicked: getMainqmltype().setTreeViewSelected(modelData)
+                    palette.buttonText: systemPalette.buttonText
                 }
             }
         }
@@ -125,6 +129,7 @@ ScrollView {
                 Button {
                     text: "select"
                     onClicked: getMainqmltype().setTreeViewSelected(modelData)
+                    palette.buttonText: systemPalette.buttonText
                 }
             }
         }

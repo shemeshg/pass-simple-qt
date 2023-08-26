@@ -11,29 +11,31 @@ ColumnLayout {
     property string exceptionStr: ""
 
     onExceptionCounterChanged: {
-        isShowLog = Boolean(exceptionCounter);
+        isShowLog = Boolean(exceptionCounter)
     }
 
     visible: isShowLog
     width: parent.width
-    height : parent.height
+    height: parent.height
     Layout.fillWidth: true
 
+    SystemPalette {
+        id: systemPalette
+        colorGroup: SystemPalette.Active
+    }
 
     Button {
         id: navigateBackFromLogId
         text: "Back"
         onClicked: {
-            exceptionCounter = 0 ;
+            exceptionCounter = 0
             mainqmltype.filePath = ""
         }
-
+        palette.buttonText: systemPalette.buttonText
     }
     TextEdit {
         Layout.fillWidth: true
         text: exceptionStr
         readOnly: true
     }
-
-
 }

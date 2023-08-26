@@ -146,6 +146,11 @@ ColumnLayout {
         }
     }
 
+    SystemPalette {
+        id: systemPalette
+        colorGroup: SystemPalette.Active
+    }
+
     RowLayout {
         width: parent.width
         Label {
@@ -330,6 +335,7 @@ ColumnLayout {
             }
             visible: !isShowPreview && waitItems.indexOf(filePath) === -1
                      && noneWaitItems.indexOf(filePath) === -1 && !isBinaryFile
+            palette.buttonText: systemPalette.buttonText
         }
         Button {
             text: "Close File browser item"
