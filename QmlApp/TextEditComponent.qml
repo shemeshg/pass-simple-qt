@@ -5,8 +5,8 @@ import QtQuick.Dialogs
 
 Rectangle {
     property string textEditText: ""
-    signal textChanged()
-    color: "white"    
+    signal textChanged
+    color: systemPalette.alternateBase
     height: parent.height
     width: parent.width
     TextEdit {

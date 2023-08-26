@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Dialogs
+
 import Qt.labs.platform
 import Qt.labs.folderlistmodel
-
 import DropdownWithList
 import InputType
 
@@ -340,12 +340,13 @@ ColumnLayout {
             icon.source: Qt.resolvedUrl("icons/sync_black_24dp.svg")
             ToolTip.visible: hovered
             ToolTip.text: "<b>Cmd Y</b> commit pull push <br/> R.Click for custom msg."
+            palette.buttonText: systemPalette.buttonText
             enabled: Boolean(nearestGit) && !isSaving
         }
     }
     Row {
         Rectangle {
-            color: "white"
+            color: systemPalette.alternateBase
             width: parent.parent.parent.parent.width - 20
             height: 2
         }

@@ -307,6 +307,7 @@ ColumnLayout {
                                             doMainUiEnable()
                                         })
             }
+            palette.buttonText: systemPalette.buttonText
             visible: isShowPreview
         }
 

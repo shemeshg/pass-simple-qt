@@ -64,7 +64,7 @@ ColumnLayout {
     Rectangle {
         Layout.fillWidth: true
         Layout.preferredHeight: 1
-        color: "white"
+        color: systemPalette.alternateBase
     }
 
     ColumnLayout {
@@ -153,7 +153,7 @@ ColumnLayout {
         }
 
         Rectangle {
-            color: "white"
+            color: systemPalette.alternateBase
             Layout.fillWidth: true
             height: 1
         }

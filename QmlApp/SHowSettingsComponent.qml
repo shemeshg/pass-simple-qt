@@ -108,7 +108,7 @@ ScrollView {
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 1
-            color: "white"
+            color: systemPalette.alternateBase
         }
 
         RowLayout {
@@ -135,7 +135,7 @@ ScrollView {
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 1
-            color: "black"
+            color: systemPalette.text
         }
         ColumnLayout {
             Label {

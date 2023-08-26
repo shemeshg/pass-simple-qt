@@ -25,7 +25,7 @@ ColumnLayout {
         visible: editYamlType.isYamlValid
         Layout.fillWidth: true
         Layout.preferredHeight: 1
-        color: "white"
+        color: systemPalette.alternateBase
     }
 
     RowLayout {
@@ -38,6 +38,7 @@ ColumnLayout {
             onToggled: {
                 isEditFieldsType = !isEditFieldsType
             }
+            palette.buttonText: systemPalette.buttonText
         }
         Button {
             id: addDialogButtonId
@@ -49,6 +50,7 @@ ColumnLayout {
             ToolTip.text: "Add"
             icon.source: Qt.resolvedUrl("icons/control_point_black_24dp.svg")
             ToolTip.visible: hovered
+            palette.buttonText: systemPalette.buttonText
         }
         Item {
             height: addDialogButtonId.height + 5
@@ -183,6 +185,7 @@ ColumnLayout {
                         editYamlType.yamlModel = newArry
                         inputTypeComponentId.inputType = currentText
                     }
+                    palette.buttonText: systemPalette.buttonText
                 }
 
                 Item {
@@ -193,7 +196,7 @@ ColumnLayout {
 
                         width: parent.width
                         height: 10
-                        color: "black"
+                        color: systemPalette.text
                         visible: isEditFieldsType && markedRow === index
                     }
                 }
@@ -208,6 +211,7 @@ ColumnLayout {
                     icon.name: "Up"
                     ToolTip.text: "Up"
                     icon.source: Qt.resolvedUrl("icons/move_up_black_24dp.svg")
+                    palette.buttonText: systemPalette.buttonText
                     ToolTip.visible: hovered
                 }
                 Button {
@@ -220,6 +224,7 @@ ColumnLayout {
                     ToolTip.text: "Down"
                     icon.source: Qt.resolvedUrl(
                                      "icons/move_down_black_24dp.svg")
+                    palette.buttonText: systemPalette.buttonText
                     ToolTip.visible: hovered
                 }
                 Button {
@@ -232,6 +237,7 @@ ColumnLayout {
                     ToolTip.text: "Rename"
                     icon.source: Qt.resolvedUrl(
                                      "icons/edit_FILL0_wght400_GRAD0_opsz48.svg")
+                    palette.buttonText: systemPalette.buttonText
                     ToolTip.visible: hovered
                 }
                 Button {
@@ -246,6 +252,7 @@ ColumnLayout {
                     ToolTip.text: "Delete"
                     icon.source: Qt.resolvedUrl(
                                      "icons/remove_circle_outline_black_24dp.svg")
+                    palette.buttonText: systemPalette.buttonText
                     ToolTip.visible: hovered
                 }
                 Item {
@@ -267,7 +274,7 @@ ColumnLayout {
             Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 1
-                color: "black"
+                color: systemPalette.text
             }
         }
     }

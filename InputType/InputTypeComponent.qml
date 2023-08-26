@@ -117,6 +117,7 @@ ColumnLayout {
         Button {
             Layout.alignment: Qt.AlignTop
             text: "*"
+            palette.buttonText: systemPalette.buttonText
             visible: inputType === "texteditMasked"
             onClicked: {
                 isTexteditMasked = !isTexteditMasked
@@ -162,6 +163,7 @@ ColumnLayout {
             text: "@"
             visible: inputType === "url" && textField.text !== ""
             onClicked: doUrlRedirect(inputText)
+            palette.buttonText: systemPalette.buttonText
         }
 
         Button {
@@ -175,6 +177,7 @@ ColumnLayout {
             icon.source: Qt.resolvedUrl(
                              "icons/outline_file_download_black_24dp.png")
             ToolTip.visible: hovered
+            palette.buttonText: systemPalette.buttonText
         }
         Button {
             visible: inputType === "url" && textField.text === ""
@@ -188,6 +191,7 @@ ColumnLayout {
             icon.source: Qt.resolvedUrl(
                              "icons/outline_file_upload_black_24dp.png")
             ToolTip.visible: hovered
+            palette.buttonText: systemPalette.buttonText
         }
         Button {
             text: "*"
@@ -199,6 +203,7 @@ ColumnLayout {
                     textField.echoMode = TextInput.Normal
                 }
             }
+            palette.buttonText: systemPalette.buttonText
         }
         Item {
             height: 2
