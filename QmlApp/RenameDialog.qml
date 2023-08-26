@@ -7,7 +7,7 @@ CoreDialogYesNo {
     id: renameDialog
     title: "Set  name"
 
-    TextField {
+    CoreTextField {
         id: fieldName
         text: ""
         width: parent.width

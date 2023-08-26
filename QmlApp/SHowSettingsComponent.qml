@@ -126,7 +126,7 @@ ScrollView {
         }
 
         RowLayout {
-            TextField {
+            CoreTextField {
                 text: passwordStorePathStr
                 Layout.fillWidth: true
                 onTextChanged: passwordStorePathStr = text
@@ -166,7 +166,7 @@ ScrollView {
             Label {
                 text: "Temporary directory"
             }
-            TextField {
+            CoreTextField {
                 id: tmpFolderPath
                 text: mainLayout.getMainqmltype().appSettingsType.tmpFolderPath
                 Layout.fillWidth: true
@@ -174,7 +174,7 @@ ScrollView {
             Label {
                 text: "<b>git</b> executable full path"
             }
-            TextField {
+            CoreTextField {
                 id: gitExecPath
                 text: mainLayout.getMainqmltype().appSettingsType.gitExecPath
                 Layout.fillWidth: true
@@ -182,7 +182,7 @@ ScrollView {
             Label {
                 text: "<b>Visual Studio Code</b> executable full path"
             }
-            TextField {
+            CoreTextField {
                 id: vscodeExecPath
                 text: mainLayout.getMainqmltype().appSettingsType.vscodeExecPath
                 Layout.fillWidth: true
@@ -193,7 +193,7 @@ ScrollView {
                 Label {
                     text: "Linux only autotype cmd"
                 }
-                TextField {
+                CoreTextField {
                     id: autoTypeCmd
                     text: mainLayout.getMainqmltype(
                               ).appSettingsType.autoTypeCmd
@@ -204,7 +204,7 @@ ScrollView {
                 Label {
                     text: "Font size (reopen app required)"
                 }
-                TextField {
+                CoreTextField {
                     id: fontSize
                     text: mainLayout.getMainqmltype().appSettingsType.fontSize
                     Layout.fillWidth: true

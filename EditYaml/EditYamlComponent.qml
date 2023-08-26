@@ -80,7 +80,7 @@ ColumnLayout {
     CoreDialogYesNo {
         id: renameDialog
         title: "Set field name"
-        TextField {
+        CoreTextField {
             id: fieldName
             focus: true
             text: dialogRowIdx > -1 ? editYamlType.yamlModel[dialogRowIdx].key : ""
@@ -101,7 +101,7 @@ ColumnLayout {
         id: addDialog
         title: "Set new field name"
 
-        TextField {
+        CoreTextField {
             id: newFieldName
             focus: true
             text: ""

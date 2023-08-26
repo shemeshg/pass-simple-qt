@@ -56,7 +56,7 @@ ColumnLayout {
             text: "Create new text file"
         }
         RowLayout {
-            TextField {
+            CoreTextField {
                 id: createEmptyFileNameId
                 text: ""
                 placeholderText: "FileName.txt"

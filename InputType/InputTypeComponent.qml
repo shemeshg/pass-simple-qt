@@ -128,7 +128,7 @@ ColumnLayout {
             repeat: true
             onTriggered: totpText = getMainqmltype().getTotp(inputText)
         }
-        TextField {
+        CoreTextField {
             id: textField
             text: inputText
             onTextChanged: {
@@ -144,7 +144,7 @@ ColumnLayout {
                        || inputType === "password") ? TextInput.Password : TextInput.Normal
             rightPadding: 8
         }
-        TextField {
+        CoreTextField {
             text: totpText
             readOnly: true
             visible: inputType === "totp"

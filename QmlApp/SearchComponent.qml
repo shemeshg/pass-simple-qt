@@ -72,7 +72,7 @@ ColumnLayout {
         Label {
             text: "File name"
         }
-        TextField {
+        CoreTextField {
             id: findTextId
             text: ""
             Layout.fillWidth: true
@@ -85,7 +85,7 @@ ColumnLayout {
             Label {
                 text: "std::regex"
             }
-            TextField {
+            CoreTextField {
                 id: textFieldFileSearch
                 text: ".*" + findTextId.text.replace(
                           /[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + ".*"
@@ -110,7 +110,7 @@ ColumnLayout {
                 text: qsTr("mem.cash")
             }
         }
-        TextField {
+        CoreTextField {
             id: searchTextId
             text: ""
             Layout.fillWidth: true
@@ -124,7 +124,7 @@ ColumnLayout {
             Label {
                 text: "std::regex"
             }
-            TextField {
+            CoreTextField {
                 id: textFieldContentSearch
                 text: ".*" + searchTextId.text.replace(
                           /[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + ".*"
