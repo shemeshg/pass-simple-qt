@@ -43,12 +43,14 @@ ColumnLayout {
         Button {
             text: "Back"
             onClicked: isShowSearch = false
+            palette.buttonText: systemPalette.buttonText
         }
         Button {
             text: "regex"
             onClicked: {
                 regexVisible = !regexVisible
             }
+            palette.buttonText: systemPalette.buttonText
         }
         Button {
 
@@ -58,6 +60,7 @@ ColumnLayout {
 
                 doSearchAction()
             }
+            palette.buttonText: systemPalette.buttonText
         }
     }
 
@@ -185,6 +188,7 @@ ColumnLayout {
                     }
                     ToolTip.text: "Select"
                     ToolTip.visible: hovered
+                    palette.buttonText: systemPalette.buttonText
                 }
                 Button {
                     text: "☍"
@@ -195,6 +199,7 @@ ColumnLayout {
                                     fullPathFolder,
                                     modelData.substr(0, modelData.length - 4))
                     }
+                    palette.buttonText: systemPalette.buttonText
                 }
                 Label {
                     visible: modelData === filePath
