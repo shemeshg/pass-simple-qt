@@ -53,4 +53,11 @@ private:
     bool treeViewItemSelected = false;
 
     void setQmlSource();
+
+    QImage shape_icon(const QString &icon, const QColor &color, const qreal &strength=1.0, const int &w=40, const int &h=40);
+
+    QPixmap getIcon(QString s){
+        return QPixmap::fromImage(
+            shape_icon(s,QApplication::palette().text().color()));
+    }
 };

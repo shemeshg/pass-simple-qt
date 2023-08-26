@@ -7,10 +7,36 @@
 #include <QScroller>
 #include <QSystemTrayIcon>
 #include <QFontDatabase>
-
+#include <QGraphicsScene>
+#include <QGraphicsColorizeEffect>
+#include <QGraphicsPixmapItem>
+#include <QPainter>
 #include "ui_mainwindow.h"
 #include "ui_about.h"
 #include "mainwindow.h"
+
+QImage MainWindow::shape_icon(const QString &icon, const QColor &color, const qreal &strength, const int &w, const int &h)
+{
+    // Resize icon and put it into QImage
+    QImage src = QIcon(icon).pixmap(QSize(w,h)).toImage();
+    if(src.isNull()) return QImage();
+
+    // prepare graphics scene and pixmap
+    QGraphicsScene scene;
+    QGraphicsPixmapItem item;
+    item.setPixmap(QPixmap::fromImage(src));
+
+    // create an effect with color and strength
+    QGraphicsColorizeEffect effect;
+    effect.setColor(color);
+    effect.setStrength(strength);
+    item.setGraphicsEffect(&effect);
+    scene.addItem(&item);
+    QImage res = src;
+    QPainter ptr(&res);
+    scene.render(&ptr, QRectF(), src.rect() );
+    return res;
+}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -69,13 +95,18 @@ MainWindow::MainWindow(QWidget *parent)
     trayIcon->setIcon(QIcon(":/icon.png"));
     trayIcon->show();
 
-    auto actionAddItem = new QAction(QIcon("://icons/outline_add_file_black_24dp.png"),tr("Add Item"), this);
-    auto actionUploadFile = new QAction(QIcon("://icons/outline_file_upload_black_24dp.png"),tr("Upload file"), this);
-    auto actionUploadFolder = new QAction(QIcon("://icons/outline_drive_folder_upload_black_24dp.png"),tr("Upload folder content"), this);
-    auto actionDownloadFile = new QAction(QIcon("://icons/outline_file_download_black_24dp.png"),tr("Download file"), this);
-    auto actionDownloadFolder = new QAction(QIcon("://icons/outline_drive_folder_download_black_24dp.png"),tr("Download folder content"), this);
-    auto actionAbout = new QAction(QIcon("://icons/outline_info_black_24dp.png"),tr("About"), this);
-    auto actionQuit = new QAction(QIcon("://icons/outline_exit_to_app_black_24dp.png"),tr("Quit"), this);
+    QVariantMap variantMap;
+    variantMap.insert("color",QColor(10,10,10));
+
+
+    auto actionAddItem = new QAction(getIcon("://icons/outline_add_file_black_24dp.png")
+                                     ,tr("Add Item"), this);
+    auto actionUploadFile = new QAction(getIcon("://icons/outline_file_upload_black_24dp.png"),tr("Upload file"), this);
+    auto actionUploadFolder = new QAction(getIcon("://icons/outline_drive_folder_upload_black_24dp.png"),tr("Upload folder content"), this);
+    auto actionDownloadFile = new QAction(getIcon("://icons/outline_file_download_black_24dp.png"),tr("Download file"), this);
+    auto actionDownloadFolder = new QAction(getIcon("://icons/outline_drive_folder_download_black_24dp.png"),tr("Download folder content"), this);
+    auto actionAbout = new QAction(getIcon("://icons/outline_info_black_24dp.png"),tr("About"), this);
+    auto actionQuit = new QAction(getIcon("://icons/outline_exit_to_app_black_24dp.png"),tr("Quit"), this);
 
     actionQuit->setStatusTip(tr("Quit"));
     connect(actionQuit, &QAction::triggered, this, &QApplication::quit);
