@@ -71,7 +71,7 @@ ColumnLayout {
                     addBtnId.enabled = makeEnabled
                 }
             }
-            Button {
+            CoreButton {
                 id: addBtnId
                 text: "add"
                 enabled: Boolean(nearestGpg) && Boolean(
@@ -82,7 +82,6 @@ ColumnLayout {
                                 nearestTemplateGpg)
                     createEmptyFileNameId.text = ""
                 }
-                palette.buttonText: systemPalette.buttonText
             }
         }
         Label {
@@ -93,21 +92,19 @@ ColumnLayout {
             Label {
                 text: "Upload"
             }
-            Button {
+            CoreButton {
                 text: "Upload file"
                 enabled: Boolean(nearestGpg)
                 onClicked: {
                     fileDialogUpload.open()
                 }
-                palette.buttonText: systemPalette.buttonText
             }
-            Button {
+            CoreButton {
                 text: "Upload folder content"
                 enabled: Boolean(nearestGpg)
                 onClicked: {
                     folderDialogUpload.open()
                 }
-                palette.buttonText: systemPalette.buttonText
             }
         }
     }

@@ -3,6 +3,7 @@ import DropdownWithList
 
 import QtQuick.Controls
 import QtQuick.Layouts
+import QmlApp
 
 ColumnLayout {
     property alias selectedItems: dropdownWithListTypeId.selectedItems
@@ -26,11 +27,10 @@ ColumnLayout {
                 Label {
                     text: modelData
                 }
-                Button {
+                CoreButton {
                     text: "remove"
                     onClicked: dropdownWithListTypeId.addNotSelectedItem(
                                    modelData)
-                    palette.buttonText: systemPalette.buttonText
                 }
             }
         }
@@ -47,11 +47,10 @@ ColumnLayout {
                     Label {
                         text: modelData
                     }
-                    Button {
+                    CoreButton {
                         text: "add"
                         onClicked: dropdownWithListTypeId.addSelectedItem(
                                        modelData)
-                        palette.buttonText: systemPalette.buttonText
                     }
                 }
             }

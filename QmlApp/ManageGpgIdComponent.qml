@@ -29,25 +29,23 @@ ColumnLayout {
     Label {
         text: "gpg-id: " + nearestGpg
     }
-    Button {
+    CoreButton {
         text: "Import and trust a new public key"
         enabled: classInitialized
         onClicked: {
             fileDialogImportAndTrustId.open()
         }
-        palette.buttonText: systemPalette.buttonText
     }
-    Button {
+    CoreButton {
         text: "Import all public keys in .public-keys/"
         enabled: classInitialized && gpgPubKeysFolderExists
         onClicked: {
             mainLayout.getGpgIdManageType().importAllGpgPubKeysFolder()
             initOnFileChanged()
         }
-        palette.buttonText: systemPalette.buttonText
     }
 
-    Button {
+    CoreButton {
         Timer {
             id: timer
         }
@@ -71,7 +69,6 @@ ColumnLayout {
                             mainLayout.doMainUiEnable()
                         })
         }
-        palette.buttonText: systemPalette.buttonText
     }
     Label {
         id: eencryptTextId

@@ -162,7 +162,7 @@ ColumnLayout {
             Layout.fillWidth: true
         }
 
-        Button {
+        CoreButton {
             visible: isGpgFile
             text: "download file"
             onClicked: {
@@ -170,7 +170,7 @@ ColumnLayout {
             }
             rightPadding: 8
         }
-        Button {
+        CoreButton {
             visible: Boolean(nearestGpg)
             text: "download folder content"
             onClicked: {
@@ -292,7 +292,7 @@ ColumnLayout {
             }
         }
 
-        Button {
+        CoreButton {
             id: saveBtnId
             text: "&Save"
             enabled: hasEffectiveGpgIdFile
@@ -311,7 +311,6 @@ ColumnLayout {
                                             doMainUiEnable()
                                         })
             }
-            palette.buttonText: systemPalette.buttonText
             visible: isShowPreview
         }
 
@@ -326,7 +325,7 @@ ColumnLayout {
                 }
             }
         }
-        Button {
+        CoreButton {
             text: "&Open"
             enabled: hasEffectiveGpgIdFile
             onClicked: {
@@ -334,9 +333,8 @@ ColumnLayout {
             }
             visible: !isShowPreview && waitItems.indexOf(filePath) === -1
                      && noneWaitItems.indexOf(filePath) === -1 && !isBinaryFile
-            palette.buttonText: systemPalette.buttonText
         }
-        Button {
+        CoreButton {
             text: "Close File browser item"
             onClicked: {
                 mainLayout.closeExternalEncryptNoWait()

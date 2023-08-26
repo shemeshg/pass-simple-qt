@@ -118,10 +118,9 @@ ColumnLayout {
             visible: inputType === "texteditMasked" && isTexteditMasked
         }
 
-        Button {
+        CoreButton {
             Layout.alignment: Qt.AlignTop
             text: "*"
-            palette.buttonText: systemPalette.buttonText
             visible: inputType === "texteditMasked"
             onClicked: {
                 isTexteditMasked = !isTexteditMasked
@@ -163,11 +162,10 @@ ColumnLayout {
             readOnly: true
             visible: inputType === "totp"
         }
-        Button {
+        CoreButton {
             text: "@"
             visible: inputType === "url" && textField.text !== ""
             onClicked: doUrlRedirect(inputText)
-            palette.buttonText: systemPalette.buttonText
         }
 
         CoreButton {
@@ -193,7 +191,7 @@ ColumnLayout {
             icon.source: Qt.resolvedUrl(
                              "icons/outline_file_upload_black_24dp.png")
         }
-        Button {
+        CoreButton {
             text: "*"
             visible: inputType === "totp" || inputType === "password"
             onClicked: {
@@ -203,7 +201,6 @@ ColumnLayout {
                     textField.echoMode = TextInput.Normal
                 }
             }
-            palette.buttonText: systemPalette.buttonText
         }
         Item {
             height: 2

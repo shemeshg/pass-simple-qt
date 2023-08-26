@@ -24,14 +24,13 @@ ColumnLayout {
         colorGroup: SystemPalette.Active
     }
 
-    Button {
+    CoreButton {
         id: navigateBackFromLogId
         text: "Back"
         onClicked: {
             exceptionCounter = 0
             mainqmltype.filePath = ""
         }
-        palette.buttonText: systemPalette.buttonText
     }
     TextEdit {
         Layout.fillWidth: true

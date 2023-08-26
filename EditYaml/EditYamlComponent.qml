@@ -213,7 +213,6 @@ ColumnLayout {
                     icon.name: "Up"
                     hooverText: "Up"
                     icon.source: Qt.resolvedUrl("icons/move_up_black_24dp.svg")
-                    palette.buttonText: systemPalette.buttonText
                 }
                 CoreButton {
                     visible: isEditFieldsType
@@ -225,7 +224,6 @@ ColumnLayout {
                     hooverText: "Down"
                     icon.source: Qt.resolvedUrl(
                                      "icons/move_down_black_24dp.svg")
-                    palette.buttonText: systemPalette.buttonText
                 }
                 CoreButton {
                     visible: isEditFieldsType
@@ -237,7 +235,6 @@ ColumnLayout {
                     hooverText: "Rename"
                     icon.source: Qt.resolvedUrl(
                                      "icons/edit_FILL0_wght400_GRAD0_opsz48.svg")
-                    palette.buttonText: systemPalette.buttonText
                 }
                 CoreButton {
                     visible: isEditFieldsType
@@ -251,7 +248,6 @@ ColumnLayout {
                     hooverText: "Delete"
                     icon.source: Qt.resolvedUrl(
                                      "icons/remove_circle_outline_black_24dp.svg")
-                    palette.buttonText: systemPalette.buttonText
                 }
                 Item {
                     width: 10

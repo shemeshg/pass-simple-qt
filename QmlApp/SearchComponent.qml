@@ -40,27 +40,23 @@ ColumnLayout {
     }
 
     RowLayout {
-        Button {
+        CoreButton {
             text: "Back"
             onClicked: isShowSearch = false
-            palette.buttonText: systemPalette.buttonText
         }
-        Button {
+        CoreButton {
             text: "regex"
             onClicked: {
                 regexVisible = !regexVisible
             }
-            palette.buttonText: systemPalette.buttonText
         }
-        Button {
-
+        CoreButton {
             id: btnRunSearchId
             text: "find"
             onClicked: {
 
                 doSearchAction()
             }
-            palette.buttonText: systemPalette.buttonText
         }
     }
 

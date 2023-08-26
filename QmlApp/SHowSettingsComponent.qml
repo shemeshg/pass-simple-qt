@@ -96,11 +96,11 @@ ScrollView {
         Layout.fillHeight: true
 
         RowLayout {
-            Button {
+            CoreButton {
                 text: "Back"
                 onClicked: isShowSettings = false
             }
-            Button {
+            CoreButton {
                 text: "Save"
                 onClicked: saveSettingsComponent()
             }
@@ -115,11 +115,11 @@ ScrollView {
             Label {
                 text: "Password Store Path:"
             }
-            Button {
+            CoreButton {
                 text: "default"
                 onClicked: passwordStorePathStr = ""
             }
-            Button {
+            CoreButton {
                 text: "select"
                 onClicked: selectStorePathDialogId.open()
             }

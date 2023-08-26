@@ -335,7 +335,6 @@ ColumnLayout {
             icon.name: "sync"
             icon.source: Qt.resolvedUrl("icons/sync_black_24dp.svg")
             hooverText: "<b>Cmd Y</b> commit pull push <br/> R.Click for custom msg."
-            palette.buttonText: systemPalette.buttonText
             enabled: Boolean(nearestGit) && !isSaving
         }
     }

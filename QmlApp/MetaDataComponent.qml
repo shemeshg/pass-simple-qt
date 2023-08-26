@@ -34,7 +34,7 @@ ScrollView {
             text: "Git : " + nearestGit
         }
         RowLayout {
-            Button {
+            CoreButton {
                 text: "status"
                 enabled: nearestGit
                 onClicked: {
@@ -44,9 +44,8 @@ ScrollView {
                             " 2>&1")
                     gitResponseId = s
                 }
-                palette.buttonText: systemPalette.buttonText
             }
-            Button {
+            CoreButton {
                 text: "add commit all"
                 enabled: nearestGit
                 onClicked: {
@@ -60,9 +59,8 @@ ScrollView {
                             " 2>&1")
                     gitResponseId = "Add:\n" + addAll + "\n" + "Commit:\n" + commitAm
                 }
-                palette.buttonText: systemPalette.buttonText
             }
-            Button {
+            CoreButton {
                 text: "pull push"
                 enabled: nearestGit
                 onClicked: {
@@ -78,7 +76,6 @@ ScrollView {
                     gitResponseId = "Pull:\n" + pull + "\nPush:\n" + push
                 }
             }
-            palette.buttonText: systemPalette.buttonText
         }
         TextArea {
             text: gitResponseId
@@ -109,10 +106,9 @@ ScrollView {
                 Label {
                     text: modelData
                 }
-                Button {
+                CoreButton {
                     text: "select"
                     onClicked: getMainqmltype().setTreeViewSelected(modelData)
-                    palette.buttonText: systemPalette.buttonText
                 }
             }
         }
@@ -126,10 +122,9 @@ ScrollView {
                 Label {
                     text: modelData
                 }
-                Button {
+                CoreButton {
                     text: "select"
                     onClicked: getMainqmltype().setTreeViewSelected(modelData)
-                    palette.buttonText: systemPalette.buttonText
                 }
             }
         }
