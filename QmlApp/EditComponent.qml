@@ -417,6 +417,11 @@ ColumnLayout {
 
                 ToolTip {
                     id: toolTip
+
+                    contentItem: Text {
+                        color: systemPalette.text
+                        text: toolTip.text
+                    }
                 }
 
                 HoverHandler {
