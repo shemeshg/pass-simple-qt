@@ -82,6 +82,7 @@ ColumnLayout {
         id: renameDialog
         title: "Set field name"
         width: parent.width * 0.75
+        palette.buttonText: systemPalette.buttonText
 
         standardButtons: Dialog.Ok | Dialog.Cancel
         TextField {
@@ -105,6 +106,7 @@ ColumnLayout {
         id: addDialog
         title: "Set new field name"
         width: parent.width * 0.75
+        palette.buttonText: systemPalette.buttonText
 
         standardButtons: Dialog.Ok | Dialog.Cancel
         TextField {

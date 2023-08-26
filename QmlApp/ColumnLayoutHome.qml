@@ -14,14 +14,13 @@ ColumnLayout {
     property alias toolbarId: toolbarId
     property alias customCommitMsgSyncDialog: customCommitMsgSyncDialog
 
-
     id: columnLayoutHomeId
-
 
     Dialog {
         id: customCommitMsgSyncDialog
         title: "Custom commit msg"
         width: parent.width * 0.75
+        palette.buttonText: systemPalette.buttonText
 
         standardButtons: Dialog.Ok | Dialog.Cancel
         TextArea {

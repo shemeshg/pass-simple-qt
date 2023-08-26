@@ -7,6 +7,7 @@ Dialog {
     id: renameDialog
     title: "Set  name"
     width: parent.width * 0.75
+    palette.buttonText: systemPalette.buttonText
 
     standardButtons: Dialog.Ok | Dialog.Cancel
 
@@ -16,18 +17,19 @@ Dialog {
         width: parent.width
     }
 
-
     onOpened: {
-        fieldName.text = filePath.replace(fullPathFolder,"").substring(1,filePath.replace(fullPathFolder,"").length-4)
+        fieldName.text = filePath.replace(fullPathFolder, "").substring(
+                    1, filePath.replace(fullPathFolder, "").length - 4)
     }
     onAccepted: {
-        if (saveBtnId.visible && saveBtnId.enabled){
-            saveBtnId.clicked()            
+        if (saveBtnId.visible && saveBtnId.enabled) {
+            saveBtnId.clicked()
         }
-        mainLayout.getMainqmltype().renameGpgFile(filePath, fullPathFolder + "/" + fieldName.text + ".gpg")
+        mainLayout.getMainqmltype().renameGpgFile(
+                    filePath, fullPathFolder + "/" + fieldName.text + ".gpg")
     }
     onClosed: {
-        fieldName.text = filePath.replace(fullPathFolder,"").substring(1,filePath.replace(fullPathFolder,"").length-4)
+        fieldName.text = filePath.replace(fullPathFolder, "").substring(
+                    1, filePath.replace(fullPathFolder, "").length - 4)
     }
-
 }
