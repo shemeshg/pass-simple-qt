@@ -141,7 +141,7 @@ ScrollView {
             Label {
                 text: "Commit Msg."
             }
-            TextArea {
+            CoreTextArea {
                 id: commitMsg
                 text: mainLayout.getMainqmltype().appSettingsType.commitMsg
                 Layout.fillWidth: true
@@ -230,10 +230,8 @@ ScrollView {
                 Label {
                     text: "Binary extensions"
                 }
-                TextArea {
+                CoreTextArea {
                     id: binaryExts
-                    selectionColor: systemPalette.highlight
-                    selectedTextColor: systemPalette.highlightedText
                     text: mainLayout.getMainqmltype().appSettingsType.binaryExts
                     Layout.fillWidth: true
                 }

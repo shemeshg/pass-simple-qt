@@ -23,7 +23,7 @@ ColumnLayout {
         palette.buttonText: systemPalette.buttonText
 
         standardButtons: Dialog.Ok | Dialog.Cancel
-        TextArea {
+        CoreTextArea {
             id: fieldName
             focus: true
             width: parent.width

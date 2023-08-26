@@ -77,7 +77,7 @@ ScrollView {
                 }
             }
         }
-        TextArea {
+        CoreTextArea {
             text: gitResponseId
             Layout.fillWidth: true
             width: parent.width
