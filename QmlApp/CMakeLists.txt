@@ -43,6 +43,7 @@ qt6_add_qml_module(QmlApp
             QML_FILES CoreButton.qml
             QML_FILES CoreTextArea.qml
             QML_FILES CoreSwitch.qml
+            QML_FILES CoreComboBox.qml
         )
 
 

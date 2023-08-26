@@ -154,7 +154,7 @@ ScrollView {
             Label {
                 text: "Private personal Id: "
             }
-            ComboBox {
+            CoreComboBox {
                 id: ctxSigner
                 model: allPrivateKeys
                 Component.onCompleted: {

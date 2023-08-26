@@ -343,8 +343,9 @@ ColumnLayout {
                      && !isBinaryFile
         }
 
-        ComboBox {
+        CoreComboBox {
             id: selectExternalEncryptDestinationId
+
             model: ["code --wait", "File browser"]
             width: 200
             visible: !isShowPreview && waitItems.indexOf(filePath) === -1

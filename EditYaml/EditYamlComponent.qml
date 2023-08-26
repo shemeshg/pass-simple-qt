@@ -38,7 +38,7 @@ ColumnLayout {
             checked: isEditFieldsType
             onToggled: {
                 isEditFieldsType = !isEditFieldsType
-            }            
+            }
         }
 
         CoreButton {
@@ -164,7 +164,7 @@ ColumnLayout {
                     text: modelData.key + ": "
                     padding: 8
                 }
-                ComboBox {
+                CoreComboBox {
                     id: selectedInputType
                     visible: isEditFieldsType
                     height: moveUpId.height
@@ -186,7 +186,6 @@ ColumnLayout {
                         editYamlType.yamlModel = newArry
                         inputTypeComponentId.inputType = currentText
                     }
-                    palette.buttonText: systemPalette.buttonText
                 }
 
                 Item {
