@@ -60,11 +60,7 @@ ColumnLayout {
         }
     }
 
-    Rectangle {
-        Layout.fillWidth: true
-        Layout.preferredHeight: 1
-        color: systemPalette.alternateBase
-    }
+    CoreThinBar {}
 
     ColumnLayout {
         spacing: 8
@@ -150,11 +146,7 @@ ColumnLayout {
             }
         }
 
-        Rectangle {
-            color: systemPalette.alternateBase
-            Layout.fillWidth: true
-            height: 1
-        }
+        CoreThinBar {}
         RowLayout {
             id: searchStatusLabelId
             visible: false

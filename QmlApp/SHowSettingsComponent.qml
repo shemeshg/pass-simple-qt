@@ -105,11 +105,7 @@ ScrollView {
                 onClicked: saveSettingsComponent()
             }
         }
-        Rectangle {
-            Layout.fillWidth: true
-            Layout.preferredHeight: 1
-            color: systemPalette.alternateBase
-        }
+        CoreThinBar {}
 
         RowLayout {
             Label {

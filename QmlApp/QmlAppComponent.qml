@@ -338,11 +338,10 @@ ColumnLayout {
             enabled: Boolean(nearestGit) && !isSaving
         }
     }
-    Row {
-        Rectangle {
-            color: systemPalette.alternateBase
-            width: parent.parent.parent.parent.width - 20
-            height: 2
+    RowLayout {
+        CoreThinBar {}
+        Item {
+            width: 5
         }
     }
     ColumnLayoutHome {

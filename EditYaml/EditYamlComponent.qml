@@ -22,13 +22,6 @@ ColumnLayout {
         visible: !editYamlType.isYamlValid
     }
 
-    Rectangle {
-        visible: editYamlType.isYamlValid
-        Layout.fillWidth: true
-        Layout.preferredHeight: 1
-        color: systemPalette.alternateBase
-    }
-
     RowLayout {
         visible: editYamlType.isYamlValid
 
@@ -56,7 +49,9 @@ ColumnLayout {
             width: 1
         }
     }
-
+    CoreThinBar {
+        visible: editYamlType.isYamlValid
+    }
     property int markedRow: -1
     function arrayMove(oldIndex, newIndex) {
         let arr = editYamlType.yamlModel
