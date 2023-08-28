@@ -1,5 +1,4 @@
 import QtQuick
-import EditYaml
 import QtQuick.Controls
 import QtQuick.Layouts
 import InputType

@@ -1,8 +1,3 @@
-import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls
-import QtQuick.Dialogs
-
 CoreDialogYesNo {
     id: renameDialog
     title: "Set  name"

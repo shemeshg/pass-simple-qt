@@ -1,10 +1,7 @@
 import QtQuick
-import QmlApp
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Dialogs
-import DropdownWithList
-import Qt.labs.platform
 
 ScrollView {
     visible: isShowSettings
@@ -54,7 +51,7 @@ ScrollView {
         id: selectStorePathDialogId
         title: "Select folder"
         onAccepted: {
-            let path = selectStorePathDialogId.folder.toString()
+            let path = selectStorePathDialogId.currentFolder.toString()
             path = path.replace(/^(file:\/{3})/, "")
             // unescape html codes like '%23' for '#'
             path = decodeURIComponent(path)

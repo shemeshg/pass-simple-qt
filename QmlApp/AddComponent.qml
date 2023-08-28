@@ -1,10 +1,7 @@
 import QtQuick
-import QmlApp
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Dialogs
-import Qt.labs.platform
-import DropdownWithList
 
 ColumnLayout {
     property alias fileDialogUpload: fileDialogUpload
@@ -22,10 +19,11 @@ ColumnLayout {
         title: "Choose file to upload"
         fileMode: FileDialog.OpenFile
         onAccepted: {
-            fileDialogUpload.files.forEach(f => {
-                                               getMainqmltype().encryptUpload(
-                                                   fullPathFolder, f)
-                                           })
+            fileDialogUpload.currentFiles.forEach(f => {
+                                                      getMainqmltype(
+                                                          ).encryptUpload(
+                                                          fullPathFolder, f)
+                                                  })
             doMainUiEnable()
         }
         onRejected: {
@@ -37,8 +35,8 @@ ColumnLayout {
         id: folderDialogUpload
         title: "Choose folder to upload"
         onAccepted: {
-            getMainqmltype().encryptFolderUpload(folderDialogUpload.folder,
-                                                 fullPathFolder)
+            getMainqmltype().encryptFolderUpload(
+                        folderDialogUpload.currentFolder, fullPathFolder)
             doMainUiEnable()
         }
         onRejected: {

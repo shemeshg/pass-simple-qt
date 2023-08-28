@@ -1,11 +1,8 @@
 import QtQuick
-import QmlApp
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Dialogs
-import Qt.labs.platform
 
-import DropdownWithList
 import EditYaml
 
 ColumnLayout {
@@ -83,7 +80,7 @@ ColumnLayout {
             var filename = downloadFrom.replace(/^.*[\\\/]/, '')
             getMainqmltype().dectyptFileNameToFileName(
                         fullPathFolder + "/" + downloadFrom + ".gpg",
-                        folder + "/" + filename)
+                        currentFolder + "/" + filename)
             doMainUiEnable()
         }
         onRejected: {
@@ -97,15 +94,16 @@ ColumnLayout {
         title: "Choose file to upload"
         fileMode: FileDialog.OpenFile
         onAccepted: {
-            urlfileDialogUrlField.files.forEach(f => {
-                                                    getMainqmltype(
-                                                        ).encryptUpload(
-                                                        fullPathFolder, f, true)
-                                                    let filename = f.toString(
-                                                        ).replace(/^.*[\\\/]/,
-                                                                  '')
-                                                    inField.text = "_files/" + filename
-                                                })
+            urlfileDialogUrlField.currentFiles.forEach(f => {
+                                                           getMainqmltype(
+                                                               ).encryptUpload(
+                                                               fullPathFolder,
+                                                               f, true)
+                                                           let filename = f.toString(
+                                                               ).replace(
+                                                               /^.*[\\\/]/, '')
+                                                           inField.text = "_files/" + filename
+                                                       })
             doMainUiEnable()
             notifyStr("*")
         }
@@ -125,7 +123,7 @@ ColumnLayout {
             var filename = filePath.replace(/^.*[\\\/]/, '')
             filename = filename.substr(0, filename.length - 4)
             getMainqmltype().decryptDownload(
-                        fileDialogDownload.folder + "/" + filename)
+                        fileDialogDownload.currentFolder + "/" + filename)
             doMainUiEnable()
         }
         onRejected: {
@@ -137,8 +135,8 @@ ColumnLayout {
         id: folderDialogDownload
         title: "Choose folder to download"
         onAccepted: {
-            getMainqmltype().decryptFolderDownload(fullPathFolder,
-                                                   folderDialogDownload.folder)
+            getMainqmltype().decryptFolderDownload(
+                        fullPathFolder, folderDialogDownload.currentFolder)
             doMainUiEnable()
         }
         onRejected: {
