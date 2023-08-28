@@ -125,10 +125,7 @@ ColumnLayout {
 
         Component {
             id: myfooter
-            Item {
-                width: parent.width
-                height: 100
-            }
+            CorePagePadFooter {}
         }
         footer: myfooter
 

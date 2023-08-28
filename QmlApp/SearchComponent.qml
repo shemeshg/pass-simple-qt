@@ -157,6 +157,12 @@ ColumnLayout {
         ListView {
             id: searchResultRepeaterId
             model: searchResultModel
+            Component {
+                id: myfooter
+                CorePagePadFooter {}
+            }
+            footer: myfooter
+            clip: true
 
             ScrollBar.vertical: ScrollBar {}
             Layout.fillWidth: true

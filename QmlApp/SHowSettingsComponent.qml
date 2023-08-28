@@ -8,13 +8,11 @@ import Qt.labs.platform
 
 ScrollView {
     visible: isShowSettings
-    height: parent.height
     width: parent.width
     Layout.fillWidth: true
     Layout.fillHeight: true
     clip: true
     contentWidth: columnLayoutHomeId.width - 30
-    contentHeight: columnLayoutHomeId.height + 200
 
     property bool isUseClipboard: mainLayout.getMainqmltype(
                                       ).appSettingsType.useClipboard
@@ -133,105 +131,96 @@ ScrollView {
             Layout.preferredHeight: 1
             color: systemPalette.text
         }
-        ColumnLayout {
-            Label {
-                text: "Commit Msg."
+
+        Label {
+            text: "Commit Msg."
+        }
+        CoreTextArea {
+            id: commitMsg
+            text: mainLayout.getMainqmltype().appSettingsType.commitMsg
+            Layout.fillWidth: true
+        }
+
+        Label {
+            text: "Private personal Id: "
+        }
+        CoreComboBox {
+            id: ctxSigner
+            model: allPrivateKeys
+            Component.onCompleted: {
+                currentIndex = find(mainLayout.getMainqmltype(
+                                        ).appSettingsType.ctxSigner)
             }
-            CoreTextArea {
-                id: commitMsg
-                text: mainLayout.getMainqmltype().appSettingsType.commitMsg
+            Layout.fillWidth: true
+        }
+        Label {
+            text: "Temporary directory"
+        }
+        CoreTextField {
+            id: tmpFolderPath
+            text: mainLayout.getMainqmltype().appSettingsType.tmpFolderPath
+            Layout.fillWidth: true
+        }
+        Label {
+            text: "<b>git</b> executable full path"
+        }
+        CoreTextField {
+            id: gitExecPath
+            text: mainLayout.getMainqmltype().appSettingsType.gitExecPath
+            Layout.fillWidth: true
+        }
+        Label {
+            text: "<b>Visual Studio Code</b> executable full path"
+        }
+        CoreTextField {
+            id: vscodeExecPath
+            text: mainLayout.getMainqmltype().appSettingsType.vscodeExecPath
+            Layout.fillWidth: true
+        }
+        ColumnLayout {
+            Layout.fillWidth: true
+            visible: Qt.platform.os === "linux"
+            Label {
+                text: "Linux only autotype cmd"
+            }
+            CoreTextField {
+                id: autoTypeCmd
+                text: mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
                 Layout.fillWidth: true
             }
         }
-
-        ColumnLayout {
-            spacing: 8
-
-            Label {
-                text: "Private personal Id: "
-            }
-            CoreComboBox {
-                id: ctxSigner
-                model: allPrivateKeys
-                Component.onCompleted: {
-                    currentIndex = find(mainLayout.getMainqmltype(
-                                            ).appSettingsType.ctxSigner)
-                }
-                Layout.fillWidth: true
-            }
-            Label {
-                text: "Temporary directory"
-            }
-            CoreTextField {
-                id: tmpFolderPath
-                text: mainLayout.getMainqmltype().appSettingsType.tmpFolderPath
-                Layout.fillWidth: true
-            }
-            Label {
-                text: "<b>git</b> executable full path"
-            }
-            CoreTextField {
-                id: gitExecPath
-                text: mainLayout.getMainqmltype().appSettingsType.gitExecPath
-                Layout.fillWidth: true
-            }
-            Label {
-                text: "<b>Visual Studio Code</b> executable full path"
-            }
-            CoreTextField {
-                id: vscodeExecPath
-                text: mainLayout.getMainqmltype().appSettingsType.vscodeExecPath
-                Layout.fillWidth: true
-            }
-            ColumnLayout {
-                Layout.fillWidth: true
-                visible: Qt.platform.os === "linux"
-                Label {
-                    text: "Linux only autotype cmd"
-                }
-                CoreTextField {
-                    id: autoTypeCmd
-                    text: mainLayout.getMainqmltype(
-                              ).appSettingsType.autoTypeCmd
-                    Layout.fillWidth: true
-                }
-            }
-            ColumnLayout {
-                Label {
-                    text: "Font size (reopen app required)"
-                }
-                CoreTextField {
-                    id: fontSize
-                    text: mainLayout.getMainqmltype().appSettingsType.fontSize
-                    Layout.fillWidth: true
-                }
-            }
-            CoreSwitch {
-                id: preferYamlView
-                text: qsTr("Prefer Yaml view if Yaml valid")
-                checked: isPreferYamlView
-            }
-            CoreSwitch {
-                id: useClipboard
-                text: qsTr("Use clipboard")
-                checked: isUseClipboard
-            }
-            CoreSwitch {
-                id: doSign
-                text: qsTr("Sign")
-                checked: isDoSign
-            }
-            ColumnLayout {
-                Layout.fillWidth: true
-                Label {
-                    text: "Binary extensions"
-                }
-                CoreTextArea {
-                    id: binaryExts
-                    text: mainLayout.getMainqmltype().appSettingsType.binaryExts
-                    Layout.fillWidth: true
-                }
-            }
+        Label {
+            text: "Font size (reopen app required)"
         }
+        CoreTextField {
+            id: fontSize
+            text: mainLayout.getMainqmltype().appSettingsType.fontSize
+            Layout.fillWidth: true
+        }
+
+        CoreSwitch {
+            id: preferYamlView
+            text: qsTr("Prefer Yaml view if Yaml valid")
+            checked: isPreferYamlView
+        }
+        CoreSwitch {
+            id: useClipboard
+            text: qsTr("Use clipboard")
+            checked: isUseClipboard
+        }
+        CoreSwitch {
+            id: doSign
+            text: qsTr("Sign")
+            checked: isDoSign
+        }
+        Label {
+            text: "Binary extensions"
+        }
+        CoreTextArea {
+            id: binaryExts
+            text: mainLayout.getMainqmltype().appSettingsType.binaryExts
+            Layout.fillWidth: true
+        }
+        CorePagePadFooter {}
     }
 }

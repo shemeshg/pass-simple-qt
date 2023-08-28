@@ -47,6 +47,7 @@ qt6_add_qml_module(QmlApp
             QML_FILES CoreDialogYesNo.qml
             QML_FILES CoreTextField.qml
             QML_FILES CoreThinBar.qml
+            QML_FILES CorePagePadFooter.qml
         )
 
 

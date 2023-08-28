@@ -93,4 +93,6 @@ ColumnLayout {
     DropdownWithListComponent {
         id: dropdownWithListComponentId
     }
+
+    CorePagePadFooter {}
 }

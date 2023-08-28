@@ -32,7 +32,7 @@ ColumnLayout {
             mainqmltype.filePath = ""
         }
     }
-    TextEdit {
+    CoreTextArea {
         Layout.fillWidth: true
         text: exceptionStr
         readOnly: true
