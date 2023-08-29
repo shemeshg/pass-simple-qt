@@ -19,10 +19,19 @@ ScrollView {
         FileDialog {
             id: fileDialogImportAndTrustId
             title: "Please choose a .pub file to import and trust"
+            fileMode: FileDialog.OpenFiles
             onAccepted: {
-                mainLayout.getGpgIdManageType().importPublicKeyAndTrust(
-                            fileDialogImportAndTrustId.selectedFile)
-                initOnFileChanged()
+                let serr = ""
+                currentFiles.forEach(f => {
+                                         if (!serr) {
+                                             serr = mainLayout.getGpgIdManageType(
+                                                 ).importPublicKeyAndTrust(f)
+                                             eencryptTextId.text = serr
+                                         }
+                                     })
+                if (!serr) {
+                    initOnFileChanged()
+                }
             }
             onRejected: {
 
@@ -46,8 +55,12 @@ ScrollView {
             text: "Import all public keys in .public-keys/"
             enabled: classInitialized && gpgPubKeysFolderExists
             onClicked: {
-                mainLayout.getGpgIdManageType().importAllGpgPubKeysFolder()
-                initOnFileChanged()
+                let serr = mainLayout.getGpgIdManageType(
+                        ).importAllGpgPubKeysFolder()
+                eencryptTextId.text = serr
+                if (!serr) {
+                    initOnFileChanged()
+                }
             }
         }
 

@@ -43,25 +43,26 @@ QStringList GpgIdManageType::allKeys() const
     return l;
 }
 
-void GpgIdManageType::importPublicKeyAndTrust(const QString &urlString)
+QString GpgIdManageType::importPublicKeyAndTrust(const QString &urlString)
 {
     const QUrl url(urlString);
     const QString localpath = url.toLocalFile();
     try {
         m_gpgIdManage->importPublicKeyAndTrust(localpath.toStdString());
+        return "";
     } catch (const std::exception &e) {
-        qDebug() << QString(e.what());
+        return QString(e.what());
     }
 }
 
-void GpgIdManageType::importAllGpgPubKeysFolder()
+QString GpgIdManageType::importAllGpgPubKeysFolder()
 {
     try {
         m_gpgIdManage->importAllGpgPubKeysFolder();
     } catch (const std::exception &e) {
-        qDebug() << QString(e.what());
+        return QString(e.what());
     }
-    qDebug() << "Finished importAllGpgPubKeysFolder\n";
+    return "";
 }
 
 QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign)

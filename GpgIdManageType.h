@@ -50,8 +50,8 @@ public:
     QStringList keysFoundInGpgIdFile() const;
     QStringList allPrivateKeys() const;
     QStringList allKeys() const;
-    Q_INVOKABLE void importPublicKeyAndTrust(const QString &urlString);
-    Q_INVOKABLE void importAllGpgPubKeysFolder();
+    Q_INVOKABLE QString importPublicKeyAndTrust(const QString &urlString);
+    Q_INVOKABLE QString importAllGpgPubKeysFolder();
     Q_INVOKABLE QString saveChanges(QStringList keysFound, bool doSign);
     Q_INVOKABLE void saveChangesAsync(QStringList keysFound,
                                       bool doSign,
