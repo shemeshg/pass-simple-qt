@@ -499,6 +499,16 @@ QString MainQmlType::runCmd(QStringList keysFound, QString noEscaped)
     return QString::fromStdString(rsc.runCmd(v, noEscaped.toStdString()));
 }
 
+int MainQmlType::runSystem(QStringList keysFound, QString noEscaped)
+{
+    RunShellCmd rsc;
+    std::vector<std::string> v{};
+    for (const QString &r : keysFound) {
+        v.push_back(r.toStdString());
+    }
+    return rsc.runSystem(v, noEscaped.toStdString());
+}
+
 QString MainQmlType::getTotp(QString secret)
 {
     if (secret.startsWith("otpauth://totp/")) {

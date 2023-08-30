@@ -308,6 +308,7 @@ ColumnLayout {
                 mainLayout.encryptAsync(decryptedText, () => {
                                             isSaving = false
                                             doMainUiEnable()
+                                            setGitDiffReturnCode()
                                         })
             }
             visible: isShowPreview

@@ -19,6 +19,7 @@ ColumnLayout {
     property bool isGpgFile: false
     property bool isBinaryFile: false
     property bool isPreviousShowPreview: false
+    property int gitDiffReturnCode: 0
 
     property var waitItems: []
     property var noneWaitItems: []
@@ -89,8 +90,19 @@ ColumnLayout {
         return Boolean(ret)
     }
 
+    function setGitDiffReturnCode() {
+        if (Boolean(nearestGit)) {
+            gitDiffReturnCode = getMainqmltype().runCmd(
+                        [mainLayout.getMainqmltype(
+                             ).appSettingsType.gitExecPath, "-C", nearestGit, "status", "--porcelain"],
+                        " 2>&1 ").length
+        }
+    }
+
     function populateDecryptedUiFields() {
         nearestGit = mainLayout.getNearestGit()
+        setGitDiffReturnCode()
+
         columnLayoutHomeId.addComponentId.nearestTemplateGpg = mainLayout.getNearestTemplateGpg()
         nearestGpg = mainLayout.getNearestGpgId()
         fullPathFolder = getMainqmltype().getFullPathFolder()
@@ -245,6 +257,7 @@ function doSync(syncMsg) {
                            ).appSettingsType.gitExecPath, "-C", nearestGit, "push"],
                       " 2>&1")
                   doMainUiEnable()
+                  setGitDiffReturnCode()
                   isSaving = false
               })
 }
@@ -328,7 +341,10 @@ ColumnLayout {
             }
 
             icon.name: "sync"
-            icon.source: Qt.resolvedUrl("icons/sync_black_24dp.svg")
+            icon.source: Boolean(
+                             gitDiffReturnCode) ? Qt.resolvedUrl(
+                                                      "icons/sync_problem_FILL0_wght400_GRAD0_opsz24.svg") : Qt.resolvedUrl(
+                                                      "icons/sync_black_24dp.svg")
             hooverText: "<b>Cmd Y</b> commit pull push <br/> R.Click for custom msg."
             enabled: Boolean(nearestGit) && !isSaving
         }

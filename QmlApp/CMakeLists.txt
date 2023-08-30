@@ -40,6 +40,7 @@ qt6_add_qml_module(QmlApp
             icons/edit_FILL0_wght400_GRAD0_opsz48.svg
             icons/account_tree_FILL0_wght400_GRAD0_opsz48.svg
             icons/sync_black_24dp.svg
+            icons/sync_problem_FILL0_wght400_GRAD0_opsz24.svg
         )
 
 
