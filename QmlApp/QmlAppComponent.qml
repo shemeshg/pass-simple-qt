@@ -343,8 +343,8 @@ ColumnLayout {
             icon.name: "sync"
             icon.source: Boolean(
                              gitDiffReturnCode) ? Qt.resolvedUrl(
-                                                      "icons/sync_problem_FILL0_wght400_GRAD0_opsz24.svg") : Qt.resolvedUrl(
-                                                      "icons/sync_black_24dp.svg")
+                                                      "icons/sync_problem_FILL0_wght400_GRAD0_opsz48.svg") : Qt.resolvedUrl(
+                                                      "icons/sync_FILL0_wght400_GRAD0_opsz48.svg")
             hooverText: "<b>Cmd Y</b> commit pull push <br/> R.Click for custom msg."
             enabled: Boolean(nearestGit) && !isSaving
         }
