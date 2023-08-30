@@ -40,14 +40,6 @@ qt6_add_qml_module(QmlApp
             icons/edit_FILL0_wght400_GRAD0_opsz48.svg
             icons/account_tree_FILL0_wght400_GRAD0_opsz48.svg
             icons/sync_black_24dp.svg
-            QML_FILES CoreButton.qml
-            QML_FILES CoreTextArea.qml
-            QML_FILES CoreSwitch.qml
-            QML_FILES CoreComboBox.qml
-            QML_FILES CoreDialogYesNo.qml
-            QML_FILES CoreTextField.qml
-            QML_FILES CoreThinBar.qml
-            QML_FILES CorePagePadFooter.qml
         )
 
 

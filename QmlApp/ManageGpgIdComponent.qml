@@ -4,6 +4,7 @@ import QtQuick.Controls
 import QtQuick.Dialogs
 
 import DropdownWithList
+import QmlCore
 
 ScrollView {
     height: parent.height

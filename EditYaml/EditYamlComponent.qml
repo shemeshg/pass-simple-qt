@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import InputType
-import QmlApp
+import QmlCore
 
 ColumnLayout {
     property bool isEditFieldsType: false

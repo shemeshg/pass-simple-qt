@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 
 import Datetime
-import QmlApp
+import QmlCore
 
 ColumnLayout {
     id: datetimeComponentId

@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
+import QmlCore
+
 ScrollView {
     height: parent.height
     width: parent.width

@@ -1,5 +1,5 @@
 import QtQuick
-import QmlApp
+import QmlCore
 import QtQuick.Layouts
 import QtQuick.Controls
 

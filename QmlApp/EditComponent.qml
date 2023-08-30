@@ -4,6 +4,7 @@ import QtQuick.Controls
 import QtQuick.Dialogs
 
 import EditYaml
+import QmlCore
 
 ColumnLayout {
     property bool showYamlEdit: true

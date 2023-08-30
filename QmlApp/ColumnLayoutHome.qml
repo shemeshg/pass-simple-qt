@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
+import QmlCore
+
 ColumnLayout {
     property alias metaDataComponentId: metaDataComponentId
     property alias manageGpgIdComponentId: manageGpgIdComponentId

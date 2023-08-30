@@ -1,3 +1,5 @@
+import QmlCore
+
 CoreDialogYesNo {
     id: renameDialog
     title: "Set  name"

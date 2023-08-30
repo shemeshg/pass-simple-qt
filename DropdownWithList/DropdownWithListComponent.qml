@@ -3,7 +3,7 @@ import DropdownWithList
 
 import QtQuick.Controls
 import QtQuick.Layouts
-import QmlApp
+import QmlCore
 
 ColumnLayout {
     property alias selectedItems: dropdownWithListTypeId.selectedItems
