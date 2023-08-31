@@ -38,6 +38,9 @@ ColumnLayout {
     SystemPalette {
         id: systemPalette
         colorGroup: SystemPalette.Active
+        onButtonTextChanged: {
+            mainLayout.getMainqmltype().systemPlateChanged()
+        }
     }
 
     Component.onCompleted: {

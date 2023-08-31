@@ -50,6 +50,14 @@ private:
     QShortcut *keyZoomOut;
     AppSettings appSettings;
 
+    QAction *actionAddItem;
+    QAction *actionUploadFile;
+    QAction *actionUploadFolder;
+    QAction *actionDownloadFile;
+    QAction *actionDownloadFolder;
+    QAction *actionAbout;
+    QAction *actionQuit;
+
     bool treeViewItemSelected = false;
 
     void setQmlSource();
@@ -60,4 +68,7 @@ private:
         return QPixmap::fromImage(
             shape_icon(s,QApplication::palette().text().color()));
     }
+
+    void SetActionItems();
+
 };

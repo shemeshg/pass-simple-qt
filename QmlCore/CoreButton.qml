@@ -8,7 +8,11 @@ Button {
         id: toolTip
         contentItem: Text {
             color: systemPalette.text
+
             text: toolTip.text
+        }
+        background: Rectangle {
+            color: systemPalette.base //button
         }
     }
     HoverHandler {

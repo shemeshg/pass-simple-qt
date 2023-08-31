@@ -38,6 +38,19 @@ QImage MainWindow::shape_icon(const QString &icon, const QColor &color, const qr
     return res;
 }
 
+void MainWindow::SetActionItems()
+{
+    actionAddItem = new QAction(getIcon("://icons/outline_add_file_black_24dp.png")
+                                ,tr("Add Item"), this);
+    actionUploadFile = new QAction(getIcon("://icons/outline_file_upload_black_24dp.png"),tr("Upload file"), this);
+    actionUploadFolder = new QAction(getIcon("://icons/outline_drive_folder_upload_black_24dp.png"),tr("Upload folder content"), this);
+    actionDownloadFile = new QAction(getIcon("://icons/outline_file_download_black_24dp.png"),tr("Download file"), this);
+    actionDownloadFolder = new QAction(getIcon("://icons/outline_drive_folder_download_black_24dp.png"),tr("Download folder content"), this);
+    actionAbout = new QAction(getIcon("://icons/outline_info_black_24dp.png"),tr("About"), this);
+    actionQuit = new QAction(getIcon("://icons/outline_exit_to_app_black_24dp.png"),tr("Quit"), this);
+
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -98,15 +111,7 @@ MainWindow::MainWindow(QWidget *parent)
     QVariantMap variantMap;
     variantMap.insert("color",QColor(10,10,10));
 
-
-    auto actionAddItem = new QAction(getIcon("://icons/outline_add_file_black_24dp.png")
-                                     ,tr("Add Item"), this);
-    auto actionUploadFile = new QAction(getIcon("://icons/outline_file_upload_black_24dp.png"),tr("Upload file"), this);
-    auto actionUploadFolder = new QAction(getIcon("://icons/outline_drive_folder_upload_black_24dp.png"),tr("Upload folder content"), this);
-    auto actionDownloadFile = new QAction(getIcon("://icons/outline_file_download_black_24dp.png"),tr("Download file"), this);
-    auto actionDownloadFolder = new QAction(getIcon("://icons/outline_drive_folder_download_black_24dp.png"),tr("Download folder content"), this);
-    auto actionAbout = new QAction(getIcon("://icons/outline_info_black_24dp.png"),tr("About"), this);
-    auto actionQuit = new QAction(getIcon("://icons/outline_exit_to_app_black_24dp.png"),tr("Quit"), this);
+    SetActionItems();
 
     actionQuit->setStatusTip(tr("Quit"));
     connect(actionQuit, &QAction::triggered, this, &QApplication::quit);
@@ -210,6 +215,18 @@ MainWindow::MainWindow(QWidget *parent)
         }
 
     });
+
+    connect(mainqmltype, &MainQmlType::systemPlateChanged, this, [=]() {
+        actionAddItem->setIcon(getIcon("://icons/outline_add_file_black_24dp.png"));
+        actionUploadFile->setIcon(getIcon("://icons/outline_file_upload_black_24dp.png"));
+        actionUploadFolder->setIcon(getIcon("://icons/outline_drive_folder_upload_black_24dp.png"));
+        actionDownloadFile->setIcon(getIcon("://icons/outline_file_download_black_24dp.png"));
+        actionDownloadFolder->setIcon(getIcon("://icons/outline_drive_folder_download_black_24dp.png"));
+        actionAbout->setIcon(getIcon("://icons/outline_info_black_24dp.png"));
+        actionQuit->setIcon(getIcon("://icons/outline_exit_to_app_black_24dp.png"));
+
+    });
+
 
     context->setContextProperty(QStringLiteral("mainqmltype"), mainqmltype);
 

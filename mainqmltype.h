@@ -207,6 +207,7 @@ signals:
     void initFileSystemModel(QString filePath);
     void setTreeviewCurrentIndex(QString path);
     void setRootTreeView(QString path);
+    void systemPlateChanged();
     // hygen signals
 
 private:
