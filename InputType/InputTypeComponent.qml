@@ -47,21 +47,6 @@ ColumnLayout {
     }
 
     RowLayout {
-        ToolTip {
-            id: toolTip
-            contentItem: Text {
-                color: systemPalette.text
-                text: toolTip.text
-            }
-        }
-        HoverHandler {
-            id: hoverHandler
-            onHoveredChanged: {
-                if (hovered)
-                    toolTip.hide()
-            }
-        }
-
         CoreTextArea {
             visible: (inputType === "textedit" || inputType === "texteditMasked"
                       && isTexteditMasked === false) && showMdId.checked

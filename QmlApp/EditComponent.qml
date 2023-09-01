@@ -419,23 +419,6 @@ ColumnLayout {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                ToolTip {
-                    id: toolTip
-
-                    contentItem: Text {
-                        color: systemPalette.text
-                        text: toolTip.text
-                    }
-                }
-
-                HoverHandler {
-                    id: hoverHandler
-                    onHoveredChanged: {
-                        if (hovered)
-                            toolTip.hide()
-                    }
-                }
-
                 Loader {
                     width: parent.width
                     height: parent.height

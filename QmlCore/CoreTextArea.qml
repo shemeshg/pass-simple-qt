@@ -4,6 +4,17 @@ import QtQuick.Layouts
 import QtQuick.Controls
 
 TextArea {
+    CoreToolTip {
+        id: toolTip
+    }
+
+    HoverHandler {
+        id: hoverHandler
+        onHoveredChanged: {
+            if (!hovered)
+                toolTip.hide()
+        }
+    }
 
     selectionColor: systemPalette.highlight
     selectedTextColor: systemPalette.highlightedText

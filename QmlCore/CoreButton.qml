@@ -4,16 +4,8 @@ import QtQuick.Controls
 Button {
     property string hooverText: ""
 
-    ToolTip {
+    CoreToolTip {
         id: toolTip
-        contentItem: Text {
-            color: systemPalette.text
-
-            text: toolTip.text
-        }
-        background: Rectangle {
-            color: systemPalette.base //button
-        }
     }
     HoverHandler {
         id: hoverHandler
