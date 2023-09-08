@@ -2,8 +2,10 @@
 
 
 # hygen add_subdirectory
+find_package(Qt6 REQUIRED COMPONENTS Widgets LabsFolderListModel)
 link_libraries(
-
+ Qt6::Widgets
+ Qt6::LabsFolderListModel
 # hygen target_link_libraries
 )
 
