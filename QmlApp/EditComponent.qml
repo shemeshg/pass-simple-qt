@@ -452,7 +452,7 @@ ColumnLayout {
                         text: decryptedText
 
                         placeholderText: "Enter text here, YAML can not start with '-' or '#'"
-                        placeholderTextColor: "black"
+
                         onSelectedTextChanged: {
                             getMainqmltype().selectedText = selectedText
                         }

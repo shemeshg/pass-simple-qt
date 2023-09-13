@@ -18,6 +18,7 @@ TextArea {
 
     selectionColor: systemPalette.highlight
     selectedTextColor: systemPalette.highlightedText
+    placeholderTextColor: systemPalette.highlightedText
 
     width: parent.width
     height: parent.height
