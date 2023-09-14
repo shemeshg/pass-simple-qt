@@ -49,4 +49,5 @@ private:
     QVariantList m_yamlModel;
 
     YAML::Node yamlContent;
+    void clearYamlContent();
 };

@@ -98,6 +98,21 @@ void EditYamlType::setYamlErrorMsg(const QString &yamlErrorMsg)
     emit yamlErrorMsgChanged();
 }
 
+void EditYamlType::clearYamlContent()
+{
+    std::vector<std::string> keysToRemove = {"fields type"};
+    for (YAML::const_iterator it = yamlContent.begin(); it != yamlContent.end(); ++it) {
+
+        if(it->first.IsScalar() && it->second.IsScalar()){
+            keysToRemove.push_back(it->first.as<std::string>());
+        }
+    }
+
+    for (std::string &key: keysToRemove){
+        yamlContent.remove(key);
+    }
+}
+
 void EditYamlType::setYamlModel(const QVariantList &yamlModel)
 {
     if (yamlModel == m_yamlModel)
@@ -105,16 +120,18 @@ void EditYamlType::setYamlModel(const QVariantList &yamlModel)
 
     m_yamlModel = yamlModel;
 
-    YAML::Node nodeData;
+    clearYamlContent();
+
+
     YAML::Node nodeType;
 
     for (QVariantList::ConstIterator j = yamlModel.begin();
          j != yamlModel.end(); j++)
     {
-        nodeData[j->toMap().value("key").toString().toStdString()] = j->toMap().value("val").toString().toStdString();
+        yamlContent[j->toMap().value("key").toString().toStdString()] = j->toMap().value("val").toString().toStdString();
         nodeType[j->toMap().value("key").toString().toStdString()] = j->toMap().value("inputType").toString().toStdString();
     }
-    yamlContent = nodeData;
+
     yamlContent["fields type"] = nodeType;
     emit yamlModelChanged();
 }
