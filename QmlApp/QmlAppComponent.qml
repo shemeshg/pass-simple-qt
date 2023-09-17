@@ -229,17 +229,19 @@ ColumnLayout {
         delayCaller.start()
     }
 
-    function notifyStr(str, withTimeout = false, callback = () => {}) {
+    function notifyStr(str, withTimeout = false, callback = () => {}, clearString = "") {
     statusLabelId.text = str
     if (withTimeout) {
         delaySetTimeOut(1000, function () {
-            statusLabelId.text = ""
             callback()
+            statusLabelId.text = clearString
         })
     }
 }
 
 function doSync(syncMsg) {
+    var cllbackClearString = statusLabelId.text === "*" ? "*" : ""
+
     isSaving = true
     doMainUiDisable()
     notifyStr("* add all, commit, pull, putsh", true, () => {
@@ -262,7 +264,7 @@ function doSync(syncMsg) {
                   doMainUiEnable()
                   setGitDiffReturnCode()
                   isSaving = false
-              })
+              }, cllbackClearString)
 }
 
 ColumnLayout {
