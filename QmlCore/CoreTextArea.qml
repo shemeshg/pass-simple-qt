@@ -1,3 +1,3 @@
-TextAreaFactory {
+import QmlCore
 
-}
+TextAreaFactory {}
