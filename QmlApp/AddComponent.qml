@@ -21,12 +21,10 @@ ColumnLayout {
         title: "Choose file to upload"
         fileMode: FileDialog.OpenFile
         onAccepted: {
-            fileDialogUpload.currentFiles.forEach(f => {
-                                                      getMainqmltype(
-                                                          ).encryptUpload(
-                                                          fullPathFolder, f)
-                                                  })
-            doMainUiEnable()
+            getMainqmltype().encryptUploadAsync(() => {
+                                                    doMainUiEnable()
+                                                }, fullPathFolder,
+                                                fileDialogUpload.currentFiles)
         }
         onRejected: {
             doMainUiEnable()

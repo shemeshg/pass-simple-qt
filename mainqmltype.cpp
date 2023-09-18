@@ -435,6 +435,15 @@ bool MainQmlType::fileExists(QString fullPathFolder, QString fileName)
     return (std::filesystem::exists(p));
 }
 
+void MainQmlType::encryptUploadAsync(const QJSValue &callback, QString  fullPathFolder, QStringList fileNames, bool toFilesSubFolder){
+    makeAsync<int>(callback,[=]() {
+        for (const QString &fileName : fileNames) {
+            encryptUpload(fullPathFolder, fileName, toFilesSubFolder);
+        }
+        return 0;
+    });
+}
+
 void MainQmlType::encryptUpload(QString fullPathFolder, QString fileName, bool toFilesSubFolder)
 {
     const QUrl url(fileName);
@@ -458,16 +467,37 @@ void MainQmlType::encryptUpload(QString fullPathFolder, QString fileName, bool t
     });
 }
 
+void MainQmlType::decryptDownloadAsync(const QJSValue &callback,QString toFileName){
+    makeAsync<int>(callback,[=]() {
+        decryptDownload(toFileName);
+        return 0;
+    });
+}
+
 void MainQmlType::decryptDownload(QString toFileName)
 {
     const QUrl url(toFileName);
     runSafeFromException([&]() { passFile->decryptToFile(url.toLocalFile().toStdString()); });
 }
 
+void MainQmlType::dectyptFileNameToFileNameAsync(const QJSValue &callback,QString fromFileName, QString toFileName){
+    makeAsync<int>(callback,[=]() {
+        dectyptFileNameToFileName(fromFileName,toFileName);
+        return 0;
+    });
+}
+
 void MainQmlType::dectyptFileNameToFileName(QString fromFileName, QString toFileName)
 {
     const QUrl url(toFileName);
     runSafeFromException([&]() { passFile->dectyptFileNameToFileName(fromFileName.toStdString(),  url.toLocalFile().toStdString()); });
+}
+
+void MainQmlType::decryptFolderDownloadAsync(const QJSValue &callback, QString fullPathFolder, QString toFolderName){
+    makeAsync<int>(callback,[=]() {
+        decryptFolderDownload(fullPathFolder, toFolderName);
+        return 0;
+    });
 }
 
 void MainQmlType::decryptFolderDownload(QString fullPathFolder, QString toFolderName)

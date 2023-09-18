@@ -158,11 +158,19 @@ public:
 
     Q_INVOKABLE void encryptUpload(QString fullPathFolder, QString fileName, bool toFilesSubFolder=false);
 
+    Q_INVOKABLE void encryptUploadAsync(const QJSValue &callback, QString  fullPathFolder, QStringList  fileName, bool toFilesSubFolder=false);
+
     Q_INVOKABLE void decryptDownload(QString toFileName);
+
+    Q_INVOKABLE void decryptDownloadAsync(const QJSValue &callback, QString toFileName);
 
     Q_INVOKABLE void dectyptFileNameToFileName(QString fromFileName,QString toFileName);
 
+    Q_INVOKABLE void dectyptFileNameToFileNameAsync(const QJSValue &callback, QString fromFileName, QString toFileName);
+
     Q_INVOKABLE void decryptFolderDownload(QString fullPathFolder, QString toFolderName);
+
+    Q_INVOKABLE void decryptFolderDownloadAsync(const QJSValue &callback, QString fullPathFolder, QString toFolderName);
 
     Q_INVOKABLE void encryptFolderUpload(QString fromFolderName, QString fullPathFolder);
 
@@ -189,7 +197,6 @@ public:
     }
 
     Q_INVOKABLE void clipboardRelPath(QString path1, QString path2);
-
 
 signals:
     void filePathChanged();
