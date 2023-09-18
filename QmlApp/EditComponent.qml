@@ -309,11 +309,12 @@ ColumnLayout {
                 }
                 isSaving = true
                 doMainUiDisable()
-                notifyStr("* Saved", true)
+                notifyStr("* Saved")
                 mainLayout.encryptAsync(decryptedText, () => {
                                             isSaving = false
                                             doMainUiEnable()
                                             setGitDiffReturnCode()
+                                            notifyStr("")
                                         })
             }
             visible: isShowPreview

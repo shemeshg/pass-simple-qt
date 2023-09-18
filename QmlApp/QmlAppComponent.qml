@@ -244,27 +244,13 @@ function doSync(syncMsg) {
 
     isSaving = true
     doMainUiDisable()
-    notifyStr("* add all, commit, pull, putsh", true, () => {
-                  getMainqmltype().runCmd(
-                      [mainLayout.getMainqmltype(
-                           ).appSettingsType.gitExecPath, "-C", nearestGit, "add", "."],
-                      " 2>&1")
-                  getMainqmltype().runCmd(
-                      [mainLayout.getMainqmltype(
-                           ).appSettingsType.gitExecPath, "-C", nearestGit, "commit", "-am", syncMsg],
-                      " 2>&1")
-                  getMainqmltype().runCmd(
-                      [mainLayout.getMainqmltype(
-                           ).appSettingsType.gitExecPath, "-C", nearestGit, "pull"],
-                      " 2>&1")
-                  getMainqmltype().runCmd(
-                      [mainLayout.getMainqmltype(
-                           ).appSettingsType.gitExecPath, "-C", nearestGit, "push"],
-                      " 2>&1")
-                  doMainUiEnable()
-                  setGitDiffReturnCode()
-                  isSaving = false
-              }, cllbackClearString)
+    notifyStr("* add all, commit, pull, putsh")
+    getMainqmltype().runGitSyncCmdAsync(() => {
+                                            doMainUiEnable()
+                                            setGitDiffReturnCode()
+                                            isSaving = false
+                                            notifyStr(cllbackClearString)
+                                        }, nearestGit, syncMsg)
 }
 
 ColumnLayout {

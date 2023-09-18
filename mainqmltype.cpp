@@ -519,6 +519,34 @@ void MainQmlType::encryptFolderUpload(QString fromFolderName, QString fullPathFo
     });
 }
 
+void MainQmlType::runGitSyncCmdAsync(const QJSValue &callback, QString nearestGit, QString syncMsg){
+    makeAsync<int>(callback,[=]() {
+        runGitSyncCmd(nearestGit, syncMsg);
+        return 0;
+    });
+}
+
+void MainQmlType::runGitSyncCmd(QString nearestGit, QString syncMsg){
+    runCmd({appSettings.gitExecPath(),
+            "-C",
+            nearestGit,
+            "add",
+            "."
+            }," 2>&1");
+
+    runCmd({appSettings.gitExecPath(),
+               "-C",
+               nearestGit,
+               "commit", "-am", syncMsg
+           }," 2>&1");
+    runCmd({appSettings.gitExecPath(),
+               "-C", nearestGit, "pull"
+           }," 2>&1");
+    runCmd({appSettings.gitExecPath(),
+               "-C", nearestGit, "push"
+           }," 2>&1");
+}
+
 QString MainQmlType::runCmd(QStringList keysFound, QString noEscaped)
 {
     RunShellCmd rsc;
