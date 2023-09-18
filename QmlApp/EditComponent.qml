@@ -309,7 +309,7 @@ ColumnLayout {
                 }
                 isSaving = true
                 doMainUiDisable()
-                notifyStr("* Saved")
+                notifyStr("* Saving")
                 mainLayout.encryptAsync(decryptedText, () => {
                                             isSaving = false
                                             doMainUiEnable()
