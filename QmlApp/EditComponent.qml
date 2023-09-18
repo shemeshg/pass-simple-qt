@@ -186,7 +186,7 @@ ColumnLayout {
         }
     }
     RowLayout {
-        Label {
+        CoreLabel {
             visible: isGpgFile
             text: "<h2>" + filePath.replace(fullPathFolder, "").substring(
                       1, filePath.replace(fullPathFolder,

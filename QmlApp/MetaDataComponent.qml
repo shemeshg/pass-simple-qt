@@ -24,11 +24,11 @@ ScrollView {
             text: "<h1>Meta data<h1>"
         }
 
-        Label {
+        CoreLabel {
             id: nameId
             text: "File : " + filePath
         }
-        Label {
+        CoreLabel {
             text: "Git : " + nearestGit
         }
         RowLayout {
@@ -82,16 +82,16 @@ ScrollView {
             readOnly: true
         }
 
-        Label {
+        CoreLabel {
             id: nearestGpgIdId
             text: "GpgId : " + nearestGpg
         }
         RowLayout {
-            Label {
+            CoreLabel {
                 text: "Signed By: "
             }
 
-            Label {
+            CoreLabel {
                 text: decryptedSignedById
             }
         }

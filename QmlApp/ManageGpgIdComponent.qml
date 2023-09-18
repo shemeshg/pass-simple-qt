@@ -42,7 +42,7 @@ ScrollView {
         Label {
             text: "<h1>Manage .gpg-id<h1>"
         }
-        Label {
+        CoreLabel {
             text: "gpg-id: " + nearestGpg
         }
         CoreButton {

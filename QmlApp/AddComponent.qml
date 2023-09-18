@@ -47,7 +47,7 @@ ColumnLayout {
     id: addComponentId
 
     ColumnLayout {
-        Label {
+        CoreLabel {
             text: "Destination folder:" + fullPathFolder
         }
         Label {
