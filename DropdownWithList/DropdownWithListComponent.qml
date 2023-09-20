@@ -24,7 +24,7 @@ ColumnLayout {
         Repeater {
             model: dropdownWithListTypeId.selectedItems
             RowLayout {
-                Label {
+                CoreLabel {
                     text: modelData
                 }
                 CoreButton {
@@ -44,7 +44,7 @@ ColumnLayout {
             Repeater {
                 model: dropdownWithListTypeId.notSelectedItems
                 RowLayout {
-                    Label {
+                    CoreLabel {
                         text: modelData
                     }
                     CoreButton {

@@ -23,13 +23,14 @@ ScrollView {
         Label {
             text: "<h1>Meta data<h1>"
         }
-
-        CoreLabel {
+        CoreLabelAndText {
             id: nameId
-            text: "File : " + filePath
+            coreLabel: "File"
+            coreText: filePath
         }
-        CoreLabel {
-            text: "Git : " + nearestGit
+        CoreLabelAndText {
+            coreLabel: "Git"
+            coreText: nearestGit
         }
         RowLayout {
             CoreButton {
@@ -81,19 +82,14 @@ ScrollView {
             width: parent.width
             readOnly: true
         }
-
-        CoreLabel {
+        CoreLabelAndText {
             id: nearestGpgIdId
-            text: "GpgId : " + nearestGpg
+            coreLabel: "GpgId"
+            coreText: nearestGpg
         }
-        RowLayout {
-            CoreLabel {
-                text: "Signed By: "
-            }
-
-            CoreLabel {
-                text: decryptedSignedById
-            }
+        CoreLabelAndText {
+            coreLabel: "Signed By"
+            coreText: decryptedSignedById
         }
         Label {
             text: "<h2>Wait Items</h2>"

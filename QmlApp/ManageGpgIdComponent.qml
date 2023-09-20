@@ -42,8 +42,9 @@ ScrollView {
         Label {
             text: "<h1>Manage .gpg-id<h1>"
         }
-        CoreLabel {
-            text: "gpg-id: " + nearestGpg
+        CoreLabelAndText {
+            coreLabel: "gpg-id"
+            coreText: nearestGpg
         }
         CoreButton {
             text: "Import and trust a new public key"
@@ -104,7 +105,7 @@ ScrollView {
             id: badEntriesRepeater
             model: []
             RowLayout {
-                Label {
+                CoreLabel {
                     text: modelData
                 }
             }

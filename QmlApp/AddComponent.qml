@@ -47,8 +47,9 @@ ColumnLayout {
     id: addComponentId
 
     ColumnLayout {
-        CoreLabel {
-            text: "Destination folder:" + fullPathFolder
+        CoreLabelAndText {
+            coreLabel: "Destination folder"
+            coreText: fullPathFolder
         }
         Label {
             text: "Create new text file"
@@ -82,10 +83,10 @@ ColumnLayout {
                 }
             }
         }
-        CoreLabel {
-            text: "template.gpg: " + nearestTemplateGpg
+        CoreLabelAndText {
+            coreLabel: "template.gpg"
+            coreText: nearestTemplateGpg
         }
-
         RowLayout {
             Label {
                 text: "Upload"
