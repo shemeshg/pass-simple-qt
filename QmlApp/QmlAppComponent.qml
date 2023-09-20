@@ -136,6 +136,12 @@ ColumnLayout {
     function initOnFileChanged() {
         clearSystemTrayIconEntries()
         isBinaryFile = getIsBinary(filePath)
+
+        if (waitItems.indexOf(filePath) > -1 || noneWaitItems.indexOf(
+                    filePath) > -1) {
+            isShowPreview = false
+        }
+
         if (isBinaryFile) {
             if (isShowPreview) {
                 isPreviousShowPreview = true
