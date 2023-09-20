@@ -169,7 +169,9 @@ ColumnLayout {
             delegate: RowLayout {
 
                 CoreLabel {
-                    text: modelData.replace(passwordStorePathStr, "")
+                    text: modelData.replace(passwordStorePathStr, "").substring(
+                              1, modelData.replace(passwordStorePathStr,
+                                                   "").length - 4)
                 }
                 CoreButton {
                     text: "←"
