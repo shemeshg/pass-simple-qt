@@ -6,4 +6,9 @@ TextEdit {
     selectionColor: systemPalette.highlight
     selectedTextColor: systemPalette.highlightedText
     textFormat: TextEdit.AutoText
+    onActiveFocusChanged: {
+        if (activeFocus) {
+            selectAll()
+        }
+    }
 }

@@ -168,7 +168,7 @@ ColumnLayout {
             boundsBehavior: Flickable.StopAtBounds
             delegate: RowLayout {
 
-                Label {
+                CoreLabel {
                     text: modelData.replace(passwordStorePathStr, "")
                 }
                 CoreButton {

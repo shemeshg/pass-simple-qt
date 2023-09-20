@@ -82,7 +82,7 @@ ColumnLayout {
                 }
             }
         }
-        Label {
+        CoreLabel {
             text: "template.gpg: " + nearestTemplateGpg
         }
 
