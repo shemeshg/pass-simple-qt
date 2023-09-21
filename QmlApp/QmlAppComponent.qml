@@ -137,12 +137,8 @@ ColumnLayout {
         clearSystemTrayIconEntries()
         isBinaryFile = getIsBinary(filePath)
 
-        if (waitItems.indexOf(filePath) > -1 || noneWaitItems.indexOf(
-                    filePath) > -1) {
-            isShowPreview = false
-        }
-
-        if (isBinaryFile) {
+        if (isBinaryFile || waitItems.indexOf(filePath) > -1
+                || noneWaitItems.indexOf(filePath) > -1) {
             if (isShowPreview) {
                 isPreviousShowPreview = true
             }

@@ -97,7 +97,7 @@ ScrollView {
         Repeater {
             model: waitItems
             RowLayout {
-                Label {
+                CoreLabel {
                     text: modelData
                 }
                 CoreButton {
@@ -113,7 +113,7 @@ ScrollView {
         Repeater {
             model: noneWaitItems
             RowLayout {
-                Label {
+                CoreLabel {
                     text: modelData
                 }
                 CoreButton {
