@@ -42,15 +42,27 @@ ColumnLayout {
 
         TabButton {
             text: qsTr("Edit")
+            background: Rectangle {
+                color: toolbarId.currentIndex === 0 ? systemPalette.light : systemPalette.mid
+            }
         }
         TabButton {
             text: qsTr("Add")
+            background: Rectangle {
+                color: toolbarId.currentIndex === 1 ? systemPalette.light : systemPalette.mid
+            }
         }
         TabButton {
             text: qsTr("Info Git")
+            background: Rectangle {
+                color: toolbarId.currentIndex === 2 ? systemPalette.light : systemPalette.mid
+            }
         }
         TabButton {
             text: qsTr("Auth")
+            background: Rectangle {
+                color: toolbarId.currentIndex === 3 ? systemPalette.light : systemPalette.mid
+            }
         }
     }
 
