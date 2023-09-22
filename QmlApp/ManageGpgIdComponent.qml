@@ -40,6 +40,7 @@ ScrollView {
         }
 
         Label {
+            visible: false
             text: "<h1>Manage .gpg-id<h1>"
         }
         CoreLabelAndText {

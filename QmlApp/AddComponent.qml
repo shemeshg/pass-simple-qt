@@ -88,6 +88,7 @@ ColumnLayout {
             coreText: nearestTemplateGpg
         }
         RowLayout {
+            visible: false
             Label {
                 text: "Upload"
             }

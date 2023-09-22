@@ -157,6 +157,7 @@ ColumnLayout {
 
     RowLayout {
         width: parent.width
+        visible: false
         Label {
             visible: isGpgFile
             text: "<h1>Edit<h1>"

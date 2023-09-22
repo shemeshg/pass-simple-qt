@@ -22,6 +22,7 @@ ScrollView {
 
         Label {
             text: "<h1>Meta data<h1>"
+            visible: false
         }
         CoreLabelAndText {
             id: nameId
