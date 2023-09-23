@@ -87,25 +87,5 @@ ColumnLayout {
             coreLabel: "template.gpg"
             coreText: nearestTemplateGpg
         }
-        RowLayout {
-            visible: false
-            Label {
-                text: "Upload"
-            }
-            CoreButton {
-                text: "Upload file"
-                enabled: Boolean(nearestGpg)
-                onClicked: {
-                    fileDialogUpload.open()
-                }
-            }
-            CoreButton {
-                text: "Upload folder content"
-                enabled: Boolean(nearestGpg)
-                onClicked: {
-                    folderDialogUpload.open()
-                }
-            }
-        }
     }
 }

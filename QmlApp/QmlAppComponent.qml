@@ -110,7 +110,7 @@ ColumnLayout {
         nearestGpg = mainLayout.getNearestGpgId()
         fullPathFolder = getMainqmltype().getFullPathFolder()
         hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId())
-        isGpgFile = filePath.slice(-4) === ".gpg"
+        isGpgFile = getMainqmltype().isGpgFile()
         let allKeys = mainLayout.getGpgIdManageType().allKeys
         columnLayoutHomeId.metaDataComponentId.decryptedSignedById = decryptedSignedByFullId(
                     mainLayout.getDecryptedSignedBy(), allKeys)

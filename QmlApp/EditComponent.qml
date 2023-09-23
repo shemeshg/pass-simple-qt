@@ -156,37 +156,6 @@ ColumnLayout {
     }
 
     RowLayout {
-        width: parent.width
-        visible: false
-        Label {
-            visible: isGpgFile
-            text: "<h1>Edit<h1>"
-            Layout.fillWidth: true
-        }
-        Item {
-            Layout.fillWidth: true
-        }
-
-        CoreButton {
-            visible: isGpgFile
-            text: "download file"
-            onClicked: {
-                fileDialogDownload.open()
-            }
-            rightPadding: 8
-        }
-        CoreButton {
-            visible: Boolean(nearestGpg)
-            text: "download folder content"
-            onClicked: {
-                onClicked: {
-                    folderDialogDownload.open()
-                }
-            }
-            rightPadding: 8
-        }
-    }
-    RowLayout {
         CoreLabel {
             visible: isGpgFile
             text: "<h2>" + filePath.replace(fullPathFolder, "").substring(

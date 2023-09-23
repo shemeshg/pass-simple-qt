@@ -41,7 +41,7 @@ QImage MainWindow::shape_icon(const QString &icon, const QColor &color, const qr
 void MainWindow::SetActionItems()
 {
     actionAddItem = new QAction(getIcon("://icons/outline_add_file_black_24dp.png")
-                                ,tr("Add Item"), this);
+                                ,tr("Add Item"), this);    
     actionUploadFile = new QAction(getIcon("://icons/outline_file_upload_black_24dp.png"),tr("Upload file"), this);
     actionUploadFolder = new QAction(getIcon("://icons/outline_drive_folder_upload_black_24dp.png"),tr("Upload folder content"), this);
     actionDownloadFile = new QAction(getIcon("://icons/outline_file_download_black_24dp.png"),tr("Download file"), this);
@@ -295,6 +295,23 @@ void MainWindow::currentChangedSlot(const QModelIndex &current, const QModelInde
         auto idx = treeIndex.model()->index(treeIndex.row(), 0, treeIndex.parent());
         mainqmltype->setFilePath(filesystemModel->filePath(idx));
         treeViewItemSelected = true;
+        if(mainqmltype->getNearestGpgId().isEmpty()){
+            actionDownloadFolder->setEnabled(false);
+            actionUploadFolder->setEnabled(false);
+            actionUploadFile->setEnabled(false);
+            actionAddItem->setEnabled(false);
+        } else {
+            actionDownloadFolder->setEnabled(true);
+            actionUploadFolder->setEnabled(true);
+            actionUploadFile->setEnabled(true);
+            actionAddItem->setEnabled(true);
+        }
+        if(mainqmltype->isGpgFile()){
+            actionDownloadFile->setEnabled(true);
+        } else {
+            actionDownloadFile->setEnabled(false);
+        }
+
     } catch (const std::exception &e) {
         qDebug() << e.what();
     }

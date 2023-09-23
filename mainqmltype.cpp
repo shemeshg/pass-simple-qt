@@ -237,6 +237,10 @@ void MainQmlType::toggleFilepan()
     }
 }
 
+bool MainQmlType::isGpgFile(){
+    return passFile->isGpgFile();
+}
+
 void MainQmlType::encrypt(QString s)
 {
     if (passFile->isGpgFile()) {

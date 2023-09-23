@@ -201,6 +201,7 @@ public:
     Q_INVOKABLE void runGitSyncCmd(QString nearestGit, QString syncMsg);
 
     Q_INVOKABLE void runGitSyncCmdAsync(const QJSValue &callback, QString nearestGit, QString syncMsg);
+    Q_INVOKABLE bool isGpgFile();
 signals:
     void filePathChanged();
     void filePanSizeChanged();

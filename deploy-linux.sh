@@ -8,5 +8,5 @@ cmake --install .
 cpack -G DEB
 cpack -G ZIP
 
-sudo dpkg -i /home/ubuntu/Documents/gili/pass-simple-0.97-Linux.deb
+sudo dpkg -i /home/ubuntu/Documents/gili/pass-simple-0.98-Linux.deb
 
