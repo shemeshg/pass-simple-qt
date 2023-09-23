@@ -202,6 +202,7 @@ void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpF
                                          bool useClipboard, bool doSign, bool preferYamlView, QString fontSize,
                                          QString commitMsg,QString ctxSigner)
 {
+    QString orgStorePath = appSettings.passwordStorePath();
     appSettings.setPasswordStorePath(passwordStorePath);
     appSettings.setTmpFolderPath(tmpFolderPath);
 
@@ -217,6 +218,9 @@ void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpF
     appSettings.setCtxSigner(ctxSigner);
 
     loadTreeView();
+    if (orgStorePath != appSettings.passwordStorePath()){
+        setTreeViewSelected(appSettings.passwordStorePath());
+    }
     emit appSettingsTypeChanged();
 }
 
