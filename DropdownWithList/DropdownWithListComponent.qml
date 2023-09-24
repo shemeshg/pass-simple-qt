@@ -10,12 +10,19 @@ ColumnLayout {
     property alias notSelectedItems: dropdownWithListTypeId.notSelectedItems
     property alias allItems: dropdownWithListTypeId.allItems
 
+
+
     DropdownWithListType {
         id: dropdownWithListTypeId
     }
 
-    Column {
-        Row {
+    ColumnLayout {
+        CoreTextField {
+            id: txtFilter
+            placeholderText: "filter"
+            Layout.fillWidth: true
+        }
+        RowLayout {
             Label {
                 text: "<h2>Groups membered</h2>"
                 visible: dropdownWithListTypeId.selectedItems.length > 0
@@ -24,6 +31,7 @@ ColumnLayout {
         Repeater {
             model: dropdownWithListTypeId.selectedItems
             RowLayout {
+                visible: modelData.includes(txtFilter.text)
                 CoreLabel {
                     text: modelData
                 }
@@ -44,6 +52,7 @@ ColumnLayout {
             Repeater {
                 model: dropdownWithListTypeId.notSelectedItems
                 RowLayout {
+                    visible: modelData.includes(txtFilter.text)
                     CoreLabel {
                         text: modelData
                     }
