@@ -216,7 +216,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     });
 
-    connect(mainqmltype, &MainQmlType::systemPlateChanged, this, [=]() {
+    connect(mainqmltype, &MainQmlType::systemPlateChanged, this, [=](bool isDarkTheme) {
         actionAddItem->setIcon(getIcon("://icons/outline_add_file_black_24dp.png"));
         actionUploadFile->setIcon(getIcon("://icons/outline_file_upload_black_24dp.png"));
         actionUploadFolder->setIcon(getIcon("://icons/outline_drive_folder_upload_black_24dp.png"));
