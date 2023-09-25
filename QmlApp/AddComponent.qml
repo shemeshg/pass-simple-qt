@@ -55,6 +55,11 @@ ColumnLayout {
             text: "Create new text file"
         }
         RowLayout {
+            LayoutMirroring.enabled: createEmptyFileNameId.horizontalAlignment === Text.AlignRight
+            Item {
+                width: 10
+                visible: createEmptyFileNameId.horizontalAlignment === Text.AlignRight
+            }
             CoreTextField {
                 id: createEmptyFileNameId
                 text: ""

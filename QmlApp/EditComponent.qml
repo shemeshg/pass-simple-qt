@@ -156,7 +156,14 @@ ColumnLayout {
     }
 
     RowLayout {
+        LayoutMirroring.enabled: titleForDisplay.horizontalAlignment === Text.AlignRight
+        Item {
+            width: 10
+            visible: titleForDisplay.horizontalAlignment === Text.AlignRight
+        }
+
         CoreLabel {
+            id: titleForDisplay
             visible: isGpgFile
             text: "<h2>" + filePath.replace(fullPathFolder, "").substring(
                       1, filePath.replace(fullPathFolder,
