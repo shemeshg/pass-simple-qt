@@ -106,11 +106,17 @@ ColumnLayout {
     RowLayout {
         visible: inputType === "text" || inputType === "url"
                  || inputType === "totp" || inputType === "password"
+        LayoutMirroring.enabled: textField.horizontalAlignment === Text.AlignRight
         Timer {
             interval: 500
             running: inputType === "totp"
             repeat: true
             onTriggered: totpText = getMainqmltype().getTotp(inputText)
+        }
+        Item {
+            height: 2
+            width: 15
+            visible: textField.horizontalAlignment === Text.AlignRight
         }
         CoreTextField {
             id: textField
@@ -176,6 +182,7 @@ ColumnLayout {
         Item {
             height: 2
             width: 15
+            visible: textField.horizontalAlignment !== Text.AlignRight
         }
     }
 }
