@@ -47,6 +47,12 @@ ColumnLayout {
     }
 
     RowLayout {
+        LayoutMirroring.enabled: textEditComponentId.horizontalAlignment === Text.AlignRight
+        Item {
+            height: 2
+            width: 15
+            visible: textEditComponentId.horizontalAlignment === Text.AlignRight
+        }
         CoreTextArea {
             visible: (inputType === "textedit" || inputType === "texteditMasked"
                       && isTexteditMasked === false) && showMdId.checked
@@ -64,7 +70,6 @@ ColumnLayout {
             visible: (inputType === "textedit" && !showMdId.checked)
                      || (inputType === "texteditMasked"
                          && isTexteditMasked === false && !showMdId.checked)
-
             text: inputText
             wrapMode: TextEdit.WrapAnywhere
             onTextChanged: {
@@ -86,6 +91,8 @@ ColumnLayout {
             padding: 8
             Layout.fillWidth: true
             text: "*********"
+            horizontalAlignment: textEditComponentId.horizontalAlignment
+                                 === Text.AlignRight ? Text.AlignRight : Text.AlignLeft
             visible: inputType === "texteditMasked" && isTexteditMasked
         }
 
@@ -100,6 +107,7 @@ ColumnLayout {
         Item {
             height: 2
             width: 15
+            visible: textEditComponentId.horizontalAlignment !== Text.AlignRight
         }
     }
 
