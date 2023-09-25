@@ -147,6 +147,7 @@ ColumnLayout {
                 Label {
                     text: modelData.key + ": "
                     padding: 8
+                    Layout.fillWidth: !isEditFieldsType
                 }
                 CoreComboBox {
                     id: selectedInputType
@@ -232,7 +233,7 @@ ColumnLayout {
                                      "icons/remove_circle_outline_black_24dp.svg")
                 }
                 Item {
-                    width: 10
+                    width: 8
                 }
             }
             RowLayout {
@@ -245,6 +246,9 @@ ColumnLayout {
                     onTextChangedSignal: function (s) {
                         editYamlType.sendChangeVal(modelData.key, s)
                     }
+                }
+                Item {
+                    width: 6
                 }
             }
             Rectangle {
