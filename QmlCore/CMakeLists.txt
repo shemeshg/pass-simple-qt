@@ -26,4 +26,5 @@ qt6_add_qml_module(QmlCore
             QML_FILES CoreToolTip.qml
             QML_FILES CoreLabel.qml
             QML_FILES CoreLabelAndText.qml
+            QML_FILES CoreTabButton.qml
         )

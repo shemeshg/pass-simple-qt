@@ -40,29 +40,25 @@ ColumnLayout {
         Layout.fillWidth: true
         width: parent.width
 
-        TabButton {
+        CoreTabButton {
+            idx: 0
+            cidx: toolbarId.currentIndex
             text: qsTr("Edit")
-            background: Rectangle {
-                color: toolbarId.currentIndex === 0 ? systemPalette.light : systemPalette.mid
-            }
         }
-        TabButton {
+        CoreTabButton {
+            idx: 1
+            cidx: toolbarId.currentIndex
             text: qsTr("Add")
-            background: Rectangle {
-                color: toolbarId.currentIndex === 1 ? systemPalette.light : systemPalette.mid
-            }
         }
-        TabButton {
+        CoreTabButton {
+            idx: 2
+            cidx: toolbarId.currentIndex
             text: qsTr("Info Git")
-            background: Rectangle {
-                color: toolbarId.currentIndex === 2 ? systemPalette.light : systemPalette.mid
-            }
         }
-        TabButton {
+        CoreTabButton {
+            idx: 3
+            cidx: toolbarId.currentIndex
             text: qsTr("Auth")
-            background: Rectangle {
-                color: toolbarId.currentIndex === 3 ? systemPalette.light : systemPalette.mid
-            }
         }
     }
 
