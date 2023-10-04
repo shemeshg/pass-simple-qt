@@ -10,3 +10,4 @@ cpack -G ZIP
 
 sudo dpkg -i /home/ubuntu/Documents/gili/pass-simple-0.98-Linux.deb
 
+echo *.deb *.zip
