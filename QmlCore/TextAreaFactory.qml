@@ -16,9 +16,9 @@ TextArea {
         }
     }
 
-    selectionColor: systemPalette.highlight
-    selectedTextColor: systemPalette.highlightedText
-    placeholderTextColor: systemPalette.text
+    selectionColor: CoreSystemPalette.highlight
+    selectedTextColor: CoreSystemPalette.highlightedText
+    placeholderTextColor: CoreSystemPalette.text
 
     width: parent.width
     height: parent.height

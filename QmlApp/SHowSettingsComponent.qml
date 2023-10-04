@@ -128,7 +128,7 @@ ScrollView {
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 1
-            color: systemPalette.text
+            color: CoreSystemPalette.text
         }
 
         Label {

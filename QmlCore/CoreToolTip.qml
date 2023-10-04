@@ -4,11 +4,11 @@ import QtQuick.Controls
 ToolTip {
     id: toolTip
     contentItem: Text {
-        color: systemPalette.text
+        color: CoreSystemPalette.text
 
         text: toolTip.text
     }
     background: Rectangle {
-        color: systemPalette.base
+        color: CoreSystemPalette.base
     }
 }

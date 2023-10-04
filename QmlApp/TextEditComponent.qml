@@ -1,11 +1,12 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QmlCore
 
 Rectangle {
     property string textEditText: ""
     signal textChanged
-    color: systemPalette.alternateBase
+    color: CoreSystemPalette.alternateBase
     height: parent.height
     width: parent.width
     TextEdit {

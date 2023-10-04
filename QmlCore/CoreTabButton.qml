@@ -5,6 +5,6 @@ TabButton {
     required property int idx
     required property int cidx
     background: Rectangle {
-        color: cidx === idx ? systemPalette.light : systemPalette.mid
+        color: cidx === idx ? CoreSystemPalette.light : CoreSystemPalette.mid
     }
 }

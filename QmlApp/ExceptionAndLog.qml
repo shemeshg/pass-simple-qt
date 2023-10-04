@@ -17,11 +17,6 @@ ColumnLayout {
     height: parent.height
     Layout.fillWidth: true
 
-    SystemPalette {
-        id: systemPalette
-        colorGroup: SystemPalette.Active
-    }
-
     CoreButton {
         id: navigateBackFromLogId
         text: "Back"

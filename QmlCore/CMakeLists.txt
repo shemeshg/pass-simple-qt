@@ -6,6 +6,10 @@ if(UNIX AND NOT APPLE)
     list(APPEND OS_DEPENDENT_QML +linux/CoreTextArea.qml)
 endif()
 
+set_source_files_properties(CoreSystemPalette.qml PROPERTIES
+    QT_QML_SINGLETON_TYPE TRUE
+)
+
 qt6_add_qml_module(QmlCore
         URI QmlCore
         VERSION 1.0
@@ -27,4 +31,5 @@ qt6_add_qml_module(QmlCore
             QML_FILES CoreLabel.qml
             QML_FILES CoreLabelAndText.qml
             QML_FILES CoreTabButton.qml
+            QML_FILES CoreSystemPalette.qml
         )

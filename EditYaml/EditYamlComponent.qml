@@ -181,7 +181,7 @@ ColumnLayout {
 
                         width: parent.width
                         height: 10
-                        color: systemPalette.text
+                        color: CoreSystemPalette.text
                         visible: isEditFieldsType && markedRow === index
                     }
                 }
@@ -254,7 +254,7 @@ ColumnLayout {
             Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 1
-                color: systemPalette.text
+                color: CoreSystemPalette.text
             }
         }
     }

@@ -150,11 +150,6 @@ ColumnLayout {
         }
     }
 
-    SystemPalette {
-        id: systemPalette
-        colorGroup: SystemPalette.Active
-    }
-
     RowLayout {
         LayoutMirroring.enabled: titleForDisplay.horizontalAlignment === Text.AlignRight
         Item {

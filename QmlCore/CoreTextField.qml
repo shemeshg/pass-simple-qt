@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 
 TextField {
-    palette.buttonText: systemPalette.buttonText
+    palette.buttonText: CoreSystemPalette.buttonText
     onActiveFocusChanged: {
         if (activeFocus) {
             selectAll()

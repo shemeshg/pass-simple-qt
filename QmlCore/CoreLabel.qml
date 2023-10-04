@@ -2,9 +2,9 @@ import QtQuick
 
 TextEdit {
     readOnly: true
-    color: systemPalette.text
-    selectionColor: systemPalette.highlight
-    selectedTextColor: systemPalette.highlightedText
+    color: CoreSystemPalette.text
+    selectionColor: CoreSystemPalette.highlight
+    selectedTextColor: CoreSystemPalette.highlightedText
     textFormat: TextEdit.AutoText
     onActiveFocusChanged: {
         if (activeFocus) {

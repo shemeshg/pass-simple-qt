@@ -20,5 +20,5 @@ Button {
             toolTip.show(hooverText, 3000)
         }
     }
-    palette.buttonText: systemPalette.buttonText
+    palette.buttonText: CoreSystemPalette.buttonText
 }

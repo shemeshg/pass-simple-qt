@@ -4,7 +4,7 @@ import QtQuick.Dialogs
 
 Dialog {
     width: parent.width * 0.75
-    palette.buttonText: systemPalette.buttonText
+    palette.buttonText: CoreSystemPalette.buttonText
     standardButtons: Dialog.Ok | Dialog.Cancel
     onClosed: {
         return
