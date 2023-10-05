@@ -389,47 +389,60 @@ ColumnLayout {
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            ScrollView {
-                visible: showMdId.checked
+            Loader {
+                // Explicitly set the size of the
+                // Loader to the parent item's size
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                contentHeight: mdDecryptedTextId.height
-                CoreTextArea {
-                    id: mdDecryptedTextId
-                    text: decryptedText
-                    readOnly: true
+                sourceComponent: showMdId.checked ? componentMdDecryptedTextId : componentDecryptedTextId
+            }
+
+            Component {
+                id: componentMdDecryptedTextId
+                ScrollView {
                     visible: showMdId.checked
-                    textFormat: TextEdit.MarkdownText
                     Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    contentHeight: mdDecryptedTextId.height
+                    CoreTextArea {
+                        id: mdDecryptedTextId
+                        text: decryptedText
+                        readOnly: true
+                        visible: showMdId.checked
+                        textFormat: TextEdit.MarkdownText
+                        Layout.fillWidth: true
+                    }
                 }
             }
-            ScrollView {
-                visible: !showMdId.checked
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                contentHeight: decryptedTextId.height
-                CoreTextArea {
-                    property bool isKeyPressed: false
-                    id: decryptedTextId
-                    text: decryptedText
-                    Layout.fillWidth: true
-                    placeholderText: "Enter text here, YAML can not start with '-' or '#'"
-
-                    onSelectedTextChanged: {
-                        getMainqmltype().selectedText = selectedText
-                    }
+            Component {
+                id: componentDecryptedTextId
+                ScrollView {
                     visible: !showMdId.checked
-                    onTextChanged: {
-                        decryptedText = text
-                        if (isKeyPressed) {
-                            notifyStr("*")
-                            isKeyPressed = false
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    contentHeight: decryptedTextId.height
+                    CoreTextArea {
+                        property bool isKeyPressed: false
+                        id: decryptedTextId
+                        text: decryptedText
+                        Layout.fillWidth: true
+                        placeholderText: "Enter text here, YAML can not start with '-' or '#'"
+
+                        onSelectedTextChanged: {
+                            getMainqmltype().selectedText = selectedText
                         }
+                        visible: !showMdId.checked
+                        onTextChanged: {
+                            decryptedText = text
+                            if (isKeyPressed) {
+                                notifyStr("*")
+                                isKeyPressed = false
+                            }
+                        }
+                        Keys.onPressed: event => {
+                                            isKeyPressed = true
+                                        }
                     }
-                    Keys.onPressed: event => {
-                                        isKeyPressed = true
-                                    }
                 }
             }
         }
