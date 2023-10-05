@@ -383,69 +383,53 @@ ColumnLayout {
     Component {
         id: dontShowYamlEditComponent
 
-        ScrollView {
+        ColumnLayout {
             height: parent.height
             width: parent.width
-            clip: true
+
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            ColumnLayout {
-                height: parent.height
-                width: parent.width
-
+            ScrollView {
+                visible: showMdId.checked
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
-                Loader {
-                    width: parent.width
-                    height: parent.height
+                contentHeight: mdDecryptedTextId.height
+                CoreTextArea {
+                    id: mdDecryptedTextId
+                    text: decryptedText
+                    readOnly: true
+                    visible: showMdId.checked
+                    textFormat: TextEdit.MarkdownText
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    sourceComponent: showMdId.checked ? mdDecryptedTextIdComponent : decryptedTextIdComponent
                 }
-
-                Item {
+            }
+            ScrollView {
+                visible: !showMdId.checked
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                contentHeight: decryptedTextId.height
+                CoreTextArea {
+                    property bool isKeyPressed: false
+                    id: decryptedTextId
+                    text: decryptedText
                     Layout.fillWidth: true
-                    height: 100
-                }
+                    placeholderText: "Enter text here, YAML can not start with '-' or '#'"
 
-                Component {
-                    id: mdDecryptedTextIdComponent
-
-                    CoreTextArea {
-                        id: mdDecryptedTextId
-                        text: decryptedText
-                        readOnly: true
-                        visible: showMdId.checked
-                        textFormat: TextEdit.MarkdownText
+                    onSelectedTextChanged: {
+                        getMainqmltype().selectedText = selectedText
                     }
-                }
-
-                Component {
-                    id: decryptedTextIdComponent
-                    CoreTextArea {
-                        property bool isKeyPressed: false
-                        id: decryptedTextId
-                        text: decryptedText
-
-                        placeholderText: "Enter text here, YAML can not start with '-' or '#'"
-
-                        onSelectedTextChanged: {
-                            getMainqmltype().selectedText = selectedText
+                    visible: !showMdId.checked
+                    onTextChanged: {
+                        decryptedText = text
+                        if (isKeyPressed) {
+                            notifyStr("*")
+                            isKeyPressed = false
                         }
-                        visible: !showMdId.checked
-                        onTextChanged: {
-                            decryptedText = text
-                            if (isKeyPressed) {
-                                notifyStr("*")
-                                isKeyPressed = false
-                            }
-                        }
-                        Keys.onPressed: event => {
-                                            isKeyPressed = true
-                                        }
                     }
+                    Keys.onPressed: event => {
+                                        isKeyPressed = true
+                                    }
                 }
             }
         }
