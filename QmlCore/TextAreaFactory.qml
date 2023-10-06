@@ -20,11 +20,6 @@ TextArea {
     selectedTextColor: CoreSystemPalette.highlightedText
     placeholderTextColor: CoreSystemPalette.text
 
-    width: parent.width
-    height: parent.height
-    Layout.fillWidth: true
-    Layout.fillHeight: true
-
     onLinkActivated: link => {
                          doUrlRedirect(link)
                      }

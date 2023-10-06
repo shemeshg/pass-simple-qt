@@ -77,12 +77,12 @@ ScrollView {
                 }
             }
         }
+
         CoreTextArea {
             text: gitResponseId
-            Layout.fillWidth: true
-            width: parent.width
             readOnly: true
         }
+
         CoreLabelAndText {
             id: nearestGpgIdId
             coreLabel: "GpgId"
