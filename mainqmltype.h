@@ -178,7 +178,6 @@ public:
 
     Q_INVOKABLE int runSystem(QStringList keysFound, QString noEscaped);
 
-    Q_INVOKABLE QString getTotp(QString secret);
 
     Q_INVOKABLE void trayMenuClear() { autoTypeFields->clear(); }
 

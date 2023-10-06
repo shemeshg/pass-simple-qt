@@ -7,6 +7,7 @@
 #include <qdebug.h>
 #include <qqmlregistration.h>
 
+
 class InputTypeType : public QObject
 {
     Q_OBJECT
@@ -15,6 +16,8 @@ class InputTypeType : public QObject
 public:
     explicit InputTypeType(QObject *parent = nullptr)
         : QObject(parent){};
+
+    Q_INVOKABLE static QString getTotp(QString secret);
 
 signals:
 

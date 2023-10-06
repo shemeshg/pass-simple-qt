@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QmlCore
 import Datetime
+import InputType
 
 ColumnLayout {
     id: columnLayoutId
@@ -27,6 +28,10 @@ ColumnLayout {
         } else {
             return true
         }
+    }
+
+    InputTypeType {
+        id: inputTypeType
     }
 
     RowLayout {
@@ -119,7 +124,7 @@ ColumnLayout {
             interval: 500
             running: inputType === "totp"
             repeat: true
-            onTriggered: totpText = getMainqmltype().getTotp(inputText)
+            onTriggered: totpText = inputTypeType.getTotp(inputText)
         }
         Item {
             height: 2

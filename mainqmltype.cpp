@@ -1,9 +1,8 @@
 #include "mainqmltype.h"
-#include "InputType/totp.h"
 #include <QTimer>
 #include <QFontDatabase>
 #include <QtConcurrent>
-
+#include "InputType/InputTypeType.h"
 
 MainQmlType::MainQmlType(
                          QSplitter *s,
@@ -575,15 +574,7 @@ int MainQmlType::runSystem(QStringList keysFound, QString noEscaped)
     return rsc.runSystem(v, noEscaped.toStdString());
 }
 
-QString MainQmlType::getTotp(QString secret)
-{
-    if (secret.startsWith("otpauth://totp/")) {
-        QSharedPointer<Totp::Settings> settings{Totp::parseSettings(secret, "")};
-        return Totp::generateTotp(settings);
-    }
-    QSharedPointer<Totp::Settings> settings{Totp::parseSettings("", secret)};
-    return Totp::generateTotp(settings);
-}
+
 
 void MainQmlType::trayMenuAdd(QString _username, QString _password, QString _fieldstype)
 {
@@ -593,7 +584,7 @@ void MainQmlType::trayMenuAdd(QString _username, QString _password, QString _fie
         QString password = _password;
         QString fieldstype = _fieldstype;
         if (fieldstype == "totp") {
-            autoType(getTotp(password));
+            autoType(InputTypeType::getTotp(password));
         } else {
             autoType(password);
         }

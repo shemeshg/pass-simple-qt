@@ -172,12 +172,6 @@ qt_add_qml_module(pass-simple
         GpgIdManageType.h GpgIdManageType.cpp
         JsAsync.h JsAsync.cpp
         UiGuard.h UiGuard.cpp
-        InputType/totp.h
-        InputType/totp.cpp
-        InputType/Base32.h
-        InputType/Base32.cpp
-        InputType/Clock.h
-        InputType/Clock.cpp
   AppSettings.cpp AppSettings.h
         # hygen srcs
     QML_FILES Main.qml
