@@ -121,7 +121,7 @@ ColumnLayout {
                  || inputType === "totp" || inputType === "password"
         LayoutMirroring.enabled: textField.horizontalAlignment === Text.AlignRight
         Timer {
-            interval: 500
+            interval: 100
             running: inputType === "totp"
             repeat: true
             onTriggered: totpText = inputTypeType.getTotp(inputText)
