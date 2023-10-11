@@ -77,7 +77,7 @@ Item {
     }
 
     Binding {
-        target: qmlAppComponent
+        target: QmlAppSt
         property: "filePanSize"
         value: mainqmltype.filePanSize
     }

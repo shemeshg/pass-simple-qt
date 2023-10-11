@@ -7,8 +7,6 @@ ColumnLayout {
     width: parent.width
     height: parent.height
 
-    property int filePanSize: 0
-
     property string exceptionStr: ""
 
     property bool classInitialized: false
