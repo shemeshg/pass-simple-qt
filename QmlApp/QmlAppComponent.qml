@@ -129,19 +129,18 @@ ColumnLayout {
         QmlAppSt.hasEffectiveGpgIdFile = Boolean(
                     QmlAppSt.mainqmltype.getNearestGpgId())
         QmlAppSt.isGpgFile = QmlAppSt.mainqmltype.isGpgFile()
-        let allKeys = mainLayout.getGpgIdManageType().allKeys
+        let allKeys = QmlAppSt.mainqmltype.gpgIdManageType.allKeys
         columnLayoutHomeId.metaDataComponentId.decryptedSignedById = decryptedSignedByFullId(
-                    mainLayout.getDecryptedSignedBy(), allKeys)
+                    QmlAppSt.mainqmltype.getDecryptedSignedBy(), allKeys)
         columnLayoutHomeId.metaDataComponentId.gitResponseId = ""
         columnLayoutHomeId.manageGpgIdComponentId.badEntriesRepeater.model
-                = mainLayout.getGpgIdManageType().keysNotFoundInGpgIdFile
+                = QmlAppSt.mainqmltype.gpgIdManageType.keysNotFoundInGpgIdFile
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.allItems = allKeys
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.selectedItems
-                = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
-        QmlAppSt.classInitialized = mainLayout.getGpgIdManageType(
-                    ).classInitialized
-        QmlAppSt.gpgPubKeysFolderExists = mainLayout.getGpgIdManageType(
-                    ).gpgPubKeysFolderExists
+                = QmlAppSt.mainqmltype.gpgIdManageType.keysFoundInGpgIdFile
+        QmlAppSt.classInitialized = QmlAppSt.mainqmltype.gpgIdManageType.classInitialized
+        QmlAppSt.gpgPubKeysFolderExists
+                = QmlAppSt.mainqmltype.gpgIdManageType.gpgPubKeysFolderExists
 
         if (QmlAppSt.mainqmltype.appSettingsType.preferYamlView) {
             columnLayoutHomeId.editComponentId.preferYamlIfYamlIsValidOnFileChange()

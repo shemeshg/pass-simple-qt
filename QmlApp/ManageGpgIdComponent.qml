@@ -29,8 +29,7 @@ Column {
                     let serr = ""
                     currentFiles.forEach(f => {
                                              if (!serr) {
-                                                 serr = mainLayout.getGpgIdManageType(
-                                                     ).importPublicKeyAndTrust(
+                                                 serr = QmlAppSt.mainqmltype.gpgIdManageType.importPublicKeyAndTrust(
                                                      f)
                                                  eencryptTextId.text = serr
                                              }
@@ -64,8 +63,7 @@ Column {
                 enabled: QmlAppSt.classInitialized
                          && QmlAppSt.gpgPubKeysFolderExists
                 onClicked: {
-                    let serr = mainLayout.getGpgIdManageType(
-                            ).importAllGpgPubKeysFolder()
+                    let serr = QmlAppSt.mainqmltype.gpgIdManageType.importAllGpgPubKeysFolder()
                     eencryptTextId.text = serr
                     if (!serr) {
                         initOnFileChanged()
@@ -88,7 +86,7 @@ Column {
                     eencryptTextId.text = "Running... This might take long, Please wait"
                     QmlAppSt.doMainUiDisable()
 
-                    mainLayout.getGpgIdManageType().saveChangesAsync(
+                    QmlAppSt.mainqmltype.gpgIdManageType.saveChangesAsync(
                                 dropdownWithListComponentId.selectedItems,
                                 QmlAppSt.mainqmltype.appSettingsType.doSign,
                                 returnStatus => {

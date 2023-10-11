@@ -7,14 +7,6 @@ Item {
 
     id: mainLayout
 
-    function getDecryptedSignedBy() {
-        return mainqmltype.getDecryptedSignedBy()
-    }
-
-    function getGpgIdManageType() {
-        return mainqmltype.gpgIdManageType
-    }
-
     function encrypt(s) {
         return mainqmltype.encrypt(s)
     }
