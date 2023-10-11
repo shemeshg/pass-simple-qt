@@ -82,16 +82,14 @@ Item {
         value: mainqmltype.filePanSize
     }
 
-
-    /*
     Binding {
         target: QmlAppSt
         property: "filePath"
         value: mainqmltype.filePath
     }
-    */
+
     Binding {
-        target: qmlAppComponent
+        target: QmlAppSt
         property: "menubarCommStr"
         value: mainqmltype.menubarCommStr
     }

@@ -8,7 +8,7 @@ ColumnLayout {
     height: parent.height
 
     property int filePanSize: 0
-    property string menubarCommStr: ""
+
     property string exceptionStr: ""
 
     property bool classInitialized: false
@@ -56,6 +56,35 @@ ColumnLayout {
         target: QmlAppSt
         function onFilePathChanged(s) {
             initOnFileChanged()
+        }
+
+        function onMenubarCommStrChanged(s) {
+
+            let action = QmlAppSt.menubarCommStr.split(" ")[0]
+            if (action === "addItemAct") {
+                isShowSettings = false
+                isShowSearch = false
+                isShowLog = false
+                columnLayoutHomeId.toolbarId.currentIndex = 1
+            }
+            if (Boolean(nearestGpg)) {
+                if (action === "uploadFileAct") {
+                    mainLayout.getMainqmltype().mainUiDisable()
+                    columnLayoutHomeId.addComponentId.fileDialogUpload.open()
+                }
+                if (action === "uploadFolderAct") {
+                    mainLayout.getMainqmltype().mainUiDisable()
+                    columnLayoutHomeId.addComponentId.folderDialogUpload.open()
+                }
+                if (action === "downloadFolderAct") {
+                    mainLayout.getMainqmltype().mainUiDisable()
+                    columnLayoutHomeId.editComponentId.folderDialogDownload.open()
+                }
+            }
+            if (isGpgFile && action === "downloadFileAct") {
+                mainLayout.getMainqmltype().mainUiDisable()
+                columnLayoutHomeId.editComponentId.fileDialogDownload.open()
+            }
         }
     }
 
@@ -195,35 +224,6 @@ ColumnLayout {
 
     function addSystemTrayIconEntries(txt, passwd, fieldType) {
         mainLayout.getMainqmltype().trayMenuAdd(txt, passwd, fieldType)
-    }
-
-    onMenubarCommStrChanged: {
-
-        let action = menubarCommStr.split(" ")[0]
-        if (action === "addItemAct") {
-            isShowSettings = false
-            isShowSearch = false
-            isShowLog = false
-            columnLayoutHomeId.toolbarId.currentIndex = 1
-        }
-        if (Boolean(nearestGpg)) {
-            if (action === "uploadFileAct") {
-                mainLayout.getMainqmltype().mainUiDisable()
-                columnLayoutHomeId.addComponentId.fileDialogUpload.open()
-            }
-            if (action === "uploadFolderAct") {
-                mainLayout.getMainqmltype().mainUiDisable()
-                columnLayoutHomeId.addComponentId.folderDialogUpload.open()
-            }
-            if (action === "downloadFolderAct") {
-                mainLayout.getMainqmltype().mainUiDisable()
-                columnLayoutHomeId.editComponentId.folderDialogDownload.open()
-            }
-        }
-        if (isGpgFile && action === "downloadFileAct") {
-            mainLayout.getMainqmltype().mainUiDisable()
-            columnLayoutHomeId.editComponentId.fileDialogDownload.open()
-        }
     }
 
     SearchComponent {
