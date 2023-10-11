@@ -9,18 +9,6 @@ Item {
 
 
 
-    function getMainqmltype() {
-        return mainqmltype
-    }
-
-    function getDecrypted() {
-        return mainqmltype.getDecrypted()
-    }
-
-    function getNearestGit() {
-        return mainqmltype.getNearestGit()
-    }
-
     function getNearestTemplateGpg() {
         return mainqmltype.getNearestTemplateGpg()
     }

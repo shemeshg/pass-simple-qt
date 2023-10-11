@@ -119,7 +119,7 @@ ColumnLayout {
     }
 
     function populateDecryptedUiFields() {
-        QmlAppSt.nearestGit = mainLayout.getNearestGit()
+        QmlAppSt.nearestGit = QmlAppSt.mainqmltype.getNearestGit()
         setGitDiffReturnCode()
 
         columnLayoutHomeId.addComponentId.nearestTemplateGpg = mainLayout.getNearestTemplateGpg()
