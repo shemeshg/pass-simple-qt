@@ -13,6 +13,7 @@ ColumnLayout {
     property alias loaderShowYamlEditComponent: loaderShowYamlEditComponent
     property string decryptedText: ""
     property alias fileUrlDialogDownload: fileUrlDialogDownload
+    signal doUrlRedirect(string inputText)
 
     onDecryptedTextChanged: {
         loaderShowYamlEditComponent.editYamlType.text = decryptedText
@@ -389,9 +390,7 @@ ColumnLayout {
                          && showYamlEdit
                 width: parent.width
                 height: parent.height
-                onDoUrlRedirect: s => {
-                                     QmlAppSt.doUrlRedirect(s)
-                                 }
+
                 onSelectedTextSignal: s => {
                                           QmlAppSt.mainqmltype.selectedText = s
                                       }

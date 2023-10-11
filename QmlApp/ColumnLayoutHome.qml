@@ -67,6 +67,9 @@ ColumnLayout {
         currentIndex: toolbarId.currentIndex
         EditComponent {
             id: editComponentId
+            onDoUrlRedirect: s => {
+                                 QmlAppSt.doUrlRedirect(s)
+                             }
         }
         AddComponent {
             id: addComponentId

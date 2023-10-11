@@ -6,7 +6,6 @@ import QmlCore
 
 ColumnLayout {
     property bool isEditFieldsType: false
-    signal doUrlRedirect(string inputText)
     signal selectedTextSignal(string s)
 
     height: parent.height
