@@ -179,8 +179,8 @@ ColumnLayout {
     }
 
     RowLayout {
-        visible: waitItems.indexOf(QmlAppSt.filePath) > -1
-                 || noneWaitItems.indexOf(QmlAppSt.filePath) > -1
+        visible: QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) > -1
+                 || QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) > -1
         Label {
             text: "File opened externally"
         }
@@ -219,8 +219,8 @@ ColumnLayout {
                 isShowPreview = isPreviewId.checked
                 reloadAfterPreviewChanged()
             }
-            visible: waitItems.indexOf(QmlAppSt.filePath) === -1
-                     && noneWaitItems.indexOf(QmlAppSt.filePath) === -1
+            visible: QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) === -1
+                     && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
                      && !isBinaryFile
         }
 
@@ -298,9 +298,9 @@ ColumnLayout {
             sequence: "Ctrl+O"
             onActivated: {
                 if (editComponentId.visible && !isShowPreview
-                        && waitItems.indexOf(QmlAppSt.filePath) === -1
-                        && noneWaitItems.indexOf(QmlAppSt.filePath) === -1
-                        && !isBinaryFile) {
+                        && QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) === -1
+                        && QmlAppSt.noneWaitItems.indexOf(
+                            QmlAppSt.filePath) === -1 && !isBinaryFile) {
                     doExternalOpen()
                 }
             }
@@ -311,16 +311,17 @@ ColumnLayout {
             onClicked: {
                 doExternalOpen()
             }
-            visible: !isShowPreview && waitItems.indexOf(
-                         QmlAppSt.filePath) === -1 && noneWaitItems.indexOf(
-                         QmlAppSt.filePath) === -1 && !isBinaryFile
+            visible: !isShowPreview && QmlAppSt.waitItems.indexOf(
+                         QmlAppSt.filePath) === -1
+                     && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
+                     && !isBinaryFile
         }
         CoreButton {
             text: "Close File browser item"
             onClicked: {
                 mainLayout.closeExternalEncryptNoWait()
             }
-            visible: !isShowPreview && noneWaitItems.indexOf(
+            visible: !isShowPreview && QmlAppSt.noneWaitItems.indexOf(
                          QmlAppSt.filePath) > -1 && !isBinaryFile
         }
 
@@ -329,9 +330,10 @@ ColumnLayout {
 
             model: ["code --wait", "File browser"]
             width: 200
-            visible: !isShowPreview && waitItems.indexOf(
-                         QmlAppSt.filePath) === -1 && noneWaitItems.indexOf(
-                         QmlAppSt.filePath) === -1 && !isBinaryFile
+            visible: !isShowPreview && QmlAppSt.waitItems.indexOf(
+                         QmlAppSt.filePath) === -1
+                     && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
+                     && !isBinaryFile
         }
         Item {
             height: 2

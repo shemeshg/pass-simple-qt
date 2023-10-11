@@ -18,9 +18,6 @@ ColumnLayout {
     property bool isPreviousShowPreview: false
     property int gitDiffReturnCode: 0
 
-    property var waitItems: []
-    property var noneWaitItems: []
-
     property bool isShowSettings: false
     property bool isShowSearch: false
     property bool isSaving: false
@@ -188,8 +185,8 @@ ColumnLayout {
         clearSystemTrayIconEntries()
         isBinaryFile = getIsBinary(QmlAppSt.filePath)
 
-        if (isBinaryFile || waitItems.indexOf(QmlAppSt.filePath) > -1
-                || noneWaitItems.indexOf(QmlAppSt.filePath) > -1) {
+        if (isBinaryFile || QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) > -1
+                || QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) > -1) {
             if (isShowPreview) {
                 isPreviousShowPreview = true
             }

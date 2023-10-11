@@ -97,7 +97,7 @@ Column {
                 text: "<h2>Wait Items</h2>"
             }
             Repeater {
-                model: waitItems
+                model: QmlAppSt.waitItems
                 RowLayout {
                     CoreLabel {
                         text: modelData
@@ -114,7 +114,7 @@ Column {
                 text: "<h2>None Wait Items</h2>"
             }
             Repeater {
-                model: noneWaitItems
+                model: QmlAppSt.noneWaitItems
                 RowLayout {
                     CoreLabel {
                         text: modelData

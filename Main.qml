@@ -95,13 +95,13 @@ Item {
     }
 
     Binding {
-        target: qmlAppComponent
+        target: QmlAppSt
         property: "waitItems"
         value: mainqmltype.waitItems
     }
 
     Binding {
-        target: qmlAppComponent
+        target: QmlAppSt
         property: "noneWaitItems"
         value: mainqmltype.noneWaitItems
     }
