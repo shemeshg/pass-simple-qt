@@ -173,7 +173,7 @@ ColumnLayout {
         CoreButton {
             visible: inputType === "url" && textField.text === ""
             onClicked: () => {
-                           mainLayout.getMainqmltype().mainUiDisable()
+                           QmlAppSt.mainqmltype.mainUiDisable()
                            urlfileDialogUrlField.inField = textField
                            urlfileDialogUrlField.open()
                        }

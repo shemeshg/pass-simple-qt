@@ -81,6 +81,12 @@ Item {
 
     Binding {
         target: QmlAppSt
+        property: "mainqmltype"
+        value: mainqmltype
+    }
+
+    Binding {
+        target: QmlAppSt
         property: "filePath"
         value: mainqmltype.filePath
     }

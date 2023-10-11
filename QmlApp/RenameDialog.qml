@@ -20,7 +20,7 @@ CoreDialogYesNo {
         if (saveBtnId.visible && saveBtnId.enabled) {
             saveBtnId.clicked()
         }
-        mainLayout.getMainqmltype().renameGpgFile(
+        QmlAppSt.mainqmltype.renameGpgFile(
                     QmlAppSt.filePath,
                     QmlAppSt.fullPathFolder + "/" + fieldName.text + ".gpg")
     }

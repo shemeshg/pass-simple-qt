@@ -7,18 +7,23 @@ ColumnLayout {
     width: parent.width
     height: parent.height
 
+    signal systemPaletteColorChanged
+
     SystemPalette {
         id: systemPalette
         colorGroup: SystemPalette.Active
         onButtonTextChanged: {
             QmlAppSt.isDarkTheme = !isDarkColor(systemPalette.text.toString())
-            mainLayout.getMainqmltype().systemPlateChanged(QmlAppSt.isDarkTheme)
+            systemPaletteColorChanged()
         }
     }
 
     Component.onCompleted: {
-        QmlAppSt.mainqmltype = mainLayout.getMainqmltype()
         QmlAppSt.qmlAppOnCompleted()
+        systemPaletteColorChanged.connect(() => {
+                                              QmlAppSt.mainqmltype.systemPlateChanged(
+                                                  QmlAppSt.isDarkTheme)
+                                          })
     }
 
     Connections {
@@ -38,20 +43,20 @@ ColumnLayout {
             }
             if (Boolean(QmlAppSt.nearestGpg)) {
                 if (action === "uploadFileAct") {
-                    mainLayout.getMainqmltype().mainUiDisable()
+                    QmlAppSt.mainqmltype.mainUiDisable()
                     columnLayoutHomeId.addComponentId.fileDialogUpload.open()
                 }
                 if (action === "uploadFolderAct") {
-                    mainLayout.getMainqmltype().mainUiDisable()
+                    QmlAppSt.mainqmltype.mainUiDisable()
                     columnLayoutHomeId.addComponentId.folderDialogUpload.open()
                 }
                 if (action === "downloadFolderAct") {
-                    mainLayout.getMainqmltype().mainUiDisable()
+                    QmlAppSt.mainqmltype.mainUiDisable()
                     columnLayoutHomeId.editComponentId.folderDialogDownload.open()
                 }
             }
             if (QmlAppSt.isGpgFile && action === "downloadFileAct") {
-                mainLayout.getMainqmltype().mainUiDisable()
+                QmlAppSt.mainqmltype.mainUiDisable()
                 columnLayoutHomeId.editComponentId.fileDialogDownload.open()
             }
         }
@@ -70,8 +75,6 @@ ColumnLayout {
         // Return true if luminance is less than 128, false otherwise
         return l < 128
     }
-
-
 
     function decryptedSignedByFullId(idStr, allKeys) {
         if (!Boolean(idStr)) {
@@ -136,7 +139,7 @@ ColumnLayout {
         QmlAppSt.gpgPubKeysFolderExists = mainLayout.getGpgIdManageType(
                     ).gpgPubKeysFolderExists
 
-        if (mainLayout.getMainqmltype().appSettingsType.preferYamlView) {
+        if (QmlAppSt.mainqmltype.appSettingsType.preferYamlView) {
             columnLayoutHomeId.editComponentId.preferYamlIfYamlIsValidOnFileChange()
         } else {
             columnLayoutHomeId.editComponentId.setLoaderShowYamlEditComponent()
@@ -179,11 +182,11 @@ ColumnLayout {
     }
 
     function clearSystemTrayIconEntries() {
-        mainLayout.getMainqmltype().trayMenuClear()
+        QmlAppSt.mainqmltype.trayMenuClear()
     }
 
     function addSystemTrayIconEntries(txt, passwd, fieldType) {
-        mainLayout.getMainqmltype().trayMenuAdd(txt, passwd, fieldType)
+        QmlAppSt.mainqmltype.trayMenuAdd(txt, passwd, fieldType)
     }
 
     SearchComponent {
@@ -252,7 +255,7 @@ ColumnLayout {
         }
         CoreButton {
             onClicked: {
-                mainLayout.getMainqmltype().openStoreInFileBrowser(
+                QmlAppSt.mainqmltype.openStoreInFileBrowser(
                     QmlAppSt.fullPathFolder)
             }
             icon.name: "Open store in file browser"

@@ -17,7 +17,7 @@ ScrollView {
                                       ).appSettingsType.useClipboard
     property bool isPreferYamlView: mainLayout.getMainqmltype(
                                         ).appSettingsType.preferYamlView
-    property bool isDoSign: mainLayout.getMainqmltype().appSettingsType.doSign
+    property bool isDoSign: QmlAppSt.mainqmltype.appSettingsType.doSign
 
     onVisibleChanged: {
         if (visible) {
@@ -27,12 +27,12 @@ ScrollView {
             isPreferYamlView = mainLayout.getMainqmltype(
                         ).appSettingsType.preferYamlView
             preferYamlView.checked = isPreferYamlView
-            isDoSign = mainLayout.getMainqmltype().appSettingsType.doSign
+            isDoSign = QmlAppSt.mainqmltype.appSettingsType.doSign
             doSign.checked = isDoSign
             QmlAppSt.passwordStorePathStr = mainLayout.getMainqmltype(
                         ).appSettingsType.passwordStorePath
             ctxSigner.currentIndex = ctxSigner.find(
-                        mainLayout.getMainqmltype().appSettingsType.ctxSigner)
+                        QmlAppSt.mainqmltype.appSettingsType.ctxSigner)
             tmpFolderPath.text = mainLayout.getMainqmltype(
                         ).appSettingsType.tmpFolderPath
             gitExecPath.text = mainLayout.getMainqmltype(
@@ -41,7 +41,7 @@ ScrollView {
                         ).appSettingsType.vscodeExecPath
             autoTypeCmd.text = mainLayout.getMainqmltype(
                         ).appSettingsType.autoTypeCmd
-            fontSize.text = mainLayout.getMainqmltype().appSettingsType.fontSize
+            fontSize.text = QmlAppSt.mainqmltype.appSettingsType.fontSize
             commitMsg.text = mainLayout.getMainqmltype(
                         ).appSettingsType.commitMsg
             binaryExts.text = mainLayout.getMainqmltype(
@@ -136,7 +136,7 @@ ScrollView {
         }
         CoreTextArea {
             id: commitMsg
-            text: mainLayout.getMainqmltype().appSettingsType.commitMsg
+            text: QmlAppSt.mainqmltype.appSettingsType.commitMsg
             Layout.fillWidth: true
         }
 
@@ -157,7 +157,7 @@ ScrollView {
         }
         CoreTextField {
             id: tmpFolderPath
-            text: mainLayout.getMainqmltype().appSettingsType.tmpFolderPath
+            text: QmlAppSt.mainqmltype.appSettingsType.tmpFolderPath
             Layout.fillWidth: true
         }
         Label {
@@ -165,7 +165,7 @@ ScrollView {
         }
         CoreTextField {
             id: gitExecPath
-            text: mainLayout.getMainqmltype().appSettingsType.gitExecPath
+            text: QmlAppSt.mainqmltype.appSettingsType.gitExecPath
             Layout.fillWidth: true
         }
         Label {
@@ -173,7 +173,7 @@ ScrollView {
         }
         CoreTextField {
             id: vscodeExecPath
-            text: mainLayout.getMainqmltype().appSettingsType.vscodeExecPath
+            text: QmlAppSt.mainqmltype.appSettingsType.vscodeExecPath
             Layout.fillWidth: true
         }
         ColumnLayout {
@@ -184,7 +184,7 @@ ScrollView {
             }
             CoreTextField {
                 id: autoTypeCmd
-                text: mainLayout.getMainqmltype().appSettingsType.autoTypeCmd
+                text: QmlAppSt.mainqmltype.appSettingsType.autoTypeCmd
                 Layout.fillWidth: true
             }
         }
@@ -193,7 +193,7 @@ ScrollView {
         }
         CoreTextField {
             id: fontSize
-            text: mainLayout.getMainqmltype().appSettingsType.fontSize
+            text: QmlAppSt.mainqmltype.appSettingsType.fontSize
             Layout.fillWidth: true
         }
 
@@ -217,7 +217,7 @@ ScrollView {
         }
         CoreTextArea {
             id: binaryExts
-            text: mainLayout.getMainqmltype().appSettingsType.binaryExts
+            text: QmlAppSt.mainqmltype.appSettingsType.binaryExts
             Layout.fillWidth: true
         }
         CorePagePadFooter {}
