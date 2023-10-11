@@ -71,18 +71,7 @@ ColumnLayout {
         return l < 128
     }
 
-    function doUrlRedirect(link) {
-        if (link.length === 0)
-            return
-        if (link.includes("://")) {
-            Qt.openUrlExternally(link)
-        } else if (link.startsWith("/")) {
-            return
-            //only relative path allowed
-        } else {
-            getMainqmltype().tryRedirectLocalLink(link)
-        }
-    }
+
 
     function decryptedSignedByFullId(idStr, allKeys) {
         if (!Boolean(idStr)) {

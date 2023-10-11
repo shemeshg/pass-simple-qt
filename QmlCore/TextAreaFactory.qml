@@ -21,7 +21,7 @@ TextArea {
     placeholderTextColor: CoreSystemPalette.text
 
     onLinkActivated: link => {
-                         doUrlRedirect(link)
+                         QmlAppSt.doUrlRedirect(link)
                      }
     onLinkHovered: link => {
                        if (link.length === 0)

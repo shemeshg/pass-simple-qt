@@ -39,4 +39,17 @@ QtObject {
         mainqmltype.setTreeViewSelected(passwordStorePathStr)
         passwordStorePathStr = mainqmltype.appSettingsType.passwordStorePath
     }
+
+    function doUrlRedirect(link) {
+        if (link.length === 0)
+            return
+        if (link.includes("://")) {
+            Qt.openUrlExternally(link)
+        } else if (link.startsWith("/")) {
+            return
+            //only relative path allowed
+        } else {
+            mainqmltype.tryRedirectLocalLink(link)
+        }
+    }
 }

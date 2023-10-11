@@ -387,6 +387,9 @@ ColumnLayout {
                          && showYamlEdit
                 width: parent.width
                 height: parent.height
+                onDoUrlRedirect: s => {
+                                     QmlAppSt.doUrlRedirect(s)
+                                 }
             }
         }
     }
