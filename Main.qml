@@ -7,16 +7,6 @@ Item {
 
     id: mainLayout
 
-
-
-    function getNearestTemplateGpg() {
-        return mainqmltype.getNearestTemplateGpg()
-    }
-
-    function getNearestGpgId() {
-        return mainqmltype.getNearestGpgId()
-    }
-
     function getDecryptedSignedBy() {
         return mainqmltype.getDecryptedSignedBy()
     }

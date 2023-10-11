@@ -122,10 +122,12 @@ ColumnLayout {
         QmlAppSt.nearestGit = QmlAppSt.mainqmltype.getNearestGit()
         setGitDiffReturnCode()
 
-        columnLayoutHomeId.addComponentId.nearestTemplateGpg = mainLayout.getNearestTemplateGpg()
-        QmlAppSt.nearestGpg = mainLayout.getNearestGpgId()
+        columnLayoutHomeId.addComponentId.nearestTemplateGpg
+                = QmlAppSt.mainqmltype.getNearestTemplateGpg()
+        QmlAppSt.nearestGpg = QmlAppSt.mainqmltype.getNearestGpgId()
         QmlAppSt.fullPathFolder = QmlAppSt.mainqmltype.getFullPathFolder()
-        QmlAppSt.hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId())
+        QmlAppSt.hasEffectiveGpgIdFile = Boolean(
+                    QmlAppSt.mainqmltype.getNearestGpgId())
         QmlAppSt.isGpgFile = QmlAppSt.mainqmltype.isGpgFile()
         let allKeys = mainLayout.getGpgIdManageType().allKeys
         columnLayoutHomeId.metaDataComponentId.decryptedSignedById = decryptedSignedByFullId(
