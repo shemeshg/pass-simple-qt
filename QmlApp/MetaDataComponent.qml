@@ -28,7 +28,7 @@ Column {
             CoreLabelAndText {
                 id: nameId
                 coreLabel: "File"
-                coreText: filePath
+                coreText: QmlAppSt.filePath
             }
             CoreLabelAndText {
                 coreLabel: "Git"

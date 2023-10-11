@@ -15,6 +15,9 @@ set(QML_IMPORT_PATH
                 ${CMAKE_SOURCE_DIR}/InputType
                 CACHE STRING "" FORCE)
 
+set_source_files_properties(QmlAppSt.qml PROPERTIES
+    QT_QML_SINGLETON_TYPE TRUE
+)
 
 qt6_add_qml_module(QmlApp
         URI QmlApp
@@ -43,6 +46,7 @@ qt6_add_qml_module(QmlApp
             icons/account_tree_FILL0_wght400_GRAD0_opsz48.svg
             icons/sync_FILL0_wght400_GRAD0_opsz48.svg
             icons/sync_problem_FILL0_wght400_GRAD0_opsz48.svg
+            QML_FILES QmlAppSt.qml
         )
 
 

@@ -273,6 +273,7 @@ MainWindow::MainWindow(QWidget *parent)
         setQmlSource();
 
      });
+
 }
 
 MainWindow::~MainWindow()

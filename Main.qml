@@ -10,60 +10,60 @@ Item {
     property bool isShowLog: false
     property bool isMainUiDisabled: false
 
-    function doMainUiDisable(){
-        isMainUiDisabled = true;
-        getMainqmltype().doMainUiDisable();
+    function doMainUiDisable() {
+        isMainUiDisabled = true
+        getMainqmltype().doMainUiDisable()
     }
 
-    function doMainUiEnable(){
-        isMainUiDisabled = false;
-        getMainqmltype().doMainUiEnable();
+    function doMainUiEnable() {
+        isMainUiDisabled = false
+        getMainqmltype().doMainUiEnable()
     }
 
-    function getMainqmltype(){
-        return mainqmltype;
+    function getMainqmltype() {
+        return mainqmltype
     }
 
     function getDecrypted() {
-        return mainqmltype.getDecrypted();
+        return mainqmltype.getDecrypted()
     }
 
     function getNearestGit() {
-        return mainqmltype.getNearestGit();
+        return mainqmltype.getNearestGit()
     }
 
     function getNearestTemplateGpg() {
-        return mainqmltype.getNearestTemplateGpg();
+        return mainqmltype.getNearestTemplateGpg()
     }
 
     function getNearestGpgId() {
-        return mainqmltype.getNearestGpgId();
+        return mainqmltype.getNearestGpgId()
     }
 
     function getDecryptedSignedBy() {
-        return mainqmltype.getDecryptedSignedBy();
+        return mainqmltype.getDecryptedSignedBy()
     }
 
     function getGpgIdManageType() {
-        return mainqmltype.gpgIdManageType;
+        return mainqmltype.gpgIdManageType
     }
 
-    function encrypt(s){
-        return mainqmltype.encrypt(s);
+    function encrypt(s) {
+        return mainqmltype.encrypt(s)
     }
 
-    function encryptAsync(s, callback){
-        return mainqmltype.encryptAsync(s, callback);
+    function encryptAsync(s, callback) {
+        return mainqmltype.encryptAsync(s, callback)
     }
 
-    function openExternalEncryptWait(){
-        return mainqmltype.openExternalEncryptWait();
+    function openExternalEncryptWait() {
+        return mainqmltype.openExternalEncryptWait()
     }
-    function openExternalEncryptNoWait(){
+    function openExternalEncryptNoWait() {
         return mainqmltype.openExternalEncryptNoWait()
     }
-    function closeExternalEncryptNoWait(){
-        mainqmltype.closeExternalEncryptNoWait();
+    function closeExternalEncryptNoWait() {
+        mainqmltype.closeExternalEncryptNoWait()
     }
 
     QmlAppComponent {
@@ -83,12 +83,13 @@ Item {
     }
 
 
+    /*
     Binding {
-        target: qmlAppComponent
+        target: QmlAppSt
         property: "filePath"
         value: mainqmltype.filePath
     }
-
+    */
     Binding {
         target: qmlAppComponent
         property: "menubarCommStr"
@@ -119,10 +120,6 @@ Item {
         value: mainqmltype.exceptionStr
     }
 
-    signal toggleFilepan()
-    onToggleFilepan: mainqmltype.toggleFilepan();
-
-
+    signal toggleFilepan
+    onToggleFilepan: mainqmltype.toggleFilepan()
 }
-
-

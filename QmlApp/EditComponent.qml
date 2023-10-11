@@ -124,7 +124,7 @@ ColumnLayout {
         id: fileDialogDownload
         title: "Choose folder to download"
         onAccepted: {
-            var filename = filePath.replace(/^.*[\\\/]/, '')
+            var filename = QmlAppSt.filePath.replace(/^.*[\\\/]/, '')
             filename = filename.substr(0, filename.length - 4)
             getMainqmltype().decryptDownloadAsync(() => {
                                                       doMainUiEnable()
@@ -160,9 +160,10 @@ ColumnLayout {
         CoreLabel {
             id: titleForDisplay
             visible: isGpgFile
-            text: "<h2>" + filePath.replace(fullPathFolder, "").substring(
-                      1, filePath.replace(fullPathFolder,
-                                          "").length - 4) + "</h2>"
+            text: "<h2>" + QmlAppSt.filePath.replace(fullPathFolder,
+                                                     "").substring(
+                      1, QmlAppSt.filePath.replace(fullPathFolder,
+                                                   "").length - 4) + "</h2>"
             Layout.fillWidth: true
         }
         CoreButton {
@@ -178,8 +179,8 @@ ColumnLayout {
     }
 
     RowLayout {
-        visible: waitItems.indexOf(filePath) > -1 || noneWaitItems.indexOf(
-                     filePath) > -1
+        visible: waitItems.indexOf(QmlAppSt.filePath) > -1
+                 || noneWaitItems.indexOf(QmlAppSt.filePath) > -1
         Label {
             text: "File opened externally"
         }
@@ -218,8 +219,9 @@ ColumnLayout {
                 isShowPreview = isPreviewId.checked
                 reloadAfterPreviewChanged()
             }
-            visible: waitItems.indexOf(filePath) === -1
-                     && noneWaitItems.indexOf(filePath) === -1 && !isBinaryFile
+            visible: waitItems.indexOf(QmlAppSt.filePath) === -1
+                     && noneWaitItems.indexOf(QmlAppSt.filePath) === -1
+                     && !isBinaryFile
         }
 
         Shortcut {
@@ -296,8 +298,8 @@ ColumnLayout {
             sequence: "Ctrl+O"
             onActivated: {
                 if (editComponentId.visible && !isShowPreview
-                        && waitItems.indexOf(filePath) === -1
-                        && noneWaitItems.indexOf(filePath) === -1
+                        && waitItems.indexOf(QmlAppSt.filePath) === -1
+                        && noneWaitItems.indexOf(QmlAppSt.filePath) === -1
                         && !isBinaryFile) {
                     doExternalOpen()
                 }
@@ -309,16 +311,17 @@ ColumnLayout {
             onClicked: {
                 doExternalOpen()
             }
-            visible: !isShowPreview && waitItems.indexOf(filePath) === -1
-                     && noneWaitItems.indexOf(filePath) === -1 && !isBinaryFile
+            visible: !isShowPreview && waitItems.indexOf(
+                         QmlAppSt.filePath) === -1 && noneWaitItems.indexOf(
+                         QmlAppSt.filePath) === -1 && !isBinaryFile
         }
         CoreButton {
             text: "Close File browser item"
             onClicked: {
                 mainLayout.closeExternalEncryptNoWait()
             }
-            visible: !isShowPreview && noneWaitItems.indexOf(filePath) > -1
-                     && !isBinaryFile
+            visible: !isShowPreview && noneWaitItems.indexOf(
+                         QmlAppSt.filePath) > -1 && !isBinaryFile
         }
 
         CoreComboBox {
@@ -326,8 +329,9 @@ ColumnLayout {
 
             model: ["code --wait", "File browser"]
             width: 200
-            visible: !isShowPreview && waitItems.indexOf(filePath) === -1
-                     && noneWaitItems.indexOf(filePath) === -1 && !isBinaryFile
+            visible: !isShowPreview && waitItems.indexOf(
+                         QmlAppSt.filePath) === -1 && noneWaitItems.indexOf(
+                         QmlAppSt.filePath) === -1 && !isBinaryFile
         }
         Item {
             height: 2

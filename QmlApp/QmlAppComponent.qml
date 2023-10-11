@@ -10,8 +10,7 @@ ColumnLayout {
     property int filePanSize: 0
     property string menubarCommStr: ""
     property string exceptionStr: ""
-    property string filePath: ""
-    property string tmpShalom: ""
+
     property bool classInitialized: false
     property bool gpgPubKeysFolderExists: false
     property bool isShowPreview: true
@@ -49,7 +48,15 @@ ColumnLayout {
     Component.onCompleted: {
         mainLayout.getMainqmltype().initGpgIdManage()
         allPrivateKeys = mainLayout.getGpgIdManageType().allPrivateKeys
-        getMainqmltype().filePath = passwordStorePathStr
+
+        getMainqmltype().setTreeViewSelected(passwordStorePathStr)
+    }
+
+    Connections {
+        target: QmlAppSt
+        function onFilePathChanged(s) {
+            initOnFileChanged()
+        }
     }
 
     //console.log(isDarkColor("#d8000000"));
@@ -152,10 +159,10 @@ ColumnLayout {
 
     function initOnFileChanged() {
         clearSystemTrayIconEntries()
-        isBinaryFile = getIsBinary(filePath)
+        isBinaryFile = getIsBinary(QmlAppSt.filePath)
 
-        if (isBinaryFile || waitItems.indexOf(filePath) > -1
-                || noneWaitItems.indexOf(filePath) > -1) {
+        if (isBinaryFile || waitItems.indexOf(QmlAppSt.filePath) > -1
+                || noneWaitItems.indexOf(QmlAppSt.filePath) > -1) {
             if (isShowPreview) {
                 isPreviousShowPreview = true
             }
@@ -217,10 +224,6 @@ ColumnLayout {
             mainLayout.getMainqmltype().mainUiDisable()
             columnLayoutHomeId.editComponentId.fileDialogDownload.open()
         }
-    }
-
-    onFilePathChanged: {
-        initOnFileChanged()
     }
 
     SearchComponent {

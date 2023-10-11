@@ -190,7 +190,7 @@ ColumnLayout {
                     }
                 }
                 Label {
-                    visible: modelData === filePath
+                    visible: modelData === QmlAppSt.filePath
                     text: "⬤"
                 }
             }
