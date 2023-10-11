@@ -17,12 +17,8 @@ ColumnLayout {
     }
 
     Component.onCompleted: {
-        mainLayout.getMainqmltype().initGpgIdManage()
-        QmlAppSt.allPrivateKeys = mainLayout.getGpgIdManageType().allPrivateKeys
-
-        getMainqmltype().setTreeViewSelected(QmlAppSt.passwordStorePathStr)
-        QmlAppSt.passwordStorePathStr = mainLayout.getMainqmltype(
-                    ).appSettingsType.passwordStorePath
+        QmlAppSt.mainqmltype = mainLayout.getMainqmltype()
+        QmlAppSt.qmlAppOnCompleted()
     }
 
     Connections {

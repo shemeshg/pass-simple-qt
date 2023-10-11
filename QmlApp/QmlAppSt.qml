@@ -29,4 +29,14 @@ QtObject {
     property bool classInitialized: false
     property string nearestGit: ""
     property var allPrivateKeys: []
+
+    property var mainqmltype
+
+    function qmlAppOnCompleted() {
+        mainqmltype.initGpgIdManage()
+        allPrivateKeys = mainqmltype.gpgIdManageType.allPrivateKeys
+
+        mainqmltype.setTreeViewSelected(passwordStorePathStr)
+        passwordStorePathStr = mainqmltype.appSettingsType.passwordStorePath
+    }
 }
