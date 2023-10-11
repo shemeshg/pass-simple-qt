@@ -50,18 +50,19 @@ Column {
             }
             CoreLabelAndText {
                 coreLabel: "gpg-id"
-                coreText: nearestGpg
+                coreText: QmlAppSt.nearestGpg
             }
             CoreButton {
                 text: "Import and trust a new public key"
-                enabled: classInitialized
+                enabled: QmlAppSt.classInitialized
                 onClicked: {
                     fileDialogImportAndTrustId.open()
                 }
             }
             CoreButton {
                 text: "Import all public keys in .public-keys/"
-                enabled: classInitialized && gpgPubKeysFolderExists
+                enabled: QmlAppSt.classInitialized
+                         && QmlAppSt.gpgPubKeysFolderExists
                 onClicked: {
                     let serr = mainLayout.getGpgIdManageType(
                             ).importAllGpgPubKeysFolder()
@@ -78,7 +79,7 @@ Column {
                 }
 
                 id: reencryptBtnId
-                enabled: classInitialized
+                enabled: QmlAppSt.classInitialized
                          && badEntriesRepeater.model.length === 0
                          && dropdownWithListComponentId.selectedItems.length > 0
                 text: "Save changes to .gpg-id \n Recreate .public-keys/ \n Re-encrypt all .gpg-id related files"

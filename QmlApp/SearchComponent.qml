@@ -132,8 +132,8 @@ ColumnLayout {
             CoreButton {
                 text: "."
                 onClicked: {
-                    if (fullPathFolder) {
-                        currentSearchFolder = fullPathFolder
+                    if (QmlAppSt.fullPathFolder) {
+                        currentSearchFolder = QmlAppSt.fullPathFolder
                     }
                 }
                 hooverText: "Set search folder to current treeview selected folder"
@@ -187,7 +187,7 @@ ColumnLayout {
                     hooverText: "Clipboard rel.path"
                     onClicked: {
                         getMainqmltype().clipboardRelPath(
-                                    fullPathFolder,
+                                    QmlAppSt.fullPathFolder,
                                     modelData.substr(0, modelData.length - 4))
                     }
                 }

@@ -7,34 +7,18 @@ ColumnLayout {
     width: parent.width
     height: parent.height
 
-    property bool classInitialized: false
-    property bool gpgPubKeysFolderExists: false
-
-    property bool hasEffectiveGpgIdFile: false
-    property bool isGpgFile: false
-    property bool isBinaryFile: false
-    property bool isPreviousShowPreview: false
-    property int gitDiffReturnCode: 0
-
-    property string nearestGpg: ""
-    property string fullPathFolder: ""
-    property string nearestGit: ""
-    property var allPrivateKeys: []
-
-    property bool isDarkTheme: false
-
     SystemPalette {
         id: systemPalette
         colorGroup: SystemPalette.Active
         onButtonTextChanged: {
-            isDarkTheme = !isDarkColor(systemPalette.text.toString())
-            mainLayout.getMainqmltype().systemPlateChanged(isDarkTheme)
+            QmlAppSt.isDarkTheme = !isDarkColor(systemPalette.text.toString())
+            mainLayout.getMainqmltype().systemPlateChanged(QmlAppSt.isDarkTheme)
         }
     }
 
     Component.onCompleted: {
         mainLayout.getMainqmltype().initGpgIdManage()
-        allPrivateKeys = mainLayout.getGpgIdManageType().allPrivateKeys
+        QmlAppSt.allPrivateKeys = mainLayout.getGpgIdManageType().allPrivateKeys
 
         getMainqmltype().setTreeViewSelected(QmlAppSt.passwordStorePathStr)
         QmlAppSt.passwordStorePathStr = mainLayout.getMainqmltype(
@@ -56,7 +40,7 @@ ColumnLayout {
                 QmlAppSt.isShowLog = false
                 columnLayoutHomeId.toolbarId.currentIndex = 1
             }
-            if (Boolean(nearestGpg)) {
+            if (Boolean(QmlAppSt.nearestGpg)) {
                 if (action === "uploadFileAct") {
                     mainLayout.getMainqmltype().mainUiDisable()
                     columnLayoutHomeId.addComponentId.fileDialogUpload.open()
@@ -70,7 +54,7 @@ ColumnLayout {
                     columnLayoutHomeId.editComponentId.folderDialogDownload.open()
                 }
             }
-            if (isGpgFile && action === "downloadFileAct") {
+            if (QmlAppSt.isGpgFile && action === "downloadFileAct") {
                 mainLayout.getMainqmltype().mainUiDisable()
                 columnLayoutHomeId.editComponentId.fileDialogDownload.open()
             }
@@ -136,23 +120,23 @@ ColumnLayout {
     }
 
     function setGitDiffReturnCode() {
-        if (Boolean(nearestGit)) {
-            gitDiffReturnCode = getMainqmltype().runCmd(
+        if (Boolean(QmlAppSt.nearestGit)) {
+            QmlAppSt.gitDiffReturnCode = getMainqmltype().runCmd(
                         [mainLayout.getMainqmltype(
-                             ).appSettingsType.gitExecPath, "-C", nearestGit, "status", "--porcelain"],
+                             ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "status", "--porcelain"],
                         " 2>&1 ").length
         }
     }
 
     function populateDecryptedUiFields() {
-        nearestGit = mainLayout.getNearestGit()
+        QmlAppSt.nearestGit = mainLayout.getNearestGit()
         setGitDiffReturnCode()
 
         columnLayoutHomeId.addComponentId.nearestTemplateGpg = mainLayout.getNearestTemplateGpg()
-        nearestGpg = mainLayout.getNearestGpgId()
-        fullPathFolder = getMainqmltype().getFullPathFolder()
-        hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId())
-        isGpgFile = getMainqmltype().isGpgFile()
+        QmlAppSt.nearestGpg = mainLayout.getNearestGpgId()
+        QmlAppSt.fullPathFolder = getMainqmltype().getFullPathFolder()
+        QmlAppSt.hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId())
+        QmlAppSt.isGpgFile = getMainqmltype().isGpgFile()
         let allKeys = mainLayout.getGpgIdManageType().allKeys
         columnLayoutHomeId.metaDataComponentId.decryptedSignedById = decryptedSignedByFullId(
                     mainLayout.getDecryptedSignedBy(), allKeys)
@@ -162,8 +146,9 @@ ColumnLayout {
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.allItems = allKeys
         columnLayoutHomeId.manageGpgIdComponentId.dropdownWithListComponentId.selectedItems
                 = mainLayout.getGpgIdManageType().keysFoundInGpgIdFile
-        classInitialized = mainLayout.getGpgIdManageType().classInitialized
-        gpgPubKeysFolderExists = mainLayout.getGpgIdManageType(
+        QmlAppSt.classInitialized = mainLayout.getGpgIdManageType(
+                    ).classInitialized
+        QmlAppSt.gpgPubKeysFolderExists = mainLayout.getGpgIdManageType(
                     ).gpgPubKeysFolderExists
 
         if (mainLayout.getMainqmltype().appSettingsType.preferYamlView) {
@@ -177,18 +162,19 @@ ColumnLayout {
 
     function initOnFileChanged() {
         clearSystemTrayIconEntries()
-        isBinaryFile = getIsBinary(QmlAppSt.filePath)
+        QmlAppSt.isBinaryFile = getIsBinary(QmlAppSt.filePath)
 
-        if (isBinaryFile || QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) > -1
-                || QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) > -1) {
+        if (QmlAppSt.isBinaryFile || QmlAppSt.waitItems.indexOf(
+                    QmlAppSt.filePath) > -1 || QmlAppSt.noneWaitItems.indexOf(
+                    QmlAppSt.filePath) > -1) {
             if (QmlAppSt.isShowPreview) {
-                isPreviousShowPreview = true
+                QmlAppSt.isPreviousShowPreview = true
             }
 
             QmlAppSt.isShowPreview = false
-        } else if (isPreviousShowPreview) {
+        } else if (QmlAppSt.isPreviousShowPreview) {
             QmlAppSt.isShowPreview = true
-            isPreviousShowPreview = false
+            QmlAppSt.isPreviousShowPreview = false
         }
 
         if (QmlAppSt.isShowPreview) {
@@ -261,7 +247,7 @@ function doSync(syncMsg) {
                                             setGitDiffReturnCode()
                                             QmlAppSt.isSaving = false
                                             notifyStr(cllbackClearString)
-                                        }, nearestGit, syncMsg)
+                                        }, QmlAppSt.nearestGit, syncMsg)
 }
 
 ColumnLayout {
@@ -282,7 +268,7 @@ ColumnLayout {
         CoreButton {
             onClicked: {
                 mainLayout.getMainqmltype().openStoreInFileBrowser(
-                    fullPathFolder)
+                    QmlAppSt.fullPathFolder)
             }
             icon.name: "Open store in file browser"
             icon.source: Qt.resolvedUrl(
@@ -344,11 +330,11 @@ ColumnLayout {
 
             icon.name: "sync"
 
-            text: Boolean(gitDiffReturnCode) ? "*" : ""
+            text: Boolean(QmlAppSt.gitDiffReturnCode) ? "*" : ""
             icon.source: Qt.resolvedUrl(
                              "icons/sync_FILL0_wght400_GRAD0_opsz48.svg")
-            hooverText: gitDiffReturnCode ? "<b>Pending changes</b><br/><b>Cmd Y</b> commit pull push <br/> R.Click for custom msg." : "<b>Cmd Y</b> commit pull push <br/> R.Click for custom msg."
-            enabled: Boolean(nearestGit) && !QmlAppSt.isSaving
+            hooverText: QmlAppSt.gitDiffReturnCode ? "<b>Pending changes</b><br/><b>Cmd Y</b> commit pull push <br/> R.Click for custom msg." : "<b>Cmd Y</b> commit pull push <br/> R.Click for custom msg."
+            enabled: Boolean(QmlAppSt.nearestGit) && !QmlAppSt.isSaving
         }
     }
     RowLayout {

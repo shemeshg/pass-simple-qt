@@ -23,7 +23,7 @@ ColumnLayout {
         onAccepted: {
             getMainqmltype().encryptUploadAsync(() => {
                                                     doMainUiEnable()
-                                                }, fullPathFolder,
+                                                }, QmlAppSt.fullPathFolder,
                                                 fileDialogUpload.currentFiles)
         }
         onRejected: {
@@ -36,7 +36,8 @@ ColumnLayout {
         title: "Choose folder to upload"
         onAccepted: {
             getMainqmltype().encryptFolderUpload(
-                        folderDialogUpload.currentFolder, fullPathFolder)
+                        folderDialogUpload.currentFolder,
+                        QmlAppSt.fullPathFolder)
             doMainUiEnable()
         }
         onRejected: {
@@ -49,7 +50,7 @@ ColumnLayout {
     ColumnLayout {
         CoreLabelAndText {
             coreLabel: "Destination folder"
-            coreText: fullPathFolder
+            coreText: QmlAppSt.fullPathFolder
         }
         Label {
             text: "Create new text file"
@@ -66,10 +67,11 @@ ColumnLayout {
                 placeholderText: "FileName.txt"
                 Layout.fillWidth: true
                 onTextChanged: {
-                    var makeEnabled = Boolean(nearestGpg) && Boolean(
+                    var makeEnabled = Boolean(QmlAppSt.nearestGpg) && Boolean(
                                 createEmptyFileNameId.text)
                     if (getMainqmltype().fileExists(
-                                fullPathFolder, createEmptyFileNameId.text)) {
+                                QmlAppSt.fullPathFolder,
+                                createEmptyFileNameId.text)) {
                         makeEnabled = false
                     }
                     addBtnId.enabled = makeEnabled
@@ -78,12 +80,12 @@ ColumnLayout {
             CoreButton {
                 id: addBtnId
                 text: "add"
-                enabled: Boolean(nearestGpg) && Boolean(
+                enabled: Boolean(QmlAppSt.nearestGpg) && Boolean(
                              createEmptyFileNameId.text)
                 onClicked: {
                     getMainqmltype().createEmptyEncryptedFile(
-                                fullPathFolder, createEmptyFileNameId.text,
-                                nearestTemplateGpg)
+                                QmlAppSt.fullPathFolder,
+                                createEmptyFileNameId.text, nearestTemplateGpg)
                     createEmptyFileNameId.text = ""
                 }
             }

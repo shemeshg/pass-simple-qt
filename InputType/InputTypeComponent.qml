@@ -23,7 +23,8 @@ ColumnLayout {
             //only relative path allowed
         } else if (!getIsBinary(link + ".gpg")) {
             return false
-        } else if (!getMainqmltype().fileExists(fullPathFolder, link)) {
+        } else if (!getMainqmltype().fileExists(QmlAppSt.fullPathFolder,
+                                                link)) {
             return false
         } else {
             return true

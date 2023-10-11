@@ -11,9 +11,10 @@ CoreDialogYesNo {
     }
 
     onOpened: {
-        fieldName.text = QmlAppSt.filePath.replace(fullPathFolder,
+        fieldName.text = QmlAppSt.filePath.replace(QmlAppSt.fullPathFolder,
                                                    "").substring(
-                    1, QmlAppSt.filePath.replace(fullPathFolder, "").length - 4)
+                    1, QmlAppSt.filePath.replace(QmlAppSt.fullPathFolder,
+                                                 "").length - 4)
     }
     onAccepted: {
         if (saveBtnId.visible && saveBtnId.enabled) {
@@ -21,11 +22,12 @@ CoreDialogYesNo {
         }
         mainLayout.getMainqmltype().renameGpgFile(
                     QmlAppSt.filePath,
-                    fullPathFolder + "/" + fieldName.text + ".gpg")
+                    QmlAppSt.fullPathFolder + "/" + fieldName.text + ".gpg")
     }
     onClosed: {
-        fieldName.text = QmlAppSt.filePath.replace(fullPathFolder,
+        fieldName.text = QmlAppSt.filePath.replace(QmlAppSt.fullPathFolder,
                                                    "").substring(
-                    1, QmlAppSt.filePath.replace(fullPathFolder, "").length - 4)
+                    1, QmlAppSt.filePath.replace(QmlAppSt.fullPathFolder,
+                                                 "").length - 4)
     }
 }

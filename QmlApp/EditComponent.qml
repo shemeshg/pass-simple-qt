@@ -19,9 +19,10 @@ ColumnLayout {
     }
 
     function setLoaderShowYamlEditComponent() {
-        if (isGpgFile && QmlAppSt.isShowPreview && showYamlEdit) {
+        if (QmlAppSt.isGpgFile && QmlAppSt.isShowPreview && showYamlEdit) {
             loaderShowYamlEditComponent.sourceComponent = doShowYamlEditComponent
-        } else if (isGpgFile && QmlAppSt.isShowPreview && !showYamlEdit) {
+        } else if (QmlAppSt.isGpgFile && QmlAppSt.isShowPreview
+                   && !showYamlEdit) {
             loaderShowYamlEditComponent.sourceComponent = dontShowYamlEditComponent
         } else {
             loaderShowYamlEditComponent.sourceComponent = undefined
@@ -52,7 +53,7 @@ ColumnLayout {
                 && loaderShowYamlEditComponent.editYamlType.isYamlValid) {
             decryptedText = loaderShowYamlEditComponent.editYamlType.getUpdatedText()
         }
-        if (isGpgFile) {
+        if (QmlAppSt.isGpgFile) {
             setLoaderShowYamlEditComponent()
         }
     }
@@ -66,10 +67,10 @@ ColumnLayout {
     }
 
     function reloadAfterPreviewChanged() {
-        if (classInitialized) {
+        if (QmlAppSt.classInitialized) {
             initOnFileChanged()
         }
-        if (isGpgFile) {
+        if (QmlAppSt.isGpgFile) {
             setLoaderShowYamlEditComponent()
         }
     }
@@ -82,7 +83,7 @@ ColumnLayout {
             getMainqmltype().dectyptFileNameToFileNameAsync(() => {
                                                                 doMainUiEnable()
                                                             },
-                                                            fullPathFolder + "/"
+                                                            QmlAppSt.fullPathFolder + "/"
                                                             + downloadFrom + ".gpg",
                                                             currentFolder + "/" + filename)
         }
@@ -100,7 +101,7 @@ ColumnLayout {
             getMainqmltype().encryptUploadAsync(() => {
                                                     doMainUiEnable()
                                                     notifyStr("*")
-                                                }, fullPathFolder,
+                                                }, QmlAppSt.fullPathFolder,
                                                 urlfileDialogUrlField.currentFiles,
                                                 true)
 
@@ -142,7 +143,8 @@ ColumnLayout {
         onAccepted: {
             getMainqmltype().decryptFolderDownloadAsync(() => {
                                                             doMainUiEnable()
-                                                        }, fullPathFolder,
+                                                        },
+                                                        QmlAppSt.fullPathFolder,
                                                         folderDialogDownload.currentFolder)
         }
         onRejected: {
@@ -159,15 +161,15 @@ ColumnLayout {
 
         CoreLabel {
             id: titleForDisplay
-            visible: isGpgFile
-            text: "<h2>" + QmlAppSt.filePath.replace(fullPathFolder,
+            visible: QmlAppSt.isGpgFile
+            text: "<h2>" + QmlAppSt.filePath.replace(QmlAppSt.fullPathFolder,
                                                      "").substring(
-                      1, QmlAppSt.filePath.replace(fullPathFolder,
+                      1, QmlAppSt.filePath.replace(QmlAppSt.fullPathFolder,
                                                    "").length - 4) + "</h2>"
             Layout.fillWidth: true
         }
         CoreButton {
-            visible: isGpgFile
+            visible: QmlAppSt.isGpgFile
             onClicked: () => {
                            renameDialog.open()
                        }
@@ -188,11 +190,11 @@ ColumnLayout {
 
     Label {
         text: "<h3>Binary file can upload/download only</h3>"
-        visible: isGpgFile && isBinaryFile
+        visible: QmlAppSt.isGpgFile && QmlAppSt.isBinaryFile
     }
 
     RowLayout {
-        visible: isGpgFile && !isBinaryFile
+        visible: QmlAppSt.isGpgFile && !QmlAppSt.isBinaryFile
 
         Shortcut {
             sequence: "Ctrl+E"
@@ -202,7 +204,7 @@ ColumnLayout {
                 }
 
                 if (isPreviewId.visible && editComponentId.visible
-                        && !isBinaryFile) {
+                        && !QmlAppSt.isBinaryFile) {
 
                     isPreviewId.checked = !isPreviewId.checked
                     QmlAppSt.isShowPreview = isPreviewId.checked
@@ -221,14 +223,14 @@ ColumnLayout {
             }
             visible: QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) === -1
                      && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
-                     && !isBinaryFile
+                     && !QmlAppSt.isBinaryFile
         }
 
         Shortcut {
             sequence: "Ctrl+M"
             onActivated: {
                 if (isPreviewId.checked && editComponentId.visible
-                        && !isBinaryFile) {
+                        && !QmlAppSt.isBinaryFile) {
                     showMdId.checked = !showMdId.checked
                 }
             }
@@ -238,7 +240,7 @@ ColumnLayout {
             sequence: "Ctrl+L"
             onActivated: {
                 if (isPreviewId.checked && editComponentId.visible
-                        && !isBinaryFile) {
+                        && !QmlAppSt.isBinaryFile) {
 
                     isYamlShow.checked = !isYamlShow.checked
                     showYamlEdit = isYamlShow.checked
@@ -264,7 +266,8 @@ ColumnLayout {
                 if (QmlAppSt.isMainUiDisabled) {
                     return
                 }
-                if (saveBtnId.visible && saveBtnId.enabled && !isBinaryFile) {
+                if (saveBtnId.visible && saveBtnId.enabled
+                        && !QmlAppSt.isBinaryFile) {
                     saveBtnId.clicked()
                 }
             }
@@ -273,10 +276,10 @@ ColumnLayout {
         CoreButton {
             id: saveBtnId
             text: "&Save"
-            enabled: hasEffectiveGpgIdFile
+            enabled: QmlAppSt.hasEffectiveGpgIdFile
                      && (!showYamlEdit || showYamlEdit
                          && loaderShowYamlEditComponent.editYamlType.isYamlValid)
-                     && !QmlAppSt.isSaving && !isBinaryFile
+                     && !QmlAppSt.isSaving && !QmlAppSt.isBinaryFile
             onClicked: {
                 if (showYamlEdit) {
                     decryptedText = loaderShowYamlEditComponent.editYamlType.getUpdatedText()
@@ -300,21 +303,22 @@ ColumnLayout {
                 if (editComponentId.visible && !QmlAppSt.isShowPreview
                         && QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) === -1
                         && QmlAppSt.noneWaitItems.indexOf(
-                            QmlAppSt.filePath) === -1 && !isBinaryFile) {
+                            QmlAppSt.filePath) === -1
+                        && !QmlAppSt.isBinaryFile) {
                     doExternalOpen()
                 }
             }
         }
         CoreButton {
             text: "&Open"
-            enabled: hasEffectiveGpgIdFile
+            enabled: QmlAppSt.hasEffectiveGpgIdFile
             onClicked: {
                 doExternalOpen()
             }
             visible: !QmlAppSt.isShowPreview && QmlAppSt.waitItems.indexOf(
                          QmlAppSt.filePath) === -1
                      && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
-                     && !isBinaryFile
+                     && !QmlAppSt.isBinaryFile
         }
         CoreButton {
             text: "Close File browser item"
@@ -322,7 +326,7 @@ ColumnLayout {
                 mainLayout.closeExternalEncryptNoWait()
             }
             visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
-                         QmlAppSt.filePath) > -1 && !isBinaryFile
+                         QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
         }
 
         CoreComboBox {
@@ -333,7 +337,7 @@ ColumnLayout {
             visible: !QmlAppSt.isShowPreview && QmlAppSt.waitItems.indexOf(
                          QmlAppSt.filePath) === -1
                      && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
-                     && !isBinaryFile
+                     && !QmlAppSt.isBinaryFile
         }
         Item {
             height: 2
@@ -345,7 +349,7 @@ ColumnLayout {
             id: showMdId
             checked: false
             text: qsTr("<u>M</u>↓")
-            visible: QmlAppSt.isShowPreview && !isBinaryFile
+            visible: QmlAppSt.isShowPreview && !QmlAppSt.isBinaryFile
         }
     }
 
@@ -376,10 +380,11 @@ ColumnLayout {
         Row {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            visible: isGpgFile
+            visible: QmlAppSt.isGpgFile
             EditYamlComponent {
                 id: editYamlComponentId
-                visible: isGpgFile && QmlAppSt.isShowPreview && showYamlEdit
+                visible: QmlAppSt.isGpgFile && QmlAppSt.isShowPreview
+                         && showYamlEdit
                 width: parent.width
                 height: parent.height
             }

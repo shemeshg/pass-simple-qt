@@ -145,7 +145,7 @@ ScrollView {
         }
         CoreComboBox {
             id: ctxSigner
-            model: allPrivateKeys
+            model: QmlAppSt.allPrivateKeys
             Component.onCompleted: {
                 currentIndex = find(mainLayout.getMainqmltype(
                                         ).appSettingsType.ctxSigner)

@@ -32,47 +32,47 @@ Column {
             }
             CoreLabelAndText {
                 coreLabel: "Git"
-                coreText: nearestGit
+                coreText: QmlAppSt.nearestGit
             }
             RowLayout {
                 CoreButton {
                     text: "status"
-                    enabled: nearestGit
+                    enabled: QmlAppSt.nearestGit
                     onClicked: {
                         let s = getMainqmltype().runCmd(
                                 [mainLayout.getMainqmltype(
-                                     ).appSettingsType.gitExecPath, "-C", nearestGit, "status"],
+                                     ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "status"],
                                 " 2>&1")
                         gitResponseId = s
                     }
                 }
                 CoreButton {
                     text: "add commit all"
-                    enabled: nearestGit
+                    enabled: QmlAppSt.nearestGit
                     onClicked: {
                         let addAll = getMainqmltype().runCmd(
                                 [mainLayout.getMainqmltype(
-                                     ).appSettingsType.gitExecPath, "-C", nearestGit, "add", "."],
+                                     ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "add", "."],
                                 " 2>&1")
                         let commitAm = getMainqmltype().runCmd(
                                 [mainLayout.getMainqmltype(
-                                     ).appSettingsType.gitExecPath, "-C", nearestGit, "commit", "-am", "pass simple"],
+                                     ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "commit", "-am", "pass simple"],
                                 " 2>&1")
                         gitResponseId = "Add:\n" + addAll + "\n" + "Commit:\n" + commitAm
                     }
                 }
                 CoreButton {
                     text: "pull push"
-                    enabled: nearestGit
+                    enabled: QmlAppSt.nearestGit
                     onClicked: {
 
                         let pull = getMainqmltype().runCmd(
                                 [mainLayout.getMainqmltype(
-                                     ).appSettingsType.gitExecPath, "-C", nearestGit, "pull"],
+                                     ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "pull"],
                                 " 2>&1")
                         let push = getMainqmltype().runCmd(
                                 [mainLayout.getMainqmltype(
-                                     ).appSettingsType.gitExecPath, "-C", nearestGit, "push"],
+                                     ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "push"],
                                 " 2>&1")
                         gitResponseId = "Pull:\n" + pull + "\nPush:\n" + push
                     }
@@ -87,7 +87,7 @@ Column {
             CoreLabelAndText {
                 id: nearestGpgIdId
                 coreLabel: "GpgId"
-                coreText: nearestGpg
+                coreText: QmlAppSt.nearestGpg
             }
             CoreLabelAndText {
                 coreLabel: "Signed By"
