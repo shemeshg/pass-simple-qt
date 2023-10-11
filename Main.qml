@@ -7,24 +7,6 @@ Item {
 
     id: mainLayout
 
-    function encrypt(s) {
-        return mainqmltype.encrypt(s)
-    }
-
-    function encryptAsync(s, callback) {
-        return mainqmltype.encryptAsync(s, callback)
-    }
-
-    function openExternalEncryptWait() {
-        return mainqmltype.openExternalEncryptWait()
-    }
-    function openExternalEncryptNoWait() {
-        return mainqmltype.openExternalEncryptNoWait()
-    }
-    function closeExternalEncryptNoWait() {
-        mainqmltype.closeExternalEncryptNoWait()
-    }
-
     QmlAppComponent {
         id: qmlAppComponent
         anchors.fill: parent

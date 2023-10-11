@@ -60,9 +60,9 @@ ColumnLayout {
 
     function doExternalOpen() {
         if (selectExternalEncryptDestinationId.currentValue === "code --wait") {
-            mainLayout.openExternalEncryptWait()
+            QmlAppSt.mainqmltype.openExternalEncryptWait()
         } else if (selectExternalEncryptDestinationId.editText === "File browser") {
-            mainLayout.openExternalEncryptNoWait()
+            QmlAppSt.mainqmltype.openExternalEncryptNoWait()
         }
     }
 
@@ -289,12 +289,12 @@ ColumnLayout {
                 QmlAppSt.isSaving = true
                 QmlAppSt.doMainUiDisable()
                 notifyStr("* Saving")
-                mainLayout.encryptAsync(decryptedText, () => {
-                                            QmlAppSt.isSaving = false
-                                            QmlAppSt.doMainUiEnable()
-                                            setGitDiffReturnCode()
-                                            notifyStr("")
-                                        })
+                QmlAppSt.mainqmltype.encryptAsync(decryptedText, () => {
+                                                      QmlAppSt.isSaving = false
+                                                      QmlAppSt.doMainUiEnable()
+                                                      setGitDiffReturnCode()
+                                                      notifyStr("")
+                                                  })
             }
             visible: QmlAppSt.isShowPreview
         }
@@ -325,7 +325,7 @@ ColumnLayout {
         CoreButton {
             text: "Close File browser item"
             onClicked: {
-                mainLayout.closeExternalEncryptNoWait()
+                QmlAppSt.mainqmltype.closeExternalEncryptNoWait()
             }
             visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
                          QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
