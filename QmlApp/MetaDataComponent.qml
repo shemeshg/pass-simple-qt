@@ -40,8 +40,7 @@ Column {
                     enabled: QmlAppSt.nearestGit
                     onClicked: {
                         let s = getMainqmltype().runCmd(
-                                [mainLayout.getMainqmltype(
-                                     ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "status"],
+                                [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "status"],
                                 " 2>&1")
                         gitResponseId = s
                     }
@@ -51,12 +50,10 @@ Column {
                     enabled: QmlAppSt.nearestGit
                     onClicked: {
                         let addAll = getMainqmltype().runCmd(
-                                [mainLayout.getMainqmltype(
-                                     ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "add", "."],
+                                [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "add", "."],
                                 " 2>&1")
                         let commitAm = getMainqmltype().runCmd(
-                                [mainLayout.getMainqmltype(
-                                     ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "commit", "-am", "pass simple"],
+                                [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "commit", "-am", "pass simple"],
                                 " 2>&1")
                         gitResponseId = "Add:\n" + addAll + "\n" + "Commit:\n" + commitAm
                     }
@@ -67,12 +64,10 @@ Column {
                     onClicked: {
 
                         let pull = getMainqmltype().runCmd(
-                                [mainLayout.getMainqmltype(
-                                     ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "pull"],
+                                [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "pull"],
                                 " 2>&1")
                         let push = getMainqmltype().runCmd(
-                                [mainLayout.getMainqmltype(
-                                     ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "push"],
+                                [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "push"],
                                 " 2>&1")
                         gitResponseId = "Pull:\n" + pull + "\nPush:\n" + push
                     }

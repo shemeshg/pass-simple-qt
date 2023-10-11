@@ -13,39 +13,28 @@ ScrollView {
     clip: true
     contentWidth: columnLayoutHomeId.width - 30
 
-    property bool isUseClipboard: mainLayout.getMainqmltype(
-                                      ).appSettingsType.useClipboard
-    property bool isPreferYamlView: mainLayout.getMainqmltype(
-                                        ).appSettingsType.preferYamlView
+    property bool isUseClipboard: QmlAppSt.mainqmltype.appSettingsType.useClipboard
+    property bool isPreferYamlView: QmlAppSt.mainqmltype.appSettingsType.preferYamlView
     property bool isDoSign: QmlAppSt.mainqmltype.appSettingsType.doSign
 
     onVisibleChanged: {
         if (visible) {
-            isUseClipboard = mainLayout.getMainqmltype(
-                        ).appSettingsType.useClipboard
+            isUseClipboard = QmlAppSt.mainqmltype.appSettingsType.useClipboard
             useClipboard.checked = isUseClipboard
-            isPreferYamlView = mainLayout.getMainqmltype(
-                        ).appSettingsType.preferYamlView
+            isPreferYamlView = QmlAppSt.mainqmltype.appSettingsType.preferYamlView
             preferYamlView.checked = isPreferYamlView
             isDoSign = QmlAppSt.mainqmltype.appSettingsType.doSign
             doSign.checked = isDoSign
-            QmlAppSt.passwordStorePathStr = mainLayout.getMainqmltype(
-                        ).appSettingsType.passwordStorePath
+            QmlAppSt.passwordStorePathStr = QmlAppSt.mainqmltype.appSettingsType.passwordStorePath
             ctxSigner.currentIndex = ctxSigner.find(
                         QmlAppSt.mainqmltype.appSettingsType.ctxSigner)
-            tmpFolderPath.text = mainLayout.getMainqmltype(
-                        ).appSettingsType.tmpFolderPath
-            gitExecPath.text = mainLayout.getMainqmltype(
-                        ).appSettingsType.gitExecPath
-            vscodeExecPath.text = mainLayout.getMainqmltype(
-                        ).appSettingsType.vscodeExecPath
-            autoTypeCmd.text = mainLayout.getMainqmltype(
-                        ).appSettingsType.autoTypeCmd
+            tmpFolderPath.text = QmlAppSt.mainqmltype.appSettingsType.tmpFolderPath
+            gitExecPath.text = QmlAppSt.mainqmltype.appSettingsType.gitExecPath
+            vscodeExecPath.text = QmlAppSt.mainqmltype.appSettingsType.vscodeExecPath
+            autoTypeCmd.text = QmlAppSt.mainqmltype.appSettingsType.autoTypeCmd
             fontSize.text = QmlAppSt.mainqmltype.appSettingsType.fontSize
-            commitMsg.text = mainLayout.getMainqmltype(
-                        ).appSettingsType.commitMsg
-            binaryExts.text = mainLayout.getMainqmltype(
-                        ).appSettingsType.binaryExts
+            commitMsg.text = QmlAppSt.mainqmltype.appSettingsType.commitMsg
+            binaryExts.text = QmlAppSt.mainqmltype.appSettingsType.binaryExts
         }
     }
 
@@ -71,16 +60,13 @@ ScrollView {
             fontSize.text = ""
         }
 
-        mainLayout.getMainqmltype(
-                    ).submit_AppSettingsType(QmlAppSt.passwordStorePathStr,
-                                             tmpFolderPath.text, gitExecPath.text,
-                                             vscodeExecPath.text, autoTypeCmd.text,
-                                             binaryExts.text, useClipboard.checked,
-                                             doSign.checked, preferYamlView.checked,
-                                             fontSize.text, commitMsg.text,
-                                             ctxSigner.displayText)
-        QmlAppSt.passwordStorePathStr = mainLayout.getMainqmltype(
-                    ).appSettingsType.passwordStorePath
+        QmlAppSt.mainqmltype.submit_AppSettingsType(
+                    QmlAppSt.passwordStorePathStr, tmpFolderPath.text,
+                    gitExecPath.text, vscodeExecPath.text, autoTypeCmd.text,
+                    binaryExts.text, useClipboard.checked, doSign.checked,
+                    preferYamlView.checked, fontSize.text, commitMsg.text,
+                    ctxSigner.displayText)
+        QmlAppSt.passwordStorePathStr = QmlAppSt.mainqmltype.appSettingsType.passwordStorePath
         QmlAppSt.isShowSettings = false
     }
 
@@ -147,8 +133,8 @@ ScrollView {
             id: ctxSigner
             model: QmlAppSt.allPrivateKeys
             Component.onCompleted: {
-                currentIndex = find(mainLayout.getMainqmltype(
-                                        ).appSettingsType.ctxSigner)
+                currentIndex = find(
+                            QmlAppSt.mainqmltype.appSettingsType.ctxSigner)
             }
             Layout.fillWidth: true
         }

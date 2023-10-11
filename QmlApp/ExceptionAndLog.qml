@@ -25,8 +25,7 @@ ColumnLayout {
             QmlAppSt.exceptionCounter = 0
 
             getMainqmltype().setTreeViewSelected(
-                        mainLayout.getMainqmltype(
-                            ).appSettingsType.passwordStorePath)
+                        QmlAppSt.mainqmltype.appSettingsType.passwordStorePath)
         }
     }
     CoreTextArea {

@@ -28,8 +28,7 @@ ColumnLayout {
             focus: true
             width: parent.width
         }
-        onOpened: fieldName.text = mainLayout.getMainqmltype(
-                      ).appSettingsType.commitMsg
+        onOpened: fieldName.text = QmlAppSt.mainqmltype.appSettingsType.commitMsg
         onAccepted: {
             doSync(fieldName.text)
         }

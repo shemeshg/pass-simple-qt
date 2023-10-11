@@ -95,8 +95,7 @@ ColumnLayout {
 
     function getIsBinary(fullPathToFile) {
         let file = fullPathToFile.substring(1, fullPathToFile.length - 4)
-        let extensions = mainLayout.getMainqmltype(
-                ).appSettingsType.binaryExts.toLowerCase()
+        let extensions = QmlAppSt.mainqmltype.appSettingsType.binaryExts.toLowerCase()
         let initialValue = 0
         let ret = extensions.split("\n").reduce((accumulator, currentValue) => {
                                                     if (Boolean(currentValue)
@@ -114,8 +113,7 @@ ColumnLayout {
     function setGitDiffReturnCode() {
         if (Boolean(QmlAppSt.nearestGit)) {
             QmlAppSt.gitDiffReturnCode = getMainqmltype().runCmd(
-                        [mainLayout.getMainqmltype(
-                             ).appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "status", "--porcelain"],
+                        [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "status", "--porcelain"],
                         " 2>&1 ").length
         }
     }
@@ -299,8 +297,7 @@ ColumnLayout {
                     return
                 }
                 if (syncBtn.enabled) {
-                    doSync(mainLayout.getMainqmltype(
-                               ).appSettingsType.commitMsg)
+                    doSync(QmlAppSt.mainqmltype.appSettingsType.commitMsg)
                 }
             }
         }
@@ -314,8 +311,7 @@ ColumnLayout {
                     if (mouse.button === Qt.RightButton) {
                         columnLayoutHomeId.customCommitMsgSyncDialog.open()
                     } else if (mouse.button === Qt.LeftButton) {
-                        doSync(mainLayout.getMainqmltype(
-                                   ).appSettingsType.commitMsg)
+                        doSync(QmlAppSt.mainqmltype.appSettingsType.commitMsg)
                     }
                 }
             }
