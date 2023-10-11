@@ -112,7 +112,7 @@ ColumnLayout {
 
     function setGitDiffReturnCode() {
         if (Boolean(QmlAppSt.nearestGit)) {
-            QmlAppSt.gitDiffReturnCode = getMainqmltype().runCmd(
+            QmlAppSt.gitDiffReturnCode = QmlAppSt.mainqmltype.runCmd(
                         [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "status", "--porcelain"],
                         " 2>&1 ").length
         }
@@ -124,9 +124,9 @@ ColumnLayout {
 
         columnLayoutHomeId.addComponentId.nearestTemplateGpg = mainLayout.getNearestTemplateGpg()
         QmlAppSt.nearestGpg = mainLayout.getNearestGpgId()
-        QmlAppSt.fullPathFolder = getMainqmltype().getFullPathFolder()
+        QmlAppSt.fullPathFolder = QmlAppSt.mainqmltype.getFullPathFolder()
         QmlAppSt.hasEffectiveGpgIdFile = Boolean(mainLayout.getNearestGpgId())
-        QmlAppSt.isGpgFile = getMainqmltype().isGpgFile()
+        QmlAppSt.isGpgFile = QmlAppSt.mainqmltype.isGpgFile()
         let allKeys = mainLayout.getGpgIdManageType().allKeys
         columnLayoutHomeId.metaDataComponentId.decryptedSignedById = decryptedSignedByFullId(
                     mainLayout.getDecryptedSignedBy(), allKeys)
@@ -171,13 +171,13 @@ ColumnLayout {
             columnLayoutHomeId.editComponentId.loaderShowYamlEditComponent.active = false
             QmlAppSt.doMainUiDisable()
             columnLayoutHomeId.editComponentId.decryptedText = "status: Loading..."
-            getMainqmltype().getDecryptedAsync(s => {
-                                                   clearSystemTrayIconEntries()
-                                                   columnLayoutHomeId.editComponentId.decryptedText = s
-                                                   populateDecryptedUiFields()
-                                                   QmlAppSt.doMainUiEnable()
-                                                   columnLayoutHomeId.editComponentId.loaderShowYamlEditComponent.active = true
-                                               })
+            QmlAppSt.mainqmltype.getDecryptedAsync(s => {
+                                                       clearSystemTrayIconEntries()
+                                                       columnLayoutHomeId.editComponentId.decryptedText = s
+                                                       populateDecryptedUiFields()
+                                                       QmlAppSt.doMainUiEnable()
+                                                       columnLayoutHomeId.editComponentId.loaderShowYamlEditComponent.active = true
+                                                   })
         } else {
             populateDecryptedUiFields()
         }
@@ -232,12 +232,12 @@ function doSync(syncMsg) {
     QmlAppSt.isSaving = true
     QmlAppSt.doMainUiDisable()
     notifyStr("* add all, commit, pull, putsh")
-    getMainqmltype().runGitSyncCmdAsync(() => {
-                                            QmlAppSt.doMainUiEnable()
-                                            setGitDiffReturnCode()
-                                            QmlAppSt.isSaving = false
-                                            notifyStr(cllbackClearString)
-                                        }, QmlAppSt.nearestGit, syncMsg)
+    QmlAppSt.mainqmltype.runGitSyncCmdAsync(() => {
+                                                QmlAppSt.doMainUiEnable()
+                                                setGitDiffReturnCode()
+                                                QmlAppSt.isSaving = false
+                                                notifyStr(cllbackClearString)
+                                            }, QmlAppSt.nearestGit, syncMsg)
 }
 
 ColumnLayout {

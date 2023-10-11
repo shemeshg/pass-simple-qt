@@ -80,12 +80,12 @@ ColumnLayout {
         title: "Choose folder to download input field file"
         onAccepted: {
             var filename = downloadFrom.replace(/^.*[\\\/]/, '')
-            getMainqmltype().dectyptFileNameToFileNameAsync(() => {
-                                                                QmlAppSt.doMainUiEnable()
-                                                            },
-                                                            QmlAppSt.fullPathFolder + "/"
-                                                            + downloadFrom + ".gpg",
-                                                            currentFolder + "/" + filename)
+            QmlAppSt.mainqmltype.dectyptFileNameToFileNameAsync(() => {
+                                                                    QmlAppSt.doMainUiEnable()
+                                                                },
+                                                                QmlAppSt.fullPathFolder + "/"
+                                                                + downloadFrom + ".gpg",
+                                                                currentFolder + "/" + filename)
         }
         onRejected: {
             QmlAppSt.doMainUiEnable()
@@ -98,12 +98,13 @@ ColumnLayout {
         title: "Choose file to upload"
         fileMode: FileDialog.OpenFile
         onAccepted: {
-            getMainqmltype().encryptUploadAsync(() => {
-                                                    QmlAppSt.doMainUiEnable()
-                                                    notifyStr("*")
-                                                }, QmlAppSt.fullPathFolder,
-                                                urlfileDialogUrlField.currentFiles,
-                                                true)
+            QmlAppSt.mainqmltype.encryptUploadAsync(() => {
+                                                        QmlAppSt.doMainUiEnable(
+                                                            )
+                                                        notifyStr("*")
+                                                    }, QmlAppSt.fullPathFolder,
+                                                    urlfileDialogUrlField.currentFiles,
+                                                    true)
 
             urlfileDialogUrlField.currentFiles.forEach(f => {
                                                            let filename = f.toString(
@@ -127,10 +128,11 @@ ColumnLayout {
         onAccepted: {
             var filename = QmlAppSt.filePath.replace(/^.*[\\\/]/, '')
             filename = filename.substr(0, filename.length - 4)
-            getMainqmltype().decryptDownloadAsync(() => {
-                                                      QmlAppSt.doMainUiEnable()
-                                                  },
-                                                  fileDialogDownload.currentFolder + "/" + filename)
+            QmlAppSt.mainqmltype.decryptDownloadAsync(() => {
+                                                          QmlAppSt.doMainUiEnable()
+                                                      },
+                                                      fileDialogDownload.currentFolder
+                                                      + "/" + filename)
         }
         onRejected: {
             QmlAppSt.doMainUiEnable()
@@ -141,11 +143,11 @@ ColumnLayout {
         id: folderDialogDownload
         title: "Choose folder to download"
         onAccepted: {
-            getMainqmltype().decryptFolderDownloadAsync(() => {
-                                                            QmlAppSt.doMainUiEnable()
-                                                        },
-                                                        QmlAppSt.fullPathFolder,
-                                                        folderDialogDownload.currentFolder)
+            QmlAppSt.mainqmltype.decryptFolderDownloadAsync(() => {
+                                                                QmlAppSt.doMainUiEnable()
+                                                            },
+                                                            QmlAppSt.fullPathFolder,
+                                                            folderDialogDownload.currentFolder)
         }
         onRejected: {
             QmlAppSt.doMainUiEnable()
@@ -446,7 +448,7 @@ ColumnLayout {
                         placeholderText: "Enter text here, YAML can not start with '-' or '#'"
 
                         onSelectedTextChanged: {
-                            getMainqmltype().selectedText = selectedText
+                            QmlAppSt.mainqmltype.selectedText = selectedText
                         }
                         visible: !showMdId.checked
                         onTextChanged: {

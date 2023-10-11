@@ -21,10 +21,11 @@ ColumnLayout {
         title: "Choose file to upload"
         fileMode: FileDialog.OpenFile
         onAccepted: {
-            getMainqmltype().encryptUploadAsync(() => {
-                                                    QmlAppSt.doMainUiEnable()
-                                                }, QmlAppSt.fullPathFolder,
-                                                fileDialogUpload.currentFiles)
+            QmlAppSt.mainqmltype.encryptUploadAsync(() => {
+                                                        QmlAppSt.doMainUiEnable(
+                                                            )
+                                                    }, QmlAppSt.fullPathFolder,
+                                                    fileDialogUpload.currentFiles)
         }
         onRejected: {
             QmlAppSt.doMainUiEnable()
@@ -35,7 +36,7 @@ ColumnLayout {
         id: folderDialogUpload
         title: "Choose folder to upload"
         onAccepted: {
-            getMainqmltype().encryptFolderUpload(
+            QmlAppSt.mainqmltype.encryptFolderUpload(
                         folderDialogUpload.currentFolder,
                         QmlAppSt.fullPathFolder)
             QmlAppSt.doMainUiEnable()
@@ -82,7 +83,7 @@ ColumnLayout {
                 enabled: Boolean(QmlAppSt.nearestGpg) && Boolean(
                              createEmptyFileNameId.text)
                 onClicked: {
-                    getMainqmltype().createEmptyEncryptedFile(
+                    QmlAppSt.mainqmltype.createEmptyEncryptedFile(
                                 QmlAppSt.fullPathFolder,
                                 createEmptyFileNameId.text, nearestTemplateGpg)
                     createEmptyFileNameId.text = ""

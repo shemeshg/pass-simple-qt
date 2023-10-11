@@ -24,16 +24,15 @@ ColumnLayout {
         searchStatusLabelId.visible = true
         searchResultModel = []
 
-        getMainqmltype().doSearchAsync(currentSearchFolder,
-                                       textFieldFileSearch.text,
-                                       textFieldContentSearch.text,
-                                       isMemCash.checked, () => {
-                                           searchResultModel = getMainqmltype(
-                                               ).searchResult
-                                           btnRunSearchId.enabled = true
-                                           searchStatusLabelId.visible = false
-                                           QmlAppSt.doMainUiEnable()
-                                       })
+        QmlAppSt.mainqmltype.doSearchAsync(currentSearchFolder,
+                                           textFieldFileSearch.text,
+                                           textFieldContentSearch.text,
+                                           isMemCash.checked, () => {
+                                               searchResultModel = QmlAppSt.mainqmltype.searchResult
+                                               btnRunSearchId.enabled = true
+                                               searchStatusLabelId.visible = false
+                                               QmlAppSt.doMainUiEnable()
+                                           })
     }
 
     RowLayout {
@@ -178,7 +177,7 @@ ColumnLayout {
                 CoreButton {
                     text: "←"
                     onClicked: {
-                        getMainqmltype().setTreeViewSelected(modelData)
+                        QmlAppSt.mainqmltype.setTreeViewSelected(modelData)
                     }
                     hooverText: "Select"
                 }
@@ -186,7 +185,7 @@ ColumnLayout {
                     text: "☍"
                     hooverText: "Clipboard rel.path"
                     onClicked: {
-                        getMainqmltype().clipboardRelPath(
+                        QmlAppSt.mainqmltype.clipboardRelPath(
                                     QmlAppSt.fullPathFolder,
                                     modelData.substr(0, modelData.length - 4))
                     }

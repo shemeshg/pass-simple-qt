@@ -39,7 +39,7 @@ Column {
                     text: "status"
                     enabled: QmlAppSt.nearestGit
                     onClicked: {
-                        let s = getMainqmltype().runCmd(
+                        let s = QmlAppSt.mainqmltype.runCmd(
                                 [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "status"],
                                 " 2>&1")
                         gitResponseId = s
@@ -49,10 +49,10 @@ Column {
                     text: "add commit all"
                     enabled: QmlAppSt.nearestGit
                     onClicked: {
-                        let addAll = getMainqmltype().runCmd(
+                        let addAll = QmlAppSt.mainqmltype.runCmd(
                                 [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "add", "."],
                                 " 2>&1")
-                        let commitAm = getMainqmltype().runCmd(
+                        let commitAm = QmlAppSt.mainqmltype.runCmd(
                                 [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "commit", "-am", "pass simple"],
                                 " 2>&1")
                         gitResponseId = "Add:\n" + addAll + "\n" + "Commit:\n" + commitAm
@@ -63,10 +63,10 @@ Column {
                     enabled: QmlAppSt.nearestGit
                     onClicked: {
 
-                        let pull = getMainqmltype().runCmd(
+                        let pull = QmlAppSt.mainqmltype.runCmd(
                                 [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "pull"],
                                 " 2>&1")
-                        let push = getMainqmltype().runCmd(
+                        let push = QmlAppSt.mainqmltype.runCmd(
                                 [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "push"],
                                 " 2>&1")
                         gitResponseId = "Pull:\n" + pull + "\nPush:\n" + push
@@ -99,7 +99,7 @@ Column {
                     }
                     CoreButton {
                         text: "select"
-                        onClicked: getMainqmltype().setTreeViewSelected(
+                        onClicked: QmlAppSt.mainqmltype.setTreeViewSelected(
                                        modelData)
                     }
                 }
@@ -116,7 +116,7 @@ Column {
                     }
                     CoreButton {
                         text: "select"
-                        onClicked: getMainqmltype().setTreeViewSelected(
+                        onClicked: QmlAppSt.mainqmltype.setTreeViewSelected(
                                        modelData)
                     }
                 }

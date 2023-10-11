@@ -24,7 +24,7 @@ ColumnLayout {
         onClicked: {
             QmlAppSt.exceptionCounter = 0
 
-            getMainqmltype().setTreeViewSelected(
+            QmlAppSt.mainqmltype.setTreeViewSelected(
                         QmlAppSt.mainqmltype.appSettingsType.passwordStorePath)
         }
     }
