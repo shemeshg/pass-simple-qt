@@ -76,6 +76,10 @@ ColumnLayout {
         return l < 128
     }
 
+    function fileExists(path, file) {
+        return QmlAppSt.mainqmltype.fileExists(path, file)
+    }
+
     function decryptedSignedByFullId(idStr, allKeys) {
         if (!Boolean(idStr)) {
             return ""
@@ -167,13 +171,13 @@ ColumnLayout {
 
         if (QmlAppSt.isShowPreview) {
             columnLayoutHomeId.editComponentId.loaderShowYamlEditComponent.active = false
-            doMainUiDisable()
+            QmlAppSt.doMainUiDisable()
             columnLayoutHomeId.editComponentId.decryptedText = "status: Loading..."
             getMainqmltype().getDecryptedAsync(s => {
                                                    clearSystemTrayIconEntries()
                                                    columnLayoutHomeId.editComponentId.decryptedText = s
                                                    populateDecryptedUiFields()
-                                                   doMainUiEnable()
+                                                   QmlAppSt.doMainUiEnable()
                                                    columnLayoutHomeId.editComponentId.loaderShowYamlEditComponent.active = true
                                                })
         } else {
@@ -228,10 +232,10 @@ function doSync(syncMsg) {
     var cllbackClearString = statusLabelId.text === "*" ? "*" : ""
 
     QmlAppSt.isSaving = true
-    doMainUiDisable()
+    QmlAppSt.doMainUiDisable()
     notifyStr("* add all, commit, pull, putsh")
     getMainqmltype().runGitSyncCmdAsync(() => {
-                                            doMainUiEnable()
+                                            QmlAppSt.doMainUiEnable()
                                             setGitDiffReturnCode()
                                             QmlAppSt.isSaving = false
                                             notifyStr(cllbackClearString)

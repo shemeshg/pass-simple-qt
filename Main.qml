@@ -7,15 +7,7 @@ Item {
 
     id: mainLayout
 
-    function doMainUiDisable() {
-        QmlAppSt.isMainUiDisabled = true
-        getMainqmltype().doMainUiDisable()
-    }
 
-    function doMainUiEnable() {
-        QmlAppSt.isMainUiDisabled = false
-        getMainqmltype().doMainUiEnable()
-    }
 
     function getMainqmltype() {
         return mainqmltype

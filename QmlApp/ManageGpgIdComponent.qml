@@ -86,7 +86,7 @@ Column {
                 onClicked: {
                     reencryptBtnId.enabled = false
                     eencryptTextId.text = "Running... This might take long, Please wait"
-                    mainLayout.doMainUiDisable()
+                    QmlAppSt.doMainUiDisable()
 
                     mainLayout.getGpgIdManageType().saveChangesAsync(
                                 dropdownWithListComponentId.selectedItems,
@@ -95,7 +95,7 @@ Column {
                                     initOnFileChanged()
                                     reencryptBtnId.enabled = true
                                     eencryptTextId.text = returnStatus
-                                    mainLayout.doMainUiEnable()
+                                    QmlAppSt.doMainUiEnable()
                                 })
                 }
             }

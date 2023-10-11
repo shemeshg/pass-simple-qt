@@ -19,7 +19,7 @@ ColumnLayout {
     }
 
     function doSearchAction() {
-        doMainUiDisable()
+        QmlAppSt.doMainUiDisable()
         btnRunSearchId.enabled = false
         searchStatusLabelId.visible = true
         searchResultModel = []
@@ -32,7 +32,7 @@ ColumnLayout {
                                                ).searchResult
                                            btnRunSearchId.enabled = true
                                            searchStatusLabelId.visible = false
-                                           doMainUiEnable()
+                                           QmlAppSt.doMainUiEnable()
                                        })
     }
 

@@ -36,8 +36,8 @@ QtObject {
         mainqmltype.initGpgIdManage()
         allPrivateKeys = mainqmltype.gpgIdManageType.allPrivateKeys
 
-        mainqmltype.setTreeViewSelected(passwordStorePathStr)
         passwordStorePathStr = mainqmltype.appSettingsType.passwordStorePath
+        mainqmltype.setTreeViewSelected(passwordStorePathStr)
     }
 
     function doUrlRedirect(link) {
@@ -51,5 +51,15 @@ QtObject {
         } else {
             mainqmltype.tryRedirectLocalLink(link)
         }
+    }
+
+    function doMainUiDisable() {
+        isMainUiDisabled = true
+        mainqmltype.doMainUiDisable()
+    }
+
+    function doMainUiEnable() {
+        isMainUiDisabled = false
+        mainqmltype.doMainUiEnable()
     }
 }

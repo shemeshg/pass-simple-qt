@@ -11,6 +11,7 @@ ColumnLayout {
     property string inputText: ""
     property string totpText: ""
     signal textChangedSignal(string s)
+
     property bool isTexteditMasked: true
 
     function isValidFileRedirect(link) {
@@ -23,8 +24,7 @@ ColumnLayout {
             //only relative path allowed
         } else if (!getIsBinary(link + ".gpg")) {
             return false
-        } else if (!getMainqmltype().fileExists(QmlAppSt.fullPathFolder,
-                                                link)) {
+        } else if (!fileExists(QmlAppSt.fullPathFolder, link)) {
             return false
         } else {
             return true
@@ -90,7 +90,7 @@ ColumnLayout {
                                 isKeyPressed = true
                             }
             onSelectedTextChanged: {
-                getMainqmltype().selectedText = selectedText
+                selectedTextSignal(selectedText)
             }
         }
         Label {

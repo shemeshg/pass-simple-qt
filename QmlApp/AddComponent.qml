@@ -22,12 +22,12 @@ ColumnLayout {
         fileMode: FileDialog.OpenFile
         onAccepted: {
             getMainqmltype().encryptUploadAsync(() => {
-                                                    doMainUiEnable()
+                                                    QmlAppSt.doMainUiEnable()
                                                 }, QmlAppSt.fullPathFolder,
                                                 fileDialogUpload.currentFiles)
         }
         onRejected: {
-            doMainUiEnable()
+            QmlAppSt.doMainUiEnable()
         }
     }
 
@@ -38,10 +38,10 @@ ColumnLayout {
             getMainqmltype().encryptFolderUpload(
                         folderDialogUpload.currentFolder,
                         QmlAppSt.fullPathFolder)
-            doMainUiEnable()
+            QmlAppSt.doMainUiEnable()
         }
         onRejected: {
-            doMainUiEnable()
+            QmlAppSt.doMainUiEnable()
         }
     }
 
@@ -69,9 +69,8 @@ ColumnLayout {
                 onTextChanged: {
                     var makeEnabled = Boolean(QmlAppSt.nearestGpg) && Boolean(
                                 createEmptyFileNameId.text)
-                    if (getMainqmltype().fileExists(
-                                QmlAppSt.fullPathFolder,
-                                createEmptyFileNameId.text)) {
+                    if (fileExists(QmlAppSt.fullPathFolder,
+                                   createEmptyFileNameId.text)) {
                         makeEnabled = false
                     }
                     addBtnId.enabled = makeEnabled

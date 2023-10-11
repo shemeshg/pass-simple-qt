@@ -81,14 +81,14 @@ ColumnLayout {
         onAccepted: {
             var filename = downloadFrom.replace(/^.*[\\\/]/, '')
             getMainqmltype().dectyptFileNameToFileNameAsync(() => {
-                                                                doMainUiEnable()
+                                                                QmlAppSt.doMainUiEnable()
                                                             },
                                                             QmlAppSt.fullPathFolder + "/"
                                                             + downloadFrom + ".gpg",
                                                             currentFolder + "/" + filename)
         }
         onRejected: {
-            doMainUiEnable()
+            QmlAppSt.doMainUiEnable()
         }
     }
 
@@ -99,7 +99,7 @@ ColumnLayout {
         fileMode: FileDialog.OpenFile
         onAccepted: {
             getMainqmltype().encryptUploadAsync(() => {
-                                                    doMainUiEnable()
+                                                    QmlAppSt.doMainUiEnable()
                                                     notifyStr("*")
                                                 }, QmlAppSt.fullPathFolder,
                                                 urlfileDialogUrlField.currentFiles,
@@ -113,7 +113,7 @@ ColumnLayout {
                                                        })
         }
         onRejected: {
-            doMainUiEnable()
+            QmlAppSt.doMainUiEnable()
         }
     }
 
@@ -128,12 +128,12 @@ ColumnLayout {
             var filename = QmlAppSt.filePath.replace(/^.*[\\\/]/, '')
             filename = filename.substr(0, filename.length - 4)
             getMainqmltype().decryptDownloadAsync(() => {
-                                                      doMainUiEnable()
+                                                      QmlAppSt.doMainUiEnable()
                                                   },
                                                   fileDialogDownload.currentFolder + "/" + filename)
         }
         onRejected: {
-            doMainUiEnable()
+            QmlAppSt.doMainUiEnable()
         }
     }
 
@@ -142,13 +142,13 @@ ColumnLayout {
         title: "Choose folder to download"
         onAccepted: {
             getMainqmltype().decryptFolderDownloadAsync(() => {
-                                                            doMainUiEnable()
+                                                            QmlAppSt.doMainUiEnable()
                                                         },
                                                         QmlAppSt.fullPathFolder,
                                                         folderDialogDownload.currentFolder)
         }
         onRejected: {
-            doMainUiEnable()
+            QmlAppSt.doMainUiEnable()
         }
     }
 
@@ -285,11 +285,11 @@ ColumnLayout {
                     decryptedText = loaderShowYamlEditComponent.editYamlType.getUpdatedText()
                 }
                 QmlAppSt.isSaving = true
-                doMainUiDisable()
+                QmlAppSt.doMainUiDisable()
                 notifyStr("* Saving")
                 mainLayout.encryptAsync(decryptedText, () => {
                                             QmlAppSt.isSaving = false
-                                            doMainUiEnable()
+                                            QmlAppSt.doMainUiEnable()
                                             setGitDiffReturnCode()
                                             notifyStr("")
                                         })
@@ -390,6 +390,9 @@ ColumnLayout {
                 onDoUrlRedirect: s => {
                                      QmlAppSt.doUrlRedirect(s)
                                  }
+                onSelectedTextSignal: s => {
+                                          QmlAppSt.selectedText = s
+                                      }
             }
         }
     }
