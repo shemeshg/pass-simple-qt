@@ -4,11 +4,11 @@ import QtQuick.Controls
 import QmlCore
 
 ColumnLayout {
-    visible: isShowSearch
+    visible: QmlAppSt.isShowSearch
     width: parent.width
     height: parent.height
 
-    property string currentSearchFolder: passwordStorePathStr
+    property string currentSearchFolder: QmlAppSt.passwordStorePathStr
     property var searchResultModel: []
     property bool regexVisible: false
 
@@ -39,7 +39,7 @@ ColumnLayout {
     RowLayout {
         CoreButton {
             text: "Back"
-            onClicked: isShowSearch = false
+            onClicked: QmlAppSt.isShowSearch = false
         }
         CoreButton {
             text: "regex"
@@ -169,9 +169,11 @@ ColumnLayout {
             delegate: RowLayout {
 
                 CoreLabel {
-                    text: modelData.replace(passwordStorePathStr, "").substring(
-                              1, modelData.replace(passwordStorePathStr,
-                                                   "").length - 4)
+                    text: modelData.replace(QmlAppSt.passwordStorePathStr,
+                                            "").substring(
+                              1,
+                              modelData.replace(QmlAppSt.passwordStorePathStr,
+                                                "").length - 4)
                 }
                 CoreButton {
                     text: "←"

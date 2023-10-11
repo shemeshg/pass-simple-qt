@@ -19,9 +19,9 @@ ColumnLayout {
     }
 
     function setLoaderShowYamlEditComponent() {
-        if (isGpgFile && isShowPreview && showYamlEdit) {
+        if (isGpgFile && QmlAppSt.isShowPreview && showYamlEdit) {
             loaderShowYamlEditComponent.sourceComponent = doShowYamlEditComponent
-        } else if (isGpgFile && isShowPreview && !showYamlEdit) {
+        } else if (isGpgFile && QmlAppSt.isShowPreview && !showYamlEdit) {
             loaderShowYamlEditComponent.sourceComponent = dontShowYamlEditComponent
         } else {
             loaderShowYamlEditComponent.sourceComponent = undefined
@@ -197,7 +197,7 @@ ColumnLayout {
         Shortcut {
             sequence: "Ctrl+E"
             onActivated: {
-                if (isMainUiDisabled) {
+                if (QmlAppSt.isMainUiDisabled) {
                     return
                 }
 
@@ -205,7 +205,7 @@ ColumnLayout {
                         && !isBinaryFile) {
 
                     isPreviewId.checked = !isPreviewId.checked
-                    isShowPreview = isPreviewId.checked
+                    QmlAppSt.isShowPreview = isPreviewId.checked
                     reloadAfterPreviewChanged()
                 }
             }
@@ -214,9 +214,9 @@ ColumnLayout {
         CoreSwitch {
             id: isPreviewId
             text: qsTr("Pr<u>e</u>view")
-            checked: isShowPreview
+            checked: QmlAppSt.isShowPreview
             onToggled: {
-                isShowPreview = isPreviewId.checked
+                QmlAppSt.isShowPreview = isPreviewId.checked
                 reloadAfterPreviewChanged()
             }
             visible: QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) === -1
@@ -249,7 +249,7 @@ ColumnLayout {
 
         CoreSwitch {
             id: isYamlShow
-            visible: isShowPreview
+            visible: QmlAppSt.isShowPreview
             text: qsTr("YAM<u>L</u>")
             checked: showYamlEdit
             onToggled: {
@@ -261,7 +261,7 @@ ColumnLayout {
         Shortcut {
             sequence: StandardKey.Save
             onActivated: {
-                if (isMainUiDisabled) {
+                if (QmlAppSt.isMainUiDisabled) {
                     return
                 }
                 if (saveBtnId.visible && saveBtnId.enabled && !isBinaryFile) {
@@ -276,28 +276,28 @@ ColumnLayout {
             enabled: hasEffectiveGpgIdFile
                      && (!showYamlEdit || showYamlEdit
                          && loaderShowYamlEditComponent.editYamlType.isYamlValid)
-                     && !isSaving && !isBinaryFile
+                     && !QmlAppSt.isSaving && !isBinaryFile
             onClicked: {
                 if (showYamlEdit) {
                     decryptedText = loaderShowYamlEditComponent.editYamlType.getUpdatedText()
                 }
-                isSaving = true
+                QmlAppSt.isSaving = true
                 doMainUiDisable()
                 notifyStr("* Saving")
                 mainLayout.encryptAsync(decryptedText, () => {
-                                            isSaving = false
+                                            QmlAppSt.isSaving = false
                                             doMainUiEnable()
                                             setGitDiffReturnCode()
                                             notifyStr("")
                                         })
             }
-            visible: isShowPreview
+            visible: QmlAppSt.isShowPreview
         }
 
         Shortcut {
             sequence: "Ctrl+O"
             onActivated: {
-                if (editComponentId.visible && !isShowPreview
+                if (editComponentId.visible && !QmlAppSt.isShowPreview
                         && QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) === -1
                         && QmlAppSt.noneWaitItems.indexOf(
                             QmlAppSt.filePath) === -1 && !isBinaryFile) {
@@ -311,7 +311,7 @@ ColumnLayout {
             onClicked: {
                 doExternalOpen()
             }
-            visible: !isShowPreview && QmlAppSt.waitItems.indexOf(
+            visible: !QmlAppSt.isShowPreview && QmlAppSt.waitItems.indexOf(
                          QmlAppSt.filePath) === -1
                      && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
                      && !isBinaryFile
@@ -321,7 +321,7 @@ ColumnLayout {
             onClicked: {
                 mainLayout.closeExternalEncryptNoWait()
             }
-            visible: !isShowPreview && QmlAppSt.noneWaitItems.indexOf(
+            visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
                          QmlAppSt.filePath) > -1 && !isBinaryFile
         }
 
@@ -330,7 +330,7 @@ ColumnLayout {
 
             model: ["code --wait", "File browser"]
             width: 200
-            visible: !isShowPreview && QmlAppSt.waitItems.indexOf(
+            visible: !QmlAppSt.isShowPreview && QmlAppSt.waitItems.indexOf(
                          QmlAppSt.filePath) === -1
                      && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
                      && !isBinaryFile
@@ -339,13 +339,13 @@ ColumnLayout {
             height: 2
             width: 2
             Layout.fillWidth: true
-            visible: isShowPreview
+            visible: QmlAppSt.isShowPreview
         }
         CoreSwitch {
             id: showMdId
             checked: false
             text: qsTr("<u>M</u>↓")
-            visible: isShowPreview && !isBinaryFile
+            visible: QmlAppSt.isShowPreview && !isBinaryFile
         }
     }
 
@@ -379,7 +379,7 @@ ColumnLayout {
             visible: isGpgFile
             EditYamlComponent {
                 id: editYamlComponentId
-                visible: isGpgFile && isShowPreview && showYamlEdit
+                visible: isGpgFile && QmlAppSt.isShowPreview && showYamlEdit
                 width: parent.width
                 height: parent.height
             }

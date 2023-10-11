@@ -7,25 +7,17 @@ ColumnLayout {
     width: parent.width
     height: parent.height
 
-    property string exceptionStr: ""
-
     property bool classInitialized: false
     property bool gpgPubKeysFolderExists: false
-    property bool isShowPreview: true
+
     property bool hasEffectiveGpgIdFile: false
     property bool isGpgFile: false
     property bool isBinaryFile: false
     property bool isPreviousShowPreview: false
     property int gitDiffReturnCode: 0
 
-    property bool isShowSettings: false
-    property bool isShowSearch: false
-    property bool isSaving: false
-
     property string nearestGpg: ""
     property string fullPathFolder: ""
-    property string passwordStorePathStr: mainLayout.getMainqmltype(
-                                              ).appSettingsType.passwordStorePath
     property string nearestGit: ""
     property var allPrivateKeys: []
 
@@ -44,7 +36,9 @@ ColumnLayout {
         mainLayout.getMainqmltype().initGpgIdManage()
         allPrivateKeys = mainLayout.getGpgIdManageType().allPrivateKeys
 
-        getMainqmltype().setTreeViewSelected(passwordStorePathStr)
+        getMainqmltype().setTreeViewSelected(QmlAppSt.passwordStorePathStr)
+        QmlAppSt.passwordStorePathStr = mainLayout.getMainqmltype(
+                    ).appSettingsType.passwordStorePath
     }
 
     Connections {
@@ -57,9 +51,9 @@ ColumnLayout {
 
             let action = QmlAppSt.menubarCommStr.split(" ")[0]
             if (action === "addItemAct") {
-                isShowSettings = false
-                isShowSearch = false
-                isShowLog = false
+                QmlAppSt.isShowSettings = false
+                QmlAppSt.isShowSearch = false
+                QmlAppSt.isShowLog = false
                 columnLayoutHomeId.toolbarId.currentIndex = 1
             }
             if (Boolean(nearestGpg)) {
@@ -187,17 +181,17 @@ ColumnLayout {
 
         if (isBinaryFile || QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) > -1
                 || QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) > -1) {
-            if (isShowPreview) {
+            if (QmlAppSt.isShowPreview) {
                 isPreviousShowPreview = true
             }
 
-            isShowPreview = false
+            QmlAppSt.isShowPreview = false
         } else if (isPreviousShowPreview) {
-            isShowPreview = true
+            QmlAppSt.isShowPreview = true
             isPreviousShowPreview = false
         }
 
-        if (isShowPreview) {
+        if (QmlAppSt.isShowPreview) {
             columnLayoutHomeId.editComponentId.loaderShowYamlEditComponent.active = false
             doMainUiDisable()
             columnLayoutHomeId.editComponentId.decryptedText = "status: Loading..."
@@ -259,13 +253,13 @@ ColumnLayout {
 function doSync(syncMsg) {
     var cllbackClearString = statusLabelId.text === "*" ? "*" : ""
 
-    isSaving = true
+    QmlAppSt.isSaving = true
     doMainUiDisable()
     notifyStr("* add all, commit, pull, putsh")
     getMainqmltype().runGitSyncCmdAsync(() => {
                                             doMainUiEnable()
                                             setGitDiffReturnCode()
-                                            isSaving = false
+                                            QmlAppSt.isSaving = false
                                             notifyStr(cllbackClearString)
                                         }, nearestGit, syncMsg)
 }
@@ -274,7 +268,7 @@ ColumnLayout {
     width: parent.width
     height: parent.height
     Layout.fillWidth: true
-    visible: !isShowSettings && !isShowSearch
+    visible: !QmlAppSt.isShowSettings && !QmlAppSt.isShowSearch
     RowLayout {
         CoreButton {
             onClicked: {
@@ -297,7 +291,7 @@ ColumnLayout {
         }
         CoreButton {
             onClicked: {
-                isShowSettings = true
+                QmlAppSt.isShowSettings = true
             }
             icon.name: "Settings"
             icon.source: Qt.resolvedUrl(
@@ -306,7 +300,7 @@ ColumnLayout {
         }
         CoreButton {
             onClicked: {
-                isShowSearch = true
+                QmlAppSt.isShowSearch = true
             }
 
             icon.name: "search"
@@ -323,7 +317,7 @@ ColumnLayout {
         Shortcut {
             sequence: "Ctrl+Y"
             onActivated: {
-                if (isMainUiDisabled) {
+                if (QmlAppSt.isMainUiDisabled) {
                     return
                 }
                 if (syncBtn.enabled) {
@@ -354,7 +348,7 @@ ColumnLayout {
             icon.source: Qt.resolvedUrl(
                              "icons/sync_FILL0_wght400_GRAD0_opsz48.svg")
             hooverText: gitDiffReturnCode ? "<b>Pending changes</b><br/><b>Cmd Y</b> commit pull push <br/> R.Click for custom msg." : "<b>Cmd Y</b> commit pull push <br/> R.Click for custom msg."
-            enabled: Boolean(nearestGit) && !isSaving
+            enabled: Boolean(nearestGit) && !QmlAppSt.isSaving
         }
     }
     RowLayout {

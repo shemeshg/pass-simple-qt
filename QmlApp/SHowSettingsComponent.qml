@@ -6,7 +6,7 @@ import Qt.labs.platform
 import QmlCore
 
 ScrollView {
-    visible: isShowSettings
+    visible: QmlAppSt.isShowSettings
     width: parent.width
     Layout.fillWidth: true
     Layout.fillHeight: true
@@ -29,7 +29,7 @@ ScrollView {
             preferYamlView.checked = isPreferYamlView
             isDoSign = mainLayout.getMainqmltype().appSettingsType.doSign
             doSign.checked = isDoSign
-            passwordStorePathStr = mainLayout.getMainqmltype(
+            QmlAppSt.passwordStorePathStr = mainLayout.getMainqmltype(
                         ).appSettingsType.passwordStorePath
             ctxSigner.currentIndex = ctxSigner.find(
                         mainLayout.getMainqmltype().appSettingsType.ctxSigner)
@@ -59,7 +59,7 @@ ScrollView {
             path = decodeURIComponent(path)
 
             //path =  path.substring(0, path.lastIndexOf("/")) ;
-            passwordStorePathStr = "/" + path
+            QmlAppSt.passwordStorePathStr = "/" + path
         }
         onRejected: {
 
@@ -72,16 +72,16 @@ ScrollView {
         }
 
         mainLayout.getMainqmltype(
-                    ).submit_AppSettingsType(passwordStorePathStr,
+                    ).submit_AppSettingsType(QmlAppSt.passwordStorePathStr,
                                              tmpFolderPath.text, gitExecPath.text,
                                              vscodeExecPath.text, autoTypeCmd.text,
                                              binaryExts.text, useClipboard.checked,
                                              doSign.checked, preferYamlView.checked,
                                              fontSize.text, commitMsg.text,
                                              ctxSigner.displayText)
-        passwordStorePathStr = mainLayout.getMainqmltype(
+        QmlAppSt.passwordStorePathStr = mainLayout.getMainqmltype(
                     ).appSettingsType.passwordStorePath
-        isShowSettings = false
+        QmlAppSt.isShowSettings = false
     }
 
     ColumnLayout {
@@ -95,7 +95,7 @@ ScrollView {
         RowLayout {
             CoreButton {
                 text: "Back"
-                onClicked: isShowSettings = false
+                onClicked: QmlAppSt.isShowSettings = false
             }
             CoreButton {
                 text: "Save"
@@ -110,7 +110,7 @@ ScrollView {
             }
             CoreButton {
                 text: "default"
-                onClicked: passwordStorePathStr = ""
+                onClicked: QmlAppSt.passwordStorePathStr = ""
             }
             CoreButton {
                 text: "select"
@@ -120,9 +120,9 @@ ScrollView {
 
         RowLayout {
             CoreTextField {
-                text: passwordStorePathStr
+                text: QmlAppSt.passwordStorePathStr
                 Layout.fillWidth: true
-                onTextChanged: passwordStorePathStr = text
+                onTextChanged: QmlAppSt.passwordStorePathStr = text
             }
         }
         Rectangle {

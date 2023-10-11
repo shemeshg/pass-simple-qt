@@ -5,14 +5,15 @@ import QtQuick.Controls
 import QmlCore
 
 ColumnLayout {
-    property int exceptionCounter: 0
-    property string exceptionStr: ""
 
-    onExceptionCounterChanged: {
-        isShowLog = Boolean(exceptionCounter)
+    Connections {
+        target: QmlAppSt
+        function onExceptionCounterChanged() {
+            QmlAppSt.isShowLog = Boolean(QmlAppSt.exceptionCounter)
+        }
     }
 
-    visible: isShowLog
+    visible: QmlAppSt.isShowLog
     width: parent.width
     height: parent.height
     Layout.fillWidth: true
@@ -21,13 +22,16 @@ ColumnLayout {
         id: navigateBackFromLogId
         text: "Back"
         onClicked: {
-            exceptionCounter = 0
-            mainqmltype.filePath = ""
+            QmlAppSt.exceptionCounter = 0
+
+            getMainqmltype().setTreeViewSelected(
+                        mainLayout.getMainqmltype(
+                            ).appSettingsType.passwordStorePath)
         }
     }
     CoreTextArea {
         Layout.fillWidth: true
-        text: exceptionStr
+        text: QmlAppSt.exceptionStr
         readOnly: true
     }
 }

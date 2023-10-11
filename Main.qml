@@ -7,16 +7,13 @@ Item {
 
     id: mainLayout
 
-    property bool isShowLog: false
-    property bool isMainUiDisabled: false
-
     function doMainUiDisable() {
-        isMainUiDisabled = true
+        QmlAppSt.isMainUiDisabled = true
         getMainqmltype().doMainUiDisable()
     }
 
     function doMainUiEnable() {
-        isMainUiDisabled = false
+        QmlAppSt.isMainUiDisabled = false
         getMainqmltype().doMainUiEnable()
     }
 
@@ -69,7 +66,7 @@ Item {
     QmlAppComponent {
         id: qmlAppComponent
         anchors.fill: parent
-        visible: !isShowLog
+        visible: !QmlAppSt.isShowLog
     }
 
     ExceptionAndLog {
@@ -107,13 +104,13 @@ Item {
     }
 
     Binding {
-        target: exceptionAndLog
+        target: QmlAppSt
         property: "exceptionCounter"
         value: mainqmltype.exceptionCounter
     }
 
     Binding {
-        target: exceptionAndLog
+        target: QmlAppSt
         property: "exceptionStr"
         value: mainqmltype.exceptionStr
     }
