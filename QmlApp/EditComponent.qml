@@ -391,7 +391,7 @@ ColumnLayout {
                                      QmlAppSt.doUrlRedirect(s)
                                  }
                 onSelectedTextSignal: s => {
-                                          QmlAppSt.selectedText = s
+                                          QmlAppSt.mainqmltype.selectedText = s
                                       }
             }
         }
