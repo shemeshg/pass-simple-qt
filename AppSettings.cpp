@@ -26,7 +26,8 @@ const QString AppSettings::passwordStorePath() const
         return passwordStorePathDefault;
     }
 
-    return m_passwordStorePath;
+
+    return QDir(m_passwordStorePath).absolutePath();
 }
 
 void AppSettings::setPasswordStorePath(const QString &passwordStorePath)
@@ -35,8 +36,7 @@ void AppSettings::setPasswordStorePath(const QString &passwordStorePath)
         return;
 
 
-    m_passwordStorePath = passwordStorePath;
-    m_passwordStorePath = QDir(m_passwordStorePath).absolutePath();
+    m_passwordStorePath = passwordStorePath;    
     settings.setValue("passwordStorePath", m_passwordStorePath);
 }
 
@@ -51,7 +51,7 @@ const QString AppSettings::tmpFolderPath() const
 #endif
         return tmpFolderPathDefault;
     }
-    return m_tmpFolderPath;
+    return QDir(m_tmpFolderPath).absolutePath();
 }
 
 void AppSettings::setTmpFolderPath(const QString &tmpFolderPath)
@@ -59,7 +59,6 @@ void AppSettings::setTmpFolderPath(const QString &tmpFolderPath)
     if (tmpFolderPath == m_tmpFolderPath)
         return;
     m_tmpFolderPath = tmpFolderPath;
-    m_tmpFolderPath = QDir(m_tmpFolderPath).absolutePath();
     settings.setValue("tmpFolderPath", m_tmpFolderPath);
 }
 
