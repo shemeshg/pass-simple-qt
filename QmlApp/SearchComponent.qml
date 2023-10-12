@@ -32,6 +32,11 @@ ColumnLayout {
                                                btnRunSearchId.enabled = true
                                                searchStatusLabelId.visible = false
                                                QmlAppSt.doMainUiEnable()
+                                               if (isSelectFirst.checked
+                                                   && searchResultModel.length > 0) {
+                                                   QmlAppSt.mainqmltype.setTreeViewSelected(
+                                                       searchResultModel[0])
+                                               }
                                            })
     }
 
@@ -62,8 +67,20 @@ ColumnLayout {
     ColumnLayout {
         spacing: 8
 
-        Label {
-            text: "File name"
+        RowLayout {
+            Label {
+                text: "File name"
+            }
+            Item {
+                height: 2
+                width: 2
+                Layout.fillWidth: true
+            }
+            CoreSwitch {
+                id: isSelectFirst
+                checked: false
+                text: qsTr("select 1st")
+            }
         }
         CoreTextField {
             id: findTextId
