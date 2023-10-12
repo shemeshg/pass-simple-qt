@@ -280,10 +280,16 @@ ColumnLayout {
                 QmlAppSt.isShowSearch = true
             }
 
-            icon.name: "search"
+            icon.name: "find"
             icon.source: Qt.resolvedUrl(
                              "icons/search_FILL0_wght400_GRAD0_opsz48.svg")
-            hooverText: "search"
+            hooverText: "<b>Cmd F</b> find"
+        }
+        Shortcut {
+            sequence: StandardKey.Find
+            onActivated: {
+                QmlAppSt.isShowSearch = !QmlAppSt.isShowSearch
+            }
         }
         Label {
             id: statusLabelId
