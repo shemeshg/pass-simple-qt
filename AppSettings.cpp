@@ -34,7 +34,9 @@ void AppSettings::setPasswordStorePath(const QString &passwordStorePath)
     if (passwordStorePath == m_passwordStorePath)
         return;
 
+
     m_passwordStorePath = passwordStorePath;
+    m_passwordStorePath = QDir(m_passwordStorePath).absolutePath();
     settings.setValue("passwordStorePath", m_passwordStorePath);
 }
 
@@ -57,6 +59,7 @@ void AppSettings::setTmpFolderPath(const QString &tmpFolderPath)
     if (tmpFolderPath == m_tmpFolderPath)
         return;
     m_tmpFolderPath = tmpFolderPath;
+    m_tmpFolderPath = QDir(m_tmpFolderPath).absolutePath();
     settings.setValue("tmpFolderPath", m_tmpFolderPath);
 }
 

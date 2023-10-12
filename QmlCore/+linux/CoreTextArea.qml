@@ -3,7 +3,7 @@ import QmlCore
 
 TextAreaFactory {
     background: Rectangle {
-        border.color: systemPalette.dark
+        border.color: CoreSystemPalette.dark
     }
 }
 
