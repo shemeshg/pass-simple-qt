@@ -156,7 +156,10 @@ ColumnLayout {
                 hooverText: "Set search folder to current treeview selected folder"
             }
             Label {
-                text: "In: " + currentSearchFolder
+                text: "In: "
+            }
+            CoreLabel {
+                text: currentSearchFolder
             }
         }
 
