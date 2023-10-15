@@ -8,11 +8,14 @@ MainQmlType::MainQmlType(
                          QSplitter *s,
                          QMenu *autoTypeFields,
                          QAction *autoTypeSelected,
+                         QAction *autoTypeTimeout,
                          QObject *parent)
     : JsAsync(parent)
     , splitter{s}
     , autoTypeFields{autoTypeFields}
     , autoTypeSelected{autoTypeSelected}
+    , autoTypeTimeout{autoTypeTimeout}
+
 
 {
     watchWaitAndNoneWaitRunCmd.callback = [&]() {
@@ -645,19 +648,26 @@ void MainQmlType::autoType(QString sequence)
         clipboard->setText(sequence);
         return;
     }
+    int timeout = 0;
+    if (autoTypeTimeout->isChecked()){
+        timeout = 3000;
+    }
+    QTimer::singleShot(timeout, this, [=]{
 #if defined(__linux__)
-    std::string s = appSettings.autoTypeCmd().toStdString();
-    s = ReplaceAll(s, "sequence", escapeshellarg(sequence.toStdString()));
-    system(s.c_str());
-    return;
+        std::string s = appSettings.autoTypeCmd().toStdString();
+        s = ReplaceAll(s, "sequence", escapeshellarg(sequence.toStdString()));
+        system(s.c_str());
+        return;
 #elif defined(__APPLE__)
-    std::string s = R"V0G0N(
+            std::string s = R"V0G0N(
 osascript -e 'tell application "System Events" to keystroke "sequence"'
 )V0G0N";
 
-    s = ReplaceAll(s, "sequence", escapeAppleScript(sequence.toStdString()));
-    system(s.c_str());
+            s = ReplaceAll(s, "sequence", escapeAppleScript(sequence.toStdString()));
+            system(s.c_str());
 #endif
+    });
+
 }
 
 std::string MainQmlType::ReplaceAll(std::string str, const std::string &from, const std::string &to)

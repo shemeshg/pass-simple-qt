@@ -72,6 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
     QAction *autoTypeSelected = new QAction(tr("auto type selected"), this);
     trayIconMenu->addAction(autoTypeSelected);
 
+
     QAction *clearClipboard = new QAction(tr("Clear clipboard"), this);
 
     connect(clearClipboard, &QAction::triggered, autoTypeFields, [=]() {
@@ -81,6 +82,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     trayIconMenu->addAction(clearClipboard);
     trayIconMenu->addSeparator();
+
+    QAction *autoTypeTimeout = new QAction(tr("auto type Timeout"), this);
+    autoTypeTimeout->setCheckable(true);
+    trayIconMenu->addAction(autoTypeTimeout);
 
     QAction *logoutAction = new QAction(tr("Logout"), this);
     connect(logoutAction, &QAction::triggered, qApp, [=]() {
@@ -184,6 +189,7 @@ MainWindow::MainWindow(QWidget *parent)
                                   ui->splitter,
                                   autoTypeFields,
                                   autoTypeSelected,
+                                  autoTypeTimeout,
                                   ui->quickWidget); // NOLINT
 
     static bool isQuickWidgetFocus = ui->quickWidget->hasFocus();

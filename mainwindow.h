@@ -56,7 +56,7 @@ private:
     QAction *actionDownloadFile;
     QAction *actionDownloadFolder;
     QAction *actionAbout;
-    QAction *actionQuit;
+    QAction *actionQuit;    
 
     bool treeViewItemSelected = false;
 

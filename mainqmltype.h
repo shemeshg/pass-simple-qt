@@ -48,6 +48,7 @@ public:
                          QSplitter *s,
                          QMenu *autoTypeFields,
                          QAction *autoTypeSelected,
+                        QAction *autoTypeTimeout,
                          QObject *parent = nullptr);
 
     QString filePath();
@@ -235,6 +236,7 @@ private:
     QString m_exceptionStr;
     QMenu *autoTypeFields;
     QAction *autoTypeSelected;
+    QAction *autoTypeTimeout;
 
     QStringList m_searchResult;
     QString m_selectedText;
