@@ -78,8 +78,11 @@ ColumnLayout {
             }
             CoreSwitch {
                 id: isSelectFirst
-                checked: false
+                checked: QmlAppSt.mainqmltype.appSettingsType.isFindSlctFrst
                 text: qsTr("select 1st")
+                onToggled: {
+                    QmlAppSt.mainqmltype.appSettingsType.isFindSlctFrst = checked
+                }
             }
         }
         CoreTextField {
@@ -116,8 +119,11 @@ ColumnLayout {
             }
             CoreSwitch {
                 id: isMemCash
-                checked: false
+                checked: QmlAppSt.mainqmltype.appSettingsType.isFindMemCash
                 text: qsTr("mem.cash")
+                onToggled: {
+                    QmlAppSt.mainqmltype.appSettingsType.isFindMemCash = checked
+                }
             }
         }
         CoreTextField {

@@ -17,6 +17,8 @@ AppSettings::AppSettings(QObject *parent)
     m_preferYamlView = settings.value("preferYamlView", true).toBool();
     m_fontSize = settings.value("fontSize", "").toString();
     m_commitMsg = settings.value("commitMsg", "").toString();
+    m_isFindMemCash = settings.value("isFindMemCash", false).toBool();
+    m_isFindSlctFrst = settings.value("isFindSlctFrst", false).toBool();
 }
 
 const QString AppSettings::passwordStorePath() const
@@ -166,6 +168,24 @@ void AppSettings::setDoSign(const bool doSign)
     m_doSign = doSign;
     settings.setValue("doSign", m_doSign);
     emit doSignChanged();
+}
+
+void AppSettings::setIsFindMemCash(const bool isFindMemCash)
+{
+    if (isFindMemCash == m_isFindMemCash)
+        return;
+    m_isFindMemCash = isFindMemCash;
+    settings.setValue("isFindMemCash", m_isFindMemCash);
+    emit isFindMemCashChanged();
+}
+
+void AppSettings::setIsFindSlctFrst(const bool isFindSlctFrst)
+{
+    if (isFindSlctFrst == m_isFindSlctFrst)
+        return;
+    m_isFindSlctFrst = isFindSlctFrst;
+    settings.setValue("isFindSlctFrst", m_isFindSlctFrst);
+    emit isFindSlctFrstChanged();
 }
 
 void AppSettings::setPreferYamlView(const bool preferYamlView)

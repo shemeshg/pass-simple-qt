@@ -27,6 +27,8 @@ class AppSettings : public QObject
     Q_PROPERTY(QString commitMsg READ commitMsg WRITE setCommitMsg NOTIFY commitMsgChanged)
     Q_PROPERTY(QString appVer READ appVer CONSTANT )
     Q_PROPERTY(QString binaryExts READ binaryExts WRITE setBinaryExts NOTIFY binaryExtsChanged)
+    Q_PROPERTY(bool isFindMemCash READ isFindMemCash WRITE setIsFindMemCash NOTIFY isFindMemCashChanged)
+    Q_PROPERTY(bool isFindSlctFrst READ isFindSlctFrst WRITE setIsFindSlctFrst NOTIFY isFindSlctFrstChanged)
     QML_ELEMENT
 public:
     AppSettings(QObject *parent = nullptr);
@@ -46,9 +48,13 @@ public:
     void setBinaryExts(const QString &binaryExts);
     bool useClipboard() const { return m_useClipboard; };
     bool doSign() const { return m_doSign; };
+    bool isFindMemCash() const { return m_isFindMemCash; };
+    bool isFindSlctFrst() const { return m_isFindSlctFrst; };
     bool preferYamlView() const { return m_preferYamlView; };
     void setUseClipboard(const bool useClipboard);
     void setDoSign(const bool doSign);
+    void setIsFindMemCash(const bool isFindMemCash);
+    void setIsFindSlctFrst(const bool isFindSlctFrst);
     void setPreferYamlView(const bool preferYamlView);
     QString fontSize() const {
         if (m_fontSize.isEmpty()){
@@ -84,6 +90,8 @@ signals:
     void fontSizeChanged();
     void commitMsgChanged();
     void ctxSignerChanged();
+    void isFindMemCashChanged();
+    void isFindSlctFrstChanged();
 
 private:
     QSettings settings{"shemeshg", "PassSimple"};
@@ -99,4 +107,6 @@ private:
     bool m_preferYamlView;
     QString m_fontSize;
     QString m_commitMsg;
+    bool m_isFindMemCash;
+    bool m_isFindSlctFrst;
 };
