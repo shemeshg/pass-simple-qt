@@ -60,6 +60,10 @@ if(MACOSX)
     set(APP_ICON_MACOSX ${CMAKE_CURRENT_SOURCE_DIR}/icon.icns)
     set_source_files_properties(${APP_ICON_MACOSX} PROPERTIES
            MACOSX_PACKAGE_LOCATION "Resources")
+    set(CPACK_PACKAGE_NAME pass-simple)
+    set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Pass simple")
+    set(CPACK_PACKAGE_VENDOR "shemeshg")     
+    include(CPack)     
 endif()
 
 set(QML_IMPORT_PATH ${CMAKE_SOURCE_DIR}/QmlApp
@@ -137,7 +141,7 @@ set_target_properties(pass-simple PROPERTIES
 
 if(LINUX)
     set(CPACK_PACKAGE_NAME pass-simple)
-    set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "My amazing application")
+    set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Pass simple")
     set(CPACK_PACKAGE_VENDOR "shemeshg")
     set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_NAME})
     set(CPACK_VERBATIM_VARIABLES ON)
