@@ -5,10 +5,11 @@
 cmake --build .
 cmake --install .
 
-mv pass-simple.app "Pass simple.app"
-zip -r -y pass-simple-macos_0.99.0.zip ./Pass\ simple.app
+#mv pass-simple.app "Pass simple.app"
+#zip -r -y pass-simple-macos_0.99.0.zip ./Pass\ simple.app
+cpack -G DragNDrop
 
-sha256sum pass-simple-macos_0.99.0.zip
+#sha256sum pass-simple-macos_0.99.0.zip
 
 # sftp iuqwer9@frs.sourceforge.net
 
