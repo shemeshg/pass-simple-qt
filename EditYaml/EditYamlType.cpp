@@ -1,4 +1,5 @@
 #include "EditYamlType.h"
+#include <QMap>
 
 void EditYamlType::setText(const QString &text)
 {
@@ -138,15 +139,40 @@ void EditYamlType::setYamlModel(const QVariantList &yamlModel)
 
 QString EditYamlType::getUpdatedText()
 {
+    QMap<QString, QString> replaceMap;
     for (QVariantList::iterator hehe = m_yamlModel.begin(); hehe != m_yamlModel.end(); hehe++) {
         QVariantMap test = hehe->toMap();
         std::string key = test["key"].toString().toStdString();
         std::string val = test["val"].toString().toStdString();
         yamlContent[key] = val;
+        if(test["val"].toString().contains("\n")){
+            YAML::Emitter outFrom, outTo;
+            outFrom << YAML::BeginMap;
+            outFrom << YAML::Key << test["key"].toString().toStdString();
+            outFrom << YAML::Value << test["val"].toString().toStdString();
+            outFrom << YAML::EndMap;
+            outTo << YAML::BeginMap;
+            outTo << YAML::Key << test["key"].toString().toStdString();
+            outTo << YAML::Value << YAML::Literal << test["val"].toString().toStdString();
+            outTo << YAML::EndMap;
+
+            QString fixedMultiLineIndicator = outTo.c_str();
+            qsizetype newline = fixedMultiLineIndicator.indexOf('\n');
+            if (fixedMultiLineIndicator[newline - 1] == '|')
+            {
+                fixedMultiLineIndicator.replace(newline - 1, 1, "|+");
+            }
+
+            replaceMap.insert(outFrom.c_str(), fixedMultiLineIndicator);
+        }
     }
     std::stringstream ss;
     ss << yamlContent;
-    return QString::fromStdString(ss.str());
+    QString qs=QString::fromStdString(ss.str());
+    for (auto [key, value] : replaceMap.asKeyValueRange()) {
+        qs.replace(key,value);
+    }
+    return qs;
 }
 
 
