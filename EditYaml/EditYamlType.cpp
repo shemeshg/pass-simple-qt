@@ -58,8 +58,13 @@ void EditYamlType::setText(const QString &text)
         std::string val = it->second.as<std::string>();
         QVariantMap map;
 
+        QString qval = QString::fromStdString(val);
+        if (qval.endsWith("\n")) {
+            qval.chop(1);
+        }
+
         map.insert("key", QString::fromStdString(key));
-        map.insert("val", QString::fromStdString(val));
+        map.insert("val", qval);
         QString inputType = "";
         if (hasFieldTypes) {
             try {
