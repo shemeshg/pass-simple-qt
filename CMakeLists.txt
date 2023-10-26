@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 project(pass-simple VERSION 0.111 LANGUAGES CXX)
 
-include(cmake/CPM.cmake)
-CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
+# include(cmake/CPM.cmake)
+# CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)

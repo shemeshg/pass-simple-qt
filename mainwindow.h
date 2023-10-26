@@ -40,6 +40,7 @@ private slots:
 
 
 
+    void prepareMenu(const QPoint &pos);
 private:
     Ui::MainWindow *ui;
     QFileSystemModel *filesystemModel = new QFileSystemModel(this);

@@ -1,25 +1,28 @@
+#include "mainwindow.h"
 #include "AppSettings.h"
+#include "ui_about.h"
+#include "ui_mainwindow.h"
 #include <QAction>
 #include <QClipboard>
+#include <QFontDatabase>
+#include <QGraphicsColorizeEffect>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsScene>
+#include <QInputDialog>
 #include <QMenu>
+#include <QPainter>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QScroller>
 #include <QSystemTrayIcon>
-#include <QFontDatabase>
-#include <QGraphicsScene>
-#include <QGraphicsColorizeEffect>
-#include <QGraphicsPixmapItem>
-#include <QPainter>
-#include "ui_mainwindow.h"
-#include "ui_about.h"
-#include "mainwindow.h"
 
-QImage MainWindow::shape_icon(const QString &icon, const QColor &color, const qreal &strength, const int &w, const int &h)
+QImage MainWindow::shape_icon(
+    const QString &icon, const QColor &color, const qreal &strength, const int &w, const int &h)
 {
     // Resize icon and put it into QImage
-    QImage src = QIcon(icon).pixmap(QSize(w,h)).toImage();
-    if(src.isNull()) return QImage();
+    QImage src = QIcon(icon).pixmap(QSize(w, h)).toImage();
+    if (src.isNull())
+        return QImage();
 
     // prepare graphics scene and pixmap
     QGraphicsScene scene;
@@ -34,21 +37,32 @@ QImage MainWindow::shape_icon(const QString &icon, const QColor &color, const qr
     scene.addItem(&item);
     QImage res = src;
     QPainter ptr(&res);
-    scene.render(&ptr, QRectF(), src.rect() );
+    scene.render(&ptr, QRectF(), src.rect());
     return res;
 }
 
 void MainWindow::SetActionItems()
 {
-    actionAddItem = new QAction(getIcon("://icons/outline_add_file_black_24dp.png")
-                                ,tr("Add Item"), this);    
-    actionUploadFile = new QAction(getIcon("://icons/outline_file_upload_black_24dp.png"),tr("Upload file"), this);
-    actionUploadFolder = new QAction(getIcon("://icons/outline_drive_folder_upload_black_24dp.png"),tr("Upload folder content"), this);
-    actionDownloadFile = new QAction(getIcon("://icons/outline_file_download_black_24dp.png"),tr("Download file"), this);
-    actionDownloadFolder = new QAction(getIcon("://icons/outline_drive_folder_download_black_24dp.png"),tr("Download folder content"), this);
-    actionAbout = new QAction(getIcon("://icons/outline_info_black_24dp.png"),tr("About"), this);
-    actionQuit = new QAction(getIcon("://icons/outline_exit_to_app_black_24dp.png"),tr("Quit"), this);
-
+    actionAddItem = new QAction(getIcon("://icons/outline_add_file_black_24dp.png"),
+                                tr("Add Item"),
+                                this);
+    actionUploadFile = new QAction(getIcon("://icons/outline_file_upload_black_24dp.png"),
+                                   tr("Upload file"),
+                                   this);
+    actionUploadFolder = new QAction(getIcon("://icons/outline_drive_folder_upload_black_24dp.png"),
+                                     tr("Upload folder content"),
+                                     this);
+    actionDownloadFile = new QAction(getIcon("://icons/outline_file_download_black_24dp.png"),
+                                     tr("Download file"),
+                                     this);
+    actionDownloadFolder = new QAction(getIcon(
+                                           "://icons/outline_drive_folder_download_black_24dp.png"),
+                                       tr("Download folder content"),
+                                       this);
+    actionAbout = new QAction(getIcon("://icons/outline_info_black_24dp.png"), tr("About"), this);
+    actionQuit = new QAction(getIcon("://icons/outline_exit_to_app_black_24dp.png"),
+                             tr("Quit"),
+                             this);
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -61,17 +75,14 @@ MainWindow::MainWindow(QWidget *parent)
     font.setPointSize(appSettings.fontSize().toInt());
     QApplication::setFont(font);
 
-
     QSystemTrayIcon *trayIcon = new QSystemTrayIcon(this);
     QMenu *trayIconMenu = new QMenu(this);
 
     QMenu *autoTypeFields = new QMenu(tr("auto type field"), this);
 
-
     trayIconMenu->addMenu(autoTypeFields);
     QAction *autoTypeSelected = new QAction(tr("auto type selected"), this);
     trayIconMenu->addAction(autoTypeSelected);
-
 
     QAction *clearClipboard = new QAction(tr("Clear clipboard"), this);
 
@@ -93,15 +104,15 @@ MainWindow::MainWindow(QWidget *parent)
         QString rootPath = appSettings.passwordStorePath();
         mainqmltype->setTreeViewSelected(rootPath);
 
-
         auto full_path = appSettings.getFindExecutable("gpgconf");
 
-
-        if (full_path.isEmpty()){
-            qDebug()<<"could not found gpgconf";
+        if (full_path.isEmpty()) {
+            qDebug() << "could not found gpgconf";
             return;
         }
-        QProcess::startDetached(full_path, QStringList() <<"--kill"<<"gpg-agent");
+        QProcess::startDetached(full_path,
+                                QStringList() << "--kill"
+                                              << "gpg-agent");
     });
     trayIconMenu->addAction(logoutAction);
 
@@ -114,7 +125,7 @@ MainWindow::MainWindow(QWidget *parent)
     trayIcon->show();
 
     QVariantMap variantMap;
-    variantMap.insert("color",QColor(10,10,10));
+    variantMap.insert("color", QColor(10, 10, 10));
 
     SetActionItems();
 
@@ -129,13 +140,13 @@ MainWindow::MainWindow(QWidget *parent)
         mainqmltype->setMenubarCommStr("uploadFileAct");
     });
     connect(actionUploadFolder, &QAction::triggered, this, [=]() {
-       mainqmltype->setMenubarCommStr("uploadFolderAct");
+        mainqmltype->setMenubarCommStr("uploadFolderAct");
     });
     connect(actionDownloadFile, &QAction::triggered, this, [=]() {
         mainqmltype->setMenubarCommStr("downloadFileAct");
     });
     connect(actionDownloadFolder, &QAction::triggered, this, [=]() {
-       mainqmltype->setMenubarCommStr("downloadFolderAct");
+        mainqmltype->setMenubarCommStr("downloadFolderAct");
     });
     connect(actionAbout, &QAction::triggered, this, [=]() {
         auto aboutDialog = new QDialog(this);
@@ -165,7 +176,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->treeView->setAnimated(false);
     ui->treeView->setIndentation(20);
     ui->treeView->setSortingEnabled(true);
-    ui->treeView->header()->setSortIndicator(0,Qt::SortOrder::AscendingOrder);
+    ui->treeView->header()->setSortIndicator(0, Qt::SortOrder::AscendingOrder);
 
     // const QSize availableSize = ui->treeView->size(); //ui->treeView->screen()
     //->availableGeometry().size();
@@ -176,6 +187,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->treeView->setDragEnabled(true);
 
+    ui->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->treeView, &QTreeView::customContextMenuRequested, this, &MainWindow::prepareMenu);
+
     // Make it flickable on touchscreens
     QScroller::grabGesture(ui->treeView, QScroller::TouchGesture);
 
@@ -185,8 +199,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
 
     QQmlContext *context = ui->quickWidget->rootContext();
-    mainqmltype = new MainQmlType(
-                                  ui->splitter,
+    mainqmltype = new MainQmlType(ui->splitter,
                                   autoTypeFields,
                                   autoTypeSelected,
                                   autoTypeTimeout,
@@ -199,19 +212,20 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(mainqmltype, &MainQmlType::mainUiEnable, this, [=]() {
         QWidget::setEnabled(true);
-        if(isQuickWidgetFocus){
+        if (isQuickWidgetFocus) {
             ui->quickWidget->setFocus();
         } else {
             ui->treeView->setFocus();
         }
-
     });
     connect(mainqmltype, &MainQmlType::initFileSystemModel, this, [=](QString filePath) {
         initFileSystemModel(filePath);
     });
 
-    connect(mainqmltype, &MainQmlType::setTreeviewCurrentIndex, this, &MainWindow::setTreeviewCurrentIndex);
-
+    connect(mainqmltype,
+            &MainQmlType::setTreeviewCurrentIndex,
+            this,
+            &MainWindow::setTreeviewCurrentIndex);
 
     connect(mainqmltype, &MainQmlType::setRootTreeView, this, [=](QString rootPath) {
         if (!rootPath.isEmpty()) {
@@ -219,7 +233,6 @@ MainWindow::MainWindow(QWidget *parent)
             if (rootIndex.isValid())
                 ui->treeView->setRootIndex(rootIndex);
         }
-
     });
 
     connect(mainqmltype, &MainQmlType::systemPlateChanged, this, [=](bool isDarkTheme) {
@@ -227,23 +240,17 @@ MainWindow::MainWindow(QWidget *parent)
         actionUploadFile->setIcon(getIcon("://icons/outline_file_upload_black_24dp.png"));
         actionUploadFolder->setIcon(getIcon("://icons/outline_drive_folder_upload_black_24dp.png"));
         actionDownloadFile->setIcon(getIcon("://icons/outline_file_download_black_24dp.png"));
-        actionDownloadFolder->setIcon(getIcon("://icons/outline_drive_folder_download_black_24dp.png"));
+        actionDownloadFolder->setIcon(
+            getIcon("://icons/outline_drive_folder_download_black_24dp.png"));
         actionAbout->setIcon(getIcon("://icons/outline_info_black_24dp.png"));
         actionQuit->setIcon(getIcon("://icons/outline_exit_to_app_black_24dp.png"));
-
     });
-
 
     context->setContextProperty(QStringLiteral("mainqmltype"), mainqmltype);
 
     mainqmltype->setFilePanSize(150);
 
     setQmlSource();
-
-
-
-
-
 
     QObject::connect(ui->quickWidget->engine(),
                      &QQmlApplicationEngine::quit,
@@ -252,34 +259,30 @@ MainWindow::MainWindow(QWidget *parent)
 
     keyZoomIn = new QShortcut(this);
     //Qt::CTRL + Qt::Key\_P
-    keyZoomIn->setKeys({Qt::CTRL | Qt::Key_Plus,Qt::CTRL | Qt::Key_Equal});
+    keyZoomIn->setKeys({Qt::CTRL | Qt::Key_Plus, Qt::CTRL | Qt::Key_Equal});
     connect(keyZoomIn, &QShortcut::activated, this, [=]() {
-        QFont font = QApplication::font();        
-        font.setPointSize(font.pointSize()+1);
+        QFont font = QApplication::font();
+        font.setPointSize(font.pointSize() + 1);
         QApplication::setFont(font);
 
         AppSettings appSettings{};
         QString rootPath = appSettings.passwordStorePath();
         mainqmltype->setTreeViewSelected(rootPath);
         setQmlSource();
-
-     });
-
+    });
 
     keyZoomOut = new QShortcut(this);
     keyZoomOut->setKeys({Qt::CTRL | Qt::Key_Minus, Qt::CTRL | Qt::Key_Underscore});
     connect(keyZoomOut, &QShortcut::activated, this, [=]() {
         QFont font = QApplication::font();
-        font.setPointSize(font.pointSize()-1);
+        font.setPointSize(font.pointSize() - 1);
         QApplication::setFont(font);
 
         AppSettings appSettings{};
         QString rootPath = appSettings.passwordStorePath();
         mainqmltype->setTreeViewSelected(rootPath);
         setQmlSource();
-
-     });
-
+    });
 }
 
 MainWindow::~MainWindow()
@@ -287,13 +290,89 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::prepareMenu(const QPoint &pos)
+{
+    QAction *actNewFolder = new QAction(tr("New folder"), this);
+    actNewFolder->setToolTip(tr("Create new folder"));
+    QAction *actDelete = new QAction(tr("Delete"), this);
+    actDelete->setToolTip(tr("Delete selected file or folder"));
+    QAction *actMove = new QAction(tr("Move"), this);
+    actMove->setToolTip(tr("Move in same .gpg repository only"));
 
+    connect(actNewFolder, &QAction::triggered, this, [=]() {
+        bool ok{false};
+        QString text = QInputDialog::getText(this,
+                                             tr("Add Folder"),
+                                             tr("New Folder name:"),
+                                             QLineEdit::Normal,
+                                             "",
+                                             &ok);
+        if (ok && !text.isEmpty()) {
+            std::filesystem::path p = mainqmltype->getFullPathFolder().toStdString();
+            p = p / text.toStdString();
+            if (!std::filesystem::exists(p)) {
+                try {
+                    std::filesystem::create_directory(p);
+                    initFileSystemModel(QString::fromStdString(p));
+                    mainqmltype->setFilePath(QString::fromStdString(p));
+                } catch (...) {
+                    qDebug() << p.c_str() << " failed";
+                }
+            }
+        }
+    });
+
+    connect(actDelete, &QAction::triggered, this, [=]() {
+        QMessageBox::StandardButton reply
+            = QMessageBox::question(this,
+                                    tr("Delete file ot folder"),
+                                    tr("Delete \n %1 \n?").arg(mainqmltype->filePath()),
+                                    QMessageBox::Yes | QMessageBox::No);
+        if (reply == QMessageBox::Yes) {
+            try {
+                std::filesystem::remove_all(mainqmltype->filePath().toStdString());
+
+                initFileSystemModel(mainqmltype->getFullPathFolder());
+                mainqmltype->setFilePath(mainqmltype->getFullPathFolder());
+            } catch (...) {
+                qDebug() << "rm failed";
+            }
+        }
+    });
+
+    connect(actMove, &QAction::triggered, this, [=]() {
+        QMessageBox::StandardButton reply = QMessageBox::question(this,
+                                                                  tr("Move"),
+                                                                  tr("From: \n %1 \n to: %2 \n?")
+                                                                      .arg(mainqmltype->filePath())
+                                                                      .arg("<Destination folder>"),
+                                                                  QMessageBox::Yes
+                                                                      | QMessageBox::No);
+        if (reply == QMessageBox::Yes) {
+            AppSettings appSettings{};
+            QString rootPath = appSettings.passwordStorePath();
+            emit mainqmltype->initFileSystemModel(rootPath);
+        }
+
+        qDebug() << "Moving"
+                 << "whatever";
+        qDebug() << "Opening folder destination";
+        qDebug() << "Folder in same .gpgid";
+    });
+
+    QMenu menu(this);
+    menu.setToolTipsVisible(true);
+    menu.addAction(actNewFolder);
+    menu.addAction(actDelete);
+    menu.addAction(actMove);
+
+    QPoint pt(pos);
+    menu.exec(ui->treeView->mapToGlobal(pos));
+}
 
 void MainWindow::selectionChangedSlot(const QItemSelection &current /*newSelection*/,
                                       const QItemSelection previous /*oldSelection*/)
-{
-
-}
+{}
 
 void MainWindow::currentChangedSlot(const QModelIndex &current, const QModelIndex &previous)
 {
@@ -302,7 +381,7 @@ void MainWindow::currentChangedSlot(const QModelIndex &current, const QModelInde
         auto idx = treeIndex.model()->index(treeIndex.row(), 0, treeIndex.parent());
         mainqmltype->setFilePath(filesystemModel->filePath(idx));
         treeViewItemSelected = true;
-        if(mainqmltype->getNearestGpgId().isEmpty()){
+        if (mainqmltype->getNearestGpgId().isEmpty()) {
             actionDownloadFolder->setEnabled(false);
             actionUploadFolder->setEnabled(false);
             actionUploadFile->setEnabled(false);
@@ -313,7 +392,7 @@ void MainWindow::currentChangedSlot(const QModelIndex &current, const QModelInde
             actionUploadFile->setEnabled(true);
             actionAddItem->setEnabled(true);
         }
-        if(mainqmltype->isGpgFile()){
+        if (mainqmltype->isGpgFile()) {
             actionDownloadFile->setEnabled(true);
         } else {
             actionDownloadFile->setEnabled(false);
@@ -347,48 +426,36 @@ void MainWindow::initFileSystemModel(QString filePath)
         const QModelIndex rootIndex = filesystemModel->index(QDir::cleanPath(rootPath));
         if (rootIndex.isValid())
             ui->treeView->setRootIndex(rootIndex);
-
     }
-
 
     // selection changes shall trigger a slot
     QItemSelectionModel *selectionModel = ui->treeView->selectionModel();
     connections << connect(selectionModel,
-            &QItemSelectionModel::selectionChanged,
-            this,
-            &MainWindow::selectionChangedSlot
-            );
+                           &QItemSelectionModel::selectionChanged,
+                           this,
+                           &MainWindow::selectionChangedSlot);
 
     connections << connect(selectionModel,
-            &QItemSelectionModel::currentChanged,
-            this,
-            &MainWindow::currentChangedSlot
-            );
+                           &QItemSelectionModel::currentChanged,
+                           this,
+                           &MainWindow::currentChangedSlot);
     static bool setDirectoryLoadedOnce = false;
-    setDirectoryLoadedOnce=false;
-    connections << QObject::connect(filesystemModel, &QFileSystemModel::directoryLoaded, [=](const QString &directory) {
-        if (!setDirectoryLoadedOnce) {
-            setDirectoryLoadedOnce = true;
-            setTreeviewCurrentIndex(filePath);
-        }
-    });
-
-
-
-
-
-
-
-
-
+    setDirectoryLoadedOnce = false;
+    connections << QObject::connect(filesystemModel,
+                                    &QFileSystemModel::directoryLoaded,
+                                    [=](const QString &directory) {
+                                        if (!setDirectoryLoadedOnce) {
+                                            setDirectoryLoadedOnce = true;
+                                            setTreeviewCurrentIndex(filePath);
+                                        }
+                                    });
 }
 
 void MainWindow::setTreeviewCurrentIndex(QString filePath)
 {
-
-    if(!filePath.isEmpty()){
-        const QModelIndex idx=filesystemModel->index(QDir::cleanPath(filePath));
-        if (idx.isValid()){
+    if (!filePath.isEmpty()) {
+        const QModelIndex idx = filesystemModel->index(QDir::cleanPath(filePath));
+        if (idx.isValid()) {
             try {
                 ui->treeView->setCurrentIndex(idx);
             } catch (const std::exception &e) {
@@ -396,7 +463,6 @@ void MainWindow::setTreeviewCurrentIndex(QString filePath)
             }
         }
     }
-
 }
 
 void MainWindow::setQmlSource()
