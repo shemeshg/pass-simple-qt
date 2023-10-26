@@ -4,6 +4,7 @@
 #include "ui_mainwindow.h"
 #include <QAction>
 #include <QClipboard>
+#include <QFileDialog>
 #include <QFontDatabase>
 #include <QGraphicsColorizeEffect>
 #include <QGraphicsPixmapItem>
@@ -63,6 +64,15 @@ void MainWindow::SetActionItems()
     actionQuit = new QAction(getIcon("://icons/outline_exit_to_app_black_24dp.png"),
                              tr("Quit"),
                              this);
+}
+
+bool MainWindow::is_subpath(const std::filesystem::path &path, const std::filesystem::path &base)
+{
+    // Get the relative path from base to path
+    auto rel = std::filesystem::relative(path, base);
+
+    // Check if the relative path is empty or starts with a dot
+    return !rel.empty() && rel.native()[0] != '.';
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -341,23 +351,44 @@ void MainWindow::prepareMenu(const QPoint &pos)
     });
 
     connect(actMove, &QAction::triggered, this, [=]() {
+        QString destDir = QFileDialog::getExistingDirectory(this,
+                                                            tr("Select destination folder"),
+                                                            mainqmltype->getNearestGpgId(),
+                                                            QFileDialog::ShowDirsOnly);
+        if (destDir.isEmpty()
+            || (
+                !is_subpath(destDir.toStdString(), mainqmltype->getNearestGpgId().toStdString())
+                &&  destDir != mainqmltype->getNearestGpgId()
+                )
+            || mainqmltype->filePath() == mainqmltype->getNearestGit()) {
+            QMessageBox msgBox;
+            msgBox.setText("Move only within same .gpg_id authorization supported.");
+            msgBox.exec();
+            return;
+        }
         QMessageBox::StandardButton reply = QMessageBox::question(this,
                                                                   tr("Move"),
                                                                   tr("From: \n %1 \n to: %2 \n?")
                                                                       .arg(mainqmltype->filePath())
-                                                                      .arg("<Destination folder>"),
+                                                                      .arg(destDir),
                                                                   QMessageBox::Yes
                                                                       | QMessageBox::No);
         if (reply == QMessageBox::Yes) {
-            AppSettings appSettings{};
-            QString rootPath = appSettings.passwordStorePath();
-            emit mainqmltype->initFileSystemModel(rootPath);
-        }
+            std::filesystem::path destDirPath = destDir.toStdString(),
+                                  fromDirPath = mainqmltype->filePath().toStdString();
+            destDirPath = destDirPath / fromDirPath.filename();
 
-        qDebug() << "Moving"
-                 << "whatever";
-        qDebug() << "Opening folder destination";
-        qDebug() << "Folder in same .gpgid";
+            try {
+                std::filesystem::rename(fromDirPath, destDirPath);
+
+                initFileSystemModel(QString::fromStdString(destDirPath));
+                mainqmltype->setFilePath(QString::fromStdString(destDirPath));
+            } catch (std::filesystem::filesystem_error &e) {
+                qDebug() << "Error moving file: " << e.what() << "\n";
+            } catch (...) {
+                qDebug() << "mv failed";
+            }
+        }
     });
 
     QMenu menu(this);
