@@ -197,6 +197,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->treeView->setDragEnabled(true);
 
+    ui->treeView->viewport()->setAcceptDrops(true);
+    ui->treeView->setDropIndicatorShown(true);
+    ui->treeView->setDragDropMode(QAbstractItemView::InternalMove);
+    ui->treeView->setAcceptDrops(true);
+    ui->treeView->setDefaultDropAction(Qt::MoveAction);
+
+
     ui->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->treeView, &QTreeView::customContextMenuRequested, this, &MainWindow::prepareMenu);
 
