@@ -202,7 +202,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->treeView->setDragDropMode(QAbstractItemView::InternalMove);
     ui->treeView->setAcceptDrops(true);
     ui->treeView->setDefaultDropAction(Qt::MoveAction);
-
+    ui->treeView->setSelectionMode(QTreeView::SelectionMode::ExtendedSelection);
 
     ui->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->treeView, &QTreeView::customContextMenuRequested, this, &MainWindow::prepareMenu);
@@ -314,7 +314,6 @@ void MainWindow::prepareMenu(const QPoint &pos)
     QAction *actDelete = new QAction(tr("Delete"), this);
     actDelete->setToolTip(tr("Delete selected file or folder"));
 
-
     connect(actNewFolder, &QAction::triggered, this, [=]() {
         bool ok{false};
         QString text = QInputDialog::getText(this,
@@ -330,7 +329,6 @@ void MainWindow::prepareMenu(const QPoint &pos)
                 try {
                     std::filesystem::create_directory(p);
                     initFileSystemModel(QString::fromStdString(p));
-                    mainqmltype->setFilePath(QString::fromStdString(p));
                 } catch (...) {
                     qDebug() << p.c_str() << " failed";
                 }
@@ -339,17 +337,27 @@ void MainWindow::prepareMenu(const QPoint &pos)
     });
 
     connect(actDelete, &QAction::triggered, this, [=]() {
-        QMessageBox::StandardButton reply
-            = QMessageBox::question(this,
-                                    tr("Delete file ot folder"),
-                                    tr("Delete \n %1 \n?").arg(mainqmltype->filePath()),
-                                    QMessageBox::Yes | QMessageBox::No);
+
+
+        QMessageBox::StandardButton reply = QMessageBox::question(this,
+                                                                  tr("Delete file or folder"),
+                                                                  tr("Delete selected?"),
+                                                                  QMessageBox::Yes
+                                                                      | QMessageBox::No);
         if (reply == QMessageBox::Yes) {
             try {
-                std::filesystem::remove_all(mainqmltype->filePath().toStdString());
+                QStringList filesToDelete;
+                foreach (auto qmodeindex, ui->treeView->selectionModel()->selectedIndexes()) {
+                    if (qmodeindex.column() == 0) {
+                        filesToDelete<<filesystemModel->fileInfo(qmodeindex).filePath();
+                    }
+                }
+                foreach (auto file,filesToDelete){
+                    std::filesystem::remove_all(file.toStdString());
+                }
+
 
                 initFileSystemModel(mainqmltype->getFullPathFolder());
-                mainqmltype->setFilePath(mainqmltype->getFullPathFolder());
             } catch (...) {
                 qDebug() << "rm failed";
             }
@@ -360,7 +368,6 @@ void MainWindow::prepareMenu(const QPoint &pos)
     menu.setToolTipsVisible(true);
     menu.addAction(actNewFolder);
     menu.addAction(actDelete);
-
 
     QPoint pt(pos);
     menu.exec(ui->treeView->mapToGlobal(pos));
@@ -447,39 +454,45 @@ void MainWindow::initFileSystemModel(QString filePath)
                                         }
                                     });
 
-    connections << QObject::connect(filesystemModel, &AppFileSysModel::moveFile, this, [=](QString fromPath, QString destDir) {
-        std::filesystem::path destDirPath, destDirFolder = destDir.toStdString(),
-            fromDirPath = fromPath.toStdString();
-        destDirPath = destDirFolder / fromDirPath.filename();
+    connections << QObject::connect(
+        filesystemModel, &AppFileSysModel::moveFile, this, [=](QString fromPath, QString destDir) {
+            std::filesystem::path destDirPath, destDirFolder = destDir.toStdString(),
+                                               fromDirPath = fromPath.toStdString();
+            destDirPath = destDirFolder / fromDirPath.filename();
 
+            bool isValid = !destDir.isEmpty()
+                           && (is_subpath(destDir.toStdString(),
+                                          mainqmltype->getNearestGpgId().toStdString())
+                               || destDirFolder
+                                      == std::filesystem::path{
+                                          mainqmltype->getNearestGit().toStdString()});
 
-        bool isValid = !destDir.isEmpty() &&
-                       (is_subpath(destDir.toStdString(), mainqmltype->getNearestGpgId().toStdString()) ||
-                         destDirFolder == std::filesystem::path{mainqmltype->getNearestGit().toStdString()});
+            if (!isValid) {
+                QMessageBox msgBox;
+                msgBox.setText("Move only within same .gpg_id authorization supported.");
+                msgBox.exec();
+                return;
+            }
 
-        if (!isValid) {
-            QMessageBox msgBox;
-            msgBox.setText("Move only within same .gpg_id authorization supported.");
-            msgBox.exec();
-            return;
-        }
-
-        if (fromDirPath == destDirPath){return;}
-        try {
-            std::filesystem::rename(fromDirPath, destDirPath);
-        }
-        catch (std::filesystem::filesystem_error &e) {
-            qDebug() << "Error moving file: " << e.what() << "\n";
-        } catch (...) {
-            qDebug() << "mv failed";
-        }
-    });
-    connections << QObject::connect(filesystemModel, &AppFileSysModel::moveFinished, this, [=](QString destDirPath) {
-        if (std::filesystem::exists(destDirPath.toStdString())){
-            initFileSystemModel(destDirPath);
-            mainqmltype->setFilePath(destDirPath);
-        }
-    });
+            if (fromDirPath == destDirPath) {
+                return;
+            }
+            try {
+                std::filesystem::rename(fromDirPath, destDirPath);
+            } catch (std::filesystem::filesystem_error &e) {
+                qDebug() << "Error moving file: " << e.what() << "\n";
+            } catch (...) {
+                qDebug() << "mv failed";
+            }
+        });
+    connections << QObject::connect(filesystemModel,
+                                    &AppFileSysModel::moveFinished,
+                                    this,
+                                    [=](QString destDirPath) {
+                                        if (std::filesystem::exists(destDirPath.toStdString())) {
+                                            initFileSystemModel(destDirPath);
+                                        }
+                                    });
 }
 
 void MainWindow::setTreeviewCurrentIndex(QString filePath)
