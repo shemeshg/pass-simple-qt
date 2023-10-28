@@ -337,8 +337,6 @@ void MainWindow::prepareMenu(const QPoint &pos)
     });
 
     connect(actDelete, &QAction::triggered, this, [=]() {
-
-
         QMessageBox::StandardButton reply = QMessageBox::question(this,
                                                                   tr("Delete file or folder"),
                                                                   tr("Delete selected?"),
@@ -349,13 +347,17 @@ void MainWindow::prepareMenu(const QPoint &pos)
                 QStringList filesToDelete;
                 foreach (auto qmodeindex, ui->treeView->selectionModel()->selectedIndexes()) {
                     if (qmodeindex.column() == 0) {
-                        filesToDelete<<filesystemModel->fileInfo(qmodeindex).filePath();
+                        QString str = filesystemModel->fileInfo(qmodeindex).filePath().trimmed();
+                        if (!str.isEmpty()
+                            && is_subpath(str.toStdString(),
+                                          appSettings.passwordStorePath().toStdString())) {
+                            filesToDelete << str;
+                        }
                     }
                 }
-                foreach (auto file,filesToDelete){
+                foreach (auto file, filesToDelete) {
                     std::filesystem::remove_all(file.toStdString());
                 }
-
 
                 initFileSystemModel(mainqmltype->getFullPathFolder());
             } catch (...) {
