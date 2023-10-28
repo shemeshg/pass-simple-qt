@@ -10,6 +10,9 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
     bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent);
 signals:
+    void moveFile(QString from, QString to);
+    void moveFinished(QString to);
+private:
 
 };
 

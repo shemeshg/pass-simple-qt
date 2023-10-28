@@ -33,18 +33,22 @@ Qt::ItemFlags AppFileSysModel::flags(const QModelIndex &index) const
 bool AppFileSysModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
 {
     const QFileInfo &dropTo = this->fileInfo(parent);
-
+    QString fromPath{};
     if (data->hasUrls()) {
         foreach (QUrl url, data->urls())
         {
-            qDebug()<<"From "<< url.toLocalFile();
+            fromPath = url.toLocalFile();
+            emit moveFile(url.toLocalFile(), dropTo.filePath());
         }
     }
-
-
-    qDebug() << "To "<<dropTo.filePath();
+    std::filesystem::path destDirPath = dropTo.filePath().toStdString(),
+    fromDirPath = fromPath.toStdString();
+    destDirPath = destDirPath / fromDirPath.filename();
+    emit moveFinished(QString::fromStdString(destDirPath));
     return true;
 }
+
+
 
 
 

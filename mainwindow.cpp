@@ -313,8 +313,7 @@ void MainWindow::prepareMenu(const QPoint &pos)
     actNewFolder->setToolTip(tr("Create new folder"));
     QAction *actDelete = new QAction(tr("Delete"), this);
     actDelete->setToolTip(tr("Delete selected file or folder"));
-    QAction *actMove = new QAction(tr("Move"), this);
-    actMove->setToolTip(tr("Move in same .gpg repository only"));
+
 
     connect(actNewFolder, &QAction::triggered, this, [=]() {
         bool ok{false};
@@ -357,52 +356,11 @@ void MainWindow::prepareMenu(const QPoint &pos)
         }
     });
 
-    connect(actMove, &QAction::triggered, this, [=]() {
-        QString destDir = QFileDialog::getExistingDirectory(this,
-                                                            tr("Select destination folder"),
-                                                            mainqmltype->getNearestGpgId(),
-                                                            QFileDialog::ShowDirsOnly);
-        if (destDir.isEmpty()
-            || (
-                !is_subpath(destDir.toStdString(), mainqmltype->getNearestGpgId().toStdString())
-                &&  destDir != mainqmltype->getNearestGpgId()
-                )
-            || mainqmltype->filePath() == mainqmltype->getNearestGit()) {
-            QMessageBox msgBox;
-            msgBox.setText("Move only within same .gpg_id authorization supported.");
-            msgBox.exec();
-            return;
-        }
-        QMessageBox::StandardButton reply = QMessageBox::question(this,
-                                                                  tr("Move"),
-                                                                  tr("From: \n %1 \n to: %2 \n?")
-                                                                      .arg(mainqmltype->filePath())
-                                                                      .arg(destDir),
-                                                                  QMessageBox::Yes
-                                                                      | QMessageBox::No);
-        if (reply == QMessageBox::Yes) {
-            std::filesystem::path destDirPath = destDir.toStdString(),
-                                  fromDirPath = mainqmltype->filePath().toStdString();
-            destDirPath = destDirPath / fromDirPath.filename();
-
-            try {
-                std::filesystem::rename(fromDirPath, destDirPath);
-
-                initFileSystemModel(QString::fromStdString(destDirPath));
-                mainqmltype->setFilePath(QString::fromStdString(destDirPath));
-            } catch (std::filesystem::filesystem_error &e) {
-                qDebug() << "Error moving file: " << e.what() << "\n";
-            } catch (...) {
-                qDebug() << "mv failed";
-            }
-        }
-    });
-
     QMenu menu(this);
     menu.setToolTipsVisible(true);
     menu.addAction(actNewFolder);
     menu.addAction(actDelete);
-    menu.addAction(actMove);
+
 
     QPoint pt(pos);
     menu.exec(ui->treeView->mapToGlobal(pos));
@@ -477,6 +435,7 @@ void MainWindow::initFileSystemModel(QString filePath)
                            &QItemSelectionModel::currentChanged,
                            this,
                            &MainWindow::currentChangedSlot);
+
     static bool setDirectoryLoadedOnce = false;
     setDirectoryLoadedOnce = false;
     connections << QObject::connect(filesystemModel,
@@ -487,6 +446,40 @@ void MainWindow::initFileSystemModel(QString filePath)
                                             setTreeviewCurrentIndex(filePath);
                                         }
                                     });
+
+    connections << QObject::connect(filesystemModel, &AppFileSysModel::moveFile, this, [=](QString fromPath, QString destDir) {
+        std::filesystem::path destDirPath, destDirFolder = destDir.toStdString(),
+            fromDirPath = fromPath.toStdString();
+        destDirPath = destDirFolder / fromDirPath.filename();
+
+
+        bool isValid = !destDir.isEmpty() &&
+                       (is_subpath(destDir.toStdString(), mainqmltype->getNearestGpgId().toStdString()) ||
+                         destDirFolder == std::filesystem::path{mainqmltype->getNearestGit().toStdString()});
+
+        if (!isValid) {
+            QMessageBox msgBox;
+            msgBox.setText("Move only within same .gpg_id authorization supported.");
+            msgBox.exec();
+            return;
+        }
+
+        if (fromDirPath == destDirPath){return;}
+        try {
+            std::filesystem::rename(fromDirPath, destDirPath);
+        }
+        catch (std::filesystem::filesystem_error &e) {
+            qDebug() << "Error moving file: " << e.what() << "\n";
+        } catch (...) {
+            qDebug() << "mv failed";
+        }
+    });
+    connections << QObject::connect(filesystemModel, &AppFileSysModel::moveFinished, this, [=](QString destDirPath) {
+        if (std::filesystem::exists(destDirPath.toStdString())){
+            initFileSystemModel(destDirPath);
+            mainqmltype->setFilePath(destDirPath);
+        }
+    });
 }
 
 void MainWindow::setTreeviewCurrentIndex(QString filePath)
