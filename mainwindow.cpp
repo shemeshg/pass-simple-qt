@@ -462,7 +462,10 @@ void MainWindow::initFileSystemModel(QString filePath)
                                                fromDirPath = fromPath.toStdString();
             destDirPath = destDirFolder / fromDirPath.filename();
 
-            bool isValid = !destDir.isEmpty()
+            AppSettings appSettings{};
+            bool isValid = !destDir.isEmpty() &&
+                            is_subpath(fromPath.toStdString(),
+                                          appSettings.passwordStorePath().toStdString())
                            && (is_subpath(destDir.toStdString(),
                                           mainqmltype->getNearestGpgId().toStdString())
                                || destDirFolder
