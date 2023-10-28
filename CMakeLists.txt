@@ -176,9 +176,10 @@ qt_add_qml_module(pass-simple
         GpgIdManageType.h GpgIdManageType.cpp
         JsAsync.h JsAsync.cpp
         UiGuard.h UiGuard.cpp
+        appfilesysmodel.h appfilesysmodel.cpp
   AppSettings.cpp AppSettings.h
         # hygen srcs
-    QML_FILES Main.qml
+    QML_FILES Main.qml     
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")

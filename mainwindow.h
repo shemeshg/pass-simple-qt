@@ -2,6 +2,7 @@
 
 #include "config.h"
 #include "mainqmltype.h"
+#include "appfilesysmodel.h"
 #include <QFileIconProvider>
 #include <QFileSystemModel>
 #include <QMainWindow>
@@ -43,7 +44,7 @@ private slots:
     void prepareMenu(const QPoint &pos);
 private:
     Ui::MainWindow *ui;
-    QFileSystemModel *filesystemModel = new QFileSystemModel(this);
+    AppFileSysModel *filesystemModel = new AppFileSysModel(this);
     QFileIconProvider iconProvider;
     MainQmlType *mainqmltype;
     QModelIndex treeIndex;

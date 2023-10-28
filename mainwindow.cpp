@@ -441,7 +441,7 @@ void MainWindow::initFileSystemModel(QString filePath)
         QObject::disconnect(var);
     }
     filesystemModel->deleteLater();
-    filesystemModel = new QFileSystemModel(this);
+    filesystemModel = new AppFileSysModel(this);
     filesystemModel->setIconProvider(&iconProvider);
     filesystemModel->setRootPath("");
     filesystemModel->setOption(QFileSystemModel::DontWatchForChanges);
