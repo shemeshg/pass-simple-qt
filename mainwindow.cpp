@@ -311,8 +311,43 @@ void MainWindow::prepareMenu(const QPoint &pos)
 {
     QAction *actNewFolder = new QAction(tr("New folder"), this);
     actNewFolder->setToolTip(tr("Create new folder"));
+    QAction *actRename = new QAction(tr("Rename"), this);
+    actRename->setToolTip(tr("Rename selected file or folder"));
     QAction *actDelete = new QAction(tr("Delete"), this);
-    actDelete->setToolTip(tr("Delete selected file or folder"));
+    actDelete->setToolTip(tr("Delete selected files or folders"));
+
+    connect(actRename, &QAction::triggered, this, [=]() {
+        bool ok{false};
+        std::filesystem::path fullFolderPath = mainqmltype->getFullPathFolder().toStdString();
+        std::filesystem::path fullFilePath = mainqmltype->filePath().toStdString();
+        std::string fileName = fullFilePath.filename();
+
+        if (!is_subpath(fullFilePath,
+                          appSettings.passwordStorePath().toStdString())){
+            return;
+        }
+
+        QString text = QInputDialog::getText(this,
+                                             tr("Rename"),
+                                             tr("Rename: %1").arg( QString::fromStdString(fileName)),
+                                             QLineEdit::Normal,
+                                             QString::fromStdString(fileName),
+                                             &ok).trimmed();
+        if (ok && !text.isEmpty() && text != QString::fromStdString(fileName)) {
+            std::filesystem::path newPath = fullFolderPath / text.toStdString();
+
+
+            try {
+                std::filesystem::rename(fullFilePath, newPath);
+                initFileSystemModel(QString::fromStdString(newPath));
+            } catch (std::filesystem::filesystem_error &e) {
+                qDebug() << "Error moving file: " << e.what() << "\n";
+            } catch (...) {
+                qDebug() << "mv failed";
+            }
+
+        }
+    });
 
     connect(actNewFolder, &QAction::triggered, this, [=]() {
         bool ok{false};
@@ -337,6 +372,20 @@ void MainWindow::prepareMenu(const QPoint &pos)
     });
 
     connect(actDelete, &QAction::triggered, this, [=]() {
+        QStringList filesToDelete;
+        foreach (auto qmodeindex, ui->treeView->selectionModel()->selectedIndexes()) {
+            if (qmodeindex.column() == 0) {
+                QString str = filesystemModel->fileInfo(qmodeindex).filePath().trimmed();
+                if (!str.isEmpty()
+                    && is_subpath(str.toStdString(),
+                                  appSettings.passwordStorePath().toStdString())) {
+                    filesToDelete << str;
+                }
+            }
+        }
+        if (filesToDelete.count()==0){
+            return;
+        }
         QMessageBox::StandardButton reply = QMessageBox::question(this,
                                                                   tr("Delete file or folder"),
                                                                   tr("Delete selected?"),
@@ -344,17 +393,7 @@ void MainWindow::prepareMenu(const QPoint &pos)
                                                                       | QMessageBox::No);
         if (reply == QMessageBox::Yes) {
             try {
-                QStringList filesToDelete;
-                foreach (auto qmodeindex, ui->treeView->selectionModel()->selectedIndexes()) {
-                    if (qmodeindex.column() == 0) {
-                        QString str = filesystemModel->fileInfo(qmodeindex).filePath().trimmed();
-                        if (!str.isEmpty()
-                            && is_subpath(str.toStdString(),
-                                          appSettings.passwordStorePath().toStdString())) {
-                            filesToDelete << str;
-                        }
-                    }
-                }
+
                 foreach (auto file, filesToDelete) {
                     std::filesystem::remove_all(file.toStdString());
                 }
@@ -369,7 +408,22 @@ void MainWindow::prepareMenu(const QPoint &pos)
     QMenu menu(this);
     menu.setToolTipsVisible(true);
     menu.addAction(actNewFolder);
-    menu.addAction(actDelete);
+    QStringList filesToDelete;
+    foreach (auto qmodeindex, ui->treeView->selectionModel()->selectedIndexes()) {
+        if (qmodeindex.column() == 0) {
+            QString str = filesystemModel->fileInfo(qmodeindex).filePath().trimmed();
+            if (!str.isEmpty()
+                && is_subpath(str.toStdString(),
+                              appSettings.passwordStorePath().toStdString())) {
+                filesToDelete << str;
+            }
+        }
+    }
+    if (filesToDelete.count()!=0){
+        menu.addAction(actRename);
+        menu.addAction(actDelete);
+    }
+
 
     QPoint pt(pos);
     menu.exec(ui->treeView->mapToGlobal(pos));
