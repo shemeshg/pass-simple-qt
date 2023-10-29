@@ -447,10 +447,17 @@ bool MainQmlType::fileExists(QString fullPathFolder, QString fileName)
 
 void MainQmlType::encryptUploadAsync(const QJSValue &callback, QString  fullPathFolder, QStringList fileNames, bool toFilesSubFolder){
     makeAsync<int>(callback,[=]() {
+        std::filesystem::path selectFile{};
         for (const QString &fileName : fileNames) {
             encryptUpload(fullPathFolder, fileName, toFilesSubFolder);
+            selectFile = fullPathFolder.toStdString();
+            QFileInfo  f{fileName};
+
+            selectFile = selectFile / (f.fileName().toStdString() + ".gpg");
         }
-        emit initFileSystemModel(fullPathFolder);
+
+        setFilePath(appSettings.passwordStorePath());
+        emit initFileSystemModel(QString::fromStdString(selectFile));
         return 0;
     });
 }
