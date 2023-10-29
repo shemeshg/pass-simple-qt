@@ -335,8 +335,9 @@ void MainWindow::prepareMenu(const QPoint &pos)
 
     connect(actRename, &QAction::triggered, this, [=]() {
         bool ok{false};
-        std::filesystem::path fullFolderPath = mainqmltype->getFullPathFolder().toStdString();
+
         std::filesystem::path fullFilePath = mainqmltype->filePath().toStdString();
+        std::filesystem::path fullFolderPath = fullFilePath.parent_path();
         std::string fileName = fullFilePath.filename();
 
         if (!is_subpath(fullFilePath,
@@ -381,8 +382,10 @@ void MainWindow::prepareMenu(const QPoint &pos)
                 try {
                     std::filesystem::create_directory(p);
                     initFileSystemModel(QString::fromStdString(p));
+                } catch (std::filesystem::filesystem_error &e) {
+                    qDebug() << "Error add folder: " << e.what() << "\n";
                 } catch (...) {
-                    qDebug() << p.c_str() << " failed";
+                    qDebug() << "mkdor failed";
                 }
             }
         }
@@ -401,12 +404,16 @@ void MainWindow::prepareMenu(const QPoint &pos)
                                                                       | QMessageBox::No);
         if (reply == QMessageBox::Yes) {
             try {
-
+                std::filesystem::path parentOfRemovedFile;
                 foreach (auto file, filesToDelete) {
-                    std::filesystem::remove_all(file.toStdString());
+                    std::filesystem::path fileToRemove = file.toStdString();
+                    std::filesystem::remove_all(fileToRemove);
+                    parentOfRemovedFile = fileToRemove.parent_path();
                 }
 
-                initFileSystemModel(mainqmltype->getFullPathFolder());
+                initFileSystemModel(QString::fromStdString(parentOfRemovedFile));
+            } catch (std::filesystem::filesystem_error &e) {
+                qDebug() << "Error rm file or folder: " << e.what() << "\n";
             } catch (...) {
                 qDebug() << "rm failed";
             }
