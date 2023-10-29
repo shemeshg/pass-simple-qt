@@ -36,10 +36,11 @@ ColumnLayout {
         id: folderDialogUpload
         title: "Choose folder to upload"
         onAccepted: {
-            QmlAppSt.mainqmltype.encryptFolderUpload(
-                        folderDialogUpload.currentFolder,
-                        QmlAppSt.fullPathFolder)
-            QmlAppSt.doMainUiEnable()
+            QmlAppSt.mainqmltype.encryptFolderUploadAsync(() => {
+                                                              QmlAppSt.doMainUiEnable()
+                                                          },
+                                                          folderDialogUpload.currentFolder,
+                                                          QmlAppSt.fullPathFolder)
         }
         onRejected: {
             QmlAppSt.doMainUiEnable()

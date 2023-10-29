@@ -175,6 +175,8 @@ public:
 
     Q_INVOKABLE void encryptFolderUpload(QString fromFolderName, QString fullPathFolder);
 
+    Q_INVOKABLE void encryptFolderUploadAsync(const QJSValue &callback, QString fromFolderName, QString fullPathFolder);
+
     Q_INVOKABLE QString runCmd(QStringList keysFound, QString noEscaped);
 
     Q_INVOKABLE int runSystem(QStringList keysFound, QString noEscaped);
@@ -202,6 +204,7 @@ public:
 
     Q_INVOKABLE void runGitSyncCmdAsync(const QJSValue &callback, QString nearestGit, QString syncMsg);
     Q_INVOKABLE bool isGpgFile();
+
 signals:
     void filePathChanged();
     void filePanSizeChanged();

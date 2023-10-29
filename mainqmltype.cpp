@@ -450,6 +450,7 @@ void MainQmlType::encryptUploadAsync(const QJSValue &callback, QString  fullPath
         for (const QString &fileName : fileNames) {
             encryptUpload(fullPathFolder, fileName, toFilesSubFolder);
         }
+        emit initFileSystemModel(fullPathFolder);
         return 0;
     });
 }
@@ -526,6 +527,14 @@ void MainQmlType::encryptFolderUpload(QString fromFolderName, QString fullPathFo
         passHelper->encryptFolderToFolder(url.toLocalFile().toStdString(),
                                          fullPathFolder.toStdString(),
                                          m_gpgIdManageType.getEncryptTo());
+    });
+}
+
+void MainQmlType::encryptFolderUploadAsync(const QJSValue &callback, QString fromFolderName, QString fullPathFolder){
+    makeAsync<int>(callback,[=]() {
+        encryptFolderUpload(fromFolderName, fullPathFolder);
+        emit initFileSystemModel(fullPathFolder);
+        return 0;
     });
 }
 
