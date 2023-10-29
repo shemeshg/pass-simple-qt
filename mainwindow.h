@@ -75,4 +75,5 @@ private:
 
     bool is_subpath(const std::filesystem::path& path, const std::filesystem::path& base);
 
+    QStringList getFilesSelected();
 };

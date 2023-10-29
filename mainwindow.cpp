@@ -307,6 +307,23 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+QStringList MainWindow::getFilesSelected()
+{
+    QStringList filesSelected;
+    foreach (auto qmodeindex, ui->treeView->selectionModel()->selectedIndexes()) {
+        if (qmodeindex.column() == 0) {
+            QString str = filesystemModel->fileInfo(qmodeindex).filePath().trimmed();
+            if (!str.isEmpty()
+                && is_subpath(str.toStdString(),
+                              appSettings.passwordStorePath().toStdString())) {
+                filesSelected << str;
+            }
+        }
+    }
+
+    return filesSelected;
+}
+
 void MainWindow::prepareMenu(const QPoint &pos)
 {
     QAction *actNewFolder = new QAction(tr("New folder"), this);
@@ -372,17 +389,8 @@ void MainWindow::prepareMenu(const QPoint &pos)
     });
 
     connect(actDelete, &QAction::triggered, this, [=]() {
-        QStringList filesToDelete;
-        foreach (auto qmodeindex, ui->treeView->selectionModel()->selectedIndexes()) {
-            if (qmodeindex.column() == 0) {
-                QString str = filesystemModel->fileInfo(qmodeindex).filePath().trimmed();
-                if (!str.isEmpty()
-                    && is_subpath(str.toStdString(),
-                                  appSettings.passwordStorePath().toStdString())) {
-                    filesToDelete << str;
-                }
-            }
-        }
+        QStringList filesToDelete=getFilesSelected();
+
         if (filesToDelete.count()==0){
             return;
         }
@@ -408,17 +416,7 @@ void MainWindow::prepareMenu(const QPoint &pos)
     QMenu menu(this);
     menu.setToolTipsVisible(true);
     menu.addAction(actNewFolder);
-    QStringList filesToDelete;
-    foreach (auto qmodeindex, ui->treeView->selectionModel()->selectedIndexes()) {
-        if (qmodeindex.column() == 0) {
-            QString str = filesystemModel->fileInfo(qmodeindex).filePath().trimmed();
-            if (!str.isEmpty()
-                && is_subpath(str.toStdString(),
-                              appSettings.passwordStorePath().toStdString())) {
-                filesToDelete << str;
-            }
-        }
-    }
+    QStringList filesToDelete = getFilesSelected();
     if (filesToDelete.count()!=0){
         menu.addAction(actRename);
         menu.addAction(actDelete);
