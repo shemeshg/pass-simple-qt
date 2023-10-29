@@ -416,11 +416,13 @@ void MainWindow::prepareMenu(const QPoint &pos)
     QMenu menu(this);
     menu.setToolTipsVisible(true);
     menu.addAction(actNewFolder);
-    QStringList filesToDelete = getFilesSelected();
-    if (filesToDelete.count()!=0){
-        menu.addAction(actRename);
-        menu.addAction(actDelete);
-    }
+    menu.addAction(actRename);
+    menu.addAction(actDelete);
+
+    int filesToDeleteCount = getFilesSelected().count();
+    actNewFolder->setVisible(filesToDeleteCount <= 1);
+    actRename->setVisible(filesToDeleteCount==1);
+    actDelete->setVisible(filesToDeleteCount>=1);
 
 
     QPoint pt(pos);
