@@ -26,6 +26,19 @@ ColumnLayout {
     RowLayout {
         visible: editYamlType.isYamlValid
 
+        Shortcut {
+            sequence: "Ctrl+U"
+            onActivated: {
+                if (editYamlType.isYamlValid) {
+
+                    let url = editYamlType.yamlModel.filter(row => {
+                                                                return row.inputType === "url"
+                                                            })[0]?.val
+                    doUrlRedirect(url)
+                }
+            }
+        }
+
         CoreSwitch {
             id: idEditFieldsType
             text: qsTr("Edit fields type")
