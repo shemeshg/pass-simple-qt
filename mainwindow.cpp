@@ -223,9 +223,16 @@ MainWindow::MainWindow(QWidget *parent)
     // const QSize availableSize = ui->treeView->size(); //ui->treeView->screen()
     //->availableGeometry().size();
     // ui->treeView->resize(availableSize / 2);
-    ui->treeView->setColumnWidth(0, 200);
-    ui->treeView->setColumnWidth(1, 10);
-    ui->treeView->setColumnWidth(2, 10);
+
+    const QByteArray treeviewHeaderState = appSettings.settings.value("app/treeviewHeaderState").toByteArray();
+    if (treeviewHeaderState.isEmpty()) {
+        ui->treeView->setColumnWidth(0, 200);
+        ui->treeView->setColumnWidth(1, 10);
+        ui->treeView->setColumnWidth(2, 10);
+    } else {
+        ui->treeView->header()->restoreState(treeviewHeaderState);
+    }
+
 
     ui->treeView->setDragEnabled(true);
 
@@ -476,6 +483,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     appSettings.settings.setValue("app/geometry", saveGeometry());
     appSettings.settings.setValue("app/windowState", saveState());
+    appSettings.settings.setValue("app/treeviewHeaderState", ui->treeView->header()->saveState());
 
     if (ui->splitter->sizes()[0]==0){
         appSettings.settings.setValue("app/isShowTree",false);
