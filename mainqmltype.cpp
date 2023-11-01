@@ -233,11 +233,16 @@ void MainQmlType::setTreeViewSelected(QString path)
 
 void MainQmlType::toggleFilepan()
 {
+    static QByteArray splitaerState;
+    static int prvSize;
+
     if (m_filePanSize == 0) {
-        initFileSystemModel(filePath());
-        splitter->setSizes(QList<int>({150, 400}));
-        setFilePanSize(150);
+        initFileSystemModel(filePath());        
+        splitter->restoreState(splitaerState);
+        setFilePanSize(prvSize);
     } else {
+        splitaerState = splitter->saveState();
+        prvSize = filePanSize();
         splitter->setSizes(QList<int>({0, 400}));
         setFilePanSize(0);
     }

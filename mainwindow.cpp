@@ -87,6 +87,20 @@ void MainWindow::doAppGeometry()
     } else {
         restoreGeometry(geometry);
     }
+
+    bool isShowTree = appSettings.settings.value("app/isShowTree",true).toBool();
+    const QByteArray splitter = appSettings.settings.value("app/splitter").toByteArray();
+
+    if (splitter.isEmpty()) {
+        ui->splitter->setSizes(QList<int>({150, 400}));
+    } else {
+        ui->splitter->restoreState(splitter);
+    }
+
+    if (!isShowTree) {
+        mainqmltype->toggleFilepan();
+    }
+
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -199,7 +213,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     initFileSystemModel("");
 
-    ui->splitter->setSizes(QList<int>({150, 400})); // INT_MAX
 
     // Demonstrating look and feel features
     ui->treeView->setAnimated(false);
@@ -463,6 +476,14 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     appSettings.settings.setValue("app/geometry", saveGeometry());
     appSettings.settings.setValue("app/windowState", saveState());
+
+    if (ui->splitter->sizes()[0]==0){
+        appSettings.settings.setValue("app/isShowTree",false);
+    } else {
+        appSettings.settings.setValue("app/isShowTree",true);
+        appSettings.settings.setValue("app/splitter", ui->splitter->saveState());
+    }
+
 }
 
 void MainWindow::selectionChangedSlot(const QItemSelection &current /*newSelection*/,
