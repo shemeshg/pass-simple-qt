@@ -77,6 +77,7 @@ public:
 
     const QString getFindExecutable(const QString &exec) const;
 
+    QSettings settings{"shemeshg", "PassSimple"};
 signals:
     void passwordStorePathChanged();
     void tmpFolderPathChanged();
@@ -93,8 +94,9 @@ signals:
     void isFindMemCashChanged();
     void isFindSlctFrstChanged();
 
+
 private:
-    QSettings settings{"shemeshg", "PassSimple"};
+
     QString m_passwordStorePath;
     QString m_tmpFolderPath;
     QString m_gitExecPath;

@@ -39,9 +39,10 @@ private slots:
 
     void setTreeviewCurrentIndex(QString filePath);
 
-
-
     void prepareMenu(const QPoint &pos);
+
+    void closeEvent(QCloseEvent *event);
+
 private:
     Ui::MainWindow *ui;
     AppFileSysModel *filesystemModel = new AppFileSysModel(this);
@@ -76,4 +77,5 @@ private:
     bool is_subpath(const std::filesystem::path& path, const std::filesystem::path& base);
 
     QStringList getFilesSelected();
+    void doAppGeometry();
 };

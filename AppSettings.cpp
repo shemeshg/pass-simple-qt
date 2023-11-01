@@ -21,6 +21,7 @@ AppSettings::AppSettings(QObject *parent)
     m_isFindSlctFrst = settings.value("isFindSlctFrst", false).toBool();
 }
 
+
 const QString AppSettings::passwordStorePath() const
 {
     QString passwordStorePathDefault = QDir::homePath() + "/.password-store";

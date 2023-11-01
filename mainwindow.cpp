@@ -75,11 +75,30 @@ bool MainWindow::is_subpath(const std::filesystem::path &path, const std::filesy
     return !rel.empty() && rel.native()[0] != '.';
 }
 
+void MainWindow::doAppGeometry()
+{
+    restoreState(appSettings.settings.value("app/windowState").toByteArray());
+    const QByteArray geometry = appSettings.settings.value("app/geometry").toByteArray();
+    if (geometry.isEmpty()) {
+        const QRect availableGeometry = screen()->availableGeometry();
+        resize(availableGeometry.width() / 3, availableGeometry.height() / 2);
+        move((availableGeometry.width() - width()) / 2,
+             (availableGeometry.height() - height()) / 2);
+    } else {
+        restoreGeometry(geometry);
+    }
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
+
+
     ui->setupUi(this);
+
+
 
     QFont font = QApplication::font();
     font.setPointSize(appSettings.fontSize().toInt());
@@ -269,6 +288,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     setQmlSource();
 
+    doAppGeometry();
+
+
     QObject::connect(ui->quickWidget->engine(),
                      &QQmlApplicationEngine::quit,
                      this,
@@ -300,6 +322,7 @@ MainWindow::MainWindow(QWidget *parent)
         mainqmltype->setTreeViewSelected(rootPath);
         setQmlSource();
     });
+
 }
 
 MainWindow::~MainWindow()
@@ -434,6 +457,12 @@ void MainWindow::prepareMenu(const QPoint &pos)
 
     QPoint pt(pos);
     menu.exec(ui->treeView->mapToGlobal(pos));
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    appSettings.settings.setValue("app/geometry", saveGeometry());
+    appSettings.settings.setValue("app/windowState", saveState());
 }
 
 void MainWindow::selectionChangedSlot(const QItemSelection &current /*newSelection*/,
