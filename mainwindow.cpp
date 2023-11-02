@@ -481,6 +481,19 @@ void MainWindow::prepareMenu(const QPoint &pos)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    bool okToClose = true;
+    okToClose = okToClose && mainqmltype->waitItems().count() == 0;
+    okToClose = okToClose && mainqmltype->noneWaitItems().count() == 0;
+    if (!okToClose){
+        QMessageBox msgBox;
+        msgBox.setText("Close all opened files befor quit.");
+        msgBox.exec();
+        event->ignore();
+        return;
+    }
+
+
+
     appSettings.settings.setValue("app/geometry", saveGeometry());
     appSettings.settings.setValue("app/windowState", saveState());
     appSettings.settings.setValue("app/treeviewHeaderState", ui->treeView->header()->saveState());
@@ -491,6 +504,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
         appSettings.settings.setValue("app/isShowTree",true);
         appSettings.settings.setValue("app/splitter", ui->splitter->saveState());
     }
+    event->accept();
 
 }
 
