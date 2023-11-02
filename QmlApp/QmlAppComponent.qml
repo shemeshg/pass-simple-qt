@@ -247,6 +247,12 @@ ColumnLayout {
     Layout.fillWidth: true
     visible: !QmlAppSt.isShowSettings && !QmlAppSt.isShowSearch
     RowLayout {
+        Shortcut {
+            sequence: "Ctrl+T"
+            onActivated: {
+                mainLayout.toggleFilepan()
+            }
+        }
         CoreButton {
             onClicked: {
                 mainLayout.toggleFilepan()
@@ -254,7 +260,7 @@ ColumnLayout {
             icon.name: "Hide/Show treeview"
             icon.source: Qt.resolvedUrl(
                              "icons/account_tree_FILL0_wght400_GRAD0_opsz48.svg")
-            hooverText: "Hide/Show treeview"
+            hooverText: "<b>Cmd T</b> Toggle tree view"
         }
         CoreButton {
             onClicked: {

@@ -218,6 +218,7 @@ ColumnLayout {
 
                     isPreviewId.checked = !isPreviewId.checked
                     QmlAppSt.isShowPreview = isPreviewId.checked
+                    QmlAppSt.mainqmltype.appSettingsType.isShowPreview = isPreviewId.checked
                     reloadAfterPreviewChanged()
                 }
             }
