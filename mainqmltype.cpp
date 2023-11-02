@@ -242,6 +242,7 @@ void MainQmlType::toggleFilepan()
         setFilePanSize(prvSize);
     } else {
         splitaerState = splitter->saveState();
+        appSettings.settings.setValue("app/splitter", splitaerState);
         prvSize = filePanSize();
         splitter->setSizes(QList<int>({0, 400}));
         setFilePanSize(0);
