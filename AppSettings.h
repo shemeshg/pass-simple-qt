@@ -30,6 +30,7 @@ class AppSettings : public QObject
     Q_PROPERTY(bool isFindMemCash READ isFindMemCash WRITE setIsFindMemCash NOTIFY isFindMemCashChanged)
     Q_PROPERTY(bool isFindSlctFrst READ isFindSlctFrst WRITE setIsFindSlctFrst NOTIFY isFindSlctFrstChanged)
     Q_PROPERTY(bool isShowPreview READ isShowPreview WRITE setIsShowPreview NOTIFY isShowPreviewChanged)
+    Q_PROPERTY(int openWith READ openWith WRITE setOpenWith NOTIFY openWithChanged)
     QML_ELEMENT
 public:
     AppSettings(QObject *parent = nullptr);
@@ -51,6 +52,7 @@ public:
     bool doSign() const { return m_doSign; };
     bool isFindMemCash() const { return m_isFindMemCash; };
     bool isShowPreview() const { return m_isShowPreview; };
+    bool openWith() const { return m_openWith; };
     bool isFindSlctFrst() const { return m_isFindSlctFrst; };
     bool preferYamlView() const { return m_preferYamlView; };
     void setUseClipboard(const bool useClipboard);
@@ -62,6 +64,10 @@ public:
     void setIsShowPreview(const bool isShowPreview);
     void saveIsShowPreview(){
         settings.setValue("isShowPreview", m_isShowPreview);
+    }
+    void setOpenWith(const int openWith);
+    void saveOpenWith(){
+        settings.setValue("openWith", m_openWith);
     }
     void setIsFindSlctFrst(const bool isFindSlctFrst);
     void saveIsFindSlctFrst(){
@@ -105,6 +111,7 @@ signals:
     void ctxSignerChanged();
     void isFindMemCashChanged();
     void isShowPreviewChanged();
+    void openWithChanged();
     void isFindSlctFrstChanged();
 
 
@@ -125,4 +132,5 @@ private:
     bool m_isFindMemCash;
     bool m_isFindSlctFrst;
     bool m_isShowPreview;
+    int m_openWith;
 };

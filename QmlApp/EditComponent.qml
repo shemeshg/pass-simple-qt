@@ -361,6 +361,11 @@ ColumnLayout {
             id: selectExternalEncryptDestinationId
             textRole: "text"
             valueRole: "value"
+            currentIndex: QmlAppSt.mainqmltype.appSettingsType.openWith
+            onCurrentIndexChanged: () => {
+                                       QmlAppSt.mainqmltype.appSettingsType.openWith = currentIndex
+                                   }
+
             model: [{
                     "value": externalDestType.vsCodeWait,
                     "text": qsTr("code --wait")

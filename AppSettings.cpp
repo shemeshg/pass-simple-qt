@@ -20,6 +20,7 @@ AppSettings::AppSettings(QObject *parent)
     m_isFindMemCash = settings.value("isFindMemCash", false).toBool();
     m_isShowPreview = settings.value("isShowPreview", true).toBool();
     m_isFindSlctFrst = settings.value("isFindSlctFrst", false).toBool();
+    m_openWith = settings.value("openWith", 0).toInt();
 }
 
 
@@ -188,6 +189,15 @@ void AppSettings::setIsShowPreview(const bool isShowPreview)
     m_isShowPreview= isShowPreview;
 
     emit isShowPreviewChanged();
+}
+
+void AppSettings::setOpenWith(const int openWith)
+{
+    if (openWith == m_openWith)
+        return;
+    m_openWith= openWith;
+
+    emit openWithChanged();
 }
 
 void AppSettings::setIsFindSlctFrst(const bool isFindSlctFrst)

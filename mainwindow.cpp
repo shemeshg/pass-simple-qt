@@ -495,6 +495,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     mainqmltype->appSettingsType()->saveIsFindMemCash();
     mainqmltype->appSettingsType()->saveIsFindSlctFrst();
     mainqmltype->appSettingsType()->saveIsShowPreview();
+    mainqmltype->appSettingsType()->saveOpenWith();
 
     appSettings.settings.setValue("app/geometry", saveGeometry());
     appSettings.settings.setValue("app/windowState", saveState());
