@@ -486,13 +486,11 @@ void MainWindow::closeEvent(QCloseEvent *event)
     okToClose = okToClose && mainqmltype->noneWaitItems().count() == 0;
     if (!okToClose){
         QMessageBox msgBox;
-        msgBox.setText("Close all opened files befor quit.");
+        msgBox.setText(tr("Close all opened files before quit."));
         msgBox.exec();
         event->ignore();
         return;
     }
-
-
 
     appSettings.settings.setValue("app/geometry", saveGeometry());
     appSettings.settings.setValue("app/windowState", saveState());
