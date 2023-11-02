@@ -492,6 +492,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
         return;
     }
 
+    mainqmltype->appSettingsType()->saveIsFindMemCash();
+    mainqmltype->appSettingsType()->saveIsFindSlctFrst();
+
     appSettings.settings.setValue("app/geometry", saveGeometry());
     appSettings.settings.setValue("app/windowState", saveState());
     appSettings.settings.setValue("app/treeviewHeaderState", ui->treeView->header()->saveState());

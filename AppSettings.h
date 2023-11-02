@@ -54,7 +54,13 @@ public:
     void setUseClipboard(const bool useClipboard);
     void setDoSign(const bool doSign);
     void setIsFindMemCash(const bool isFindMemCash);
+    void saveIsFindMemCash(){
+        settings.setValue("isFindMemCash", m_isFindMemCash);
+    }
     void setIsFindSlctFrst(const bool isFindSlctFrst);
+    void saveIsFindSlctFrst(){
+        settings.setValue("isFindSlctFrst", m_isFindSlctFrst);
+    }
     void setPreferYamlView(const bool preferYamlView);
     QString fontSize() const {
         if (m_fontSize.isEmpty()){

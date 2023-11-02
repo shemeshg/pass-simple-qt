@@ -176,7 +176,7 @@ void AppSettings::setIsFindMemCash(const bool isFindMemCash)
     if (isFindMemCash == m_isFindMemCash)
         return;
     m_isFindMemCash = isFindMemCash;
-    settings.setValue("isFindMemCash", m_isFindMemCash);
+
     emit isFindMemCashChanged();
 }
 
@@ -184,8 +184,7 @@ void AppSettings::setIsFindSlctFrst(const bool isFindSlctFrst)
 {
     if (isFindSlctFrst == m_isFindSlctFrst)
         return;
-    m_isFindSlctFrst = isFindSlctFrst;
-    settings.setValue("isFindSlctFrst", m_isFindSlctFrst);
+    m_isFindSlctFrst = isFindSlctFrst;    
     emit isFindSlctFrstChanged();
 }
 
