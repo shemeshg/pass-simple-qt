@@ -351,7 +351,7 @@ ColumnLayout {
             text: "Discard changes"
             onClicked: {
 
-                //QmlAppSt.mainqmltype.closeExternalEncryptNoWait()
+                QmlAppSt.mainqmltype.discardChangesEncryptNoWait()
             }
             visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
                          QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
