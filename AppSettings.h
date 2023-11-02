@@ -29,6 +29,7 @@ class AppSettings : public QObject
     Q_PROPERTY(QString binaryExts READ binaryExts WRITE setBinaryExts NOTIFY binaryExtsChanged)
     Q_PROPERTY(bool isFindMemCash READ isFindMemCash WRITE setIsFindMemCash NOTIFY isFindMemCashChanged)
     Q_PROPERTY(bool isFindSlctFrst READ isFindSlctFrst WRITE setIsFindSlctFrst NOTIFY isFindSlctFrstChanged)
+    Q_PROPERTY(bool isShowPreview READ isShowPreview WRITE setIsShowPreview NOTIFY isShowPreviewChanged)
     QML_ELEMENT
 public:
     AppSettings(QObject *parent = nullptr);
@@ -49,6 +50,7 @@ public:
     bool useClipboard() const { return m_useClipboard; };
     bool doSign() const { return m_doSign; };
     bool isFindMemCash() const { return m_isFindMemCash; };
+    bool isShowPreview() const { return m_isShowPreview; };
     bool isFindSlctFrst() const { return m_isFindSlctFrst; };
     bool preferYamlView() const { return m_preferYamlView; };
     void setUseClipboard(const bool useClipboard);
@@ -56,6 +58,10 @@ public:
     void setIsFindMemCash(const bool isFindMemCash);
     void saveIsFindMemCash(){
         settings.setValue("isFindMemCash", m_isFindMemCash);
+    }
+    void setIsShowPreview(const bool isShowPreview);
+    void saveIsShowPreview(){
+        settings.setValue("isShowPreview", m_isShowPreview);
     }
     void setIsFindSlctFrst(const bool isFindSlctFrst);
     void saveIsFindSlctFrst(){
@@ -98,6 +104,7 @@ signals:
     void commitMsgChanged();
     void ctxSignerChanged();
     void isFindMemCashChanged();
+    void isShowPreviewChanged();
     void isFindSlctFrstChanged();
 
 
@@ -117,4 +124,5 @@ private:
     QString m_commitMsg;
     bool m_isFindMemCash;
     bool m_isFindSlctFrst;
+    bool m_isShowPreview;
 };

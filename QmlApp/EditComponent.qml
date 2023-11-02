@@ -229,6 +229,7 @@ ColumnLayout {
             checked: QmlAppSt.isShowPreview
             onToggled: {
                 QmlAppSt.isShowPreview = isPreviewId.checked
+                QmlAppSt.mainqmltype.appSettingsType.isShowPreview = isPreviewId.checked
                 reloadAfterPreviewChanged()
             }
             visible: QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) === -1

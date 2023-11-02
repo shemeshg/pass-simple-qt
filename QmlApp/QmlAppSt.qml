@@ -15,7 +15,7 @@ QtObject {
     property string passwordStorePathStr: ""
     property bool isShowSettings: false
     property bool isShowSearch: false
-    property bool isShowPreview: true
+    property bool isShowPreview: mainqmltype.appSettingsType.isShowPreview
     property bool isDarkTheme: false
     property bool isSaving: false
     property bool gpgPubKeysFolderExists: false

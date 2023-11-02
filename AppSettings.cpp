@@ -18,6 +18,7 @@ AppSettings::AppSettings(QObject *parent)
     m_fontSize = settings.value("fontSize", "").toString();
     m_commitMsg = settings.value("commitMsg", "").toString();
     m_isFindMemCash = settings.value("isFindMemCash", false).toBool();
+    m_isShowPreview = settings.value("isShowPreview", true).toBool();
     m_isFindSlctFrst = settings.value("isFindSlctFrst", false).toBool();
 }
 
@@ -178,6 +179,15 @@ void AppSettings::setIsFindMemCash(const bool isFindMemCash)
     m_isFindMemCash = isFindMemCash;
 
     emit isFindMemCashChanged();
+}
+
+void AppSettings::setIsShowPreview(const bool isShowPreview)
+{
+    if (isShowPreview == m_isShowPreview)
+        return;
+    m_isShowPreview= isShowPreview;
+
+    emit isShowPreviewChanged();
 }
 
 void AppSettings::setIsFindSlctFrst(const bool isFindSlctFrst)
