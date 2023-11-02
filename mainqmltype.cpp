@@ -296,6 +296,20 @@ void MainQmlType::openExternalEncryptWait()
     }
 }
 
+
+void MainQmlType::showFolderEncryptNoWait() {
+    if (passFile->isGpgFile()) {
+        runSafeFromException([&]() {
+            qDebug()<<"looked for "<<passFile->getFullPath();
+            std::string subfolderPath
+                = watchWaitAndNoneWaitRunCmd.getNoneWaitItemsBuUiniqueId(passFile->getFullPath())->getSubfolderPath();
+            qDebug()<<"We have "<<subfolderPath;
+            QDesktopServices::openUrl(
+                QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
+        });
+    }
+}
+
 void MainQmlType::openExternalEncryptNoWait()
 {
     if (passFile->isGpgFile()) {

@@ -59,10 +59,17 @@ ColumnLayout {
         }
     }
 
+    QtObject {
+        id: externalDestType
+        property int vsCodeWait: 0
+        property int vileBrowser: 1
+    }
+
     function doExternalOpen() {
-        if (selectExternalEncryptDestinationId.currentValue === "code --wait") {
+        if (selectExternalEncryptDestinationId.currentValue === externalDestType.vsCodeWait) {
             QmlAppSt.mainqmltype.openExternalEncryptWait()
-        } else if (selectExternalEncryptDestinationId.editText === "File browser") {
+        } else if (selectExternalEncryptDestinationId.currentValue
+                   === externalDestType.fileBrowser) {
             QmlAppSt.mainqmltype.openExternalEncryptNoWait()
         }
     }
@@ -324,18 +331,42 @@ ColumnLayout {
                      && !QmlAppSt.isBinaryFile
         }
         CoreButton {
-            text: "Close File browser item"
+            text: "Save and Close"
             onClicked: {
                 QmlAppSt.mainqmltype.closeExternalEncryptNoWait()
             }
             visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
                          QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
         }
+        CoreButton {
+            text: "Show Folder"
+            onClicked: {
 
+                QmlAppSt.mainqmltype.showFolderEncryptNoWait()
+            }
+            visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
+                         QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
+        }
+        CoreButton {
+            text: "Discard changes"
+            onClicked: {
+
+                //QmlAppSt.mainqmltype.closeExternalEncryptNoWait()
+            }
+            visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
+                         QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
+        }
         CoreComboBox {
             id: selectExternalEncryptDestinationId
-
-            model: ["code --wait", "File browser"]
+            textRole: "text"
+            valueRole: "value"
+            model: [{
+                    "value": externalDestType.vsCodeWait,
+                    "text": qsTr("code --wait")
+                }, {
+                    "value": externalDestType.fileBrowser,
+                    "text": qsTr("File browser")
+                }]
             width: 200
             visible: !QmlAppSt.isShowPreview && QmlAppSt.waitItems.indexOf(
                          QmlAppSt.filePath) === -1
