@@ -215,7 +215,7 @@ void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpF
     appSettings.setUseClipboard(useClipboard);
     appSettings.setDoSign(doSign);
     appSettings.setPreferYamlView(preferYamlView);
-    appSettings.setfontSize(fontSize);
+    appSettings.setFontSize(fontSize);
     appSettings.setCommitMsg(commitMsg);
     appSettings.setCtxSigner(ctxSigner);
 

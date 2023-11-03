@@ -5,22 +5,30 @@
 AppSettings::AppSettings(QObject *parent)
     : QObject(parent)
 {
+    /* [[[cog
+    import cog
+    import appSettings
+    cog.outl(appSettings.getQ_src_contrs(),
+        dedent=True, trimblanklines=True)
+    ]]] */
     m_passwordStorePath = settings.value("passwordStorePath", "").toString();
     m_tmpFolderPath = settings.value("tmpFolderPath", "").toString();
     m_gitExecPath = settings.value("gitExecPath", "").toString();
     m_vscodeExecPath = settings.value("vscodeExecPath", "").toString();
     m_autoTypeCmd = settings.value("autoTypeCmd", "").toString();
-    m_binaryExts = settings.value("binaryExts", "").toString();
     m_ctxSigner = settings.value("ctxSigner", "").toString();
+    m_fontSize = settings.value("fontSize", "").toString();
+    m_commitMsg = settings.value("commitMsg", "").toString();
+    m_binaryExts = settings.value("binaryExts", "").toString();
     m_useClipboard = settings.value("useClipboard", false).toBool();
     m_doSign = settings.value("doSign", false).toBool();
     m_preferYamlView = settings.value("preferYamlView", true).toBool();
-    m_fontSize = settings.value("fontSize", "").toString();
-    m_commitMsg = settings.value("commitMsg", "").toString();
     m_isFindMemCash = settings.value("isFindMemCash", false).toBool();
-    m_isShowPreview = settings.value("isShowPreview", true).toBool();
     m_isFindSlctFrst = settings.value("isFindSlctFrst", false).toBool();
+    m_isShowPreview = settings.value("isShowPreview", true).toBool();
     m_openWith = settings.value("openWith", 0).toInt();
+
+    //[[[end]]]
 }
 
 
@@ -93,7 +101,7 @@ void AppSettings::setCtxSigner(const QString &ctxSigner)
     emit ctxSignerChanged();
 }
 
-QString AppSettings::vscodeExecPath() const
+const QString AppSettings::vscodeExecPath() const
 {
     if (m_vscodeExecPath.isEmpty()) {
         return getFindExecutable("code");
@@ -153,6 +161,11 @@ void AppSettings::setAutoTypeCmd(const QString &autoTypeCmd)
     m_autoTypeCmd = autoTypeCmd;
     settings.setValue("autoTypeCmd", m_autoTypeCmd);
     emit autoTypeCmdChanged();
+}
+
+const QString AppSettings::ctxSigner() const
+{
+    return m_ctxSigner;
 }
 
 void AppSettings::setUseClipboard(const bool useClipboard)
@@ -217,7 +230,14 @@ void AppSettings::setPreferYamlView(const bool preferYamlView)
     emit preferYamlViewChanged();
 }
 
-void AppSettings::setfontSize(const QString fontSize)
+const QString AppSettings::fontSize() const {
+    if (m_fontSize.isEmpty()){
+        return QString::number(QApplication::font().pointSize());
+    }
+    return m_fontSize;
+}
+
+void AppSettings::setFontSize(const QString &fontSize)
 {
     if (fontSize == m_fontSize)
         return;
@@ -227,7 +247,14 @@ void AppSettings::setfontSize(const QString fontSize)
     emit fontSizeChanged();
 }
 
-void AppSettings::setCommitMsg(const QString commitMsg)
+const QString AppSettings::commitMsg() const {
+    if (m_commitMsg.isEmpty()){
+        return "pass simple";
+    }
+    return m_commitMsg;
+}
+
+void AppSettings::setCommitMsg(const QString &commitMsg)
 {
     if (commitMsg == m_commitMsg)
         return;
