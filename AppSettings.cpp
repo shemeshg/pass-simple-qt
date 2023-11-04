@@ -32,39 +32,19 @@ AppSettings::AppSettings(QObject *parent)
 }
 
 
-const QString AppSettings::passwordStorePath() const
-{
-    QString passwordStorePathDefault = QDir::homePath() + "/.password-store";
-    if (m_passwordStorePath.isEmpty() || !QDir(m_passwordStorePath).exists()) {
-        return passwordStorePathDefault;
-    }
-
-
-    return QDir(m_passwordStorePath).absolutePath();
-}
-
+/* [[[cog
+    import cog
+    import appSettings
+    cog.outl(appSettings.getQ_src_setters(),
+        dedent=True, trimblanklines=True)
+    ]]] */
 void AppSettings::setPasswordStorePath(const QString &passwordStorePath)
 {
     if (passwordStorePath == m_passwordStorePath)
         return;
-
-
-    m_passwordStorePath = passwordStorePath;    
+    m_passwordStorePath = passwordStorePath;
     settings.setValue("passwordStorePath", m_passwordStorePath);
-}
-
-const QString AppSettings::tmpFolderPath() const
-{
-    if (m_tmpFolderPath.isEmpty() ||  !QDir(m_tmpFolderPath).exists()) {
-        QString tmpFolderPathDefault = QDir::tempPath();
-#ifdef __linux__
-        if (QDir("/dev/shm").exists()) {
-            tmpFolderPathDefault = "/dev/shm";
-        }
-#endif
-        return tmpFolderPathDefault;
-    }
-    return QDir(m_tmpFolderPath).absolutePath();
+    emit passwordStorePathChanged();
 }
 
 void AppSettings::setTmpFolderPath(const QString &tmpFolderPath)
@@ -73,14 +53,7 @@ void AppSettings::setTmpFolderPath(const QString &tmpFolderPath)
         return;
     m_tmpFolderPath = tmpFolderPath;
     settings.setValue("tmpFolderPath", m_tmpFolderPath);
-}
-
-const QString AppSettings::gitExecPath() const
-{
-    if (m_gitExecPath.isEmpty()) {
-        return getFindExecutable("git");
-    }
-    return m_gitExecPath;
+    emit tmpFolderPathChanged();
 }
 
 void AppSettings::setGitExecPath(const QString &gitExecPath)
@@ -92,66 +65,13 @@ void AppSettings::setGitExecPath(const QString &gitExecPath)
     emit gitExecPathChanged();
 }
 
-void AppSettings::setCtxSigner(const QString &ctxSigner)
-{
-    if (ctxSigner == m_ctxSigner)
-        return;
-    m_ctxSigner = ctxSigner;
-    settings.setValue("ctxSigner", m_ctxSigner);
-    emit ctxSignerChanged();
-}
-
-const QString AppSettings::vscodeExecPath() const
-{
-    if (m_vscodeExecPath.isEmpty()) {
-        return getFindExecutable("code");
-    }
-    return m_vscodeExecPath;
-}
-
 void AppSettings::setVscodeExecPath(const QString &vscodeExecPath)
 {
     if (vscodeExecPath == m_vscodeExecPath)
         return;
-
     m_vscodeExecPath = vscodeExecPath;
     settings.setValue("vscodeExecPath", m_vscodeExecPath);
-
     emit vscodeExecPathChanged();
-}
-
-
-const QString AppSettings::binaryExts() const
-{
-    if (m_binaryExts.isEmpty()) {
-
-        return QString{".zip\n.pdf"};
-    }
-    return m_binaryExts;
-}
-
-void AppSettings::setBinaryExts(const QString &binaryExts)
-{
-    if (binaryExts == m_binaryExts)
-        return;
-    m_binaryExts = binaryExts;
-    settings.setValue("binaryExts", m_binaryExts);
-    emit binaryExtsChanged();
-}
-
-
-
-
-const QString AppSettings::autoTypeCmd() const
-{
-    if (m_autoTypeCmd.isEmpty()) {
-#ifdef __linux__
-            return R"V0G0N(echo -n sequence | xclip -selection clipboard)V0G0N";
-#else
-        return QString{};
-#endif
-    }
-    return m_autoTypeCmd;
 }
 
 void AppSettings::setAutoTypeCmd(const QString &autoTypeCmd)
@@ -163,9 +83,40 @@ void AppSettings::setAutoTypeCmd(const QString &autoTypeCmd)
     emit autoTypeCmdChanged();
 }
 
-const QString AppSettings::ctxSigner() const
+void AppSettings::setCtxSigner(const QString &ctxSigner)
 {
-    return m_ctxSigner;
+    if (ctxSigner == m_ctxSigner)
+        return;
+    m_ctxSigner = ctxSigner;
+    settings.setValue("ctxSigner", m_ctxSigner);
+    emit ctxSignerChanged();
+}
+
+void AppSettings::setFontSize(const QString &fontSize)
+{
+    if (fontSize == m_fontSize)
+        return;
+    m_fontSize = fontSize;
+    settings.setValue("fontSize", m_fontSize);
+    emit fontSizeChanged();
+}
+
+void AppSettings::setCommitMsg(const QString &commitMsg)
+{
+    if (commitMsg == m_commitMsg)
+        return;
+    m_commitMsg = commitMsg;
+    settings.setValue("commitMsg", m_commitMsg);
+    emit commitMsgChanged();
+}
+
+void AppSettings::setBinaryExts(const QString &binaryExts)
+{
+    if (binaryExts == m_binaryExts)
+        return;
+    m_binaryExts = binaryExts;
+    settings.setValue("binaryExts", m_binaryExts);
+    emit binaryExtsChanged();
 }
 
 void AppSettings::setUseClipboard(const bool useClipboard)
@@ -186,41 +137,6 @@ void AppSettings::setDoSign(const bool doSign)
     emit doSignChanged();
 }
 
-void AppSettings::setIsFindMemCash(const bool isFindMemCash)
-{
-    if (isFindMemCash == m_isFindMemCash)
-        return;
-    m_isFindMemCash = isFindMemCash;
-
-    emit isFindMemCashChanged();
-}
-
-void AppSettings::setIsShowPreview(const bool isShowPreview)
-{
-    if (isShowPreview == m_isShowPreview)
-        return;
-    m_isShowPreview= isShowPreview;
-
-    emit isShowPreviewChanged();
-}
-
-void AppSettings::setOpenWith(const int openWith)
-{
-    if (openWith == m_openWith)
-        return;
-    m_openWith= openWith;
-
-    emit openWithChanged();
-}
-
-void AppSettings::setIsFindSlctFrst(const bool isFindSlctFrst)
-{
-    if (isFindSlctFrst == m_isFindSlctFrst)
-        return;
-    m_isFindSlctFrst = isFindSlctFrst;    
-    emit isFindSlctFrstChanged();
-}
-
 void AppSettings::setPreferYamlView(const bool preferYamlView)
 {
     if (preferYamlView == m_preferYamlView)
@@ -230,6 +146,119 @@ void AppSettings::setPreferYamlView(const bool preferYamlView)
     emit preferYamlViewChanged();
 }
 
+void AppSettings::setIsFindMemCash(const bool isFindMemCash)
+{
+    if (isFindMemCash == m_isFindMemCash)
+        return;
+    m_isFindMemCash = isFindMemCash;
+    
+    emit isFindMemCashChanged();
+}
+
+void AppSettings::setIsFindSlctFrst(const bool isFindSlctFrst)
+{
+    if (isFindSlctFrst == m_isFindSlctFrst)
+        return;
+    m_isFindSlctFrst = isFindSlctFrst;
+    
+    emit isFindSlctFrstChanged();
+}
+
+void AppSettings::setIsShowPreview(const bool isShowPreview)
+{
+    if (isShowPreview == m_isShowPreview)
+        return;
+    m_isShowPreview = isShowPreview;
+    
+    emit isShowPreviewChanged();
+}
+
+void AppSettings::setOpenWith(const int openWith)
+{
+    if (openWith == m_openWith)
+        return;
+    m_openWith = openWith;
+    
+    emit openWithChanged();
+}
+
+//[[[end]]]
+const QString AppSettings::passwordStorePath() const
+{
+    QString passwordStorePathDefault = QDir::homePath() + "/.password-store";
+    if (m_passwordStorePath.isEmpty() || !QDir(m_passwordStorePath).exists()) {
+        return passwordStorePathDefault;
+    }
+
+
+    return QDir(m_passwordStorePath).absolutePath();
+}
+
+
+
+const QString AppSettings::tmpFolderPath() const
+{
+    if (m_tmpFolderPath.isEmpty() ||  !QDir(m_tmpFolderPath).exists()) {
+        QString tmpFolderPathDefault = QDir::tempPath();
+#ifdef __linux__
+        if (QDir("/dev/shm").exists()) {
+            tmpFolderPathDefault = "/dev/shm";
+        }
+#endif
+        return tmpFolderPathDefault;
+    }
+    return QDir(m_tmpFolderPath).absolutePath();
+}
+
+
+const QString AppSettings::gitExecPath() const
+{
+    if (m_gitExecPath.isEmpty()) {
+        return getFindExecutable("git");
+    }
+    return m_gitExecPath;
+}
+
+
+
+const QString AppSettings::vscodeExecPath() const
+{
+    if (m_vscodeExecPath.isEmpty()) {
+        return getFindExecutable("code");
+    }
+    return m_vscodeExecPath;
+}
+
+
+
+const QString AppSettings::binaryExts() const
+{
+    if (m_binaryExts.isEmpty()) {
+
+        return QString{".zip\n.pdf"};
+    }
+    return m_binaryExts;
+}
+
+const QString AppSettings::autoTypeCmd() const
+{
+    if (m_autoTypeCmd.isEmpty()) {
+#ifdef __linux__
+            return R"V0G0N(echo -n sequence | xclip -selection clipboard)V0G0N";
+#else
+        return QString{};
+#endif
+    }
+    return m_autoTypeCmd;
+}
+
+
+const QString AppSettings::ctxSigner() const
+{
+    return m_ctxSigner;
+}
+
+
 const QString AppSettings::fontSize() const {
     if (m_fontSize.isEmpty()){
         return QString::number(QApplication::font().pointSize());
@@ -237,31 +266,12 @@ const QString AppSettings::fontSize() const {
     return m_fontSize;
 }
 
-void AppSettings::setFontSize(const QString &fontSize)
-{
-    if (fontSize == m_fontSize)
-        return;
-
-    m_fontSize = fontSize;
-    settings.setValue("fontSize", m_fontSize);
-    emit fontSizeChanged();
-}
 
 const QString AppSettings::commitMsg() const {
     if (m_commitMsg.isEmpty()){
         return "pass simple";
     }
     return m_commitMsg;
-}
-
-void AppSettings::setCommitMsg(const QString &commitMsg)
-{
-    if (commitMsg == m_commitMsg)
-        return;
-
-    m_commitMsg = commitMsg;
-    settings.setValue("commitMsg", m_commitMsg);
-    emit commitMsgChanged();
 }
 
 QString AppSettings::appVer() {

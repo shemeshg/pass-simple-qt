@@ -8,11 +8,13 @@ class Prpt:
     p_name = ""
     is_constant = False
     p_default_val = """"""
+    no_setval_in_src = False
 
-    def __init__(self, field_type, p_name,p_default_val=""""""):
+    def __init__(self, field_type, p_name,p_default_val="""""", no_setval_in_src=False):
         self.field_type = field_type
         self.p_name = p_name
         self.p_default_val = p_default_val
+        self.no_setval_in_src = no_setval_in_src
         
     def get_p_initCapital(self):
         return initCapital(self.p_name)
@@ -98,6 +100,34 @@ class Prpt:
             else:
                 return ""
 
+    def getQ_src_setter(self):
+        field_type = self.field_type
+        p = self.p_name
+        p_capitalize = self.get_p_initCapital()
+        ref_sign = "&"
+        if field_type == "int" or field_type=="bool":
+            ref_sign = ""
+        setval_t = Template("""settings.setValue("${p}", m_${p});""")
+        setval = setval_t.substitute(p=p)
+        if self.no_setval_in_src:
+            setval = ""
+        if self.is_constant:
+            return ""
+        else:
+            t = Template("""
+void AppSettings::set${p_capitalize}(const ${field_type} ${ref_sign}${p})
+{
+    if (${p} == m_${p})
+        return;
+    m_${p} = ${p};
+    ${setval}
+    emit ${p}Changed();
+}
+""")
+            return t.substitute(p=p,field_type=field_type,
+                p_capitalize=p_capitalize,
+                ref_sign=ref_sign,setval=setval)
+
 a = [
     Prpt("QString",'passwordStorePath'),
     Prpt("QString",'tmpFolderPath'),
@@ -110,11 +140,12 @@ a = [
     Prpt("QString",'binaryExts'),
     Prpt("bool",'useClipboard',"false"),
     Prpt("bool",'doSign',"false"),
-    Prpt("bool",'preferYamlView',"true"),    
-    Prpt("bool",'isFindMemCash',"false"),
-    Prpt("bool",'isFindSlctFrst',"false"),
-    Prpt("bool",'isShowPreview',"true"),
-    Prpt("int",'openWith',"0"),
+    Prpt("bool",'preferYamlView',"true"),   
+
+    Prpt("bool",'isFindMemCash',"false", True),
+    Prpt("bool",'isFindSlctFrst',"false", True),
+    Prpt("bool",'isShowPreview',"true", True),
+    Prpt("int",'openWith',"0", True),
 ]   
 
 p = Prpt("QString",'appVer')
@@ -148,13 +179,17 @@ def getQ_header_publics():
         s = s + row.getQ_header_public()
     return s   
 
-
-
 def getQ_src_contrs():
     s=""
     for row in a:
         s = s + row.getQ_src_contr()
-    return s        
+    return s      
+
+def getQ_src_setters():
+    s=""
+    for row in a:
+        s = s + row.getQ_src_setter()
+    return s         
 """
 remarks
 print(getQ_Properties())
@@ -162,5 +197,6 @@ print(getQ_header_privates())
 print(getQ_header_signals())
 print(getQ_header_publics())
 print(getQ_src_contrs())
+print(getQ_src_setters())
 """
-
+print(getQ_src_setters())
