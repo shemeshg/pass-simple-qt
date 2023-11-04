@@ -190,7 +190,6 @@ const QString AppSettings::passwordStorePath() const
         return passwordStorePathDefault;
     }
 
-
     return QDir(m_passwordStorePath).absolutePath();
 }
 
