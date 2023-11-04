@@ -78,52 +78,65 @@ public:
 
     //[[[end]]]
 
+    /* [[[cog
+    cog.outl(appSettings.get_appWindowStates(),
+        dedent=True, trimblanklines=True)
+    ]]] */
     QByteArray appWindowState() const {
         return settings.value("app/windowState").toByteArray();
     }
     void setAppWindowState(const QByteArray &appWindowState){
         settings.setValue("app/windowState", appWindowState);
-    }
+    }            
+
     QByteArray appGeometry() const {
         return settings.value("app/geometry").toByteArray();
     }
     void setAppGeometry(const QByteArray &appGeometry){
         settings.setValue("app/geometry", appGeometry);
-    }
+    }            
+
     QByteArray appSplitter() const {
         return settings.value("app/splitter").toByteArray();
     }
     void setAppSplitter(const QByteArray &appSplitter){
         settings.setValue("app/splitter", appSplitter);
-    }
+    }            
 
     QByteArray appTreeviewHeaderState() const {
         return settings.value("app/treeviewHeaderState").toByteArray();
     }
     void setAppTreeviewHeaderState(const QByteArray &appTreeviewHeaderState){
         settings.setValue("app/treeviewHeaderState", appTreeviewHeaderState);
-    }
+    }            
+
     bool appIsShowTree() const {
         return settings.value("app/isShowTree",true).toBool();
     }
     void setAppIsShowTree(const bool appIsShowTree){
         settings.setValue("app/isShowTree", appIsShowTree);
-    }
+    }         
 
+    //[[[end]]]
 
+    /* [[[cog
+    cog.outl(appSettings.getQ_header_save_items(),
+        dedent=True, trimblanklines=True)
+    ]]] */
     void saveIsFindMemCash(){
         settings.setValue("isFindMemCash", m_isFindMemCash);
-    }
-    void saveIsShowPreview(){
-        settings.setValue("isShowPreview", m_isShowPreview);
-    }
-    void saveOpenWith(){
-        settings.setValue("openWith", m_openWith);
-    }
+    };
     void saveIsFindSlctFrst(){
         settings.setValue("isFindSlctFrst", m_isFindSlctFrst);
-    }
+    };
+    void saveIsShowPreview(){
+        settings.setValue("isShowPreview", m_isShowPreview);
+    };
+    void saveOpenWith(){
+        settings.setValue("openWith", m_openWith);
+    };
 
+   //[[[end]]]
     static QString appVer();
     const QString getFindExecutable(const QString &exec) const;
 

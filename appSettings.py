@@ -56,6 +56,15 @@ class Prpt:
             void ${p}Changed();""")
             return t.substitute(p=p)
 
+    def getQ_header_save_item(self):
+        p = self.p_name
+        p_capitalize = self.get_p_initCapital()
+        t = Template("""
+    void save${p_capitalize}(){
+        settings.setValue("${p}", m_${p});
+    };""")
+        return t.substitute(p=p,p_capitalize=p_capitalize)
+
     def getQ_header_public(self):
         field_type = self.field_type
         p = self.p_name
@@ -75,6 +84,32 @@ class Prpt:
                 return t.substitute(p=p,p_capitalize=p_capitalize,field_type=field_type)            
             else:
                 return ""
+
+    def appWindowState(self):
+        field_type = self.field_type
+        p = self.p_name
+        p_capitalize = self.get_p_initCapital()
+        if field_type == "QByteArray":   
+            t = Template("""
+    QByteArray app${p_capitalize}() const {
+        return settings.value("app/${p}").toByteArray();
+    }
+    void setApp${p_capitalize}(const QByteArray &app${p_capitalize}){
+        settings.setValue("app/${p}", app${p_capitalize});
+    }            
+""") 
+            return t.substitute(p=p, p_capitalize=p_capitalize)
+        if field_type == "bool":   
+            t = Template("""
+    bool app${p_capitalize}() const {
+        return settings.value("app/${p}",true).toBool();
+    }
+    void setApp${p_capitalize}(const bool app${p_capitalize}){
+        settings.setValue("app/${p}", app${p_capitalize});
+    }         
+""") 
+            return t.substitute(p=p, p_capitalize=p_capitalize)
+
 
     def getQ_src_contr(self):
         field_type = self.field_type
@@ -153,7 +188,13 @@ p.is_constant = True
 a.append(p)
     
 
-
+appWindowStates = [
+    Prpt("QByteArray","windowState"),
+    Prpt("QByteArray","geometry"),
+    Prpt("QByteArray","splitter"),
+    Prpt("QByteArray","treeviewHeaderState"),
+    Prpt("bool","isShowTree"),
+]
 
 def getQ_Properties():
     s=""
@@ -189,7 +230,21 @@ def getQ_src_setters():
     s=""
     for row in a:
         s = s + row.getQ_src_setter()
-    return s         
+    return s      
+    
+def getQ_header_save_items():
+    s=""
+    for row in a:
+        if row.no_setval_in_src:
+            s = s + row.getQ_header_save_item()
+    return s    
+
+def get_appWindowStates():
+    s=""
+    for row in appWindowStates:
+        s = s + row.appWindowState()
+    return s     
+
 """
 remarks
 print(getQ_Properties())
@@ -198,5 +253,6 @@ print(getQ_header_signals())
 print(getQ_header_publics())
 print(getQ_src_contrs())
 print(getQ_src_setters())
+print (getQ_header_save_items())
 """
-print(getQ_src_setters())
+
