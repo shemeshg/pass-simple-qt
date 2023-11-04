@@ -110,7 +110,7 @@ public:
         settings.setValue("app/isShowTree", appIsShowTree);
     }
 
-    static QString appVer();
+
     void saveIsFindMemCash(){
         settings.setValue("isFindMemCash", m_isFindMemCash);
     }
@@ -124,6 +124,7 @@ public:
         settings.setValue("isFindSlctFrst", m_isFindSlctFrst);
     }
 
+    static QString appVer();
     const QString getFindExecutable(const QString &exec) const;
 
 
