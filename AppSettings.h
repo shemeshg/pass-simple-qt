@@ -78,6 +78,38 @@ public:
 
     //[[[end]]]
 
+    QByteArray appWindowState() const {
+        return settings.value("app/windowState").toByteArray();
+    }
+    void setAppWindowState(const QByteArray &appWindowState){
+        settings.setValue("app/windowState", appWindowState);
+    }
+    QByteArray appGeometry() const {
+        return settings.value("app/geometry").toByteArray();
+    }
+    void setAppGeometry(const QByteArray &appGeometry){
+        settings.setValue("app/geometry", appGeometry);
+    }
+    QByteArray appSplitter() const {
+        return settings.value("app/splitter").toByteArray();
+    }
+    void setAppSplitter(const QByteArray &appSplitter){
+        settings.setValue("app/splitter", appSplitter);
+    }
+
+    QByteArray appTreeviewHeaderState() const {
+        return settings.value("app/treeviewHeaderState").toByteArray();
+    }
+    void setAppTreeviewHeaderState(const QByteArray &appTreeviewHeaderState){
+        settings.setValue("app/treeviewHeaderState", appTreeviewHeaderState);
+    }
+    bool appIsShowTree() const {
+        return settings.value("app/isShowTree",true).toBool();
+    }
+    void setAppIsShowTree(const bool appIsShowTree){
+        settings.setValue("app/isShowTree", appIsShowTree);
+    }
+
     static QString appVer();
     void saveIsFindMemCash(){
         settings.setValue("isFindMemCash", m_isFindMemCash);
@@ -94,7 +126,7 @@ public:
 
     const QString getFindExecutable(const QString &exec) const;
 
-    QSettings settings{"shemeshg", "PassSimple"};
+
 signals:
     /* [[[cog
     cog.outl(appSettings.getQ_header_signals(),
@@ -120,6 +152,7 @@ signals:
     //[[[end]]]
 
  private:
+    QSettings settings{"shemeshg", "PassSimple"};
     /* [[[cog
     cog.outl(appSettings.getQ_header_privates(),
         dedent=True, trimblanklines=True)

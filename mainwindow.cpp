@@ -77,8 +77,8 @@ bool MainWindow::is_subpath(const std::filesystem::path &path, const std::filesy
 
 void MainWindow::doAppGeometry()
 {
-    restoreState(appSettings.settings.value("app/windowState").toByteArray());
-    const QByteArray geometry = appSettings.settings.value("app/geometry").toByteArray();
+    restoreState(appSettings.appWindowState());
+    const QByteArray geometry = appSettings.appGeometry();
     if (geometry.isEmpty()) {
         const QRect availableGeometry = screen()->availableGeometry();
         resize(availableGeometry.width() / 3, availableGeometry.height() / 2);
@@ -88,8 +88,8 @@ void MainWindow::doAppGeometry()
         restoreGeometry(geometry);
     }
 
-    bool isShowTree = appSettings.settings.value("app/isShowTree",true).toBool();
-    const QByteArray splitter = appSettings.settings.value("app/splitter").toByteArray();
+    bool isShowTree = appSettings.appIsShowTree();
+    const QByteArray splitter = appSettings.appSplitter();
 
     if (splitter.isEmpty()) {
         ui->splitter->setSizes(QList<int>({150, 400}));
@@ -224,7 +224,7 @@ MainWindow::MainWindow(QWidget *parent)
     //->availableGeometry().size();
     // ui->treeView->resize(availableSize / 2);
 
-    const QByteArray treeviewHeaderState = appSettings.settings.value("app/treeviewHeaderState").toByteArray();
+    const QByteArray treeviewHeaderState = appSettings.appTreeviewHeaderState();
     if (treeviewHeaderState.isEmpty()) {
         ui->treeView->setColumnWidth(0, 200);
         ui->treeView->setColumnWidth(1, 10);
@@ -497,15 +497,15 @@ void MainWindow::closeEvent(QCloseEvent *event)
     mainqmltype->appSettingsType()->saveIsShowPreview();
     mainqmltype->appSettingsType()->saveOpenWith();
 
-    appSettings.settings.setValue("app/geometry", saveGeometry());
-    appSettings.settings.setValue("app/windowState", saveState());
-    appSettings.settings.setValue("app/treeviewHeaderState", ui->treeView->header()->saveState());
+    appSettings.setAppGeometry(saveGeometry());
+    appSettings.setAppWindowState(saveState());
+    appSettings.setAppTreeviewHeaderState(ui->treeView->header()->saveState());
 
     if (ui->splitter->sizes()[0]==0){
-        appSettings.settings.setValue("app/isShowTree",false);
+        appSettings.setAppIsShowTree(false);
     } else {
-        appSettings.settings.setValue("app/isShowTree",true);
-        appSettings.settings.setValue("app/splitter", ui->splitter->saveState());
+        appSettings.setAppIsShowTree(true);
+        appSettings.setAppSplitter(ui->splitter->saveState());
     }
     event->accept();
 
