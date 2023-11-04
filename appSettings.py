@@ -163,38 +163,7 @@ void AppSettings::set${p_capitalize}(const ${field_type} ${ref_sign}${p})
                 p_capitalize=p_capitalize,
                 ref_sign=ref_sign,setval=setval)
 
-a = [
-    Prpt("QString",'passwordStorePath'),
-    Prpt("QString",'tmpFolderPath'),
-    Prpt("QString",'gitExecPath'),
-    Prpt("QString",'vscodeExecPath'),
-    Prpt("QString",'autoTypeCmd'),
-    Prpt("QString",'ctxSigner'),
-    Prpt("QString",'fontSize'),
-    Prpt("QString",'commitMsg'),
-    Prpt("QString",'binaryExts'),
-    Prpt("bool",'useClipboard',"false"),
-    Prpt("bool",'doSign',"false"),
-    Prpt("bool",'preferYamlView',"true"),   
-
-    Prpt("bool",'isFindMemCash',"false", True),
-    Prpt("bool",'isFindSlctFrst',"false", True),
-    Prpt("bool",'isShowPreview',"true", True),
-    Prpt("int",'openWith',"0", True),
-]   
-
-p = Prpt("QString",'appVer')
-p.is_constant = True
-a.append(p)
-    
-
-appWindowStates = [
-    Prpt("QByteArray","windowState"),
-    Prpt("QByteArray","geometry"),
-    Prpt("QByteArray","splitter"),
-    Prpt("QByteArray","treeviewHeaderState"),
-    Prpt("bool","isShowTree"),
-]
+# End class
 
 def getQ_Properties():
     s=""
@@ -245,6 +214,38 @@ def get_appWindowStates():
         s = s + row.appWindowState()
     return s     
 
+a = [
+    Prpt("QString",'passwordStorePath'),
+    Prpt("QString",'tmpFolderPath'),
+    Prpt("QString",'gitExecPath'),
+    Prpt("QString",'vscodeExecPath'),
+    Prpt("QString",'autoTypeCmd'),
+    Prpt("QString",'ctxSigner'),
+    Prpt("QString",'fontSize'),
+    Prpt("QString",'commitMsg'),
+    Prpt("QString",'binaryExts'),
+    Prpt("bool",'useClipboard',"false"),
+    Prpt("bool",'doSign',"false"),
+    Prpt("bool",'preferYamlView',"true"),   
+
+    Prpt("bool",'isFindMemCash',"false", True),
+    Prpt("bool",'isFindSlctFrst',"false", True),
+    Prpt("bool",'isShowPreview',"true", True),
+    Prpt("int",'openWith',"0", True),
+]   
+
+p = Prpt("QString",'appVer')
+p.is_constant = True
+a.append(p)
+    
+
+appWindowStates = [
+    Prpt("QByteArray","windowState"),
+    Prpt("QByteArray","geometry"),
+    Prpt("QByteArray","splitter"),
+    Prpt("QByteArray","treeviewHeaderState"),
+    Prpt("bool","isShowTree"),
+]
 """
 remarks
 print(getQ_Properties())
