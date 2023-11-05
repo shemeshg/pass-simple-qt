@@ -11,6 +11,12 @@
 class GpgIdManageType : public JsAsync
 {
     Q_OBJECT
+    /* [[[cog
+    import cog
+    import gpgIdManageType
+    cog.outl(gpgIdManageType.getQ_Properties(),
+        dedent=True, trimblanklines=True)
+    ]]] */
     Q_PROPERTY(QString currentPath READ currentPath CONSTANT)
     Q_PROPERTY(QString stopPath READ stopPath CONSTANT)
     Q_PROPERTY(QString nearestGpgIdFolder READ nearestGpgIdFolder CONSTANT)
@@ -22,6 +28,8 @@ class GpgIdManageType : public JsAsync
     Q_PROPERTY(QStringList allPrivateKeys READ allPrivateKeys CONSTANT)
     Q_PROPERTY(bool gpgPubKeysFolderExists READ gpgPubKeysFolderExists CONSTANT)
     Q_PROPERTY(bool classInitialized READ classInitialized CONSTANT)
+
+    //[[[end]]]
     QML_ELEMENT
 
 public:
@@ -30,26 +38,27 @@ public:
 
     void init(std::string _currentPath, std::string _stopPath);
     const std::vector<std::string> &getEncryptTo() const { return m_gpgIdManage->encryptTo; }
+
+    /* [[[cog
+    import cog
+    import gpgIdManageType
+    cog.outl(gpgIdManageType.getQ_header_publics(),
+        dedent=True, trimblanklines=True)
+    ]]] */
     const QString currentPath() const { return QString::fromStdString(m_gpgIdManage->currentPath); };
     const QString stopPath() const { return QString::fromStdString(m_gpgIdManage->stopPath); };
-    const QString nearestGpgIdFolder()
-    {
-        return QString::fromStdString(m_gpgIdManage->nearestGpgIdFolder);
-    };
-    const QString gpgPubKeysFolder() const
-    {
-        return QString::fromStdString(m_gpgIdManage->gpgPubKeysFolder);
-    };
-    const QString nearestGpgIdFile() const
-    {
-        return QString::fromStdString(m_gpgIdManage->nearestGpgIdFile);
-    };
-    bool gpgPubKeysFolderExists() const { return m_gpgIdManage->gpgPubKeysFolderExists; };
-    bool classInitialized() const { return m_gpgIdManage->classInitialized; };
+    const QString nearestGpgIdFolder() const { return QString::fromStdString(m_gpgIdManage->nearestGpgIdFolder); };
+    const QString gpgPubKeysFolder() const { return QString::fromStdString(m_gpgIdManage->gpgPubKeysFolder); };
+    const QString nearestGpgIdFile() const { return QString::fromStdString(m_gpgIdManage->nearestGpgIdFile); };
     QStringList keysNotFoundInGpgIdFile() const;
     QStringList keysFoundInGpgIdFile() const;
-    QStringList allPrivateKeys() const;
     QStringList allKeys() const;
+    QStringList allPrivateKeys() const;
+    bool gpgPubKeysFolderExists() const { return m_gpgIdManage->gpgPubKeysFolderExists; };
+    bool classInitialized() const { return m_gpgIdManage->classInitialized; };
+
+    //[[[end]]]
+
     Q_INVOKABLE QString importPublicKeyAndTrust(const QString &urlString);
     Q_INVOKABLE QString importAllGpgPubKeysFolder();
     Q_INVOKABLE QString saveChanges(QStringList keysFound, bool doSign);

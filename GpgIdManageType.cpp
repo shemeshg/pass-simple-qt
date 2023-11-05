@@ -7,15 +7,20 @@ void GpgIdManageType::init(std::string _currentPath, std::string _stopPath)
     m_gpgIdManage=std::make_unique<GpgIdManage>(_currentPath,_stopPath);
 }
 
+/* [[[cog
+    import cog
+    import gpgIdManageType
+    cog.outl(gpgIdManageType.getQ_src_publics(),
+        dedent=True, trimblanklines=True)
+    ]]] */
 QStringList GpgIdManageType::keysNotFoundInGpgIdFile() const
 {
     QStringList l;
-    for (const auto &r : m_gpgIdManage->KeysNotFoundInGpgIdFile) {
+    for (auto r : m_gpgIdManage->keysNotFoundInGpgIdFile) {
         l.append(QString::fromStdString(r));
     }
     return l;
 }
-
 QStringList GpgIdManageType::keysFoundInGpgIdFile() const
 {
     QStringList l;
@@ -24,7 +29,14 @@ QStringList GpgIdManageType::keysFoundInGpgIdFile() const
     }
     return l;
 }
-
+QStringList GpgIdManageType::allKeys() const
+{
+    QStringList l;
+    for (auto r : m_gpgIdManage->allKeys) {
+        l.append(QString::fromStdString(r.getKeyStr()));
+    }
+    return l;
+}
 QStringList GpgIdManageType::allPrivateKeys() const
 {
     QStringList l;
@@ -34,15 +46,7 @@ QStringList GpgIdManageType::allPrivateKeys() const
     return l;
 }
 
-QStringList GpgIdManageType::allKeys() const
-{
-    QStringList l;
-    for (auto r : m_gpgIdManage->allKeys) {
-        l.append(QString::fromStdString(r.getKeyStr()));
-    }
-    return l;
-}
-
+//[[[end]]]
 QString GpgIdManageType::importPublicKeyAndTrust(const QString &urlString)
 {
     const QUrl url(urlString);
