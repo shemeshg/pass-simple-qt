@@ -53,14 +53,6 @@ private:
     QShortcut *keyZoomOut;
     AppSettings appSettings;
 
-    QAction *actionAddItem;
-    QAction *actionUploadFile;
-    QAction *actionUploadFolder;
-    QAction *actionDownloadFile;
-    QAction *actionDownloadFolder;
-    QAction *actionAbout;
-    QAction *actionQuit;    
-
     bool treeViewItemSelected = false;
 
     void setQmlSource();
@@ -78,4 +70,28 @@ private:
 
     QStringList getFilesSelected();
     void doAppGeometry();
+
+    class MenuItem{
+    public:
+        QAction *action;
+        QString iconPath;
+        bool isSeperator = false;
+        bool enableIfHasGpgIdFile = true;
+        bool enableIfGpgFileSelected = false;
+        std::function<void()> callback;
+
+        explicit MenuItem(QAction *action, const QString &iconPath,std::function<void()> callback):
+            action{action},iconPath{iconPath},callback{callback}{
+        }
+
+        explicit MenuItem():
+            isSeperator{true}{
+        }
+
+    };
+    QVector<MenuItem> menuItems;
+    void appendMenuItem(const QString &iconPath,const QString &toolTip,
+                             bool enableIfHasGpgIdFile,
+                            bool enableIfGpgFileSelected,
+                             std::function<void()> callback);
 };

@@ -42,28 +42,68 @@ QImage MainWindow::shape_icon(
     return res;
 }
 
+
+
 void MainWindow::SetActionItems()
 {
-    actionAddItem = new QAction(getIcon("://icons/outline_add_file_black_24dp.png"),
-                                tr("Add Item"),
-                                this);
-    actionUploadFile = new QAction(getIcon("://icons/outline_file_upload_black_24dp.png"),
-                                   tr("Upload file"),
-                                   this);
-    actionUploadFolder = new QAction(getIcon("://icons/outline_drive_folder_upload_black_24dp.png"),
-                                     tr("Upload folder content"),
-                                     this);
-    actionDownloadFile = new QAction(getIcon("://icons/outline_file_download_black_24dp.png"),
-                                     tr("Download file"),
-                                     this);
-    actionDownloadFolder = new QAction(getIcon(
-                                           "://icons/outline_drive_folder_download_black_24dp.png"),
-                                       tr("Download folder content"),
-                                       this);
-    actionAbout = new QAction(getIcon("://icons/outline_info_black_24dp.png"), tr("About"), this);
-    actionQuit = new QAction(getIcon("://icons/outline_exit_to_app_black_24dp.png"),
-                             tr("Quit"),
-                             this);
+    appendMenuItem("://icons/outline_add_file_black_24dp.png",
+                   tr("Add Item"),
+                   true,false,
+                    [=]() {
+                       mainqmltype->setMenubarCommStr("addItemAct");
+                       ui->quickWidget->setFocus();
+                   });
+
+    menuItems.append(MenuItem{});
+    appendMenuItem("://icons/outline_file_upload_black_24dp.png",
+                   tr("Upload file"),
+                   true,false,
+                   [=]() {
+                       mainqmltype->setMenubarCommStr("uploadFileAct");
+                   });
+
+
+    appendMenuItem("://icons/outline_drive_folder_upload_black_24dp.png",
+                   tr("Upload folder content"),
+                   true,false,
+                   [=]() {
+                       mainqmltype->setMenubarCommStr("uploadFolderAct");
+                   });
+
+
+    menuItems.append(MenuItem{});
+    appendMenuItem("://icons/outline_file_download_black_24dp.png",
+                   tr("Download file"),
+                   true,true,
+                   [=]() {
+                       mainqmltype->setMenubarCommStr("downloadFileAct");
+                   });
+    appendMenuItem("://icons/outline_drive_folder_download_black_24dp.png",
+                   tr("Download folder content"),
+                   true,false,
+                   [=]() {
+                       mainqmltype->setMenubarCommStr("downloadFolderAct");
+                   });
+    menuItems.append(MenuItem{});
+    appendMenuItem("://icons/outline_info_black_24dp.png",
+                   tr("About"),
+                   false,false,
+                   [=]() {
+                       auto aboutDialog = new QDialog(this);
+                       auto aboutUI = new Ui::AboutDialog();
+                       aboutUI->setupUi(aboutDialog);
+                       aboutUI->versionLabel->setText(AppSettings::appVer());
+                       aboutDialog->exec();
+                   });
+    menuItems.append(MenuItem{});
+    appendMenuItem("://icons/outline_exit_to_app_black_24dp.png",
+                   tr("Quit"),
+                   false,false,
+                   [=]() {
+                       QApplication::quit();
+                   });
+
+
 }
 
 bool MainWindow::is_subpath(const std::filesystem::path &path, const std::filesystem::path &base)
@@ -100,6 +140,22 @@ void MainWindow::doAppGeometry()
     if (!isShowTree) {
         mainqmltype->toggleFilepan();
     }
+
+}
+
+void MainWindow::appendMenuItem(const QString &iconPath, const QString &toolTip,
+                                bool enableIfHasGpgIdFile,
+                                bool enableIfGpgFileSelected,
+                                std::function<void ()> callback)
+{
+    MenuItem i = MenuItem{new QAction(getIcon(iconPath),
+                                          toolTip,
+                                          this),
+                              iconPath,callback};
+    i.enableIfHasGpgIdFile = enableIfHasGpgIdFile;
+    i.enableIfGpgFileSelected = enableIfGpgFileSelected;
+    menuItems.append(std::move(i));
+
 
 }
 
@@ -172,44 +228,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     SetActionItems();
 
-    actionQuit->setStatusTip(tr("Quit"));
-    connect(actionQuit, &QAction::triggered, this, &QApplication::quit);
+    for (auto& itm:menuItems){
+        if (itm.isSeperator) {
+            ui->toolBar->addSeparator();
+        } else {
+            connect(itm.action, &QAction::triggered, this, [=]() {
+                itm.callback();
+            });
+            ui->toolBar->addAction(itm.action);
+        }
 
-    connect(actionAddItem, &QAction::triggered, this, [=]() {
-        mainqmltype->setMenubarCommStr("addItemAct");
-        ui->quickWidget->setFocus();
-    });
-    connect(actionUploadFile, &QAction::triggered, this, [=]() {
-        mainqmltype->setMenubarCommStr("uploadFileAct");
-    });
-    connect(actionUploadFolder, &QAction::triggered, this, [=]() {
-        mainqmltype->setMenubarCommStr("uploadFolderAct");
-    });
-    connect(actionDownloadFile, &QAction::triggered, this, [=]() {
-        mainqmltype->setMenubarCommStr("downloadFileAct");
-    });
-    connect(actionDownloadFolder, &QAction::triggered, this, [=]() {
-        mainqmltype->setMenubarCommStr("downloadFolderAct");
-    });
-    connect(actionAbout, &QAction::triggered, this, [=]() {
-        auto aboutDialog = new QDialog(this);
-        auto aboutUI = new Ui::AboutDialog();
-        aboutUI->setupUi(aboutDialog);
-        aboutUI->versionLabel->setText(AppSettings::appVer());
-        aboutDialog->exec();
-    });
-
-    ui->toolBar->addAction(actionAddItem);
-    ui->toolBar->addSeparator();
-    ui->toolBar->addAction(actionUploadFile);
-    ui->toolBar->addAction(actionUploadFolder);
-    ui->toolBar->addSeparator();
-    ui->toolBar->addAction(actionDownloadFile);
-    ui->toolBar->addAction(actionDownloadFolder);
-    ui->toolBar->addSeparator();
-    ui->toolBar->addAction(actionAbout);
-    ui->toolBar->addSeparator();
-    ui->toolBar->addAction(actionQuit);
+    }
 
     initFileSystemModel("");
 
@@ -292,14 +321,11 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     connect(mainqmltype, &MainQmlType::systemPlateChanged, this, [=](bool isDarkTheme) {
-        actionAddItem->setIcon(getIcon("://icons/outline_add_file_black_24dp.png"));
-        actionUploadFile->setIcon(getIcon("://icons/outline_file_upload_black_24dp.png"));
-        actionUploadFolder->setIcon(getIcon("://icons/outline_drive_folder_upload_black_24dp.png"));
-        actionDownloadFile->setIcon(getIcon("://icons/outline_file_download_black_24dp.png"));
-        actionDownloadFolder->setIcon(
-            getIcon("://icons/outline_drive_folder_download_black_24dp.png"));
-        actionAbout->setIcon(getIcon("://icons/outline_info_black_24dp.png"));
-        actionQuit->setIcon(getIcon("://icons/outline_exit_to_app_black_24dp.png"));
+        for (auto& itm:menuItems){
+            if (!itm.isSeperator){
+                itm.action->setIcon(getIcon(itm.iconPath));
+            }
+        }
     });
 
     context->setContextProperty(QStringLiteral("mainqmltype"), mainqmltype);
@@ -523,20 +549,30 @@ void MainWindow::currentChangedSlot(const QModelIndex &current, const QModelInde
         mainqmltype->setFilePath(filesystemModel->filePath(idx));
         treeViewItemSelected = true;
         if (mainqmltype->getNearestGpgId().isEmpty()) {
-            actionDownloadFolder->setEnabled(false);
-            actionUploadFolder->setEnabled(false);
-            actionUploadFile->setEnabled(false);
-            actionAddItem->setEnabled(false);
+            for (auto& itm:menuItems){
+                if (!itm.isSeperator && itm.enableIfHasGpgIdFile) {
+                    itm.action->setEnabled(false);
+                }
+            }
         } else {
-            actionDownloadFolder->setEnabled(true);
-            actionUploadFolder->setEnabled(true);
-            actionUploadFile->setEnabled(true);
-            actionAddItem->setEnabled(true);
+            for (auto& itm:menuItems){
+                if (!itm.isSeperator && itm.enableIfHasGpgIdFile) {
+                    itm.action->setEnabled(true);
+                }
+            }
         }
         if (mainqmltype->isGpgFile()) {
-            actionDownloadFile->setEnabled(true);
+            for (auto& itm:menuItems){
+                if (!itm.isSeperator && itm.enableIfGpgFileSelected) {
+                    itm.action->setEnabled(true);
+                }
+            }
         } else {
-            actionDownloadFile->setEnabled(false);
+            for (auto& itm:menuItems){
+                if (!itm.isSeperator && itm.enableIfGpgFileSelected) {
+                    itm.action->setEnabled(false);
+                }
+            }
         }
 
     } catch (const std::exception &e) {
