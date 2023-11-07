@@ -121,6 +121,7 @@ public:
                                             bool preferYamlView,
                                             QString fontSize,
                                             QString commitMsg,
+                                            QString ddListStores,
                                             QString ctxSigner);
 
     Q_INVOKABLE void setTreeViewSelected(QString path);

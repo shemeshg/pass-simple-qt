@@ -62,10 +62,11 @@ ScrollView {
 
         QmlAppSt.mainqmltype.submit_AppSettingsType(
                     QmlAppSt.passwordStorePathStr, tmpFolderPath.text,
-                    gitExecPath.text, vscodeExecPath.text, autoTypeCmd.text,
-                    binaryExts.text, useClipboard.checked, doSign.checked,
-                    preferYamlView.checked, fontSize.text, commitMsg.text,
-                    ctxSigner.displayText)
+                    gitExecPath.text, vscodeExecPath.text,
+                    autoTypeCmd.text, binaryExts.text,
+                    useClipboard.checked, doSign.checked,
+                    preferYamlView.checked, fontSize.text,
+                    commitMsg.text, ddListStores.text, ctxSigner.displayText)
         QmlAppSt.passwordStorePathStr = QmlAppSt.mainqmltype.appSettingsType.passwordStorePath
         QmlAppSt.isShowSettings = false
     }
@@ -104,13 +105,52 @@ ScrollView {
                 onClicked: selectStorePathDialogId.open()
             }
         }
+        CoreComboBox {
+            textRole: "text"
+            valueRole: "value"
+            onActivated: {
+                QmlAppSt.passwordStorePathStr = currentValue
+            }
+            Component.onCompleted: {
+                for (var i = 0; i < model.length; i++) {
+                    if (model[i].value === QmlAppSt.passwordStorePathStr) {
+                        currentIndex = i
+                        break
+                    }
+                }
+            }
+            model: {
+                var s = ddListStores.text
+                var ret = []
+                var lines = s.split("\n")
+                lines.forEach(r => {
+                                  if (r.includes("#")) {
+                                      let row = r.split("#")
+                                      ret.push({
+                                                   "text": row[0].trim(),
+                                                   "value": row[1].trim()
+                                               })
+                                  }
+                              })
 
+                return ret
+            }
+            Layout.fillWidth: true
+        }
         RowLayout {
             CoreTextField {
                 text: QmlAppSt.passwordStorePathStr
                 Layout.fillWidth: true
                 onTextChanged: QmlAppSt.passwordStorePathStr = text
             }
+        }
+        Label {
+            text: "Dropdown list:"
+        }
+        CoreTextArea {
+            id: ddListStores
+            text: QmlAppSt.mainqmltype.appSettingsType.ddListStores
+            Layout.fillWidth: true
         }
         Rectangle {
             Layout.fillWidth: true

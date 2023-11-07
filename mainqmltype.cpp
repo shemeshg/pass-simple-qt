@@ -202,7 +202,9 @@ void MainQmlType::initGpgIdManage()
 void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpFolderPath, QString gitExecPath, QString vscodeExecPath, QString autoTypeCmd,
                                          QString binaryExts,
                                          bool useClipboard, bool doSign, bool preferYamlView, QString fontSize,
-                                         QString commitMsg,QString ctxSigner)
+                                         QString commitMsg,
+                                         QString ddListStores,
+                                         QString ctxSigner)
 {
     QString orgStorePath = appSettings.passwordStorePath();
     appSettings.setPasswordStorePath(passwordStorePath);
@@ -217,6 +219,7 @@ void MainQmlType::submit_AppSettingsType(QString passwordStorePath, QString tmpF
     appSettings.setPreferYamlView(preferYamlView);
     appSettings.setFontSize(fontSize);
     appSettings.setCommitMsg(commitMsg);
+    appSettings.setDdListStores(ddListStores);
     appSettings.setCtxSigner(ctxSigner);
 
     loadTreeView();

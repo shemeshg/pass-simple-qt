@@ -223,6 +223,7 @@ a = [
     Prpt("QString",'ctxSigner'),
     Prpt("QString",'fontSize'),
     Prpt("QString",'commitMsg'),
+    Prpt("QString",'ddListStores'),
     Prpt("QString",'binaryExts'),
     Prpt("bool",'useClipboard',"false"),
     Prpt("bool",'doSign',"false"),

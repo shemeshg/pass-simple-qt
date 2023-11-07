@@ -19,6 +19,7 @@ AppSettings::AppSettings(QObject *parent)
     m_ctxSigner = settings.value("ctxSigner", "").toString();
     m_fontSize = settings.value("fontSize", "").toString();
     m_commitMsg = settings.value("commitMsg", "").toString();
+    m_ddListStores = settings.value("ddListStores", "").toString();
     m_binaryExts = settings.value("binaryExts", "").toString();
     m_useClipboard = settings.value("useClipboard", false).toBool();
     m_doSign = settings.value("doSign", false).toBool();
@@ -108,6 +109,23 @@ void AppSettings::setCommitMsg(const QString &commitMsg)
     m_commitMsg = commitMsg;
     settings.setValue("commitMsg", m_commitMsg);
     emit commitMsgChanged();
+}
+
+const QString AppSettings::ddListStores() const
+{
+    if (m_ddListStores.isEmpty()){
+        return "default#\npassword store 1#/Volume/path";
+    }
+    return m_ddListStores;
+}
+
+void AppSettings::setDdListStores(const QString &ddListStores)
+{
+    if (ddListStores == m_ddListStores)
+        return;
+    m_ddListStores = ddListStores;
+    settings.setValue("ddListStores", m_ddListStores);
+    emit ddListStoresChanged();
 }
 
 void AppSettings::setBinaryExts(const QString &binaryExts)
