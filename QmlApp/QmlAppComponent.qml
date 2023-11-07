@@ -272,6 +272,15 @@ ColumnLayout {
                              "icons/store_FILL0_wght400_GRAD0_opsz48.svg")
             hooverText: "Open store in file browser"
         }
+        Shortcut {
+            sequence: "Ctrl+,"
+            onActivated: {
+                if (QmlAppSt.isShowSearch === false
+                    && QmlAppSt.isShowLog === false) {
+                    QmlAppSt.isShowSettings = !QmlAppSt.isShowSettings
+                }
+            }
+        }
         CoreButton {
             onClicked: {
                 QmlAppSt.isShowSettings = true
@@ -279,7 +288,7 @@ ColumnLayout {
             icon.name: "Settings"
             icon.source: Qt.resolvedUrl(
                              "icons/settings_FILL0_wght400_GRAD0_opsz48.svg")
-            hooverText: "Settings"
+            hooverText: "<b>Cmd ,</b> Settings"
         }
         CoreButton {
             onClicked: {
@@ -294,7 +303,10 @@ ColumnLayout {
         Shortcut {
             sequence: StandardKey.Find
             onActivated: {
-                QmlAppSt.isShowSearch = !QmlAppSt.isShowSearch
+                if (QmlAppSt.isShowSettings === false
+                    && QmlAppSt.isShowLog === false) {
+                    QmlAppSt.isShowSearch = !QmlAppSt.isShowSearch
+                }
             }
         }
         Label {

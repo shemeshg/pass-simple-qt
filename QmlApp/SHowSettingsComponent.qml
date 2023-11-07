@@ -82,6 +82,7 @@ ScrollView {
             CoreButton {
                 text: "Back"
                 onClicked: QmlAppSt.isShowSettings = false
+                hooverText: "<b>Cmd ,</b> back"
             }
             CoreButton {
                 text: "Save"
