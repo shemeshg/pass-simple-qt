@@ -369,6 +369,8 @@ MainWindow::MainWindow(QWidget *parent)
         setQmlSource();
     });
 
+    ui->quickWidget->setFocus();
+
 }
 
 MainWindow::~MainWindow()
