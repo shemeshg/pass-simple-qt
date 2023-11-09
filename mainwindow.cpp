@@ -368,9 +368,6 @@ MainWindow::MainWindow(QWidget *parent)
         mainqmltype->setTreeViewSelected(rootPath);
         setQmlSource();
     });
-
-    ui->quickWidget->setFocus();
-
 }
 
 MainWindow::~MainWindow()
