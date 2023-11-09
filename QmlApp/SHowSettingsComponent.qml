@@ -35,7 +35,38 @@ ScrollView {
             fontSize.text = QmlAppSt.mainqmltype.appSettingsType.fontSize
             commitMsg.text = QmlAppSt.mainqmltype.appSettingsType.commitMsg
             binaryExts.text = QmlAppSt.mainqmltype.appSettingsType.binaryExts
+            ddListStores.text = QmlAppSt.mainqmltype.appSettingsType.ddListStores
+            comboLstStoresCompleted()
         }
+    }
+
+    function comboLstStoresCompleted() {
+        for (var i = 0; i < comboLstStores.model.length; i++) {
+            if (comboLstStores.model[i].value === QmlAppSt.passwordStorePathStr) {
+                comboLstStores.currentIndex = i
+                break
+            }
+        }
+    }
+
+    function setComboLstStoresModel() {
+        var s = ddListStores.text
+        var ret = [{
+                       "text": "",
+                       "value": ""
+                   }]
+        var lines = s.split("\n")
+        lines.forEach(r => {
+                          if (r.includes("#")) {
+                              let row = r.split("#")
+                              ret.push({
+                                           "text": row[0].trim(),
+                                           "value": row[1].trim()
+                                       })
+                          }
+                      })
+
+        return ret
     }
 
     FolderDialog {
@@ -106,34 +137,21 @@ ScrollView {
             }
         }
         CoreComboBox {
+            id: comboLstStores
             textRole: "text"
             valueRole: "value"
             onActivated: {
+                if (currentValue == currentText && currentText === "") {
+                    return
+                }
+
                 QmlAppSt.passwordStorePathStr = currentValue
             }
             Component.onCompleted: {
-                for (var i = 0; i < model.length; i++) {
-                    if (model[i].value === QmlAppSt.passwordStorePathStr) {
-                        currentIndex = i
-                        break
-                    }
-                }
+                comboLstStoresCompleted()
             }
             model: {
-                var s = ddListStores.text
-                var ret = []
-                var lines = s.split("\n")
-                lines.forEach(r => {
-                                  if (r.includes("#")) {
-                                      let row = r.split("#")
-                                      ret.push({
-                                                   "text": row[0].trim(),
-                                                   "value": row[1].trim()
-                                               })
-                                  }
-                              })
-
-                return ret
+                return setComboLstStoresModel()
             }
             Layout.fillWidth: true
         }
@@ -148,9 +166,19 @@ ScrollView {
             text: "Dropdown list:"
         }
         CoreTextArea {
+            property bool isKeyPressed: false
             id: ddListStores
             text: QmlAppSt.mainqmltype.appSettingsType.ddListStores
             Layout.fillWidth: true
+            onTextChanged: {
+                if (isKeyPressed) {
+                    comboLstStores.model = setComboLstStoresModel()
+                    comboLstStoresCompleted()
+                }
+            }
+            Keys.onPressed: event => {
+                                isKeyPressed = true
+                            }
         }
         Rectangle {
             Layout.fillWidth: true
