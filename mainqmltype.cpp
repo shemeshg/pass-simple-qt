@@ -15,8 +15,6 @@ MainQmlType::MainQmlType(
     , autoTypeFields{autoTypeFields}
     , autoTypeSelected{autoTypeSelected}
     , autoTypeTimeout{autoTypeTimeout}
-
-
 {
     watchWaitAndNoneWaitRunCmd.callback = [&]() {
         QStringList waitString, noneWaitString;
@@ -641,6 +639,7 @@ void MainQmlType::trayMenuAdd(QString _username, QString _password, QString _fie
 }
 
 void MainQmlType::renameGpgFile(QString filePathFrom, QString filePathTo){
+    if (filePathFrom.trimmed() == filePathTo.trimmed()){return;}
     std::filesystem::copy(filePathFrom.toStdString(),filePathTo.toStdString());
     emit initFileSystemModel(filePathTo);
     setFilePath(filePathTo);

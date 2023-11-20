@@ -419,7 +419,7 @@ void MainWindow::prepareMenu(const QPoint &pos)
                                              QLineEdit::Normal,
                                              QString::fromStdString(fileName),
                                              &ok).trimmed();
-        if (ok && !text.isEmpty() && text != QString::fromStdString(fileName)) {
+        if (ok && !text.isEmpty() && text.trimmed() != QString::fromStdString(fileName).trimmed()) {
             std::filesystem::path newPath = fullFolderPath / text.toStdString();
 
 
