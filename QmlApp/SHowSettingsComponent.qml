@@ -174,7 +174,7 @@ ScrollView {
                 }
             }
             CoreButton {
-                text: "📁"
+                text: String.fromCodePoint(0x1F4C1)
                 onClicked: selectStorePathDialogId.open()
                 hooverText: "Select folder<br/>Use empty string for default"
             }
@@ -234,7 +234,7 @@ ScrollView {
                 Layout.fillWidth: true
             }
             CoreButton {
-                text: "📁"
+                text: String.fromCodePoint(0x1F4C1)
                 onClicked: selectTmpFolderPathDialogId.open()
                 hooverText: "Select folder<br/>Use empty string for default"
             }
