@@ -41,6 +41,7 @@ ScrollView {
     }
 
     function comboLstStoresCompleted() {
+        comboLstStores.currentIndex = 0
         for (var i = 0; i < comboLstStores.model.length; i++) {
             if (comboLstStores.model[i].value === QmlAppSt.passwordStorePathStr) {
                 comboLstStores.currentIndex = i
@@ -159,7 +160,10 @@ ScrollView {
             CoreTextField {
                 text: QmlAppSt.passwordStorePathStr
                 Layout.fillWidth: true
-                onTextChanged: QmlAppSt.passwordStorePathStr = text
+                onTextChanged: {
+                    QmlAppSt.passwordStorePathStr = text
+                    comboLstStoresCompleted()
+                }
             }
         }
         Label {
