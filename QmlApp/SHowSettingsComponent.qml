@@ -74,13 +74,29 @@ ScrollView {
         id: selectStorePathDialogId
         title: "Select folder"
         onAccepted: {
-            let path = selectStorePathDialogId.currentFolder.toString()
+            let path = currentFolder.toString()
             path = path.replace(/^(file:\/{3})/, "")
             // unescape html codes like '%23' for '#'
             path = decodeURIComponent(path)
 
             //path =  path.substring(0, path.lastIndexOf("/")) ;
             QmlAppSt.passwordStorePathStr = "/" + path
+        }
+        onRejected: {
+
+        }
+    }
+
+    FolderDialog {
+        id: selectTmpFolderPathDialogId
+        title: "Select folder"
+        onAccepted: {
+            let path = currentFolder.toString()
+            path = path.replace(/^(file:\/{3})/, "")
+            // unescape html codes like '%23' for '#'
+            path = decodeURIComponent(path)
+
+            tmpFolderPath.text = "/" + path
         }
         onRejected: {
 
@@ -128,14 +144,6 @@ ScrollView {
             Label {
                 text: "Password Store Path:"
             }
-            CoreButton {
-                text: "default"
-                onClicked: QmlAppSt.passwordStorePathStr = ""
-            }
-            CoreButton {
-                text: "select"
-                onClicked: selectStorePathDialogId.open()
-            }
         }
         CoreComboBox {
             id: comboLstStores
@@ -164,6 +172,11 @@ ScrollView {
                     QmlAppSt.passwordStorePathStr = text
                     comboLstStoresCompleted()
                 }
+            }
+            CoreButton {
+                text: "📁"
+                onClicked: selectStorePathDialogId.open()
+                hooverText: "Select folder<br/>Use empty string for default"
             }
         }
         Label {
@@ -214,10 +227,17 @@ ScrollView {
         Label {
             text: "Temporary directory"
         }
-        CoreTextField {
-            id: tmpFolderPath
-            text: QmlAppSt.mainqmltype.appSettingsType.tmpFolderPath
-            Layout.fillWidth: true
+        RowLayout {
+            CoreTextField {
+                id: tmpFolderPath
+                text: QmlAppSt.mainqmltype.appSettingsType.tmpFolderPath
+                Layout.fillWidth: true
+            }
+            CoreButton {
+                text: "📁"
+                onClicked: selectTmpFolderPathDialogId.open()
+                hooverText: "Select folder<br/>Use empty string for default"
+            }
         }
         Label {
             text: "<b>git</b> executable full path"
