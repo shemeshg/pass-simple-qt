@@ -143,6 +143,7 @@ ScrollView {
         RowLayout {
             Label {
                 text: "Password Store Path:"
+                padding: 8
             }
         }
         CoreComboBox {
@@ -165,6 +166,9 @@ ScrollView {
             Layout.fillWidth: true
         }
         RowLayout {
+            Item {
+                width: 6
+            }
             CoreTextField {
                 text: QmlAppSt.passwordStorePathStr
                 Layout.fillWidth: true
@@ -181,21 +185,27 @@ ScrollView {
         }
         Label {
             text: "Dropdown list:"
+            padding: 8
         }
-        CoreTextArea {
-            property bool isKeyPressed: false
-            id: ddListStores
-            text: QmlAppSt.mainqmltype.appSettingsType.ddListStores
-            Layout.fillWidth: true
-            onTextChanged: {
-                if (isKeyPressed) {
-                    comboLstStores.model = setComboLstStoresModel()
-                    comboLstStoresCompleted()
-                }
+        RowLayout {
+            Item {
+                width: 6
             }
-            Keys.onPressed: event => {
-                                isKeyPressed = true
-                            }
+            CoreTextArea {
+                property bool isKeyPressed: false
+                id: ddListStores
+                text: QmlAppSt.mainqmltype.appSettingsType.ddListStores
+                Layout.fillWidth: true
+                onTextChanged: {
+                    if (isKeyPressed) {
+                        comboLstStores.model = setComboLstStoresModel()
+                        comboLstStoresCompleted()
+                    }
+                }
+                Keys.onPressed: event => {
+                                    isKeyPressed = true
+                                }
+            }
         }
         Rectangle {
             Layout.fillWidth: true
@@ -204,16 +214,22 @@ ScrollView {
         }
 
         Label {
-            text: "Commit Msg."
+            text: "Commit Msg.:"
+            padding: 8
         }
-        CoreTextArea {
-            id: commitMsg
-            text: QmlAppSt.mainqmltype.appSettingsType.commitMsg
-            Layout.fillWidth: true
+        RowLayout {
+            Item {
+                width: 6
+            }
+            CoreTextArea {
+                id: commitMsg
+                text: QmlAppSt.mainqmltype.appSettingsType.commitMsg
+                Layout.fillWidth: true
+            }
         }
-
         Label {
             text: "Private personal Id: "
+            padding: 8
         }
         CoreComboBox {
             id: ctxSigner
@@ -225,9 +241,13 @@ ScrollView {
             Layout.fillWidth: true
         }
         Label {
-            text: "Temporary directory"
+            text: "Temporary directory:"
+            padding: 8
         }
         RowLayout {
+            Item {
+                width: 6
+            }
             CoreTextField {
                 id: tmpFolderPath
                 text: QmlAppSt.mainqmltype.appSettingsType.tmpFolderPath
@@ -240,42 +260,65 @@ ScrollView {
             }
         }
         Label {
-            text: "<b>git</b> executable full path"
+            text: "<b>git</b> executable full path:"
+            padding: 8
         }
-        CoreTextField {
-            id: gitExecPath
-            text: QmlAppSt.mainqmltype.appSettingsType.gitExecPath
-            Layout.fillWidth: true
+        RowLayout {
+            Item {
+                width: 6
+            }
+            CoreTextField {
+                id: gitExecPath
+                text: QmlAppSt.mainqmltype.appSettingsType.gitExecPath
+                Layout.fillWidth: true
+            }
         }
         Label {
-            text: "<b>Visual Studio Code</b> executable full path"
+            text: "<b>Visual Studio Code</b> executable full path:"
+            padding: 8
         }
-        CoreTextField {
-            id: vscodeExecPath
-            text: QmlAppSt.mainqmltype.appSettingsType.vscodeExecPath
-            Layout.fillWidth: true
+        RowLayout {
+            Item {
+                width: 6
+            }
+            CoreTextField {
+                id: vscodeExecPath
+                text: QmlAppSt.mainqmltype.appSettingsType.vscodeExecPath
+                Layout.fillWidth: true
+            }
         }
         ColumnLayout {
             Layout.fillWidth: true
             visible: Qt.platform.os === "linux"
             Label {
-                text: "Linux only autotype cmd"
+                text: "Linux only autotype cmd:"
+                padding: 8
             }
-            CoreTextField {
-                id: autoTypeCmd
-                text: QmlAppSt.mainqmltype.appSettingsType.autoTypeCmd
-                Layout.fillWidth: true
+            RowLayout {
+                Item {
+                    width: 6
+                }
+                CoreTextField {
+                    id: autoTypeCmd
+                    text: QmlAppSt.mainqmltype.appSettingsType.autoTypeCmd
+                    Layout.fillWidth: true
+                }
             }
         }
         Label {
-            text: "Font size (reopen app required)"
+            text: "Font size (reopen app required):"
+            padding: 8
         }
-        CoreTextField {
-            id: fontSize
-            text: QmlAppSt.mainqmltype.appSettingsType.fontSize
-            Layout.fillWidth: true
+        RowLayout {
+            Item {
+                width: 6
+            }
+            CoreTextField {
+                id: fontSize
+                text: QmlAppSt.mainqmltype.appSettingsType.fontSize
+                Layout.fillWidth: true
+            }
         }
-
         CoreSwitch {
             id: preferYamlView
             text: qsTr("Prefer Yaml view if Yaml valid")
@@ -292,12 +335,18 @@ ScrollView {
             checked: isDoSign
         }
         Label {
-            text: "Binary extensions"
+            padding: 8
+            text: "Binary extensions:"
         }
-        CoreTextArea {
-            id: binaryExts
-            text: QmlAppSt.mainqmltype.appSettingsType.binaryExts
-            Layout.fillWidth: true
+        RowLayout {
+            Item {
+                width: 6
+            }
+            CoreTextArea {
+                id: binaryExts
+                text: QmlAppSt.mainqmltype.appSettingsType.binaryExts
+                Layout.fillWidth: true
+            }
         }
         CorePagePadFooter {}
     }
