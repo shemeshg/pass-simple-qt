@@ -70,6 +70,7 @@ ColumnLayout {
         RowLayout {
             Label {
                 text: "File name"
+                padding: 8
             }
             Item {
                 height: 2
@@ -84,32 +85,53 @@ ColumnLayout {
                     QmlAppSt.mainqmltype.appSettingsType.isFindSlctFrst = checked
                 }
             }
+            Item {
+                width: 6
+            }
         }
-        CoreTextField {
-            id: findTextId
-            text: ""
-            Layout.fillWidth: true
-            onAccepted: {
-                doSearchAction()
+        RowLayout {
+            Item {
+                width: 6
+            }
+            CoreTextField {
+                id: findTextId
+                text: ""
+                Layout.fillWidth: true
+                onAccepted: {
+                    doSearchAction()
+                }
+            }
+            Item {
+                width: 6
             }
         }
         ColumnLayout {
             visible: regexVisible
             Label {
                 text: "std::regex"
+                padding: 8
             }
-            CoreTextField {
-                id: textFieldFileSearch
-                text: ".*" + findTextId.text.replace(
-                          /[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + ".*"
-                Layout.fillWidth: true
-                onAccepted: {
-                    doSearchAction()
+            RowLayout {
+                Item {
+                    width: 6
+                }
+                CoreTextField {
+                    id: textFieldFileSearch
+                    text: ".*" + findTextId.text.replace(
+                              /[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + ".*"
+                    Layout.fillWidth: true
+                    onAccepted: {
+                        doSearchAction()
+                    }
+                }
+                Item {
+                    width: 6
                 }
             }
         }
         RowLayout {
             Label {
+                padding: 8
                 text: "Contain"
             }
             Item {
@@ -125,33 +147,56 @@ ColumnLayout {
                     QmlAppSt.mainqmltype.appSettingsType.isFindMemCash = checked
                 }
             }
+            Item {
+                width: 6
+            }
         }
-        CoreTextField {
-            id: searchTextId
-            text: ""
-            Layout.fillWidth: true
-            onAccepted: {
-                doSearchAction()
+
+        RowLayout {
+            Item {
+                width: 6
+            }
+            CoreTextField {
+                id: searchTextId
+                text: ""
+                Layout.fillWidth: true
+                onAccepted: {
+                    doSearchAction()
+                }
+            }
+            Item {
+                width: 6
             }
         }
 
         ColumnLayout {
             visible: regexVisible
             Label {
+                padding: 8
                 text: "std::regex"
             }
-            CoreTextField {
-                id: textFieldContentSearch
-                text: ".*" + searchTextId.text.replace(
-                          /[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + ".*"
-                Layout.fillWidth: true
-                onAccepted: {
-                    doSearchAction()
+
+            RowLayout {
+                Item {
+                    width: 6
+                }
+                CoreTextField {
+                    id: textFieldContentSearch
+                    text: ".*" + searchTextId.text.replace(
+                              /[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + ".*"
+                    Layout.fillWidth: true
+                    onAccepted: {
+                        doSearchAction()
+                    }
+                }
+                Item {
+                    width: 6
                 }
             }
         }
 
         RowLayout {
+
             CoreButton {
                 text: "."
                 onClicked: {
@@ -174,6 +219,7 @@ ColumnLayout {
             id: searchStatusLabelId
             visible: false
             Label {
+                padding: 8
                 text: "Running..."
             }
         }
@@ -195,6 +241,7 @@ ColumnLayout {
             delegate: RowLayout {
 
                 CoreLabel {
+                    padding: 8
                     text: modelData.replace(QmlAppSt.passwordStorePathStr,
                                             "").substring(
                               1,

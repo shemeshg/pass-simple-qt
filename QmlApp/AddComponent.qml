@@ -55,13 +55,13 @@ ColumnLayout {
             coreText: QmlAppSt.fullPathFolder
         }
         Label {
+            padding: 8
             text: "Create new text file"
         }
         RowLayout {
             LayoutMirroring.enabled: createEmptyFileNameId.horizontalAlignment === Text.AlignRight
             Item {
-                width: 10
-                visible: createEmptyFileNameId.horizontalAlignment === Text.AlignRight
+                width: 6
             }
             CoreTextField {
                 id: createEmptyFileNameId
