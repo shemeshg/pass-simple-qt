@@ -21,6 +21,7 @@ Column {
 
         ColumnLayout {
             id: clid
+
             FileDialog {
                 id: fileDialogImportAndTrustId
                 title: "Please choose a .pub file to import and trust"
@@ -103,6 +104,7 @@ Column {
             }
 
             Label {
+                padding: 8
                 text: "<h2>Bad .gpg-id entries<h2>"
                 visible: badEntriesRepeater.model.length > 0
             }
@@ -112,6 +114,7 @@ Column {
                 model: []
                 RowLayout {
                     CoreLabel {
+                        padding: 8
                         text: modelData
                     }
                 }
