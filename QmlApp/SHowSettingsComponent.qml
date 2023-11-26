@@ -36,6 +36,7 @@ ScrollView {
             commitMsg.text = QmlAppSt.mainqmltype.appSettingsType.commitMsg
             binaryExts.text = QmlAppSt.mainqmltype.appSettingsType.binaryExts
             ddListStores.text = QmlAppSt.mainqmltype.appSettingsType.ddListStores
+            passwordStoreId.text = QmlAppSt.passwordStorePathStr
             comboLstStoresCompleted()
         }
     }
@@ -43,7 +44,7 @@ ScrollView {
     function comboLstStoresCompleted() {
         comboLstStores.currentIndex = 0
         for (var i = 0; i < comboLstStores.model.length; i++) {
-            if (comboLstStores.model[i].value === QmlAppSt.passwordStorePathStr) {
+            if (comboLstStores.model[i].value === passwordStoreId.text) {
                 comboLstStores.currentIndex = i
                 break
             }
@@ -170,10 +171,10 @@ ScrollView {
                 width: 6
             }
             CoreTextField {
+                id: passwordStoreId
                 text: QmlAppSt.passwordStorePathStr
                 Layout.fillWidth: true
                 onTextChanged: {
-                    QmlAppSt.passwordStorePathStr = text
                     comboLstStoresCompleted()
                 }
             }
