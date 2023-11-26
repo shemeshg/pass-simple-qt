@@ -143,35 +143,17 @@ ScrollView {
                 return setComboLstStoresModel()
             }
         }
-
-        RowLayout {
-            Item {
-                width: 6
-            }
-            CoreTextField {
-                id: passwordStoreId
-                Layout.fillWidth: true
-                onTextChanged: {
-                    comboLstStoresCompleted()
-                }
-            }
-            CoreButton {
-                text: String.fromCodePoint(0x1F4C1)
-                onClicked: {
-                    selectTmpFolderPathDialogId.callback = () => {
-                        let path = selectTmpFolderPathDialogId.currentFolder.toString()
-                        path = path.replace(/^(file:\/{3})/, "")
-                        // unescape html codes like '%23' for '#'
-                        path = decodeURIComponent(path)
-
-                        //path =  path.substring(0, path.lastIndexOf("/")) ;
-                        passwordStoreId.text = "/" + path
-                    }
-                }
-
-                hooverText: "Select folder<br/>Use empty string for default"
+        SettingsSelectFolder {
+            id: passwordStoreId
+            hooverText: "Select folder<br/>Use empty string for default"
+            onSetPath: s => {
+                           passwordStoreId.text = s
+                       }
+            onTextChanged1: {
+                comboLstStoresCompleted()
             }
         }
+
         Label {
             text: "Dropdown list:"
             padding: 8
@@ -222,32 +204,15 @@ ScrollView {
             text: "Temporary directory:"
             padding: 8
         }
-        RowLayout {
-            Item {
-                width: 6
-            }
-            CoreTextField {
-                id: tmpFolderPath
-                text: QmlAppSt.mainqmltype.appSettingsType.tmpFolderPath
-                Layout.fillWidth: true
-            }
-            CoreButton {
-                text: String.fromCodePoint(0x1F4C1)
-                onClicked: {
-                    selectTmpFolderPathDialogId.callback = () => {
-                        let path = selectTmpFolderPathDialogId.currentFolder.toString()
-                        path = path.replace(/^(file:\/{3})/, "")
-                        // unescape html codes like '%23' for '#'
-                        path = decodeURIComponent(path)
-
-                        tmpFolderPath.text = "/" + path
-                    }
-
-                    selectTmpFolderPathDialogId.open()
-                }
-                hooverText: "Select folder<br/>Use empty string for default"
-            }
+        SettingsSelectFolder {
+            id: tmpFolderPath
+            text: QmlAppSt.mainqmltype.appSettingsType.tmpFolderPath
+            hooverText: "Select folder<br/>Use empty string for default"
+            onSetPath: s => {
+                           tmpFolderPath.text = s
+                       }
         }
+
         SettingsLabelTextField {
             id: gitExecPath
             labelText: "<b>git</b> executable full path:"
