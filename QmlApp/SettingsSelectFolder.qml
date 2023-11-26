@@ -3,7 +3,21 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QmlCore
 
+import Qt.labs.platform
+
 RowLayout {
+    FolderDialog {
+        property var callback: () => {}
+        id: selectTmpFolderPathDialogId
+        title: "Select folder"
+        onAccepted: {
+            callback()
+        }
+        onRejected: {
+
+        }
+    }
+
     property alias text: coreTextField.text
     property alias hooverText: coreButton.hooverText
     signal setPath(string s)

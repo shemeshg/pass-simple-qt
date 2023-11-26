@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import Qt.labs.platform
 
 import QmlCore
 
@@ -70,18 +69,6 @@ ScrollView {
                       })
 
         return ret
-    }
-
-    FolderDialog {
-        property var callback: () => {}
-        id: selectTmpFolderPathDialogId
-        title: "Select folder"
-        onAccepted: {
-            callback()
-        }
-        onRejected: {
-
-        }
     }
 
     function saveSettingsComponent() {
@@ -154,30 +141,16 @@ ScrollView {
             }
         }
 
-        Label {
-            text: "Dropdown list:"
-            padding: 8
-        }
-        RowLayout {
-            Item {
-                width: 6
-            }
-            CoreTextArea {
-                property bool isKeyPressed: false
-                id: ddListStores
-                text: QmlAppSt.mainqmltype.appSettingsType.ddListStores
-                Layout.fillWidth: true
-                onTextChanged: {
-                    if (isKeyPressed) {
-                        comboLstStores.model = setComboLstStoresModel()
-                        comboLstStoresCompleted()
-                    }
-                }
-                Keys.onPressed: event => {
-                                    isKeyPressed = true
-                                }
+        SettingsLabelTextArea {
+            id: ddListStores
+            labelText: "Dropdown list:"
+            text: QmlAppSt.mainqmltype.appSettingsType.ddListStores
+            onTextEntered: {
+                comboLstStores.model = setComboLstStoresModel()
+                comboLstStoresCompleted()
             }
         }
+
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 1
