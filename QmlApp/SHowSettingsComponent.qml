@@ -203,20 +203,12 @@ ScrollView {
             color: CoreSystemPalette.text
         }
 
-        Label {
-            text: "Commit Msg.:"
-            padding: 8
+        SettingsLabelTextArea {
+            id: commitMsg
+            labelText: "Commit Msg.:"
+            text: QmlAppSt.mainqmltype.appSettingsType.commitMsg
         }
-        RowLayout {
-            Item {
-                width: 6
-            }
-            CoreTextArea {
-                id: commitMsg
-                text: QmlAppSt.mainqmltype.appSettingsType.commitMsg
-                Layout.fillWidth: true
-            }
-        }
+
         Label {
             text: "Private personal Id: "
             padding: 8
@@ -260,66 +252,29 @@ ScrollView {
                 hooverText: "Select folder<br/>Use empty string for default"
             }
         }
-        Label {
-            text: "<b>git</b> executable full path:"
-            padding: 8
+        SettingsLabelTextField {
+            id: gitExecPath
+            labelText: "<b>git</b> executable full path:"
+            text: QmlAppSt.mainqmltype.appSettingsType.gitExecPath
         }
-        RowLayout {
-            Item {
-                width: 6
-            }
-            CoreTextField {
-                id: gitExecPath
-                text: QmlAppSt.mainqmltype.appSettingsType.gitExecPath
-                Layout.fillWidth: true
-            }
+        SettingsLabelTextField {
+            id: vscodeExecPath
+            labelText: "<b>Visual Studio Code</b> executable full path:"
+            text: QmlAppSt.mainqmltype.appSettingsType.vscodeExecPath
         }
-        Label {
-            text: "<b>Visual Studio Code</b> executable full path:"
-            padding: 8
-        }
-        RowLayout {
-            Item {
-                width: 6
-            }
-            CoreTextField {
-                id: vscodeExecPath
-                text: QmlAppSt.mainqmltype.appSettingsType.vscodeExecPath
-                Layout.fillWidth: true
-            }
-        }
-        ColumnLayout {
-            Layout.fillWidth: true
+        SettingsLabelTextField {
             visible: Qt.platform.os === "linux"
-            Label {
-                text: "Linux only autotype cmd:"
-                padding: 8
-            }
-            RowLayout {
-                Item {
-                    width: 6
-                }
-                CoreTextField {
-                    id: autoTypeCmd
-                    text: QmlAppSt.mainqmltype.appSettingsType.autoTypeCmd
-                    Layout.fillWidth: true
-                }
-            }
+            id: autoTypeCmd
+            labelText: "Linux only autotype cmd:"
+            text: QmlAppSt.mainqmltype.appSettingsType.autoTypeCmd
         }
-        Label {
-            text: "Font size (reopen app required):"
-            padding: 8
+
+        SettingsLabelTextField {
+            id: fontSize
+            labelText: "Font size (reopen app required):"
+            text: QmlAppSt.mainqmltype.appSettingsType.fontSize
         }
-        RowLayout {
-            Item {
-                width: 6
-            }
-            CoreTextField {
-                id: fontSize
-                text: QmlAppSt.mainqmltype.appSettingsType.fontSize
-                Layout.fillWidth: true
-            }
-        }
+
         CoreSwitch {
             id: preferYamlView
             text: qsTr("Prefer Yaml view if Yaml valid")
@@ -335,20 +290,13 @@ ScrollView {
             text: qsTr("Sign")
             checked: isDoSign
         }
-        Label {
-            padding: 8
-            text: "Binary extensions:"
+
+        SettingsLabelTextArea {
+            id: binaryExts
+            labelText: "Binary extensions:"
+            text: QmlAppSt.mainqmltype.appSettingsType.binaryExts
         }
-        RowLayout {
-            Item {
-                width: 6
-            }
-            CoreTextArea {
-                id: binaryExts
-                text: QmlAppSt.mainqmltype.appSettingsType.binaryExts
-                Layout.fillWidth: true
-            }
-        }
+
         CorePagePadFooter {}
     }
 }

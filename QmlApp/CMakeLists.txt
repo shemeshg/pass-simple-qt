@@ -37,6 +37,8 @@ qt6_add_qml_module(QmlApp
             SHowSettingsComponent.qml
             TextEditComponent.qml
             RenameDialog.qml
+            SettingsLabelTextField.qml
+            SettingsLabelTextArea.qml
         RESOURCES
             icons/icons8-locked-with-key-48.png
             icons/settings_FILL0_wght400_GRAD0_opsz48.svg
