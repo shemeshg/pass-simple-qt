@@ -26,7 +26,8 @@ ScrollView {
             isDoSign = QmlAppSt.mainqmltype.appSettingsType.doSign
             doSign.checked = isDoSign
             QmlAppSt.passwordStorePathStr = QmlAppSt.mainqmltype.appSettingsType.passwordStorePath
-            ctxSigner.currentIndex = ctxSigner.find(
+
+            ctxSigner.currentIndex = QmlAppSt.allPrivateKeys.indexOf(
                         QmlAppSt.mainqmltype.appSettingsType.ctxSigner)
             tmpFolderPath.text = QmlAppSt.mainqmltype.appSettingsType.tmpFolderPath
             gitExecPath.text = QmlAppSt.mainqmltype.appSettingsType.gitExecPath
@@ -94,7 +95,7 @@ ScrollView {
                     autoTypeCmd.text, binaryExts.text,
                     useClipboard.checked, doSign.checked,
                     preferYamlView.checked, fontSize.text,
-                    commitMsg.text, ddListStores.text, ctxSigner.displayText)
+                    commitMsg.text, ddListStores.text, ctxSigner.currentText)
         QmlAppSt.passwordStorePathStr = QmlAppSt.mainqmltype.appSettingsType.passwordStorePath
         QmlAppSt.isShowSettings = false
     }
@@ -120,31 +121,29 @@ ScrollView {
         }
         CoreThinBar {}
 
-        RowLayout {
-            Label {
-                text: "Password Store Path:"
-                padding: 8
-            }
-        }
-        CoreComboBox {
+        SettingsLabelComboBox {
             id: comboLstStores
+            labelText: "Password Store Path:"
             textRole: "text"
             valueRole: "value"
-            onActivated: {
-                if (currentValue == currentText && currentText === "") {
-                    return
-                }
+            onActivated1: () => {
+                              if (currentValue == currentText
+                                  && currentText === "") {
+                                  return
+                              }
 
-                passwordStoreId.text = currentValue
-            }
+                              passwordStoreId.text = currentValue
+                          }
+
             Component.onCompleted: {
                 comboLstStoresCompleted()
             }
+
             model: {
                 return setComboLstStoresModel()
             }
-            Layout.fillWidth: true
         }
+
         RowLayout {
             Item {
                 width: 6
@@ -209,19 +208,16 @@ ScrollView {
             text: QmlAppSt.mainqmltype.appSettingsType.commitMsg
         }
 
-        Label {
-            text: "Private personal Id: "
-            padding: 8
-        }
-        CoreComboBox {
+        SettingsLabelComboBox {
             id: ctxSigner
+            labelText: "Private personal Id: "
             model: QmlAppSt.allPrivateKeys
             Component.onCompleted: {
-                currentIndex = find(
+                currentIndex = QmlAppSt.allPrivateKeys.indexOf(
                             QmlAppSt.mainqmltype.appSettingsType.ctxSigner)
             }
-            Layout.fillWidth: true
         }
+
         Label {
             text: "Temporary directory:"
             padding: 8
