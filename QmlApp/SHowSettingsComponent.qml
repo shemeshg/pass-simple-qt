@@ -72,32 +72,11 @@ ScrollView {
     }
 
     FolderDialog {
-        id: selectStorePathDialogId
-        title: "Select folder"
-        onAccepted: {
-            let path = currentFolder.toString()
-            path = path.replace(/^(file:\/{3})/, "")
-            // unescape html codes like '%23' for '#'
-            path = decodeURIComponent(path)
-
-            //path =  path.substring(0, path.lastIndexOf("/")) ;
-            QmlAppSt.passwordStorePathStr = "/" + path
-        }
-        onRejected: {
-
-        }
-    }
-
-    FolderDialog {
+        property var callback: () => {}
         id: selectTmpFolderPathDialogId
         title: "Select folder"
         onAccepted: {
-            let path = currentFolder.toString()
-            path = path.replace(/^(file:\/{3})/, "")
-            // unescape html codes like '%23' for '#'
-            path = decodeURIComponent(path)
-
-            tmpFolderPath.text = "/" + path
+            callback()
         }
         onRejected: {
 
@@ -108,7 +87,7 @@ ScrollView {
         if (!Number(fontSize.text)) {
             fontSize.text = ""
         }
-
+        QmlAppSt.passwordStorePathStr = passwordStoreId.text
         QmlAppSt.mainqmltype.submit_AppSettingsType(
                     QmlAppSt.passwordStorePathStr, tmpFolderPath.text,
                     gitExecPath.text, vscodeExecPath.text,
@@ -156,7 +135,7 @@ ScrollView {
                     return
                 }
 
-                QmlAppSt.passwordStorePathStr = currentValue
+                passwordStoreId.text = currentValue
             }
             Component.onCompleted: {
                 comboLstStoresCompleted()
@@ -172,7 +151,6 @@ ScrollView {
             }
             CoreTextField {
                 id: passwordStoreId
-                text: QmlAppSt.passwordStorePathStr
                 Layout.fillWidth: true
                 onTextChanged: {
                     comboLstStoresCompleted()
@@ -180,7 +158,18 @@ ScrollView {
             }
             CoreButton {
                 text: String.fromCodePoint(0x1F4C1)
-                onClicked: selectStorePathDialogId.open()
+                onClicked: {
+                    selectTmpFolderPathDialogId.callback = () => {
+                        let path = selectTmpFolderPathDialogId.currentFolder.toString()
+                        path = path.replace(/^(file:\/{3})/, "")
+                        // unescape html codes like '%23' for '#'
+                        path = decodeURIComponent(path)
+
+                        //path =  path.substring(0, path.lastIndexOf("/")) ;
+                        passwordStoreId.text = "/" + path
+                    }
+                }
+
                 hooverText: "Select folder<br/>Use empty string for default"
             }
         }
@@ -256,7 +245,18 @@ ScrollView {
             }
             CoreButton {
                 text: String.fromCodePoint(0x1F4C1)
-                onClicked: selectTmpFolderPathDialogId.open()
+                onClicked: {
+                    selectTmpFolderPathDialogId.callback = () => {
+                        let path = selectTmpFolderPathDialogId.currentFolder.toString()
+                        path = path.replace(/^(file:\/{3})/, "")
+                        // unescape html codes like '%23' for '#'
+                        path = decodeURIComponent(path)
+
+                        tmpFolderPath.text = "/" + path
+                    }
+
+                    selectTmpFolderPathDialogId.open()
+                }
                 hooverText: "Select folder<br/>Use empty string for default"
             }
         }
