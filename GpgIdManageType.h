@@ -61,9 +61,10 @@ public:
 
     Q_INVOKABLE QString importPublicKeyAndTrust(const QString &urlString);
     Q_INVOKABLE QString importAllGpgPubKeysFolder();
-    Q_INVOKABLE QString saveChanges(QStringList keysFound, bool doSign);
+    Q_INVOKABLE QString saveChanges(QStringList keysFound, bool doSign, QString signerStr);
     Q_INVOKABLE void saveChangesAsync(QStringList keysFound,
                                       bool doSign,
+                                      QString signerStr,
                                     const QJSValue &callback);
 
 

@@ -90,7 +90,8 @@ Column {
                     QmlAppSt.mainqmltype.gpgIdManageType.saveChangesAsync(
                                 dropdownWithListComponentId.selectedItems,
                                 QmlAppSt.mainqmltype.appSettingsType.doSign,
-                                returnStatus => {
+                                QmlAppSt.mainqmltype.appSettingsType.ctxSigner.split(
+                                    " ")[0], returnStatus => {
                                     initOnFileChanged()
                                     reencryptBtnId.enabled = true
                                     eencryptTextId.text = returnStatus

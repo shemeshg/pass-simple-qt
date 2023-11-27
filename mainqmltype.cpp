@@ -190,7 +190,7 @@ void MainQmlType::initGpgIdManage()
         m_gpgIdManageType.init(appSettings.passwordStorePath().toStdString(),
                                appSettings.passwordStorePath().toStdString());
         if (!appSettings.ctxSigner().isEmpty()) {
-            passHelper->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});
+            passHelper->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});            
         }
     } catch (...) {
         qDebug() << "Bad signer Id \n"; // Block of code to handle errors

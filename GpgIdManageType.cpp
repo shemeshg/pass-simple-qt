@@ -69,7 +69,7 @@ QString GpgIdManageType::importAllGpgPubKeysFolder()
     return "";
 }
 
-QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign)
+QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign, QString signerStr)
 {
     QString currentFile = "";
     try {
@@ -82,6 +82,7 @@ QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign)
         m_gpgIdManage->saveBackGpgIdFile();
         m_gpgIdManage->exportGpgIdToGpgPubKeysFolder();
         m_gpgIdManage=std::make_unique<GpgIdManage>(m_gpgIdManage->currentPath,m_gpgIdManage->stopPath);
+        m_gpgIdManage->setSigner(signerStr.toStdString());
         m_gpgIdManage->reEncryptStoreFolder(
             [&](std::string s) {
                 currentFile = QString::fromStdString(s);
@@ -98,10 +99,10 @@ QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign)
     return "";
 }
 
-void GpgIdManageType::saveChangesAsync(QStringList keysFound, bool doSign, const QJSValue &callback)
+void GpgIdManageType::saveChangesAsync(QStringList keysFound, bool doSign, QString signerStr, const QJSValue &callback)
 {
     makeAsync<QString>(callback,[=]() {
-        return saveChanges(keysFound, doSign);
+        return saveChanges(keysFound, doSign, signerStr);
     });
 
 }
