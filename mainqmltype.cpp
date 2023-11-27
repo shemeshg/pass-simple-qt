@@ -45,7 +45,7 @@ void MainQmlType::setFilePath(const QString &filePath)
         return;
 
     m_filePath = filePath;
-    passHelper = std::make_unique<PassHelper>();
+    passHelper = getPrivatePasswordHelper();
     passFile = passHelper->getPassFile(m_filePath.toStdString());
     try {
         m_gpgIdManageType.init(m_filePath.toStdString(),
@@ -305,7 +305,8 @@ void MainQmlType::openExternalEncryptWait()
                                                    &watchWaitAndNoneWaitRunCmd,
                                                    appSettings.tmpFolderPath().toStdString(),
                                                    appSettings.vscodeExecPath().toStdString(),
-                                                   appSettings.doSign());
+                                                   appSettings.doSign(),
+                                                   appSettings.ctxSigner().split(" ")[0].toStdString());
         });
     }
 }
