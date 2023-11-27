@@ -82,7 +82,11 @@ QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign, QString
         m_gpgIdManage->saveBackGpgIdFile();
         m_gpgIdManage->exportGpgIdToGpgPubKeysFolder();
         m_gpgIdManage=std::make_unique<GpgIdManage>(m_gpgIdManage->currentPath,m_gpgIdManage->stopPath);
-        m_gpgIdManage->setSigner(signerStr.toStdString());
+        try {
+            m_gpgIdManage->setSigner(signerStr.toStdString());
+        } catch (...) {
+            qDebug() << "Bad signer Id \n"; // Block of code to handle errors
+        }
         m_gpgIdManage->reEncryptStoreFolder(
             [&](std::string s) {
                 currentFile = QString::fromStdString(s);
