@@ -263,6 +263,7 @@ private:
 
     std::map<std::string, std::string> searchMemCash;
 
+    std::unique_ptr<PassHelper> getPrivatePasswordHelper();
 };
 
 #endif // MAINQMLTYPE_H

@@ -254,13 +254,25 @@ bool MainQmlType::isGpgFile(){
     return passFile->isGpgFile();
 }
 
+std::unique_ptr<PassHelper> MainQmlType::getPrivatePasswordHelper(){
+    std::unique_ptr<PassHelper> phLocal = std::make_unique<PassHelper>();
+    try {
+        if (!appSettings.ctxSigner().isEmpty()) {
+            phLocal->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});
+        }
+    } catch (...) {
+        qDebug() << "Bad signer Id \n"; // Block of code to handle errors
+    }
+    return phLocal;
+}
+
 void MainQmlType::encrypt(QString s)
 {
     if (passFile->isGpgFile()) {
         runSafeFromException(
             [&]() {
                 // It worth opening dedicated gpg session for stability
-                std::unique_ptr<PassHelper> phLocal = std::make_unique<PassHelper>();
+                std::unique_ptr<PassHelper> phLocal = getPrivatePasswordHelper();
                 std::unique_ptr<PassFile> pfLocal = phLocal->getPassFile(passFile->getFullPath());
 
                 try {
