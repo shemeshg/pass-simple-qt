@@ -304,7 +304,8 @@ void MainQmlType::openExternalEncryptWait()
             passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(),
                                                    &watchWaitAndNoneWaitRunCmd,
                                                    appSettings.tmpFolderPath().toStdString(),
-                                                   appSettings.vscodeExecPath().toStdString());
+                                                   appSettings.vscodeExecPath().toStdString(),
+                                                   appSettings.doSign());
         });
     }
 }
@@ -357,7 +358,8 @@ void MainQmlType::closeExternalEncryptNoWait()
     if (passFile->isGpgFile()) {
         runSafeFromException([&]() {
             passFile->closeExternalEncryptNoWait(m_gpgIdManageType.getEncryptTo(),
-                                                 &watchWaitAndNoneWaitRunCmd);
+                                                 &watchWaitAndNoneWaitRunCmd,
+                                                 appSettings.doSign());
         });
     }
 }
@@ -456,7 +458,7 @@ fields type:
   totp: totp
   home: url
   description: textedit)V0G0N";
-            passFile->encryptStringToFile(s, p, m_gpgIdManageType.getEncryptTo());
+            passFile->encryptStringToFile(s, p, m_gpgIdManageType.getEncryptTo(),appSettings.doSign());
         });
     } else {
         runSafeFromException([&]() {
@@ -520,7 +522,7 @@ void MainQmlType::encryptUpload(QString fullPathFolder, QString fileName, bool t
         dest = dest / fname;
         passFile->encryptFileToFile(sourceName.toStdString(),
                                     dest,
-                                    m_gpgIdManageType.getEncryptTo());
+                                    m_gpgIdManageType.getEncryptTo(),appSettings.doSign());
     });
 }
 
@@ -572,7 +574,7 @@ void MainQmlType::encryptFolderUpload(QString fromFolderName, QString fullPathFo
     runSafeFromException([&]() {
         passHelper->encryptFolderToFolder(url.toLocalFile().toStdString(),
                                          fullPathFolder.toStdString(),
-                                         m_gpgIdManageType.getEncryptTo());
+                                         m_gpgIdManageType.getEncryptTo(),appSettings.doSign());
     });
 }
 
