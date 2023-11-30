@@ -191,11 +191,18 @@ ColumnLayout {
     }
 
     RowLayout {
+        id: isFileOpenedExternalWait
         visible: QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) > -1
                  || QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) > -1
         Label {
             padding: 8
             text: "File opened externally"
+        }
+        onVisibleChanged: {
+            if (!isFileOpenedExternalWait.visible && !QmlAppSt.isShowPreview
+                    && QmlAppSt.isPreviousShowPreview) {
+                initOnFileChanged()
+            }
         }
     }
 
