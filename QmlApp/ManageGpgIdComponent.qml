@@ -13,14 +13,22 @@ Column {
     property alias badEntriesRepeater: badEntriesRepeater
     property alias dropdownWithListComponentId: dropdownWithListComponentId
 
+    ColumnLayout {
+        width: parent.width
+        id: scrollerWidthId
+        Layout.fillWidth: true
+    }
+
     ScrollView {
         width: parent.width
         height: parent.height
-        contentHeight: clid.height
-        contentWidth: clid.width
 
+        contentHeight: clid.height
+        contentWidth: Math.max(dropdownWithListComponentId.width + 10,
+                               badEntriesRepeater.width + 10)
         ColumnLayout {
             id: clid
+            width: scrollerWidthId.width - 30
 
             FileDialog {
                 id: fileDialogImportAndTrustId
