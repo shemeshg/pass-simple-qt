@@ -12,13 +12,11 @@ ColumnLayout {
     property alias currentValue: coreComboBox.currentValue
     property alias currentText: coreComboBox.currentText
 
-
     signal activated1
 
     Label {
         id: label
         text: ""
-        padding: 8
     }
     CoreComboBox {
         id: coreComboBox

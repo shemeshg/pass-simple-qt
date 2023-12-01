@@ -166,7 +166,6 @@ ColumnLayout {
 
         //LayoutMirroring.enabled: titleForDisplay.horizontalAlignment === Text.AlignRight
         CoreLabel {
-            padding: 8
             id: titleForDisplay
             visible: QmlAppSt.isGpgFile
             text: "<h2>" + QmlAppSt.filePath.replace(QmlAppSt.fullPathFolder,
@@ -185,9 +184,6 @@ ColumnLayout {
             icon.source: Qt.resolvedUrl(
                              "icons/edit_FILL0_wght400_GRAD0_opsz48.svg")
         }
-        Item {
-            width: 6
-        }
     }
 
     RowLayout {
@@ -195,7 +191,6 @@ ColumnLayout {
         visible: QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) > -1
                  || QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) > -1
         Label {
-            padding: 8
             text: "File opened externally"
         }
         onVisibleChanged: {
@@ -207,7 +202,6 @@ ColumnLayout {
     }
 
     Label {
-        padding: 8
         text: "<h3>Binary file can upload/download only</h3>"
         visible: QmlAppSt.isGpgFile && QmlAppSt.isBinaryFile
     }
@@ -400,9 +394,6 @@ ColumnLayout {
             checked: false
             text: qsTr("<u>M</u>↓")
             visible: QmlAppSt.isShowPreview && !QmlAppSt.isBinaryFile
-        }
-        Item {
-            width: 6
         }
     }
 

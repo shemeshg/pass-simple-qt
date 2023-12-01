@@ -22,9 +22,7 @@ RowLayout {
     property alias hooverText: coreButton.hooverText
     signal setPath(string s)
     signal textChanged1
-    Item {
-        width: 6
-    }
+
     CoreTextField {
         id: coreTextField
         Layout.fillWidth: true

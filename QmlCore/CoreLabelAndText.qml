@@ -6,7 +6,6 @@ RowLayout {
     property string coreLabel: ""
     property string coreText: ""
     Label {
-        padding: 8
         text: coreLabel + ": "
     }
 

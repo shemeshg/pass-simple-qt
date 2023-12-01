@@ -16,9 +16,6 @@ ColumnLayout {
 
     ColumnLayout {
         RowLayout {
-            Item {
-                width: 6
-            }
             CoreTextField {
                 id: txtFilter
                 placeholderText: "filter"
@@ -27,7 +24,6 @@ ColumnLayout {
         }
         RowLayout {
             Label {
-                padding: 8
                 text: "<h2>Groups membered</h2>"
                 visible: dropdownWithListTypeId.selectedItems.length > 0
             }
@@ -37,7 +33,6 @@ ColumnLayout {
             RowLayout {
                 visible: modelData.includes(txtFilter.text)
                 CoreLabel {
-                    padding: 8
                     text: modelData
                 }
                 CoreButton {
@@ -49,7 +44,6 @@ ColumnLayout {
         }
         Row {
             Label {
-                padding: 8
                 text: "<h2>Select groups to add</h2>"
                 visible: dropdownWithListTypeId.notSelectedItems.length > 0
             }
@@ -60,7 +54,6 @@ ColumnLayout {
                 RowLayout {
                     visible: modelData.includes(txtFilter.text)
                     CoreLabel {
-                        padding: 8
                         text: modelData
                     }
                     CoreButton {

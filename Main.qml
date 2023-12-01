@@ -9,6 +9,9 @@ Item {
 
     QmlAppComponent {
         id: qmlAppComponent
+        anchors.leftMargin: 10
+        anchors.rightMargin: 20
+
         anchors.fill: parent
         visible: !QmlAppSt.isShowLog
     }

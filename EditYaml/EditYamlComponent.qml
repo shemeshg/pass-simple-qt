@@ -253,9 +253,6 @@ ColumnLayout {
             }
             RowLayout {
                 Layout.fillWidth: true
-                Item {
-                    width: 6
-                }
                 InputTypeComponent {
                     id: inputTypeComponentId
                     width: parent.width
@@ -264,9 +261,6 @@ ColumnLayout {
                     onTextChangedSignal: function (s) {
                         editYamlType.sendChangeVal(modelData.key, s)
                     }
-                }
-                Item {
-                    width: 6
                 }
             }
             Rectangle {

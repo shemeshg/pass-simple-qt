@@ -175,7 +175,6 @@ ScrollView {
 
         Label {
             text: "Temporary directory:"
-            padding: 8
         }
         SettingsSelectFolder {
             id: tmpFolderPath

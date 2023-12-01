@@ -9,12 +9,8 @@ ColumnLayout {
     Label {
         id: label
         text: ""
-        padding: 8
     }
     RowLayout {
-        Item {
-            width: 6
-        }
         CoreTextField {
             id: coreTextField
             text: ""

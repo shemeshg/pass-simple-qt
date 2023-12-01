@@ -12,12 +12,8 @@ ColumnLayout {
     Label {
         id: label
         text: ""
-        padding: 8
     }
     RowLayout {
-        Item {
-            width: 6
-        }
         CoreTextArea {
             property bool isKeyPressed: false
             id: coreTextField

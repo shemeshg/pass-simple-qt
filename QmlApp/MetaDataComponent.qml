@@ -21,7 +21,6 @@ Column {
             id: clid
 
             Label {
-                padding: 8
                 text: "<h1>Meta data<h1>"
                 visible: false
             }
@@ -75,9 +74,6 @@ Column {
                 }
             }
             RowLayout {
-                Item {
-                    width: 6
-                }
                 CoreTextArea {
                     text: gitResponseId
                     readOnly: true
@@ -94,14 +90,12 @@ Column {
                 coreText: decryptedSignedById
             }
             Label {
-                padding: 8
                 text: "<h2>Wait Items</h2>"
             }
             Repeater {
                 model: QmlAppSt.waitItems
                 RowLayout {
                     CoreLabel {
-                        padding: 8
                         text: modelData
                     }
                     CoreButton {
@@ -113,14 +107,12 @@ Column {
             }
 
             Label {
-                padding: 8
                 text: "<h2>None Wait Items</h2>"
             }
             Repeater {
                 model: QmlAppSt.noneWaitItems
                 RowLayout {
                     CoreLabel {
-                        padding: 8
                         text: modelData
                     }
                     CoreButton {
