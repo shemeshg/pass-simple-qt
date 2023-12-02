@@ -199,19 +199,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QAction *logoutAction = new QAction(tr("Logout"), this);
     connect(logoutAction, &QAction::triggered, qApp, [=]() {
-        AppSettings appSettings{};
-        QString rootPath = appSettings.passwordStorePath();
-        mainqmltype->setTreeViewSelected(rootPath);
-
-        auto full_path = appSettings.getFindExecutable("gpgconf");
-
-        if (full_path.isEmpty()) {
-            qDebug() << "could not found gpgconf";
-            return;
-        }
-        QProcess::startDetached(full_path,
-                                QStringList() << "--kill"
-                                              << "gpg-agent");
+        mainqmltype->doLogout();
     });
     trayIconMenu->addAction(logoutAction);
 

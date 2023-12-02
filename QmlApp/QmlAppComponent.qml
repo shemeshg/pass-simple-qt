@@ -40,6 +40,13 @@ ColumnLayout {
                                           })
     }
 
+    Shortcut {
+        sequence: "Ctrl+Shift+L"
+        onActivated: {
+            QmlAppSt.mainqmltype.doLogout()
+        }
+    }
+
     Connections {
         target: QmlAppSt
         function onFilePathChanged(s) {
@@ -67,6 +74,9 @@ ColumnLayout {
                 if (action === "downloadFolderAct") {
                     QmlAppSt.mainqmltype.mainUiDisable()
                     columnLayoutHomeId.editComponentId.folderDialogDownload.open()
+                }
+                if (action === "clearSearchFields") {
+                    searchComponentID.clearFields()
                 }
             }
             if (QmlAppSt.isGpgFile && action === "downloadFileAct") {

@@ -254,6 +254,27 @@ bool MainQmlType::isGpgFile(){
     return passFile->isGpgFile();
 }
 
+void MainQmlType::doLogout()
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    clipboard->clear();
+
+    setMenubarCommStr("clearSearchFields");
+
+    QString rootPath = appSettings.passwordStorePath();
+    setTreeViewSelected(rootPath);
+
+    auto full_path = appSettings.getFindExecutable("gpgconf");
+
+    if (full_path.isEmpty()) {
+        qDebug() << "could not found gpgconf";
+        return;
+    }
+    QProcess::startDetached(full_path,
+                            QStringList() << "--kill"
+                                          << "gpg-agent");
+}
+
 std::unique_ptr<PassHelper> MainQmlType::getPrivatePasswordHelper(){
     std::unique_ptr<PassHelper> phLocal = std::make_unique<PassHelper>();
     try {

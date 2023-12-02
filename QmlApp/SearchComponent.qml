@@ -18,6 +18,12 @@ ColumnLayout {
         }
     }
 
+    function clearFields() {
+        findTextId.text = ""
+        searchTextId.text = ""
+        searchResultModel = []
+    }
+
     function doSearchAction() {
         QmlAppSt.doMainUiDisable()
         btnRunSearchId.enabled = false
