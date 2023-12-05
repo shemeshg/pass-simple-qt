@@ -93,23 +93,26 @@ ColumnLayout {
             CoreLabel {
                 text: nearestTemplateGpg
             }
-
             CoreButton {
-                text: "+"
-                visible: isAddFileNotAlreadyExists("template")
-                onClicked: {
-                    createEmptyFileNameId.text = "template"
-                }
-                hooverText: "Set template name"
-            }
-            CoreButton {
-                visible: Boolean(nearestTemplateGpg)
+                id: addSelectButtonId
                 text: "←"
                 onClicked: {
                     QmlAppSt.mainqmltype.setTreeViewSelected(
                                 nearestTemplateGpg + "/template.gpg")
                 }
                 hooverText: "Select"
+                visible: Boolean(nearestTemplateGpg)
+            }
+            CoreButton {
+                id: addPlusButtonId
+                text: "+"
+                onClicked: {
+                    createEmptyFileNameId.text = "template"
+                }
+                hooverText: "Set template name"
+                visible: Boolean(nearestTemplateGpg)
+                         && isAddFileNotAlreadyExists("template") || !Boolean(
+                             nearestTemplateGpg)
             }
         }
     }
