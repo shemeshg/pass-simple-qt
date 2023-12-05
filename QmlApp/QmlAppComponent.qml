@@ -206,6 +206,19 @@ ColumnLayout {
         id: searchComponentID
     }
 
+    RowLayout {
+        visible: QmlAppSt.isShowSettings
+        CoreButton {
+            text: "Back"
+            onClicked: QmlAppSt.isShowSettings = false
+            hooverText: "<b>Cmd ,</b> back"
+        }
+        CoreButton {
+            text: "Save"
+            onClicked: showSettingsComponentId.saveSettingsComponent()
+        }
+    }
+    CoreThinBar {}
     SHowSettingsComponent {
         id: showSettingsComponentId
     }

@@ -95,18 +95,6 @@ ScrollView {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
-        RowLayout {
-            CoreButton {
-                text: "Back"
-                onClicked: QmlAppSt.isShowSettings = false
-                hooverText: "<b>Cmd ,</b> back"
-            }
-            CoreButton {
-                text: "Save"
-                onClicked: saveSettingsComponent()
-            }
-        }
-        CoreThinBar {}
 
         SettingsLabelComboBox {
             id: comboLstStores
