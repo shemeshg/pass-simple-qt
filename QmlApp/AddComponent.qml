@@ -16,6 +16,14 @@ ColumnLayout {
         }
     }
 
+    function isAddFileNotAlreadyExists(s) {
+        var makeEnabled = Boolean(QmlAppSt.nearestGpg) && Boolean(s)
+        if (fileExists(QmlAppSt.fullPathFolder, s)) {
+            makeEnabled = false
+        }
+        return makeEnabled
+    }
+
     FileDialog {
         id: fileDialogUpload
         title: "Choose file to upload"
@@ -64,32 +72,45 @@ ColumnLayout {
                 text: ""
                 placeholderText: "FileName.txt"
                 Layout.fillWidth: true
-                onTextChanged: {
-                    var makeEnabled = Boolean(QmlAppSt.nearestGpg) && Boolean(
-                                createEmptyFileNameId.text)
-                    if (fileExists(QmlAppSt.fullPathFolder,
-                                   createEmptyFileNameId.text)) {
-                        makeEnabled = false
-                    }
-                    addBtnId.enabled = makeEnabled
-                }
             }
             CoreButton {
                 id: addBtnId
                 text: "add"
-                enabled: Boolean(QmlAppSt.nearestGpg) && Boolean(
-                             createEmptyFileNameId.text)
+
                 onClicked: {
                     QmlAppSt.mainqmltype.createEmptyEncryptedFile(
                                 QmlAppSt.fullPathFolder,
                                 createEmptyFileNameId.text, nearestTemplateGpg)
                     createEmptyFileNameId.text = ""
                 }
+                enabled: isAddFileNotAlreadyExists(createEmptyFileNameId.text)
             }
         }
-        CoreLabelAndText {
-            coreLabel: "template.gpg"
-            coreText: nearestTemplateGpg
+        RowLayout {
+            Label {
+                text: "template.gpg: "
+            }
+            CoreLabel {
+                text: nearestTemplateGpg
+            }
+
+            CoreButton {
+                text: "+"
+                visible: isAddFileNotAlreadyExists("template")
+                onClicked: {
+                    createEmptyFileNameId.text = "template"
+                }
+                hooverText: "Set template name"
+            }
+            CoreButton {
+                visible: Boolean(nearestTemplateGpg)
+                text: "←"
+                onClicked: {
+                    QmlAppSt.mainqmltype.setTreeViewSelected(
+                                nearestTemplateGpg + "/template.gpg")
+                }
+                hooverText: "Select"
+            }
         }
     }
 }
