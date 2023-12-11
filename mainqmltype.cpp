@@ -337,7 +337,7 @@ void MainQmlType::showFolderEncryptNoWait() {
     if (passFile->isGpgFile()) {
         runSafeFromException([&]() {
             std::string subfolderPath
-                = watchWaitAndNoneWaitRunCmd.getNoneWaitItemsBuUiniqueId(passFile->getFullPath())->getSubfolderPath();
+                = watchWaitAndNoneWaitRunCmd.getNoneWaitItemsBuUiniqueId(passFile->getFullPath())->getSubfolderPath().u8string();
             QDesktopServices::openUrl(
                 QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
         });
@@ -480,7 +480,7 @@ fields type:
   totp: totp
   home: url
   description: textedit)V0G0N";
-            passFile->encryptStringToFile(s, p, m_gpgIdManageType.getEncryptTo(),appSettings.doSign());
+            passFile->encryptStringToFile(s, p.u8string(), m_gpgIdManageType.getEncryptTo(),appSettings.doSign());
         });
     } else {
         runSafeFromException([&]() {
@@ -491,8 +491,8 @@ fields type:
     }
 
     try {
-        emit initFileSystemModel(QString::fromStdString(p));
-        setFilePath(QString::fromStdString(p));
+        emit initFileSystemModel(QString::fromStdString(p.u8string()));
+        setFilePath(QString::fromStdString(p.u8string()));
     } catch (...) {
       qDebug()<<p.c_str()<<" failed";
     }
@@ -520,7 +520,7 @@ void MainQmlType::encryptUploadAsync(const QJSValue &callback, QString  fullPath
         }
 
         setFilePath(appSettings.passwordStorePath());
-        emit initFileSystemModel(QString::fromStdString(selectFile));
+        emit initFileSystemModel(QString::fromStdString(selectFile.u8string()));
         return 0;
     });
 }
@@ -539,11 +539,11 @@ void MainQmlType::encryptUpload(QString fullPathFolder, QString fileName, bool t
                 std::filesystem::create_directory(dest);
             }
         }
-        std::string fname = source.filename();
+        std::string fname = source.filename().u8string();
         fname = fname + ".gpg";
         dest = dest / fname;
         passFile->encryptFileToFile(sourceName.toStdString(),
-                                    dest,
+                                    dest.u8string(),
                                     m_gpgIdManageType.getEncryptTo(),appSettings.doSign());
     });
 }
@@ -688,10 +688,10 @@ void MainQmlType::tryRedirectLocalLink(QString link)
     destination = destination / ( link.toStdString() + ".gpg");
 
     if (!std::filesystem::exists(destination)){return;}
-    std::string rel =  std::filesystem::relative(destination, appSettings.passwordStorePath().toStdString());
+    std::string rel =  std::filesystem::relative(destination, appSettings.passwordStorePath().toStdString()).u8string();
     if(QString::fromStdString(rel).startsWith(".")){return;};
 
-    emit setTreeviewCurrentIndex(QString::fromStdString(destination));
+    emit setTreeviewCurrentIndex(QString::fromStdString(destination.u8string()));
 }
 
 void MainQmlType::clipboardRelPath(QString path1, QString path2)

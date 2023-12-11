@@ -102,12 +102,13 @@ else()
     qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-
-# LibGpgError bug must include_directories on root, but can be linked in subdirectory
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/gpgfactory/cmake)
-find_package(LibGpgError REQUIRED)
-include_directories(${LibGpgError_INCLUDE_DIRS})
-# End LibGpgError
+if(UNIX)
+    # LibGpgError bug must include_directories on root, but can be linked in subdirectory
+    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/gpgfactory/cmake)
+    find_package(LibGpgError REQUIRED)
+    include_directories(${LibGpgError_INCLUDE_DIRS})
+    # End LibGpgError
+endif()
 add_subdirectory(gpgfactory/libpgpfactory)
 
 

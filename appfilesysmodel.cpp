@@ -44,7 +44,7 @@ bool AppFileSysModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
     std::filesystem::path destDirPath = dropTo.filePath().toStdString(),
     fromDirPath = fromPath.toStdString();
     destDirPath = destDirPath / fromDirPath.filename();
-    emit moveFinished(QString::fromStdString(destDirPath));
+    emit moveFinished(QString::fromStdString(destDirPath.u8string()));
     return true;
 }
 

@@ -394,7 +394,7 @@ void MainWindow::prepareMenu(const QPoint &pos)
 
         std::filesystem::path fullFilePath = mainqmltype->filePath().toStdString();
         std::filesystem::path fullFolderPath = fullFilePath.parent_path();
-        std::string fileName = fullFilePath.filename();
+        std::string fileName = fullFilePath.filename().u8string();
 
         if (!is_subpath(fullFilePath,
                           appSettings.passwordStorePath().toStdString())){
@@ -413,7 +413,7 @@ void MainWindow::prepareMenu(const QPoint &pos)
 
             try {
                 std::filesystem::rename(fullFilePath, newPath);
-                initFileSystemModel(QString::fromStdString(newPath));
+                initFileSystemModel(QString::fromStdString(newPath.u8string()));
             } catch (std::filesystem::filesystem_error &e) {
                 qDebug() << "Error moving file: " << e.what() << "\n";
             } catch (...) {
@@ -437,7 +437,7 @@ void MainWindow::prepareMenu(const QPoint &pos)
             if (!std::filesystem::exists(p)) {
                 try {
                     std::filesystem::create_directory(p);
-                    initFileSystemModel(QString::fromStdString(p));
+                    initFileSystemModel(QString::fromStdString(p.u8string()));
                 } catch (std::filesystem::filesystem_error &e) {
                     qDebug() << "Error add folder: " << e.what() << "\n";
                 } catch (...) {
@@ -467,7 +467,7 @@ void MainWindow::prepareMenu(const QPoint &pos)
                     parentOfRemovedFile = fileToRemove.parent_path();
                 }
 
-                initFileSystemModel(QString::fromStdString(parentOfRemovedFile));
+                initFileSystemModel(QString::fromStdString(parentOfRemovedFile.u8string()));
             } catch (std::filesystem::filesystem_error &e) {
                 qDebug() << "Error rm file or folder: " << e.what() << "\n";
             } catch (...) {
