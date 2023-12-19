@@ -9,6 +9,7 @@
 
 #include "GpgIdManageType.h"
 #include "InterfacePassHelper.h"
+#include "InterfaceWatchWaitAndNoneWaitRunCmd.h"
 
 #include "AppSettings.h"
 #include <QClipboard>
@@ -237,7 +238,7 @@ private:
     std::unique_ptr<InterfaceLibgpgfactory> passHelper = getInterfacePassHelper();
     std::unique_ptr<InterfacePassFile> passFile = passHelper->getPassFile("");
     GpgIdManageType m_gpgIdManageType;
-    WatchWaitAndNoneWaitRunCmd watchWaitAndNoneWaitRunCmd{};
+    std::unique_ptr<InterfaceWatchWaitAndNoneWaitRunCmd> watchWaitAndNoneWaitRunCmd = getInterfaceWatchWaitAndNoneWaitRunCmd();
     QStringList m_waitItems;
     QStringList m_noneWaitItems;
     int m_exceptionCounter = 0;

@@ -3,6 +3,7 @@
 #include <QFontDatabase>
 #include <QtConcurrent>
 #include "InputType/InputTypeType.h"
+#include "RunShellCmd.h"
 
 MainQmlType::MainQmlType(
                          QSplitter *s,
@@ -16,14 +17,14 @@ MainQmlType::MainQmlType(
     , autoTypeSelected{autoTypeSelected}
     , autoTypeTimeout{autoTypeTimeout}
 {
-    watchWaitAndNoneWaitRunCmd.callback = [&]() {
+    watchWaitAndNoneWaitRunCmd->callback = [&]() {
         QStringList waitString, noneWaitString;
 
-        for (auto &itm : watchWaitAndNoneWaitRunCmd.waitItems) {
-            waitString.push_back(QString::fromStdString(itm->uniqueId));
+        for (auto &itm : watchWaitAndNoneWaitRunCmd->getWaitItemsUids()) {
+            waitString.push_back(QString::fromStdString(itm));
         }
-        for (auto &itm : watchWaitAndNoneWaitRunCmd.noneWaitItems) {
-            noneWaitString.push_back(QString::fromStdString(itm->uniqueId));
+        for (auto &itm : watchWaitAndNoneWaitRunCmd->getNoneWaitItemsUids()) {
+            noneWaitString.push_back(QString::fromStdString(itm));
         }
         setWaitItems(waitString);
         setNoneWaitItems(noneWaitString);
@@ -323,7 +324,7 @@ void MainQmlType::openExternalEncryptWait()
     if (passFile->isGpgFile()) {
         runSafeFromException([&]() {
             passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(),
-                                                   &watchWaitAndNoneWaitRunCmd,
+                                                   watchWaitAndNoneWaitRunCmd.get(),
                                                    appSettings.tmpFolderPath().toStdString(),
                                                    appSettings.vscodeExecPath().toStdString(),
                                                    appSettings.doSign(),
@@ -337,7 +338,7 @@ void MainQmlType::showFolderEncryptNoWait() {
     if (passFile->isGpgFile()) {
         runSafeFromException([&]() {
             std::string subfolderPath
-                = watchWaitAndNoneWaitRunCmd.getNoneWaitItemsBuUiniqueId(passFile->getFullPath())->getSubfolderPath().u8string();
+                = watchWaitAndNoneWaitRunCmd->getNoneWaitItemsBuUiniqueId(passFile->getFullPath())->getSubfolderPath().u8string();
             QDesktopServices::openUrl(
                 QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
         });
@@ -347,7 +348,7 @@ void MainQmlType::showFolderEncryptNoWait() {
 void MainQmlType::discardChangesEncryptNoWait() {
     if (passFile->isGpgFile()) {
         runSafeFromException([&]() {
-            watchWaitAndNoneWaitRunCmd.closeWithoutWaitItem(passFile->getFullPath());
+            watchWaitAndNoneWaitRunCmd->closeWithoutWaitItem(passFile->getFullPath());
         });
     }
 }
@@ -357,7 +358,7 @@ void MainQmlType::openExternalEncryptNoWait()
     if (passFile->isGpgFile()) {
         runSafeFromException([&]() {
             std::string subfolderPath
-                    = passFile->openExternalEncryptNoWait(&watchWaitAndNoneWaitRunCmd,
+                = passFile->openExternalEncryptNoWait(watchWaitAndNoneWaitRunCmd.get(),
                                                           appSettings.tmpFolderPath().toStdString(),
                                                           appSettings.vscodeExecPath().toStdString());
             QDesktopServices::openUrl(
@@ -380,7 +381,7 @@ void MainQmlType::closeExternalEncryptNoWait()
     if (passFile->isGpgFile()) {
         runSafeFromException([&]() {
             passFile->closeExternalEncryptNoWait(m_gpgIdManageType.getEncryptTo(),
-                                                 &watchWaitAndNoneWaitRunCmd,
+                                                 watchWaitAndNoneWaitRunCmd.get(),
                                                  appSettings.doSign());
         });
     }
