@@ -8,7 +8,7 @@
 #include <qqmlregistration.h>
 
 #include "GpgIdManageType.h"
-#include "libpasshelper.h"
+#include "InterfacePassHelper.h"
 
 #include "AppSettings.h"
 #include <QClipboard>
@@ -234,8 +234,8 @@ private:
     QString m_filePath;
     int m_filePanSize;
     QSplitter *splitter;
-    std::unique_ptr<PassHelper> passHelper = std::make_unique<PassHelper>();
-    std::unique_ptr<PassFile> passFile = passHelper->getPassFile("");
+    std::unique_ptr<InterfaceLibgpgfactory> passHelper = getInterfacePassHelper();
+    std::unique_ptr<InterfacePassFile> passFile = passHelper->getPassFile("");
     GpgIdManageType m_gpgIdManageType;
     WatchWaitAndNoneWaitRunCmd watchWaitAndNoneWaitRunCmd{};
     QStringList m_waitItems;
@@ -265,7 +265,7 @@ private:
 
     std::map<std::string, std::string> searchMemCash;
 
-    std::unique_ptr<PassHelper> getPrivatePasswordHelper();
+    std::unique_ptr<InterfaceLibgpgfactory> getPrivatePasswordHelper();
 };
 
 #endif // MAINQMLTYPE_H

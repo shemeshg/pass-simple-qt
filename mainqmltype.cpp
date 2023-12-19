@@ -275,8 +275,8 @@ void MainQmlType::doLogout()
                                           << "gpg-agent");
 }
 
-std::unique_ptr<PassHelper> MainQmlType::getPrivatePasswordHelper(){
-    std::unique_ptr<PassHelper> phLocal = std::make_unique<PassHelper>();
+std::unique_ptr<InterfaceLibgpgfactory> MainQmlType::getPrivatePasswordHelper(){
+    std::unique_ptr<InterfaceLibgpgfactory> phLocal = getInterfacePassHelper();
     try {
         if (!appSettings.ctxSigner().isEmpty()) {
             phLocal->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});
@@ -293,8 +293,8 @@ void MainQmlType::encrypt(QString s)
         runSafeFromException(
             [&]() {
                 // It worth opening dedicated gpg session for stability
-                std::unique_ptr<PassHelper> phLocal = getPrivatePasswordHelper();
-                std::unique_ptr<PassFile> pfLocal = phLocal->getPassFile(passFile->getFullPath());
+                std::unique_ptr<InterfaceLibgpgfactory> phLocal = getPrivatePasswordHelper();
+                std::unique_ptr<InterfacePassFile> pfLocal = phLocal->getPassFile(passFile->getFullPath());
 
                 try {
                     pfLocal->encrypt(s.toStdString(),
