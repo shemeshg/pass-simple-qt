@@ -211,7 +211,7 @@ ColumnLayout {
         CoreButton {
             text: "Back"
             onClicked: QmlAppSt.isShowSettings = false
-            hooverText: "<b>Cmd ,</b> back"
+            hooverText: "<b>⌘,</b> back"
         }
         CoreButton {
             text: "Save"
@@ -283,7 +283,7 @@ ColumnLayout {
             icon.name: "Hide/Show treeview"
             icon.source: Qt.resolvedUrl(
                              "icons/account_tree_FILL0_wght400_GRAD0_opsz48.svg")
-            hooverText: "<b>Cmd T</b> Toggle tree view"
+            hooverText: "<b>⌘T</b> Toggle tree view"
         }
         CoreButton {
             onClicked: {
@@ -311,7 +311,7 @@ ColumnLayout {
             icon.name: "Settings"
             icon.source: Qt.resolvedUrl(
                              "icons/settings_FILL0_wght400_GRAD0_opsz48.svg")
-            hooverText: "<b>Cmd ,</b> Settings"
+            hooverText: "<b>⌘,</b> Settings"
         }
         CoreButton {
             onClicked: {
@@ -321,7 +321,7 @@ ColumnLayout {
             icon.name: "find"
             icon.source: Qt.resolvedUrl(
                              "icons/search_FILL0_wght400_GRAD0_opsz48.svg")
-            hooverText: "<b>Cmd F</b> find"
+            hooverText: "<b>⌘F</b> find"
         }
         Shortcut {
             sequence: StandardKey.Find
@@ -369,7 +369,7 @@ ColumnLayout {
             text: Boolean(QmlAppSt.gitDiffReturnCode) ? "*" : ""
             icon.source: Qt.resolvedUrl(
                              "icons/sync_FILL0_wght400_GRAD0_opsz48.svg")
-            hooverText: QmlAppSt.gitDiffReturnCode ? "<b>Pending changes</b><br/><b>Cmd Y</b> commit pull push <br/> R.Click for custom msg." : "<b>Cmd Y</b> commit pull push <br/> R.Click for custom msg."
+            hooverText: QmlAppSt.gitDiffReturnCode ? "<b>Pending changes</b><br/><b>⌘Y</b> commit pull push <br/> R.Click for custom msg." : "<b>⌘Y</b> commit pull push <br/> R.Click for custom msg."
             enabled: Boolean(QmlAppSt.nearestGit) && !QmlAppSt.isSaving
         }
     }

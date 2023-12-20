@@ -49,7 +49,7 @@ ColumnLayout {
     RowLayout {
         CoreButton {
             text: "Back"
-            hooverText: "<b>Cmd F</b> back"
+            hooverText: "<b>⌘F</b> back"
             onClicked: QmlAppSt.isShowSearch = false
         }
         CoreButton {
