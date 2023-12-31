@@ -10,15 +10,17 @@
 #include "GpgIdManageType.h"
 #include "InterfacePassHelper.h"
 #include "InterfaceWatchWaitAndNoneWaitRunCmd.h"
+#include "RnpLoginRequestException.h"
 
 #include "AppSettings.h"
 #include <QClipboard>
 #include <QFileSystemModel>
 #include <QGuiApplication>
 #include <QInputEvent>
+#include <QJSEngine>
+#include <QMap>
 #include <QModelIndex>
 #include <QUuid>
-#include <QJSEngine>
 
 #include "JsAsync.h"
 
@@ -97,7 +99,7 @@ public:
 
     GpgIdManageType *gpgIdManageType() { return &m_gpgIdManageType; }
 
-    const bool getIsRnPgp() const { return false; }
+    const bool getIsRnPgp() const { return true; }
 
     Q_INVOKABLE void doSearch(QString rootFolderToSearch,
                               QString FolderToSearch,
@@ -229,7 +231,7 @@ signals:
     void setTreeviewCurrentIndex(QString path);
     void setRootTreeView(QString path);
     void systemPlateChanged(bool isDarkTheme);
-    void loginRequestedRnp(QString userid);
+    void loginRequestedRnp(const RnpLoginRequestException &e, std::map<std::string, std::string> *m);
     // hygen signals
 
 private:
@@ -237,7 +239,7 @@ private:
     QString m_filePath;
     int m_filePanSize;
     QSplitter *splitter;
-    std::unique_ptr<InterfaceLibgpgfactory> passHelper = nullptr;
+    InterfaceLibgpgfactory *passHelper = nullptr;
     std::unique_ptr<InterfacePassFile> passFile = nullptr;
     GpgIdManageType m_gpgIdManageType;
     std::unique_ptr<InterfaceWatchWaitAndNoneWaitRunCmd> watchWaitAndNoneWaitRunCmd = getInterfaceWatchWaitAndNoneWaitRunCmd();
@@ -268,7 +270,17 @@ private:
 
     std::map<std::string, std::string> searchMemCash;
 
-    std::unique_ptr<InterfaceLibgpgfactory> getPrivatePasswordHelper();
+    InterfaceLibgpgfactory *getPrivatePasswordHelper();
+
+    std::map<std::string, std::string> loginAndPasswordMap{};
+    std::string getPasswordFromMap(std::string keyid)
+    {
+        std::string pass = "";
+        if (loginAndPasswordMap.count(keyid)) {
+            pass = loginAndPasswordMap.at(keyid);
+        }
+        return pass;
+    }
 };
 
 #endif // MAINQMLTYPE_H

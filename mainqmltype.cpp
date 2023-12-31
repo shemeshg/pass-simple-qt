@@ -18,6 +18,7 @@ MainQmlType::MainQmlType(
     , autoTypeTimeout{autoTypeTimeout}
 {
     passHelper = getInterfacePassHelper(getIsRnPgp());
+    passHelper->setPasswordCallback([&](std::string keyid) { return getPasswordFromMap(keyid); });
     passFile = passHelper->getPassFile("");
     watchWaitAndNoneWaitRunCmd->callback = [&]() {
         QStringList waitString, noneWaitString;
@@ -280,8 +281,9 @@ void MainQmlType::doLogout()
                                           << "gpg-agent");
 }
 
-std::unique_ptr<InterfaceLibgpgfactory> MainQmlType::getPrivatePasswordHelper(){
-    std::unique_ptr<InterfaceLibgpgfactory> phLocal = getInterfacePassHelper(getIsRnPgp());
+InterfaceLibgpgfactory *MainQmlType::getPrivatePasswordHelper()
+{
+    InterfaceLibgpgfactory *phLocal = getInterfacePassHelper(getIsRnPgp());
     try {
         if (!appSettings.ctxSigner().isEmpty()) {
             phLocal->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});
@@ -298,14 +300,13 @@ void MainQmlType::encrypt(QString s)
         runSafeFromException(
             [&]() {
                 // It worth opening dedicated gpg session for stability
-                std::unique_ptr<InterfaceLibgpgfactory> phLocal = getPrivatePasswordHelper();
+                InterfaceLibgpgfactory *phLocal = getPrivatePasswordHelper();
                 std::unique_ptr<InterfacePassFile> pfLocal = phLocal->getPassFile(passFile->getFullPath());
 
                 try {
                     pfLocal->encrypt(s.toStdString(),
                                      m_gpgIdManageType.getEncryptTo(), appSettings.doSign());
-                }
-                catch (const std::exception& e) {
+                } catch (const std::exception &e) {
                     std::this_thread::sleep_for(std::chrono::seconds(1));
                     pfLocal->encrypt(s.toStdString(),
                                      m_gpgIdManageType.getEncryptTo(), appSettings.doSign());
@@ -396,7 +397,16 @@ QString MainQmlType::getDecrypted()
     if (passFile->isGpgFile()) {
         QString ret = "";
         runSafeFromException([&]() {
-            passFile->decrypt();
+            try {
+                passFile->decrypt();
+            } catch (RnpLoginRequestException &rlre) {
+                emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+                QString rootPath = appSettings.passwordStorePath();
+                setTreeViewSelected(rootPath);
+            } catch (...) {
+                throw;
+            }
+
             ret = QString::fromStdString(passFile->getDecrypted());
         });
         return ret;

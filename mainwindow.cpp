@@ -316,14 +316,21 @@ MainWindow::MainWindow(QWidget *parent)
         }
     });
 
-    connect(mainqmltype, &MainQmlType::loginRequestedRnp, this, [=](QString userid) {
-        bool ok;
-        QString text
-            = QInputDialog::getText(this, tr("Rnp Login"), userid, QLineEdit::Password, "", &ok);
-        if (ok && !text.isEmpty()) {
-            qDebug() << text;
-        }
-    });
+    connect(mainqmltype,
+            &MainQmlType::loginRequestedRnp,
+            this,
+            [=](const RnpLoginRequestException &e, std::map<std::string, std::string> *m) {
+                bool ok;
+                QString text = QInputDialog::getText(this,
+                                                     tr("Rnp Login"),
+                                                     QString::fromStdString(e.lastKeyIdRequested),
+                                                     QLineEdit::Password,
+                                                     "",
+                                                     &ok);
+                if (ok) {
+                    (*m)[e.lastKeyIdRequested] = text.toStdString();
+                }
+            });
 
     context->setContextProperty(QStringLiteral("mainqmltype"), mainqmltype);
 
