@@ -316,6 +316,15 @@ MainWindow::MainWindow(QWidget *parent)
         }
     });
 
+    connect(mainqmltype, &MainQmlType::loginRequestedRnp, this, [=](QString userid) {
+        bool ok;
+        QString text
+            = QInputDialog::getText(this, tr("Rnp Login"), userid, QLineEdit::Password, "", &ok);
+        if (ok && !text.isEmpty()) {
+            qDebug() << text;
+        }
+    });
+
     context->setContextProperty(QStringLiteral("mainqmltype"), mainqmltype);
 
     mainqmltype->setFilePanSize(150);

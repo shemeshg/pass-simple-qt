@@ -229,6 +229,7 @@ signals:
     void setTreeviewCurrentIndex(QString path);
     void setRootTreeView(QString path);
     void systemPlateChanged(bool isDarkTheme);
+    void loginRequestedRnp(QString userid);
     // hygen signals
 
 private:
