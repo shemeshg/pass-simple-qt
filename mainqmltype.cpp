@@ -17,6 +17,8 @@ MainQmlType::MainQmlType(
     , autoTypeSelected{autoTypeSelected}
     , autoTypeTimeout{autoTypeTimeout}
 {
+    passHelper = getInterfacePassHelper(getIsRnPgp());
+    passFile = passHelper->getPassFile("");
     watchWaitAndNoneWaitRunCmd->callback = [&]() {
         QStringList waitString, noneWaitString;
 
@@ -50,7 +52,8 @@ void MainQmlType::setFilePath(const QString &filePath)
     passFile = passHelper->getPassFile(m_filePath.toStdString());
     try {
         m_gpgIdManageType.init(m_filePath.toStdString(),
-                               appSettings.passwordStorePath().toStdString());
+                               appSettings.passwordStorePath().toStdString(),
+                               getIsRnPgp());
     } catch (...) {
         qDebug() << "MainQmlType::setFilePath(const QString &filePath) Just failed \n"; // Block of code to handle errors
     }
@@ -189,7 +192,8 @@ void MainQmlType::initGpgIdManage()
 {
     try {
         m_gpgIdManageType.init(appSettings.passwordStorePath().toStdString(),
-                               appSettings.passwordStorePath().toStdString());
+                               appSettings.passwordStorePath().toStdString(),
+                               getIsRnPgp());
         if (!appSettings.ctxSigner().isEmpty()) {
             passHelper->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});            
         }
@@ -277,7 +281,7 @@ void MainQmlType::doLogout()
 }
 
 std::unique_ptr<InterfaceLibgpgfactory> MainQmlType::getPrivatePasswordHelper(){
-    std::unique_ptr<InterfaceLibgpgfactory> phLocal = getInterfacePassHelper();
+    std::unique_ptr<InterfaceLibgpgfactory> phLocal = getInterfacePassHelper(getIsRnPgp());
     try {
         if (!appSettings.ctxSigner().isEmpty()) {
             phLocal->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});

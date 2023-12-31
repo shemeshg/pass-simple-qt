@@ -97,6 +97,7 @@ public:
 
     GpgIdManageType *gpgIdManageType() { return &m_gpgIdManageType; }
 
+    const bool getIsRnPgp() const { return false; }
 
     Q_INVOKABLE void doSearch(QString rootFolderToSearch,
                               QString FolderToSearch,
@@ -235,8 +236,8 @@ private:
     QString m_filePath;
     int m_filePanSize;
     QSplitter *splitter;
-    std::unique_ptr<InterfaceLibgpgfactory> passHelper = getInterfacePassHelper();
-    std::unique_ptr<InterfacePassFile> passFile = passHelper->getPassFile("");
+    std::unique_ptr<InterfaceLibgpgfactory> passHelper = nullptr;
+    std::unique_ptr<InterfacePassFile> passFile = nullptr;
     GpgIdManageType m_gpgIdManageType;
     std::unique_ptr<InterfaceWatchWaitAndNoneWaitRunCmd> watchWaitAndNoneWaitRunCmd = getInterfaceWatchWaitAndNoneWaitRunCmd();
     QStringList m_waitItems;

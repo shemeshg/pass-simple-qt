@@ -36,7 +36,7 @@ public:
     explicit GpgIdManageType(QObject *parent = nullptr)
         : JsAsync(parent){};
 
-    void init(std::string _currentPath, std::string _stopPath);
+    void init(std::string _currentPath, std::string _stopPath, bool _isRnPgp);
     const std::vector<std::string> &getEncryptTo() const { return m_gpgIdManage->encryptTo; }
 
     /* [[[cog
@@ -73,6 +73,5 @@ public:
 signals:
 
 private:
-    std::unique_ptr<GpgIdManage> m_gpgIdManage=std::make_unique<GpgIdManage>("","");
-
+    std::unique_ptr<GpgIdManage> m_gpgIdManage = nullptr;
 };
