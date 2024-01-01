@@ -620,8 +620,17 @@ void MainQmlType::decryptFolderDownload(QString fullPathFolder, QString toFolder
 {
     const QUrl url(toFolderName);
     runSafeFromException([&]() {
-        passHelper->decryptFolderToFolder(fullPathFolder.toStdString(),
-                                         url.toLocalFile().toStdString());
+        try {
+            passHelper->decryptFolderToFolder(fullPathFolder.toStdString(),
+                                              url.toLocalFile().toStdString());
+        } catch (RnpLoginRequestException &rlre) {
+            rlre.functionName = "decryptFolderDownload";
+            rlre.fromFilePath = fullPathFolder.toStdString();
+            rlre.toFilePath = toFolderName.toStdString();
+            emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+        } catch (...) {
+            throw;
+        }
     });
 }
 

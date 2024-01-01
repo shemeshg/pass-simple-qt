@@ -340,6 +340,9 @@ MainWindow::MainWindow(QWidget *parent)
                         mainqmltype->setMenubarCommStr("doSearch");
                     } else if (e.functionName == "reEncrypt") {
                         mainqmltype->setMenubarCommStr("reEncrypt");
+                    } else if (e.functionName == "decryptFolderDownload") {
+                        mainqmltype->decryptFolderDownload(QString::fromStdString(e.fromFilePath),
+                                                           QString::fromStdString(e.toFilePath));
                     }
                 }
             });
