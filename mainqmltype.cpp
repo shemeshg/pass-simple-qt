@@ -264,6 +264,7 @@ void MainQmlType::doLogout()
 {
     QClipboard *clipboard = QGuiApplication::clipboard();
     clipboard->clear();
+    loginAndPasswordMap = {};
 
     setMenubarCommStr("clearSearchFields");
 
