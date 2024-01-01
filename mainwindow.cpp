@@ -338,6 +338,8 @@ MainWindow::MainWindow(QWidget *parent)
                         mainqmltype->encrypt(QString::fromStdString(e.fromFilePath));
                     } else if (e.functionName == "doSearch") {
                         mainqmltype->setMenubarCommStr("doSearch");
+                    } else if (e.functionName == "reEncrypt") {
+                        mainqmltype->setMenubarCommStr("reEncrypt");
                     }
                 }
             });

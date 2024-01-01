@@ -12,6 +12,7 @@ Column {
 
     property alias badEntriesRepeater: badEntriesRepeater
     property alias dropdownWithListComponentId: dropdownWithListComponentId
+    property alias reencryptBtnId: reencryptBtnId
 
     ColumnLayout {
         width: parent.width

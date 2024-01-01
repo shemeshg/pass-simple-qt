@@ -81,6 +81,9 @@ ColumnLayout {
                 if (action === "doSearch") {
                     searchComponentID.doSearchAction();
                 }
+                if (action === "reEncrypt"){
+                    columnLayoutHomeId.manageGpgIdComponentId.reencryptBtnId.clicked();
+                }
             }
             if (QmlAppSt.isGpgFile && action === "downloadFileAct") {
                 QmlAppSt.mainqmltype.mainUiDisable()

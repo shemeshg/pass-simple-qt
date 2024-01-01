@@ -37,6 +37,13 @@ MainQmlType::MainQmlType(
         autoType(m_selectedText);
     });
     autoTypeSelected->setVisible(false);
+
+    connect(&m_gpgIdManageType,
+            &GpgIdManageType::loginRequestedRnpG,
+            this,
+            [=](const RnpLoginRequestException &e) {
+                emit loginRequestedRnp(e, &loginAndPasswordMap);
+            });
 }
 QString MainQmlType::filePath()
 {

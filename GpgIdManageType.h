@@ -7,7 +7,7 @@
 
 #include "GpgIdManage.h"
 #include "JsAsync.h"
-
+#include "RnpLoginRequestException.h"
 class GpgIdManageType : public JsAsync
 {
     Q_OBJECT
@@ -67,10 +67,8 @@ public:
                                       QString signerStr,
                                     const QJSValue &callback);
 
-
-
-
 signals:
+    void loginRequestedRnpG(const RnpLoginRequestException &e);
 
 private:
     std::unique_ptr<GpgIdManage> m_gpgIdManage = nullptr;
