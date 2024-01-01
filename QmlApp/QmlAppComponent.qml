@@ -224,7 +224,7 @@ ColumnLayout {
             onClicked: showSettingsComponentId.saveSettingsComponent()
         }
     }
-    CoreThinBar {}
+
     SHowSettingsComponent {
         id: showSettingsComponentId
     }
