@@ -400,6 +400,7 @@ QString MainQmlType::getDecrypted()
             try {
                 passFile->decrypt();
             } catch (RnpLoginRequestException &rlre) {
+                rlre.functionName = "getDecrypted";
                 emit loginRequestedRnp(rlre, &loginAndPasswordMap);
                 QString rootPath = appSettings.passwordStorePath();
                 setTreeViewSelected(rootPath);
