@@ -336,6 +336,8 @@ MainWindow::MainWindow(QWidget *parent)
                         mainqmltype->setTreeViewSelected(QString::fromStdString(e.fromFilePath));
                     } else if (e.functionName == "encrypt") {
                         mainqmltype->encrypt(QString::fromStdString(e.fromFilePath));
+                    } else if (e.functionName == "doSearch") {
+                        mainqmltype->setMenubarCommStr("doSearch");
                     }
                 }
             });

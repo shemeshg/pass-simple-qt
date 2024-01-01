@@ -161,15 +161,23 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
             }
         }
 
-        passHelper->searchDown(rootFolderToSearch.toStdString(),
-                               FolderToSearch.toStdString(),
-                               fileRegExStr.toStdString(),
-                               stdExtentions,
-                               isMemCash,
-                               searchMemCash,
-                               [&](std::string path) {
-                                   result_strings.push_back(QString::fromStdString(path));
-                               });
+        try {
+            passHelper->searchDown(rootFolderToSearch.toStdString(),
+                                   FolderToSearch.toStdString(),
+                                   fileRegExStr.toStdString(),
+                                   stdExtentions,
+                                   isMemCash,
+                                   searchMemCash,
+                                   [&](std::string path) {
+                                       result_strings.push_back(QString::fromStdString(path));
+                                   });
+
+        } catch (RnpLoginRequestException &rlre) {
+            rlre.functionName = "doSearch";
+            emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+        } catch (...) {
+            throw;
+        }
         result_strings.sort(Qt::CaseInsensitive);
         setSearchResult(result_strings);
     });

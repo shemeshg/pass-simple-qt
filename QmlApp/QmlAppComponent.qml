@@ -78,6 +78,9 @@ ColumnLayout {
                 if (action === "clearSearchFields") {
                     searchComponentID.clearFields()
                 }
+                if (action === "doSearch") {
+                    searchComponentID.doSearchAction();
+                }
             }
             if (QmlAppSt.isGpgFile && action === "downloadFileAct") {
                 QmlAppSt.mainqmltype.mainUiDisable()
