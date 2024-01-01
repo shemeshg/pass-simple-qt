@@ -331,6 +331,8 @@ MainWindow::MainWindow(QWidget *parent)
                     (*m)[e.lastKeyIdRequested] = text.toStdString();
                     if (e.functionName == "getDecrypted") {
                         mainqmltype->setTreeViewSelected(QString::fromStdString(e.fromFilePath));
+                    } else if (e.functionName == "encrypt") {
+                        mainqmltype->encrypt(QString::fromStdString(e.fromFilePath));
                     }
                 }
             });

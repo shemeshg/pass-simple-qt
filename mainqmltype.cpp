@@ -307,10 +307,13 @@ void MainQmlType::encrypt(QString s)
                 try {
                     pfLocal->encrypt(s.toStdString(),
                                      m_gpgIdManageType.getEncryptTo(), appSettings.doSign());
-                } catch (const std::exception &e) {
-                    std::this_thread::sleep_for(std::chrono::seconds(1));
-                    pfLocal->encrypt(s.toStdString(),
-                                     m_gpgIdManageType.getEncryptTo(), appSettings.doSign());
+
+                } catch (RnpLoginRequestException &rlre) {
+                    rlre.functionName = "encrypt";
+                    rlre.fromFilePath = s.toStdString();
+                    emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+                } catch (...) {
+                    throw;
                 }
 
             });
