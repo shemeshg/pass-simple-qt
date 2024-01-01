@@ -577,9 +577,21 @@ void MainQmlType::encryptUpload(QString fullPathFolder, QString fileName, bool t
         std::string fname = source.filename().u8string();
         fname = fname + ".gpg";
         dest = dest / fname;
-        passFile->encryptFileToFile(sourceName.toStdString(),
-                                    dest.u8string(),
-                                    m_gpgIdManageType.getEncryptTo(),appSettings.doSign());
+
+        try {
+            passFile->encryptFileToFile(sourceName.toStdString(),
+                                        dest.u8string(),
+                                        m_gpgIdManageType.getEncryptTo(),
+                                        appSettings.doSign());
+        } catch (RnpLoginRequestException &rlre) {
+            rlre.functionName = "encryptUpload";
+            rlre.fromFilePath = fullPathFolder.toStdString();
+            rlre.toFilePath = fileName.toStdString();
+            rlre.doSign = toFilesSubFolder;
+            emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+        } catch (...) {
+            throw;
+        }
     });
 }
 
@@ -638,9 +650,19 @@ void MainQmlType::encryptFolderUpload(QString fromFolderName, QString fullPathFo
 {
     const QUrl url(fromFolderName);
     runSafeFromException([&]() {
-        passHelper->encryptFolderToFolder(url.toLocalFile().toStdString(),
-                                         fullPathFolder.toStdString(),
-                                         m_gpgIdManageType.getEncryptTo(),appSettings.doSign());
+        try {
+            passHelper->encryptFolderToFolder(url.toLocalFile().toStdString(),
+                                              fullPathFolder.toStdString(),
+                                              m_gpgIdManageType.getEncryptTo(),
+                                              appSettings.doSign());
+        } catch (RnpLoginRequestException &rlre) {
+            rlre.functionName = "encryptFolderUpload";
+            rlre.fromFilePath = fromFolderName.toStdString();
+            rlre.toFilePath = fullPathFolder.toStdString();
+            emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+        } catch (...) {
+            throw;
+        }
     });
 }
 

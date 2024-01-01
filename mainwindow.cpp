@@ -343,6 +343,13 @@ MainWindow::MainWindow(QWidget *parent)
                     } else if (e.functionName == "decryptFolderDownload") {
                         mainqmltype->decryptFolderDownload(QString::fromStdString(e.fromFilePath),
                                                            QString::fromStdString(e.toFilePath));
+                    } else if (e.functionName == "encryptFolderUpload") {
+                        mainqmltype->encryptFolderUpload(QString::fromStdString(e.fromFilePath),
+                                                         QString::fromStdString(e.toFilePath));
+                    } else if (e.functionName == "encryptUpload") {
+                        mainqmltype->encryptUpload(QString::fromStdString(e.fromFilePath),
+                                                   QString::fromStdString(e.toFilePath),
+                                                   e.doSign);
                     }
                 }
             });
