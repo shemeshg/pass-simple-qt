@@ -321,9 +321,12 @@ MainWindow::MainWindow(QWidget *parent)
             this,
             [=](const RnpLoginRequestException &e, std::map<std::string, std::string> *m) {
                 bool ok;
+
                 QString text = QInputDialog::getText(this,
                                                      tr("Rnp Login"),
-                                                     QString::fromStdString(e.lastKeyIdRequested),
+                                                     QString::fromStdString(
+                                                         mainqmltype->getKeyDescription(
+                                                             e.lastKeyIdRequested)),
                                                      QLineEdit::Password,
                                                      "",
                                                      &ok);

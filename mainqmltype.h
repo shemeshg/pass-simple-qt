@@ -214,6 +214,19 @@ public:
 
     Q_INVOKABLE void doLogout();
 
+    std::string getKeyDescription(std::string strFind)
+    {
+        auto l = passHelper->listKeys(strFind, false);
+        if (l.size() > 0) {
+            return l.at(0).getKeyStr();
+        }
+        l = passHelper->listKeys(strFind, true);
+        if (l.size() > 0) {
+            return l.at(0).getKeyStr();
+        }
+        return strFind;
+    }
+
 signals:
     void filePathChanged();
     void filePanSizeChanged();
