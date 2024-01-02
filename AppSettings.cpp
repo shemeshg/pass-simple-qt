@@ -227,8 +227,8 @@ const QString AppSettings::passwordStorePath() const
 {
     QString passwordStorePathDefault;
     #if defined(__APPLE__) || defined(__linux__)
-    QString passwordStorePathDefault = QDir::homePath() + "/.password-store";
-    #else
+    passwordStorePathDefault = QDir::homePath() + "/.password-store";
+#else
     std::filesystem::path s{QStandardPaths::writableLocation(
         QStandardPaths::AppLocalDataLocation).toStdString()};
     s = s.remove_filename();
