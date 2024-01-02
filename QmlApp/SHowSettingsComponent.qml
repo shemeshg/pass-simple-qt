@@ -223,10 +223,13 @@ ScrollView {
             text: qsTr("Use Rnpgp")
             checked: isUseRnpgp
         }
+        Label {
+            text: "<b>Rnp</b> home folder:"
+        }
         SettingsSelectFolder {
             id: rnpgpHome
             text: QmlAppSt.mainqmltype.appSettingsType.rnpgpHome
-            hooverText: "<b>Rnp</b> home folder:"
+            hooverText: "<b>Rnp</b> home folder"
             onSetPath: s => {
                            rnpgpHome.text = s
                        }
