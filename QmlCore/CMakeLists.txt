@@ -5,6 +5,9 @@ endif()
 if(UNIX AND NOT APPLE)
     list(APPEND OS_DEPENDENT_QML +linux/CoreTextArea.qml)
 endif()
+if(WIN32)
+    list(APPEND OS_DEPENDENT_QML +win32/CoreTextArea.qml)
+endif()
 
 set_source_files_properties(CoreSystemPalette.qml PROPERTIES
     QT_QML_SINGLETON_TYPE TRUE

@@ -225,7 +225,22 @@ const QString AppSettings::ddListStores() const
 
 const QString AppSettings::passwordStorePath() const
 {
+    QString passwordStorePathDefault;
+    #if defined(__APPLE__) || defined(__linux__)
     QString passwordStorePathDefault = QDir::homePath() + "/.password-store";
+    #else
+    std::filesystem::path s{QStandardPaths::writableLocation(
+        QStandardPaths::AppLocalDataLocation).toStdString()};
+    s = s.remove_filename();
+    // get user
+    QStringList pathList = QString::fromStdString(s.u8string()).split("/");
+    QString username = pathList[2];
+    //
+
+    std::string p = s.u8string() + "gopass/stores/"  + username.toStdString();
+
+    passwordStorePathDefault = QString::fromStdString(p);
+    #endif
     if (m_passwordStorePath.isEmpty() || !QDir(m_passwordStorePath).exists()) {
         return passwordStorePathDefault;
     }
@@ -247,7 +262,17 @@ const QString AppSettings::rnpgpHome() const
     return defaultHomedire;
 
 #else
-    return QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).at(0);
+    std::filesystem::path s{
+                            QStandardPaths::standardLocations(QStandardPaths::AppDataLocation)
+                                .at(0).toStdString()};
+    s = s.remove_filename();
+    s = s / "gnupg";
+    QString defaultHomedire =QString::fromStdString(s.u8string());
+    if (!m_rnpgpHome.isEmpty() && QDir(m_rnpgpHome).exists()) {
+        defaultHomedire = m_rnpgpHome;
+    }
+
+    return defaultHomedire;
 #endif
 }
 

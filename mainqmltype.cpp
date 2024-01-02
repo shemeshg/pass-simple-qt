@@ -2,7 +2,7 @@
 #include <QTimer>
 #include <QFontDatabase>
 #include <QtConcurrent>
-#include "InputType/InputTypeType.h"
+#include "QtTotp/getTotp.h"
 #include "RunShellCmd.h"
 
 MainQmlType::MainQmlType(
@@ -760,7 +760,7 @@ void MainQmlType::trayMenuAdd(QString _username, QString _password, QString _fie
         QString password = _password;
         QString fieldstype = _fieldstype;
         if (fieldstype == "totp") {
-            autoType(InputTypeType::getTotp(password));
+            autoType(getTotpf(password));
         } else {
             autoType(password);
         }

@@ -4,12 +4,13 @@ qt6_add_qml_module(InputType
         SOURCES
             InputTypeType.h 
             InputTypeType.cpp
-            totp.h
-            totp.cpp
-            Base32.h
-            Base32.cpp
-            Clock.h
-            Clock.cpp
+            QtTotp/totp.h
+            QtTotp/totp.cpp
+            QtTotp/Base32.h
+            QtTotp/Base32.cpp
+            QtTotp/Clock.h
+            QtTotp/Clock.cpp
+	    QtTotp/getTotp.h
         QML_FILES
             InputTypeComponent.qml
         RESOURCES

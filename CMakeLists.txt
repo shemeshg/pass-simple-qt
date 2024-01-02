@@ -14,6 +14,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 CMAKE_POLICY(SET CMP0071 NEW) 
 
+if(WIN32)
+include( "D:/vcpkg/scripts/buildsystems/vcpkg.cmake")
+endif()
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent LabsFolderListModel Svg QuickControls2)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent LabsFolderListModel Svg QuickControls2)
 qt_standard_project_setup(REQUIRES 6.5)
@@ -179,6 +183,15 @@ qt_add_qml_module(pass-simple
         UiGuard.h UiGuard.cpp
         appfilesysmodel.h appfilesysmodel.cpp
   AppSettings.cpp AppSettings.h
+        # bug totp
+        QtTotp/totp.h
+        QtTotp/totp.cpp
+        QtTotp/Base32.h
+        QtTotp/Base32.cpp
+        QtTotp/Clock.h
+        QtTotp/Clock.cpp
+        QtTotp/getTotp.h
+        # end bug totp
         # hygen srcs
     QML_FILES Main.qml     
 )
