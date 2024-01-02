@@ -34,6 +34,8 @@ class AppSettings : public QObject
     Q_PROPERTY( bool isFindSlctFrst READ isFindSlctFrst WRITE setIsFindSlctFrst NOTIFY isFindSlctFrstChanged)
     Q_PROPERTY( bool isShowPreview READ isShowPreview WRITE setIsShowPreview NOTIFY isShowPreviewChanged)
     Q_PROPERTY( int openWith READ openWith WRITE setOpenWith NOTIFY openWithChanged)
+    Q_PROPERTY( bool useRnpgp READ useRnpgp WRITE setUseRnpgp NOTIFY useRnpgpChanged)
+    Q_PROPERTY( QString rnpgpHome READ rnpgpHome WRITE setRnpgpHome NOTIFY rnpgpHomeChanged)
     Q_PROPERTY( QString appVer READ appVer CONSTANT)
 
     //[[[end]]]
@@ -78,6 +80,10 @@ public:
     void setIsShowPreview(const bool isShowPreview);
     int openWith() const { return m_openWith; };
     void setOpenWith(const int openWith);
+    bool useRnpgp() const { return m_useRnpgp; };
+    void setUseRnpgp(const bool useRnpgp);
+    const QString rnpgpHome() const;
+    void setRnpgpHome(const QString &rnpgpHome);
 
     //[[[end]]]
 
@@ -166,6 +172,8 @@ signals:
     void isFindSlctFrstChanged();
     void isShowPreviewChanged();
     void openWithChanged();
+    void useRnpgpChanged();
+    void rnpgpHomeChanged();
 
     //[[[end]]]
 
@@ -192,6 +200,8 @@ signals:
     bool m_isFindSlctFrst;
     bool m_isShowPreview;
     int m_openWith;
+    bool m_useRnpgp;
+    QString m_rnpgpHome;
 
     //[[[end]]]
 };

@@ -28,6 +28,8 @@ AppSettings::AppSettings(QObject *parent)
     m_isFindSlctFrst = settings.value("isFindSlctFrst", false).toBool();
     m_isShowPreview = settings.value("isShowPreview", true).toBool();
     m_openWith = settings.value("openWith", 0).toInt();
+    m_useRnpgp = settings.value("useRnpgp", false).toBool();
+    m_rnpgpHome = settings.value("rnpgpHome", "").toString();
 
     //[[[end]]]
 }
@@ -111,14 +113,6 @@ void AppSettings::setCommitMsg(const QString &commitMsg)
     emit commitMsgChanged();
 }
 
-const QString AppSettings::ddListStores() const
-{
-    if (m_ddListStores.isEmpty()){
-        return "default # " + QDir::homePath() + "/.password-store" + "\npassword store 1 # /Volume/path";
-    }
-    return m_ddListStores;
-}
-
 void AppSettings::setDdListStores(const QString &ddListStores)
 {
     if (ddListStores == m_ddListStores)
@@ -200,7 +194,35 @@ void AppSettings::setOpenWith(const int openWith)
     emit openWithChanged();
 }
 
+void AppSettings::setUseRnpgp(const bool useRnpgp)
+{
+    if (useRnpgp == m_useRnpgp)
+        return;
+    m_useRnpgp = useRnpgp;
+    settings.setValue("useRnpgp", m_useRnpgp);
+    emit useRnpgpChanged();
+}
+
+void AppSettings::setRnpgpHome(const QString &rnpgpHome)
+{
+    if (rnpgpHome == m_rnpgpHome)
+        return;
+    m_rnpgpHome = rnpgpHome;
+    settings.setValue("rnpgpHome", m_rnpgpHome);
+    emit rnpgpHomeChanged();
+}
+
 //[[[end]]]
+
+const QString AppSettings::ddListStores() const
+{
+    if (m_ddListStores.isEmpty()) {
+        return "default # " + QDir::homePath() + "/.password-store"
+               + "\npassword store 1 # /Volume/path";
+    }
+    return m_ddListStores;
+}
+
 const QString AppSettings::passwordStorePath() const
 {
     QString passwordStorePathDefault = QDir::homePath() + "/.password-store";
@@ -211,7 +233,23 @@ const QString AppSettings::passwordStorePath() const
     return QDir(m_passwordStorePath).absolutePath();
 }
 
+const QString AppSettings::rnpgpHome() const
+{
+#if defined(__APPLE__) || defined(__linux__)
 
+    QString defaultHomedire = QDir::homePath() + "/.gog";
+    if (!QDir(m_rnpgpHome).exists()) {
+        defaultHomedire = QDir::homePath() + "/.rnp";
+    }
+    if (m_rnpgpHome.isEmpty() || !QDir(m_rnpgpHome).exists()) {
+        return defaultHomedire;
+    }
+    return QDir(m_rnpgpHome).absolutePath();
+
+#else
+    return QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).at(0);
+#endif
+}
 
 const QString AppSettings::tmpFolderPath() const
 {

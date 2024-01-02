@@ -233,6 +233,10 @@ a = [
     Prpt("bool",'isFindSlctFrst',"false", True),
     Prpt("bool",'isShowPreview',"true", True),
     Prpt("int",'openWith',"0", True),
+
+    Prpt("bool",'useRnpgp',"false"),
+    Prpt("QString",'rnpgpHome'),
+
 ]   
 
 p = Prpt("QString",'appVer')

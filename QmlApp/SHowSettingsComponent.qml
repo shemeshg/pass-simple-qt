@@ -13,12 +13,14 @@ ScrollView {
     contentWidth: columnLayoutHomeId.width - 30
 
     property bool isUseClipboard: QmlAppSt.mainqmltype.appSettingsType.useClipboard
+    property bool isUseRnpgp: QmlAppSt.mainqmltype.appSettingsType.useRnpgp
     property bool isPreferYamlView: QmlAppSt.mainqmltype.appSettingsType.preferYamlView
     property bool isDoSign: QmlAppSt.mainqmltype.appSettingsType.doSign
 
     onVisibleChanged: {
         if (visible) {
             isUseClipboard = QmlAppSt.mainqmltype.appSettingsType.useClipboard
+            isUseRnpgp = QmlAppSt.mainqmltype.appSettingsType.useRnpgp
             useClipboard.checked = isUseClipboard
             isPreferYamlView = QmlAppSt.mainqmltype.appSettingsType.preferYamlView
             preferYamlView.checked = isPreferYamlView
@@ -30,6 +32,7 @@ ScrollView {
                         QmlAppSt.mainqmltype.appSettingsType.ctxSigner)
             tmpFolderPath.text = QmlAppSt.mainqmltype.appSettingsType.tmpFolderPath
             gitExecPath.text = QmlAppSt.mainqmltype.appSettingsType.gitExecPath
+            rnpgpHome.text = QmlAppSt.mainqmltype.appSettingsType.rnpgpHome
             vscodeExecPath.text = QmlAppSt.mainqmltype.appSettingsType.vscodeExecPath
             autoTypeCmd.text = QmlAppSt.mainqmltype.appSettingsType.autoTypeCmd
             fontSize.text = QmlAppSt.mainqmltype.appSettingsType.fontSize
@@ -78,9 +81,13 @@ ScrollView {
         QmlAppSt.passwordStorePathStr = passwordStoreId.text
         QmlAppSt.mainqmltype.submit_AppSettingsType(
                     QmlAppSt.passwordStorePathStr, tmpFolderPath.text,
-                    gitExecPath.text, vscodeExecPath.text,
+                    gitExecPath.text,
+                    rnpgpHome.text,
+                    vscodeExecPath.text,
                     autoTypeCmd.text, binaryExts.text,
-                    useClipboard.checked, doSign.checked,
+                    useClipboard.checked,
+                    useRnpgp.checked,
+                    doSign.checked,
                     preferYamlView.checked, fontSize.text,
                     commitMsg.text, ddListStores.text, ctxSigner.currentText)
         QmlAppSt.passwordStorePathStr = QmlAppSt.mainqmltype.appSettingsType.passwordStorePath
@@ -210,6 +217,19 @@ ScrollView {
             id: doSign
             text: qsTr("Sign")
             checked: isDoSign
+        }
+        CoreSwitch {
+            id: useRnpgp
+            text: qsTr("Use Rnpgp")
+            checked: isUseRnpgp
+        }
+        SettingsSelectFolder {
+            id: rnpgpHome
+            text: QmlAppSt.mainqmltype.appSettingsType.rnpgpHome
+            hooverText: "<b>Rnp</b> home folder:"
+            onSetPath: s => {
+                           rnpgpHome.text = s
+                       }
         }
 
         SettingsLabelTextArea {
