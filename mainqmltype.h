@@ -99,8 +99,6 @@ public:
 
     GpgIdManageType *gpgIdManageType() { return &m_gpgIdManageType; }
 
-    const bool getIsRnPgp() const { return true; }
-
     Q_INVOKABLE void doSearch(QString rootFolderToSearch,
                               QString FolderToSearch,
                               QString fileRegExStr,

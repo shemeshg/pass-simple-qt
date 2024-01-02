@@ -237,14 +237,14 @@ const QString AppSettings::rnpgpHome() const
 {
 #if defined(__APPLE__) || defined(__linux__)
 
-    QString defaultHomedire = QDir::homePath() + "/.gog";
-    if (!QDir(m_rnpgpHome).exists()) {
+    QString defaultHomedire = QDir::homePath() + "/.gnupg";
+    if (!QDir(defaultHomedire).exists()) {
         defaultHomedire = QDir::homePath() + "/.rnp";
     }
-    if (m_rnpgpHome.isEmpty() || !QDir(m_rnpgpHome).exists()) {
-        return defaultHomedire;
+    if (!m_rnpgpHome.isEmpty() && QDir(m_rnpgpHome).exists()) {
+        defaultHomedire = m_rnpgpHome;
     }
-    return QDir(m_rnpgpHome).absolutePath();
+    return defaultHomedire;
 
 #else
     return QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).at(0);

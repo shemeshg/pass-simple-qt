@@ -36,7 +36,10 @@ public:
     explicit GpgIdManageType(QObject *parent = nullptr)
         : JsAsync(parent){};
 
-    void init(std::string _currentPath, std::string _stopPath, bool _isRnPgp);
+    void init(std::string _currentPath,
+              std::string _stopPath,
+              bool _isRnPgp,
+              std::string _rnpHomePath);
     const std::vector<std::string> &getEncryptTo() const { return m_gpgIdManage->encryptTo; }
 
     /* [[[cog

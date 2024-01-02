@@ -2,9 +2,12 @@
 #include <QDebug>
 #include <QtConcurrent>
 
-void GpgIdManageType::init(std::string _currentPath, std::string _stopPath, bool _isRnPgp)
+void GpgIdManageType::init(std::string _currentPath,
+                           std::string _stopPath,
+                           bool _isRnPgp,
+                           std::string _rnpHomePath)
 {
-    m_gpgIdManage = std::make_unique<GpgIdManage>(_currentPath, _stopPath, _isRnPgp);
+    m_gpgIdManage = std::make_unique<GpgIdManage>(_currentPath, _stopPath, _isRnPgp, _rnpHomePath);
 }
 
 /* [[[cog
@@ -83,7 +86,8 @@ QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign, QString
         m_gpgIdManage->exportGpgIdToGpgPubKeysFolder();
         m_gpgIdManage = std::make_unique<GpgIdManage>(m_gpgIdManage->currentPath,
                                                       m_gpgIdManage->stopPath,
-                                                      m_gpgIdManage->isRnPgp);
+                                                      m_gpgIdManage->isRnPgp,
+                                                      m_gpgIdManage->rnpHomePath);
         try {
             m_gpgIdManage->setSigner(signerStr.toStdString());
         } catch (...) {

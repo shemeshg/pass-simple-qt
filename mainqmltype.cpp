@@ -17,7 +17,8 @@ MainQmlType::MainQmlType(
     , autoTypeSelected{autoTypeSelected}
     , autoTypeTimeout{autoTypeTimeout}
 {
-    passHelper = getInterfacePassHelper(getIsRnPgp());
+    passHelper = getInterfacePassHelper(appSettings.useRnpgp(),
+                                        appSettings.rnpgpHome().toStdString());
     passHelper->setPasswordCallback([&](std::string keyid) { return getPasswordFromMap(keyid); });
     passFile = passHelper->getPassFile("");
     watchWaitAndNoneWaitRunCmd->callback = [&]() {
@@ -61,7 +62,8 @@ void MainQmlType::setFilePath(const QString &filePath)
     try {
         m_gpgIdManageType.init(m_filePath.toStdString(),
                                appSettings.passwordStorePath().toStdString(),
-                               getIsRnPgp());
+                               appSettings.useRnpgp(),
+                               appSettings.rnpgpHome().toStdString());
     } catch (...) {
         qDebug() << "MainQmlType::setFilePath(const QString &filePath) Just failed \n"; // Block of code to handle errors
     }
@@ -209,7 +211,8 @@ void MainQmlType::initGpgIdManage()
     try {
         m_gpgIdManageType.init(appSettings.passwordStorePath().toStdString(),
                                appSettings.passwordStorePath().toStdString(),
-                               getIsRnPgp());
+                               appSettings.useRnpgp(),
+                               appSettings.rnpgpHome().toStdString());
         if (!appSettings.ctxSigner().isEmpty()) {
             passHelper->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});            
         }
@@ -310,7 +313,8 @@ void MainQmlType::doLogout()
 
 InterfaceLibgpgfactory *MainQmlType::getPrivatePasswordHelper()
 {
-    InterfaceLibgpgfactory *phLocal = getInterfacePassHelper(getIsRnPgp());
+    InterfaceLibgpgfactory *phLocal = getInterfacePassHelper(appSettings.useRnpgp(),
+                                                             appSettings.rnpgpHome().toStdString());
     try {
         if (!appSettings.ctxSigner().isEmpty()) {
             phLocal->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});
