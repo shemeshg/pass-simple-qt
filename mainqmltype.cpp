@@ -346,13 +346,26 @@ void MainQmlType::encryptAsync(QString s, const QJSValue &callback)
 void MainQmlType::openExternalEncryptWait()
 {
     if (passFile->isGpgFile()) {
+        //Validate decryption possible, because on diswoned thread exception
+        // handling will not work.
+        try {
+            passFile->decrypt();
+        } catch (RnpLoginRequestException &rlre) {
+            rlre.functionName = "openExternalEncryptWait";
+            emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+            return;
+        } catch (...) {
+            throw;
+        }
+        //
         runSafeFromException([&]() {
-            passFile->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(),
-                                                   watchWaitAndNoneWaitRunCmd.get(),
-                                                   appSettings.tmpFolderPath().toStdString(),
-                                                   appSettings.vscodeExecPath().toStdString(),
-                                                   appSettings.doSign(),
-                                                   appSettings.ctxSigner().split(" ")[0].toStdString());
+            passFile
+                ->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(),
+                                               watchWaitAndNoneWaitRunCmd.get(),
+                                               appSettings.tmpFolderPath().toStdString(),
+                                               appSettings.vscodeExecPath().toStdString(),
+                                               appSettings.doSign(),
+                                               appSettings.ctxSigner().split(" ")[0].toStdString());
         });
     }
 }

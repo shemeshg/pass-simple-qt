@@ -350,6 +350,8 @@ MainWindow::MainWindow(QWidget *parent)
                         mainqmltype->encryptUpload(QString::fromStdString(e.fromFilePath),
                                                    QString::fromStdString(e.toFilePath),
                                                    e.doSign);
+                    } else if (e.functionName == "openExternalEncryptWait") {
+                        mainqmltype->openExternalEncryptWait();
                     }
                 }
             });
