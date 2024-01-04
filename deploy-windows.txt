@@ -1,0 +1,8 @@
+R:
+cd R:\build-pass-simple-qt-Desktop_Qt_6_6_1_MSVC2019_64bit-Release
+D:\Qt\6.6.1\msvc2019_64\bin\windeployqt.exe pass-simple.exe
+
+copy /y rnp-build\src\rnp\*.exe .
+copy /y rnp-build\src\rnp\*.dll .
+copy /y r:\rnp-build\src\rnpkeys\*.exe .
+copy /y r:\rnp-build\src\rnpkeys\*.dll .
