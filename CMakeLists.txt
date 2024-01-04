@@ -178,6 +178,9 @@ if(LINUX)
     set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA, ./script/postinst)
     set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA, ./script/prerm)
     include(CPack)
+    
+    set (ubuntu_so_files /lib/x86_64-linux-gnu/librnp.so.0.17.0
+    /lib/libbotan-3.so.2.2.0)
 endif()
 
 
@@ -222,6 +225,9 @@ endif()
 qt_generate_deploy_qml_app_script(
     TARGET pass-simple
     OUTPUT_SCRIPT deploy_script
+    POST_INCLUDE_FILES
+      ${POST_INCLUDE_FILES}
+      ${ubuntu_so_files}
     NO_UNSUPPORTED_PLATFORM_ERROR
 )
 
