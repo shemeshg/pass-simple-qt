@@ -4,6 +4,50 @@
 #include <QtConcurrent>
 #include "QtTotp/getTotp.h"
 #include "RunShellCmd.h"
+#include <iostream>
+
+#if defined(__APPLE__) || defined(__linux__)
+#else
+#include <Windows.h>
+#include <tchar.h>
+int SendKeystrokesToActiveWindow(HWND active_window,  const TCHAR *const text )
+{
+    INPUT *keystroke;
+    UINT i, character_count, keystrokes_to_send, keystrokes_sent;
+
+    assert( text != NULL );
+
+    if( active_window == NULL )
+        return 0;
+
+    //Fill in the array of keystrokes to send.
+    character_count = _tcslen( text );
+    keystrokes_to_send = character_count * 2;
+    keystroke = new INPUT[ keystrokes_to_send ];
+    for( i = 0; i < character_count; ++i )
+    {
+        keystroke[ i * 2 ].type = INPUT_KEYBOARD;
+        keystroke[ i * 2 ].ki.wVk = 0;
+        keystroke[ i * 2 ].ki.wScan = text[ i ];
+        keystroke[ i * 2 ].ki.dwFlags = KEYEVENTF_UNICODE;
+        keystroke[ i * 2 ].ki.time = 0;
+        keystroke[ i * 2 ].ki.dwExtraInfo = GetMessageExtraInfo();
+
+        keystroke[ i * 2 + 1 ].type = INPUT_KEYBOARD;
+        keystroke[ i * 2 + 1 ].ki.wVk = 0;
+        keystroke[ i * 2 + 1 ].ki.wScan = text[ i ];
+        keystroke[ i * 2 + 1 ].ki.dwFlags = KEYEVENTF_UNICODE | KEYEVENTF_KEYUP;
+        keystroke[ i * 2 + 1 ].ki.time = 0;
+        keystroke[ i * 2 + 1 ].ki.dwExtraInfo = GetMessageExtraInfo();
+    }
+
+    //Send the keystrokes.
+    keystrokes_sent = SendInput( ( UINT )keystrokes_to_send, keystroke, sizeof( *keystroke ) );
+    delete [] keystroke;
+
+    return keystrokes_sent == keystrokes_to_send;
+}
+#endif
 
 MainQmlType::MainQmlType(
                          QSplitter *s,
@@ -839,6 +883,33 @@ osascript -e 'tell application "System Events" to keystroke "sequence"'
 
             s = ReplaceAll(s, "sequence", escapeAppleScript(sequence.toStdString()));
             system(s.c_str());
+#else
+            std::string str = sequence.toStdString();
+            TCHAR* tchar = new TCHAR[str.size() + 1];
+            tchar[str.size()] = '\0';
+            std::copy(str.begin(), str.end(), tchar);
+
+
+            for (HWND hwnd = GetTopWindow(NULL); hwnd != NULL; hwnd = GetNextWindow(hwnd, GW_HWNDNEXT))
+            {
+
+                if (!IsWindowVisible(hwnd))
+                    continue;
+
+                int length = GetWindowTextLength(hwnd);
+                if (length == 0)
+                    continue;
+
+                char* title = new char[length+1];
+                if (title == "Program Manager")
+                    continue;
+                SetForegroundWindow( hwnd );
+                SendKeystrokesToActiveWindow(hwnd, tchar );
+                break;
+
+
+
+            }
 #endif
     });
 
