@@ -220,6 +220,7 @@ ScrollView {
         }
         CoreSwitch {
             id: useRnpgp
+            enabled:  Qt.platform.os !== "windows"
             text: qsTr("Use Rnpgp")
             checked: isUseRnpgp
         }

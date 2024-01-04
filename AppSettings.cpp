@@ -194,6 +194,14 @@ void AppSettings::setOpenWith(const int openWith)
     emit openWithChanged();
 }
 
+bool AppSettings::useRnpgp() const {
+#if defined(__APPLE__) || defined(__linux__)
+    return m_useRnpgp;
+#else
+    return true;
+#endif
+}
+
 void AppSettings::setUseRnpgp(const bool useRnpgp)
 {
     if (useRnpgp == m_useRnpgp)

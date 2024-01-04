@@ -80,7 +80,7 @@ public:
     void setIsShowPreview(const bool isShowPreview);
     int openWith() const { return m_openWith; };
     void setOpenWith(const int openWith);
-    bool useRnpgp() const { return m_useRnpgp; };
+    bool useRnpgp() const;;
     void setUseRnpgp(const bool useRnpgp);
     const QString rnpgpHome() const;
     void setRnpgpHome(const QString &rnpgpHome);
