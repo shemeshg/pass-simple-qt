@@ -14,9 +14,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 CMAKE_POLICY(SET CMP0071 NEW) 
 
-if(WIN32)
+if(MACOSX)
+    set(CMAKE_OSX_ARCHITECTURES "x86_64" )
+    include( "/Users/macos/vcpkg/scripts/buildsystems/vcpkg.cmake")
+endif()
+if(LINUX)
+    include( "/opt/vcpkg/scripts/buildsystems/vcpkg.cmake")
+endif()
+if(WINDOWS)
 include( "D:/vcpkg/scripts/buildsystems/vcpkg.cmake")
 endif()
+
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent LabsFolderListModel Svg QuickControls2)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools QuickWidgets Concurrent LabsFolderListModel Svg QuickControls2)
