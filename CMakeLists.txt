@@ -14,6 +14,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 CMAKE_POLICY(SET CMP0071 NEW) 
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set(MACOSX TRUE)
+endif()
+if(UNIX AND NOT APPLE)
+    set(LINUX TRUE)
+endif()
+if(WIN32 OR MSVC OR MSYS OR MINGW)
+    set(WINDOWS TRUE)
+endif()
+
 if(MACOSX)
     set(CMAKE_OSX_ARCHITECTURES "x86_64" )
     include( "/Users/macos/vcpkg/scripts/buildsystems/vcpkg.cmake")
