@@ -424,7 +424,8 @@ void MainQmlType::openExternalEncryptWait()
                                                appSettings.tmpFolderPath().toStdString(),
                                                appSettings.vscodeExecPath().toStdString(),
                                                appSettings.doSign(),
-                                               appSettings.ctxSigner().split(" ")[0].toStdString());
+                                               appSettings.ctxSigner().split(" ")[0].toStdString(),
+                                               runShellCmd.get());
         });
     }
 }
@@ -455,8 +456,9 @@ void MainQmlType::openExternalEncryptNoWait()
         runSafeFromException([&]() {
             std::string subfolderPath
                 = passFile->openExternalEncryptNoWait(watchWaitAndNoneWaitRunCmd.get(),
-                                                          appSettings.tmpFolderPath().toStdString(),
-                                                          appSettings.vscodeExecPath().toStdString());
+                                                      appSettings.tmpFolderPath().toStdString(),
+                                                      appSettings.vscodeExecPath().toStdString(),
+                                                      runShellCmd.get());
             QDesktopServices::openUrl(
                         QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
         });
@@ -776,22 +778,20 @@ void MainQmlType::runGitSyncCmd(QString nearestGit, QString syncMsg){
 
 QString MainQmlType::runCmd(QStringList keysFound, QString noEscaped)
 {
-    RunShellCmd rsc;
     std::vector<std::string> v{};
     for (const QString &r : keysFound) {
         v.push_back(r.toStdString());
     }
-    return QString::fromStdString(rsc.runCmd(v, noEscaped.toStdString()));
+    return QString::fromStdString(runShellCmd->runCmd(v, noEscaped.toStdString()));
 }
 
 int MainQmlType::runSystem(QStringList keysFound, QString noEscaped)
 {
-    RunShellCmd rsc;
     std::vector<std::string> v{};
     for (const QString &r : keysFound) {
         v.push_back(r.toStdString());
     }
-    return rsc.runSystem(v, noEscaped.toStdString());
+    return runShellCmd->runSystem(v, noEscaped.toStdString());
 }
 
 

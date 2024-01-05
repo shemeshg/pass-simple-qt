@@ -24,6 +24,36 @@
 
 #include "JsAsync.h"
 
+class QtRunShellCmd : public RunShellCmd
+{
+private:
+    std::string exec(const char *cmd)
+    {
+        QString command = QString::fromStdString(cmd);
+        QStringList parts = command.split("'");
+        QMutableStringListIterator i(parts); // pass list as argument
+        while (i.hasNext()) {
+            QString str = i.next();
+            i.setValue(str.simplified());
+            if (str.simplified().isEmpty()) {
+                i.remove(); // delete current item
+            }
+            if (str.simplified() == "2>&1") {
+                i.remove();
+            }
+        }
+        QString program = parts.first();
+        QStringList arguments = parts.mid(1);
+
+        QProcess pingProcess;
+        pingProcess.start(program, {arguments});
+        pingProcess.waitForFinished(); // sets current thread to sleep and waits for pingProcess end
+        QString output(pingProcess.readAllStandardOutput());
+        pingProcess.close();
+        return output.toStdString();
+    }
+};
+
 class MainQmlType : public JsAsync
 {
     Q_OBJECT
@@ -267,6 +297,8 @@ private:
     QStringList m_searchResult;
     QString m_selectedText;
     QString m_menubarCommStr;
+
+    std::unique_ptr<RunShellCmd> runShellCmd = std::make_unique<QtRunShellCmd>();
     // hygen private
 
     void runSafeFromException(std::function<void()> callback);
