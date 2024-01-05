@@ -267,6 +267,10 @@ const QString AppSettings::rnpgpHome() const
     if (!m_rnpgpHome.isEmpty() && QDir(m_rnpgpHome).exists()) {
         defaultHomedire = m_rnpgpHome;
     }
+
+    if (!QDir(defaultHomedire).exists()){
+        std::filesystem::create_directory(defaultHomedire.toStdString());
+    }
     return defaultHomedire;
 
 #else
@@ -276,8 +280,13 @@ const QString AppSettings::rnpgpHome() const
     s = s.remove_filename();
     s = s / "gnupg";
     QString defaultHomedire =QString::fromStdString(s.u8string());
+
     if (!m_rnpgpHome.isEmpty() && QDir(m_rnpgpHome).exists()) {
         defaultHomedire = m_rnpgpHome;
+    }
+
+    if (!QDir(defaultHomedire).exists()){
+        std::filesystem::create_directory(defaultHomedire.toStdString());
     }
 
     return defaultHomedire;
