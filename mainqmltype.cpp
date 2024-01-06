@@ -628,8 +628,10 @@ void MainQmlType::encryptUploadAsync(const QJSValue &callback, QString  fullPath
             selectFile = selectFile / (f.fileName().toStdString() + ".gpg");
         }
 
-        setFilePath(appSettings.passwordStorePath());
-        emit initFileSystemModel(QString::fromStdString(selectFile.u8string()));
+        if (!toFilesSubFolder) {
+            setFilePath(appSettings.passwordStorePath());
+            emit initFileSystemModel(QString::fromStdString(selectFile.u8string()));
+        }
         return 0;
     });
 }

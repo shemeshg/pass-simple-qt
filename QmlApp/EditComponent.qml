@@ -110,16 +110,17 @@ ColumnLayout {
                                                         QmlAppSt.doMainUiEnable(
                                                             )
                                                         notifyStr("*")
+                                                        urlfileDialogUrlField.currentFiles.forEach(f => {
+                                                                                                       let filename = f.toString(
+                                                                                                           ).replace(
+                                                                                                           /^.*[\\\/]/, '')
+                                                                                                       inField.text = "_files/" + filename
+                                                                                                   })
                                                     }, QmlAppSt.fullPathFolder,
                                                     urlfileDialogUrlField.currentFiles,
                                                     true)
 
-            urlfileDialogUrlField.currentFiles.forEach(f => {
-                                                           let filename = f.toString(
-                                                               ).replace(
-                                                               /^.*[\\\/]/, '')
-                                                           inField.text = "_files/" + filename
-                                                       })
+
         }
         onRejected: {
             QmlAppSt.doMainUiEnable()
