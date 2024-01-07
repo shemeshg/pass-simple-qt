@@ -90,8 +90,9 @@ private:
 
     };
     QVector<MenuItem> menuItems;
-    void appendMenuItem(const QString &iconPath,const QString &toolTip,
-                             bool enableIfHasGpgIdFile,
-                            bool enableIfGpgFileSelected,
-                             std::function<void()> callback);
+    void appendMenuItem(const QString &iconPath,
+                        const QString &toolTip,
+                        bool enableIfHasGpgIdFile,
+                        bool enableIfGpgFileSelected,
+                        std::function<void()> callback);
 };

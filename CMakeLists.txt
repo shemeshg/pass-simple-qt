@@ -193,6 +193,11 @@ if(LINUX)
     /lib/libbotan-3.so.2.2.0)
 endif()
 
+if(APPLE)
+    set(mac_SOURCES
+            macutils/AppKitImpl.mm
+            macutils/AppKit.h)
+endif()
 
 qt_add_qml_module(pass-simple
     URI MainQml
@@ -204,6 +209,7 @@ qt_add_qml_module(pass-simple
         UiGuard.h UiGuard.cpp
         appfilesysmodel.h appfilesysmodel.cpp
   AppSettings.cpp AppSettings.h
+        ${mac_SOURCES}
         # bug totp
         QtTotp/totp.h
         QtTotp/totp.cpp

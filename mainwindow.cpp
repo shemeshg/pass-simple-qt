@@ -16,6 +16,9 @@
 #include <QQmlContext>
 #include <QScroller>
 #include <QSystemTrayIcon>
+#if defined(__APPLE__)
+#include "macutils/AppKit.h"
+#endif
 
 QImage MainWindow::shape_icon(
     const QString &icon, const QColor &color, const qreal &strength, const int &w, const int &h)
@@ -167,8 +170,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     ui->setupUi(this);
-
-
 
     QFont font = QApplication::font();
     font.setPointSize(appSettings.fontSize().toInt());
@@ -396,6 +397,11 @@ MainWindow::MainWindow(QWidget *parent)
         mainqmltype->setTreeViewSelected(rootPath);
         setQmlSource();
     });
+
+#if defined(__APPLE__)
+    AppKit *m_appkit = new AppKit(this);
+    m_appkit->setWindowSecurity(this->winId(), true);
+#endif
 }
 
 MainWindow::~MainWindow()
@@ -443,10 +449,11 @@ void MainWindow::prepareMenu(const QPoint &pos)
 
         QString text = QInputDialog::getText(this,
                                              tr("Rename"),
-                                             tr("Rename: %1").arg( QString::fromStdString(fileName)),
+                                             tr("Rename: %1").arg(QString::fromStdString(fileName)),
                                              QLineEdit::Normal,
                                              QString::fromStdString(fileName),
-                                             &ok).trimmed();
+                                             &ok)
+                           .trimmed();
         if (ok && !text.isEmpty() && text.trimmed() != QString::fromStdString(fileName).trimmed()) {
             std::filesystem::path newPath = fullFolderPath / text.toStdString();
 
@@ -459,7 +466,6 @@ void MainWindow::prepareMenu(const QPoint &pos)
             } catch (...) {
                 qDebug() << "mv failed";
             }
-
         }
     });
 
