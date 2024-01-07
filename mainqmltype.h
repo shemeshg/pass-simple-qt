@@ -150,6 +150,7 @@ public:
                                             QString autoTypeCmd,
                                             QString binaryExts,
                                             bool useClipboard,
+                                            bool allowScreenCapture,
                                             bool useRnpgp,
                                             bool doSign,
                                             bool preferYamlView,

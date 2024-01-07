@@ -28,17 +28,18 @@ class AppSettings : public QObject
     Q_PROPERTY( QString ddListStores READ ddListStores WRITE setDdListStores NOTIFY ddListStoresChanged)
     Q_PROPERTY( QString binaryExts READ binaryExts WRITE setBinaryExts NOTIFY binaryExtsChanged)
     Q_PROPERTY( bool useClipboard READ useClipboard WRITE setUseClipboard NOTIFY useClipboardChanged)
+    Q_PROPERTY( bool allowScreenCapture READ allowScreenCapture WRITE setAllowScreenCapture NOTIFY allowScreenCaptureChanged)
     Q_PROPERTY( bool doSign READ doSign WRITE setDoSign NOTIFY doSignChanged)
     Q_PROPERTY( bool preferYamlView READ preferYamlView WRITE setPreferYamlView NOTIFY preferYamlViewChanged)
     Q_PROPERTY( bool isFindMemCash READ isFindMemCash WRITE setIsFindMemCash NOTIFY isFindMemCashChanged)
     Q_PROPERTY( bool isFindSlctFrst READ isFindSlctFrst WRITE setIsFindSlctFrst NOTIFY isFindSlctFrstChanged)
     Q_PROPERTY( bool isShowPreview READ isShowPreview WRITE setIsShowPreview NOTIFY isShowPreviewChanged)
     Q_PROPERTY( int openWith READ openWith WRITE setOpenWith NOTIFY openWithChanged)
-    Q_PROPERTY( bool useRnpgp READ useRnpgp WRITE setUseRnpgp NOTIFY useRnpgpChanged)
     Q_PROPERTY( QString rnpgpHome READ rnpgpHome WRITE setRnpgpHome NOTIFY rnpgpHomeChanged)
     Q_PROPERTY( QString appVer READ appVer CONSTANT)
 
     //[[[end]]]
+    Q_PROPERTY(bool useRnpgp READ useRnpgp WRITE setUseRnpgp NOTIFY useRnpgpChanged)
     QML_ELEMENT
 public:
     AppSettings(QObject *parent = nullptr);
@@ -68,6 +69,8 @@ public:
     void setBinaryExts(const QString &binaryExts);
     bool useClipboard() const { return m_useClipboard; };
     void setUseClipboard(const bool useClipboard);
+    bool allowScreenCapture() const { return m_allowScreenCapture; };
+    void setAllowScreenCapture(const bool allowScreenCapture);
     bool doSign() const { return m_doSign; };
     void setDoSign(const bool doSign);
     bool preferYamlView() const { return m_preferYamlView; };
@@ -80,12 +83,12 @@ public:
     void setIsShowPreview(const bool isShowPreview);
     int openWith() const { return m_openWith; };
     void setOpenWith(const int openWith);
-    bool useRnpgp() const;;
-    void setUseRnpgp(const bool useRnpgp);
     const QString rnpgpHome() const;
     void setRnpgpHome(const QString &rnpgpHome);
 
     //[[[end]]]
+    bool useRnpgp() const;
+    void setUseRnpgp(const bool useRnpgp);
 
     /* [[[cog
     cog.outl(appSettings.get_appWindowStates(),
@@ -166,18 +169,19 @@ signals:
     void ddListStoresChanged();
     void binaryExtsChanged();
     void useClipboardChanged();
+    void allowScreenCaptureChanged();
     void doSignChanged();
     void preferYamlViewChanged();
     void isFindMemCashChanged();
     void isFindSlctFrstChanged();
     void isShowPreviewChanged();
     void openWithChanged();
-    void useRnpgpChanged();
     void rnpgpHomeChanged();
 
     //[[[end]]]
+    void useRnpgpChanged();
 
- private:
+private:
     QSettings settings{"shemeshg", "PassSimple"};
     /* [[[cog
     cog.outl(appSettings.getQ_header_privates(),
@@ -194,14 +198,15 @@ signals:
     QString m_ddListStores;
     QString m_binaryExts;
     bool m_useClipboard;
+    bool m_allowScreenCapture;
     bool m_doSign;
     bool m_preferYamlView;
     bool m_isFindMemCash;
     bool m_isFindSlctFrst;
     bool m_isShowPreview;
     int m_openWith;
-    bool m_useRnpgp;
     QString m_rnpgpHome;
 
     //[[[end]]]
+    bool m_useRnpgp;
 };

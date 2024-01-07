@@ -397,11 +397,12 @@ MainWindow::MainWindow(QWidget *parent)
         mainqmltype->setTreeViewSelected(rootPath);
         setQmlSource();
     });
-
-#if defined(__APPLE__)
+    if (!appSettings.allowScreenCapture()) {
+#if defined(__APPLE__)    
     AppKit *m_appkit = new AppKit(this);
     m_appkit->setWindowSecurity(this->winId(), true);
 #endif
+    }
 }
 
 MainWindow::~MainWindow()

@@ -13,6 +13,7 @@ ScrollView {
     contentWidth: columnLayoutHomeId.width - 30
 
     property bool isUseClipboard: QmlAppSt.mainqmltype.appSettingsType.useClipboard
+    property bool isAllowScreenCapture: QmlAppSt.mainqmltype.appSettingsType.allowScreenCapture
     property bool isUseRnpgp: QmlAppSt.mainqmltype.appSettingsType.useRnpgp
     property bool isPreferYamlView: QmlAppSt.mainqmltype.appSettingsType.preferYamlView
     property bool isDoSign: QmlAppSt.mainqmltype.appSettingsType.doSign
@@ -21,6 +22,7 @@ ScrollView {
         if (visible) {
             isUseClipboard = QmlAppSt.mainqmltype.appSettingsType.useClipboard
             isUseRnpgp = QmlAppSt.mainqmltype.appSettingsType.useRnpgp
+            isAllowScreenCapture = QmlAppSt.mainqmltype.appSettingsType.allowScreenCapture
             useClipboard.checked = isUseClipboard
             isPreferYamlView = QmlAppSt.mainqmltype.appSettingsType.preferYamlView
             preferYamlView.checked = isPreferYamlView
@@ -86,6 +88,7 @@ ScrollView {
                     vscodeExecPath.text,
                     autoTypeCmd.text, binaryExts.text,
                     useClipboard.checked,
+                    allowScreenCapture.checked,
                     useRnpgp.checked,
                     doSign.checked,
                     preferYamlView.checked, fontSize.text,
@@ -207,7 +210,7 @@ ScrollView {
             id: preferYamlView
             text: qsTr("Prefer Yaml view if Yaml valid")
             checked: isPreferYamlView
-        }
+        }       
         CoreSwitch {
             id: useClipboard
             text: qsTr("Use clipboard")
@@ -223,6 +226,12 @@ ScrollView {
             enabled:  Qt.platform.os !== "windows"
             text: qsTr("Use Rnpgp")
             checked: isUseRnpgp
+        }
+        CoreSwitch {
+            id: allowScreenCapture
+            visible: Qt.platform.os !== "linux"
+            text: qsTr("Allow screen capture")
+            checked: isAllowScreenCapture
         }
         Label {
             text: "<b>Rnp</b> home folder:"

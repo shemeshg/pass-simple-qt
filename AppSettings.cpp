@@ -22,13 +22,13 @@ AppSettings::AppSettings(QObject *parent)
     m_ddListStores = settings.value("ddListStores", "").toString();
     m_binaryExts = settings.value("binaryExts", "").toString();
     m_useClipboard = settings.value("useClipboard", false).toBool();
+    m_allowScreenCapture = settings.value("allowScreenCapture", false).toBool();
     m_doSign = settings.value("doSign", false).toBool();
     m_preferYamlView = settings.value("preferYamlView", true).toBool();
     m_isFindMemCash = settings.value("isFindMemCash", false).toBool();
     m_isFindSlctFrst = settings.value("isFindSlctFrst", false).toBool();
     m_isShowPreview = settings.value("isShowPreview", true).toBool();
     m_openWith = settings.value("openWith", 0).toInt();
-    m_useRnpgp = settings.value("useRnpgp", false).toBool();
     m_rnpgpHome = settings.value("rnpgpHome", "").toString();
 
     //[[[end]]]
@@ -140,6 +140,15 @@ void AppSettings::setUseClipboard(const bool useClipboard)
     emit useClipboardChanged();
 }
 
+void AppSettings::setAllowScreenCapture(const bool allowScreenCapture)
+{
+    if (allowScreenCapture == m_allowScreenCapture)
+        return;
+    m_allowScreenCapture = allowScreenCapture;
+    settings.setValue("allowScreenCapture", m_allowScreenCapture);
+    emit allowScreenCaptureChanged();
+}
+
 void AppSettings::setDoSign(const bool doSign)
 {
     if (doSign == m_doSign)
@@ -194,7 +203,19 @@ void AppSettings::setOpenWith(const int openWith)
     emit openWithChanged();
 }
 
-bool AppSettings::useRnpgp() const {
+void AppSettings::setRnpgpHome(const QString &rnpgpHome)
+{
+    if (rnpgpHome == m_rnpgpHome)
+        return;
+    m_rnpgpHome = rnpgpHome;
+    settings.setValue("rnpgpHome", m_rnpgpHome);
+    emit rnpgpHomeChanged();
+}
+
+//[[[end]]]
+
+bool AppSettings::useRnpgp() const
+{
 #if defined(__APPLE__) || defined(__linux__)
     return m_useRnpgp;
 #else
@@ -210,17 +231,6 @@ void AppSettings::setUseRnpgp(const bool useRnpgp)
     settings.setValue("useRnpgp", m_useRnpgp);
     emit useRnpgpChanged();
 }
-
-void AppSettings::setRnpgpHome(const QString &rnpgpHome)
-{
-    if (rnpgpHome == m_rnpgpHome)
-        return;
-    m_rnpgpHome = rnpgpHome;
-    settings.setValue("rnpgpHome", m_rnpgpHome);
-    emit rnpgpHomeChanged();
-}
-
-//[[[end]]]
 
 const QString AppSettings::ddListStores() const
 {

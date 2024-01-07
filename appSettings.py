@@ -226,6 +226,7 @@ a = [
     Prpt("QString",'ddListStores'),
     Prpt("QString",'binaryExts'),
     Prpt("bool",'useClipboard',"false"),
+    Prpt("bool",'allowScreenCapture',"false"),
     Prpt("bool",'doSign',"false"),
     Prpt("bool",'preferYamlView',"true"),   
 
@@ -234,7 +235,7 @@ a = [
     Prpt("bool",'isShowPreview',"true", True),
     Prpt("int",'openWith',"0", True),
 
-    Prpt("bool",'useRnpgp',"false"),
+    #Prpt("bool",'useRnpgp',"false"),
     Prpt("QString",'rnpgpHome'),
 
 ]   

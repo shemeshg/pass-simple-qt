@@ -273,6 +273,7 @@ void MainQmlType::submit_AppSettingsType(QString passwordStorePath,
                                          QString autoTypeCmd,
                                          QString binaryExts,
                                          bool useClipboard,
+                                         bool allowScreenCapture,
                                          bool useRnpgp,
                                          bool doSign,
                                          bool preferYamlView,
@@ -290,6 +291,7 @@ void MainQmlType::submit_AppSettingsType(QString passwordStorePath,
     appSettings.setAutoTypeCmd(autoTypeCmd);
     appSettings.setBinaryExts(binaryExts);
     appSettings.setUseClipboard(useClipboard);
+    appSettings.setAllowScreenCapture(allowScreenCapture);
     appSettings.setUseRnpgp(useRnpgp);
     appSettings.setRnpgpHome(rnpgpHome);
     appSettings.setDoSign(doSign);
