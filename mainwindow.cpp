@@ -19,6 +19,10 @@
 #if defined(__APPLE__)
 #include "macutils/AppKit.h"
 #endif
+#if defined(__APPLE__) || defined(__linux__)
+#else
+#include <Windows.h>
+#endif
 
 QImage MainWindow::shape_icon(
     const QString &icon, const QColor &color, const qreal &strength, const int &w, const int &h)
@@ -401,6 +405,11 @@ MainWindow::MainWindow(QWidget *parent)
 #if defined(__APPLE__)    
     AppKit *m_appkit = new AppKit(this);
     m_appkit->setWindowSecurity(this->winId(), true);
+#endif
+#if defined(__APPLE__) || defined(__linux__)
+#else
+        HWND handle = reinterpret_cast<HWND>(this->winId());
+        SetWindowDisplayAffinity(handle, true ? WDA_EXCLUDEFROMCAPTURE : WDA_NONE);
 #endif
     }
 }
