@@ -32,6 +32,7 @@ AppSettings::AppSettings(QObject *parent)
     m_rnpgpHome = settings.value("rnpgpHome", "").toString();
 
     //[[[end]]]
+    m_useRnpgp = settings.value("useRnpgp", false).toBool();
 }
 
 
