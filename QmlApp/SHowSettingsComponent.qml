@@ -222,22 +222,24 @@ ScrollView {
             checked: isDoSign
         }
         CoreSwitch {
-            id: useRnpgp
-            enabled:  Qt.platform.os !== "windows"
-            text: qsTr("Use Rnpgp")
-            checked: isUseRnpgp
-        }
-        CoreSwitch {
             id: allowScreenCapture
             visible: Qt.platform.os !== "linux"
             text: qsTr("Allow screen capture")
             checked: isAllowScreenCapture
         }
+        CoreSwitch {
+            id: useRnpgp
+            enabled:  Qt.platform.os !== "windows"
+            text: qsTr("Use Rnpgp")
+            checked: isUseRnpgp
+        }
         Label {
+            visible: useRnpgp.checked
             text: "<b>Rnp</b> home folder:"
         }
         SettingsSelectFolder {
             id: rnpgpHome
+            visible: useRnpgp.checked
             text: QmlAppSt.mainqmltype.appSettingsType.rnpgpHome
             hooverText: "<b>Rnp</b> home folder"
             onSetPath: s => {
