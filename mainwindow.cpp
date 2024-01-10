@@ -326,19 +326,35 @@ MainWindow::MainWindow(QWidget *parent)
             this,
             [=](const RnpLoginRequestException &e, std::map<std::string, std::string> *m) {
                 bool ok;
+                QString text;
+                if (appSettings.rnpPassFromStdExec() && !m->count(e.lastKeyIdRequested)) {
+                    QString program = appSettings.rnpPassStdExecPath();
+                    QStringList arguments{QString::fromStdString(e.lastKeyIdRequested)};
+                    QProcess pingProcess;
+                    pingProcess.start(program, {arguments});
+                    pingProcess.waitForFinished();
+                    QString output(pingProcess.readAll());
+                    qDebug() << output;
+                    pingProcess.close();
+                    text = output.split("\n").first().trimmed();
+                    ok = true;
+                } else {
+                    text = QInputDialog::getText(this,
+                                                 tr("Rnp Login"),
+                                                 QString::fromStdString(
+                                                     mainqmltype->getKeyDescription(
+                                                         e.lastKeyIdRequested)),
+                                                 QLineEdit::Password,
+                                                 "",
+                                                 &ok);
+                }
 
-                QString text = QInputDialog::getText(this,
-                                                     tr("Rnp Login"),
-                                                     QString::fromStdString(
-                                                         mainqmltype->getKeyDescription(
-                                                             e.lastKeyIdRequested)),
-                                                     QLineEdit::Password,
-                                                     "",
-                                                     &ok);
                 if (ok) {
                     (*m)[e.lastKeyIdRequested] = text.toStdString();
                     if (e.functionName == "getDecrypted") {
-                        mainqmltype->setTreeViewSelected(QString::fromStdString(e.fromFilePath));
+                        QTimer::singleShot(0, this, [=] {
+                            mainqmltype->setTreeViewSelected(QString::fromStdString(e.fromFilePath));
+                        });
                     } else if (e.functionName == "encrypt") {
                         mainqmltype->encrypt(QString::fromStdString(e.fromFilePath));
                     } else if (e.functionName == "doSearch") {

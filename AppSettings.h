@@ -36,6 +36,8 @@ class AppSettings : public QObject
     Q_PROPERTY( bool isShowPreview READ isShowPreview WRITE setIsShowPreview NOTIFY isShowPreviewChanged)
     Q_PROPERTY( int openWith READ openWith WRITE setOpenWith NOTIFY openWithChanged)
     Q_PROPERTY( QString rnpgpHome READ rnpgpHome WRITE setRnpgpHome NOTIFY rnpgpHomeChanged)
+    Q_PROPERTY( bool rnpPassFromStdExec READ rnpPassFromStdExec WRITE setRnpPassFromStdExec NOTIFY rnpPassFromStdExecChanged)
+    Q_PROPERTY( QString rnpPassStdExecPath READ rnpPassStdExecPath WRITE setRnpPassStdExecPath NOTIFY rnpPassStdExecPathChanged)
     Q_PROPERTY( QString appVer READ appVer CONSTANT)
 
     //[[[end]]]
@@ -85,6 +87,10 @@ public:
     void setOpenWith(const int openWith);
     const QString rnpgpHome() const;
     void setRnpgpHome(const QString &rnpgpHome);
+    bool rnpPassFromStdExec() const { return m_rnpPassFromStdExec; };
+    void setRnpPassFromStdExec(const bool rnpPassFromStdExec);
+    const QString rnpPassStdExecPath() const;
+    void setRnpPassStdExecPath(const QString &rnpPassStdExecPath);
 
     //[[[end]]]
     bool useRnpgp() const;
@@ -177,6 +183,8 @@ signals:
     void isShowPreviewChanged();
     void openWithChanged();
     void rnpgpHomeChanged();
+    void rnpPassFromStdExecChanged();
+    void rnpPassStdExecPathChanged();
 
     //[[[end]]]
     void useRnpgpChanged();
@@ -206,6 +214,8 @@ private:
     bool m_isShowPreview;
     int m_openWith;
     QString m_rnpgpHome;
+    bool m_rnpPassFromStdExec;
+    QString m_rnpPassStdExecPath;
 
     //[[[end]]]
     bool m_useRnpgp;

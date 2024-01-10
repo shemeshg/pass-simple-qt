@@ -238,6 +238,9 @@ a = [
     #Prpt("bool",'useRnpgp',"false"),
     Prpt("QString",'rnpgpHome'),
 
+    Prpt("bool",'rnpPassFromStdExec',"false"),
+    Prpt("QString",'rnpPassStdExecPath'),
+
 ]   
 
 p = Prpt("QString",'appVer')

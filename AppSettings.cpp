@@ -30,6 +30,8 @@ AppSettings::AppSettings(QObject *parent)
     m_isShowPreview = settings.value("isShowPreview", true).toBool();
     m_openWith = settings.value("openWith", 0).toInt();
     m_rnpgpHome = settings.value("rnpgpHome", "").toString();
+    m_rnpPassFromStdExec = settings.value("rnpPassFromStdExec", false).toBool();
+    m_rnpPassStdExecPath = settings.value("rnpPassStdExecPath", "").toString();
 
     //[[[end]]]
     m_useRnpgp = settings.value("useRnpgp", false).toBool();
@@ -213,6 +215,24 @@ void AppSettings::setRnpgpHome(const QString &rnpgpHome)
     emit rnpgpHomeChanged();
 }
 
+void AppSettings::setRnpPassFromStdExec(const bool rnpPassFromStdExec)
+{
+    if (rnpPassFromStdExec == m_rnpPassFromStdExec)
+        return;
+    m_rnpPassFromStdExec = rnpPassFromStdExec;
+    settings.setValue("rnpPassFromStdExec", m_rnpPassFromStdExec);
+    emit rnpPassFromStdExecChanged();
+}
+
+void AppSettings::setRnpPassStdExecPath(const QString &rnpPassStdExecPath)
+{
+    if (rnpPassStdExecPath == m_rnpPassStdExecPath)
+        return;
+    m_rnpPassStdExecPath = rnpPassStdExecPath;
+    settings.setValue("rnpPassStdExecPath", m_rnpPassStdExecPath);
+    emit rnpPassStdExecPathChanged();
+}
+
 //[[[end]]]
 
 bool AppSettings::useRnpgp() const
@@ -327,7 +347,10 @@ const QString AppSettings::gitExecPath() const
     return m_gitExecPath;
 }
 
-
+const QString AppSettings::rnpPassStdExecPath() const
+{
+    return m_rnpPassStdExecPath;
+}
 
 const QString AppSettings::vscodeExecPath() const
 {

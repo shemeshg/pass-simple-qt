@@ -42,6 +42,10 @@ ScrollView {
             binaryExts.text = QmlAppSt.mainqmltype.appSettingsType.binaryExts
             ddListStores.text = QmlAppSt.mainqmltype.appSettingsType.ddListStores
             passwordStoreId.text = QmlAppSt.passwordStorePathStr
+            // Refactore showSettings
+            rnpPassFromStdExec.checked = QmlAppSt.mainqmltype.appSettingsType.rnpPassFromStdExec
+            rnpPassStdExecPath.text = QmlAppSt.mainqmltype.appSettingsType.rnpPassStdExecPath
+            //End refactor way of settings
             comboLstStoresCompleted()
         }
     }
@@ -93,7 +97,12 @@ ScrollView {
                     doSign.checked,
                     preferYamlView.checked, fontSize.text,
                     commitMsg.text, ddListStores.text, ctxSigner.currentText)
-        QmlAppSt.passwordStorePathStr = QmlAppSt.mainqmltype.appSettingsType.passwordStorePath
+        //
+        QmlAppSt.mainqmltype.appSettingsType.rnpPassFromStdExec = rnpPassFromStdExec.checked
+        QmlAppSt.mainqmltype.appSettingsType.rnpPassStdExecPath = rnpPassStdExecPath.text
+        //
+        QmlAppSt.passwordStorePathStr = QmlAppSt.mainqmltype.appSettingsType.passwordStorePath;
+
         QmlAppSt.isShowSettings = false
     }
 
@@ -227,6 +236,12 @@ ScrollView {
             text: qsTr("Allow screen capture")
             checked: isAllowScreenCapture
         }
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 1
+            color: CoreSystemPalette.text
+            visible: useRnpgp.checked
+        }
         CoreSwitch {
             id: useRnpgp
             enabled:  Qt.platform.os !== "windows"
@@ -235,18 +250,34 @@ ScrollView {
         }
         Label {
             visible: useRnpgp.checked
-            text: "<b>Rnp</b> home folder:"
+            text: "Rnp home folder:"
         }
+
         SettingsSelectFolder {
             id: rnpgpHome
             visible: useRnpgp.checked
             text: QmlAppSt.mainqmltype.appSettingsType.rnpgpHome
-            hooverText: "<b>Rnp</b> home folder"
+            hooverText: "Rnp home folder"
             onSetPath: s => {
                            rnpgpHome.text = s
                        }
         }
-
+        CoreSwitch {
+            id: rnpPassFromStdExec
+            visible: useRnpgp.checked
+            text: qsTr("Rnp password from std exec (Rnp & Yubikey integration)")
+        }
+        SettingsLabelTextField {
+            id: rnpPassStdExecPath
+            visible: useRnpgp.checked && rnpPassFromStdExec.checked
+            labelText: "Rnp password std exec path:"
+        }
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 1
+            color: CoreSystemPalette.text
+            visible: useRnpgp.checked
+        }
         SettingsLabelTextArea {
             id: binaryExts
             labelText: "Binary extensions:"
