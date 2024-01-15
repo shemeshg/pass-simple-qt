@@ -180,6 +180,7 @@ ColumnLayout {
             onClicked: () => {
                            renameDialog.open()
                        }
+            enabled: statusLabelId.text === ""
             icon.name: "Save and Rename"
             hooverText: "Save and Rename"
             icon.source: Qt.resolvedUrl(

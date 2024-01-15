@@ -391,32 +391,34 @@ MainWindow::MainWindow(QWidget *parent)
                      this,
                      &QGuiApplication::quit);
 
-    keyZoomIn = new QShortcut(this);
-    //Qt::CTRL + Qt::Key\_P
+    /*
+    keyZoomIn = new QShortcut(this);    
     keyZoomIn->setKeys({Qt::CTRL | Qt::Key_Plus, Qt::CTRL | Qt::Key_Equal});
     connect(keyZoomIn, &QShortcut::activated, this, [=]() {
-        QFont font = QApplication::font();
-        font.setPointSize(font.pointSize() + 1);
-        QApplication::setFont(font);
-
-        AppSettings appSettings{};
-        QString rootPath = appSettings.passwordStorePath();
-        mainqmltype->setTreeViewSelected(rootPath);
-        setQmlSource();
+        if (mainqmltype->filePath() != appSettings.passwordStorePath()) {
+            setTreeviewCurrentIndex(appSettings.passwordStorePath());
+        } else {
+            QFont font = QApplication::font();
+            font.setPointSize(font.pointSize() + 1);
+            QApplication::setFont(font);
+            setQmlSource();
+        }
     });
 
     keyZoomOut = new QShortcut(this);
     keyZoomOut->setKeys({Qt::CTRL | Qt::Key_Minus, Qt::CTRL | Qt::Key_Underscore});
     connect(keyZoomOut, &QShortcut::activated, this, [=]() {
-        QFont font = QApplication::font();
-        font.setPointSize(font.pointSize() - 1);
-        QApplication::setFont(font);
+        if (mainqmltype->filePath() != appSettings.passwordStorePath()) {
+            setTreeviewCurrentIndex(appSettings.passwordStorePath());
+        } else {
+            QFont font = QApplication::font();
+            font.setPointSize(font.pointSize() - 1);
+            QApplication::setFont(font);
 
-        AppSettings appSettings{};
-        QString rootPath = appSettings.passwordStorePath();
-        mainqmltype->setTreeViewSelected(rootPath);
-        setQmlSource();
+            setQmlSource();
+        }
     });
+    */
     if (!appSettings.allowScreenCapture()) {
 #if defined(__APPLE__)    
     AppKit *m_appkit = new AppKit(this);

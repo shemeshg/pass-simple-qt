@@ -256,8 +256,7 @@ void AppSettings::setUseRnpgp(const bool useRnpgp)
 const QString AppSettings::ddListStores() const
 {
     if (m_ddListStores.isEmpty()) {
-        return "default # " + QDir::homePath() + "/.password-store"
-               + "\npassword store 1 # /Volume/path";
+        return "default # " + passwordStorePath() + "\npassword store 1 # /Volume/path";
     }
     return m_ddListStores;
 }
