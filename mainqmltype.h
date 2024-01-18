@@ -142,22 +142,7 @@ public:
 
     Q_INVOKABLE void initGpgIdManage();
 
-    Q_INVOKABLE void submit_AppSettingsType(QString passwordStorePath,
-                                            QString tmpFolderPath,
-                                            QString gitExecPath,
-                                            QString rnpgpHome,
-                                            QString vscodeExecPath,
-                                            QString autoTypeCmd,
-                                            QString binaryExts,
-                                            bool useClipboard,
-                                            bool allowScreenCapture,
-                                            bool useRnpgp,
-                                            bool doSign,
-                                            bool preferYamlView,
-                                            QString fontSize,
-                                            QString commitMsg,
-                                            QString ddListStores,
-                                            QString ctxSigner);
+    Q_INVOKABLE void submitAppSettingsPasswordStorePath(QString passwordStorePath);
 
     Q_INVOKABLE void setTreeViewSelected(QString path);
 

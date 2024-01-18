@@ -265,41 +265,10 @@ void MainQmlType::initGpgIdManage()
     }
 }
 
-void MainQmlType::submit_AppSettingsType(QString passwordStorePath,
-                                         QString tmpFolderPath,
-                                         QString gitExecPath,
-                                         QString rnpgpHome,
-                                         QString vscodeExecPath,
-                                         QString autoTypeCmd,
-                                         QString binaryExts,
-                                         bool useClipboard,
-                                         bool allowScreenCapture,
-                                         bool useRnpgp,
-                                         bool doSign,
-                                         bool preferYamlView,
-                                         QString fontSize,
-                                         QString commitMsg,
-                                         QString ddListStores,
-                                         QString ctxSigner)
+void MainQmlType::submitAppSettingsPasswordStorePath(QString passwordStorePath)
 {
     QString orgStorePath = appSettings.passwordStorePath();
     appSettings.setPasswordStorePath(passwordStorePath);
-    appSettings.setTmpFolderPath(tmpFolderPath);
-
-    appSettings.setGitExecPath(gitExecPath);
-    appSettings.setVscodeExecPath(vscodeExecPath);
-    appSettings.setAutoTypeCmd(autoTypeCmd);
-    appSettings.setBinaryExts(binaryExts);
-    appSettings.setUseClipboard(useClipboard);
-    appSettings.setAllowScreenCapture(allowScreenCapture);
-    appSettings.setUseRnpgp(useRnpgp);
-    appSettings.setRnpgpHome(rnpgpHome);
-    appSettings.setDoSign(doSign);
-    appSettings.setPreferYamlView(preferYamlView);
-    appSettings.setFontSize(fontSize);
-    appSettings.setCommitMsg(commitMsg);
-    appSettings.setDdListStores(ddListStores);
-    appSettings.setCtxSigner(ctxSigner);
 
     loadTreeView();
     if (orgStorePath != appSettings.passwordStorePath()){

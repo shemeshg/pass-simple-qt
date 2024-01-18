@@ -84,22 +84,27 @@ ScrollView {
         if (!Number(fontSize.text)) {
             fontSize.text = ""
         }
-        QmlAppSt.passwordStorePathStr = passwordStoreId.text
-        QmlAppSt.mainqmltype.submit_AppSettingsType(
-                    QmlAppSt.passwordStorePathStr, tmpFolderPath.text,
-                    gitExecPath.text,
-                    rnpgpHome.text,
-                    vscodeExecPath.text,
-                    autoTypeCmd.text, binaryExts.text,
-                    useClipboard.checked,
-                    allowScreenCapture.checked,
-                    useRnpgp.checked,
-                    doSign.checked,
-                    preferYamlView.checked, fontSize.text,
-                    commitMsg.text, ddListStores.text, ctxSigner.currentText)
+        QmlAppSt.mainqmltype.submitAppSettingsPasswordStorePath(
+                    passwordStoreId.text
+                    )
         //
         QmlAppSt.mainqmltype.appSettingsType.rnpPassFromStdExec = rnpPassFromStdExec.checked
         QmlAppSt.mainqmltype.appSettingsType.rnpPassStdExecPath = rnpPassStdExecPath.text
+        QmlAppSt.mainqmltype.appSettingsType.tmpFolderPath = tmpFolderPath.text
+        QmlAppSt.mainqmltype.appSettingsType.gitExecPath = gitExecPath.text
+        QmlAppSt.mainqmltype.appSettingsType.rnpgpHome = rnpgpHome.text
+        QmlAppSt.mainqmltype.appSettingsType.vscodeExecPath = vscodeExecPath.text
+        QmlAppSt.mainqmltype.appSettingsType.autoTypeCmd = autoTypeCmd.text
+        QmlAppSt.mainqmltype.appSettingsType.binaryExts = binaryExts.text
+        QmlAppSt.mainqmltype.appSettingsType.useClipboard = useClipboard.checked
+        QmlAppSt.mainqmltype.appSettingsType.allowScreenCapture = allowScreenCapture.checked
+        QmlAppSt.mainqmltype.appSettingsType.useRnpgp = useRnpgp.checked
+        QmlAppSt.mainqmltype.appSettingsType.doSign = doSign.checked
+        QmlAppSt.mainqmltype.appSettingsType.preferYamlView = preferYamlView.checked
+        QmlAppSt.mainqmltype.appSettingsType.fontSize = fontSize.text
+        QmlAppSt.mainqmltype.appSettingsType.commitMsg = commitMsg.text
+        QmlAppSt.mainqmltype.appSettingsType.ddListStores = ddListStores.text
+        QmlAppSt.mainqmltype.appSettingsType.ctxSigner = ctxSigner.currentText
         //
         QmlAppSt.passwordStorePathStr = QmlAppSt.mainqmltype.appSettingsType.passwordStorePath;
 
@@ -285,5 +290,6 @@ ScrollView {
         }
 
         CorePagePadFooter {}
+
     }
 }
