@@ -83,7 +83,7 @@ ColumnLayout {
                 textChangedSignal(textEditComponentId.text)
                 inputText = textEditComponentId.text
                 if (isKeyPressed) {
-                    notifyStr("*")
+                    setNotifyBodyContentModified(true)
                     isKeyPressed = false
                 }
             }
@@ -141,7 +141,7 @@ ColumnLayout {
                 textEditComponentId.text = text
             }
             onTextEdited: {
-                notifyStr("*")
+                setNotifyBodyContentModified(true)
             }
 
             Layout.fillWidth: true

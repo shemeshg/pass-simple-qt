@@ -41,7 +41,7 @@ ColumnLayout {
                                       "Input not acceptable")
                 datetimeComponentId.datetimeChanged(text)
                 if (isKeyPressed) {
-                    notifyStr("*")
+                    setNotifyBodyContentModified(true)
                     isKeyPressed = false
                 }
             }
@@ -67,7 +67,7 @@ ColumnLayout {
                     dateTime.daysDiff = 0
                 }
                 input.text = dateTime.datetimeStr
-                notifyStr("*")
+                setNotifyBodyContentModified(true)
             }
         }
         Label {

@@ -164,7 +164,7 @@ ColumnLayout {
             columnLayoutHomeId.editComponentId.setLoaderShowYamlEditComponent()
         }
 
-        notifyStr("")
+        setNotifyBodyContentModified(false)
     }
 
     function initOnFileChanged() {
@@ -244,6 +244,12 @@ ColumnLayout {
             delayCaller.destroy()
         })
         delayCaller.start()
+    }
+
+
+    function setNotifyBodyContentModified(isBodyContentModified:bool){
+        QmlAppSt.isBodyContentModified = isBodyContentModified;
+        statusLabelId.text = isBodyContentModified ? "*" : "";
     }
 
     function notifyStr(str, withTimeout = false, callback = () => {}, clearString = "") {

@@ -27,6 +27,7 @@ QtObject {
     property string nearestGpg: ""
     property string fullPathFolder: ""
     property bool classInitialized: false
+    property bool isBodyContentModified: false
     property string nearestGit: ""
     property var allPrivateKeys: []
 

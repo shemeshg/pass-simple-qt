@@ -99,7 +99,7 @@ ColumnLayout {
             let newArry = [...editYamlType.yamlModel]
             newArry[dialogRowIdx].key = fieldName.text
             editYamlType.yamlModel = newArry
-            notifyStr("*")
+            setNotifyBodyContentModified(true)
         }
         onClosed: {
             dialogRowIdx = -1
@@ -127,7 +127,7 @@ ColumnLayout {
                              "val": ""
                          })
             editYamlType.yamlModel = newArry
-            notifyStr("*")
+            setNotifyBodyContentModified(true)
         }
         onClosed: {
             dialogRowIdx = -1
@@ -205,7 +205,7 @@ ColumnLayout {
                     id: moveUpId
                     visible: isEditFieldsType
                     onClicked: () => {
-                                   notifyStr("*")
+                                   setNotifyBodyContentModified(true)
                                    arrayMove(index, index - 1)
                                }
                     icon.name: "Up"
@@ -215,7 +215,7 @@ ColumnLayout {
                 CoreButton {
                     visible: isEditFieldsType
                     onClicked: {
-                        notifyStr("*")
+                        setNotifyBodyContentModified(true)
                         arrayMove(index, index + 1)
                     }
                     icon.name: "Down"
@@ -237,7 +237,7 @@ ColumnLayout {
                 CoreButton {
                     visible: isEditFieldsType
                     onClicked: {
-                        notifyStr("*")
+                        setNotifyBodyContentModified(true)
                         let newArry = [...editYamlType.yamlModel]
                         newArry.splice(index, 1)
                         editYamlType.yamlModel = newArry

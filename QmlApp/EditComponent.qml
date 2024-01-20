@@ -109,7 +109,7 @@ ColumnLayout {
             QmlAppSt.mainqmltype.encryptUploadAsync(() => {
                                                         QmlAppSt.doMainUiEnable(
                                                             )
-                                                        notifyStr("*")
+                                                        setNotifyBodyContentModified(true)
                                                         urlfileDialogUrlField.currentFiles.forEach(f => {
                                                                                                        let filename = f.toString(
                                                                                                            ).replace(
@@ -180,9 +180,9 @@ ColumnLayout {
             onClicked: () => {
                            renameDialog.open()
                        }
-            enabled: statusLabelId.text === ""
-            icon.name: "Save and Rename"
-            hooverText: "Save and Rename"
+            enabled: !QmlAppSt.isBodyContentModified
+            icon.name: "Rename"
+            hooverText: "Rename"
             icon.source: Qt.resolvedUrl(
                              "icons/edit_FILL0_wght400_GRAD0_opsz48.svg")
         }
@@ -308,7 +308,7 @@ ColumnLayout {
                                                       QmlAppSt.isSaving = false
                                                       QmlAppSt.doMainUiEnable()
                                                       setGitDiffReturnCode()
-                                                      notifyStr("")
+                                                      setNotifyBodyContentModified(false)
                                                   })
             }
             visible: QmlAppSt.isShowPreview
@@ -496,7 +496,7 @@ ColumnLayout {
                         onTextChanged: {
                             decryptedText = text
                             if (isKeyPressed) {
-                                notifyStr("*")
+                                setNotifyBodyContentModified(true)
                                 isKeyPressed = false
                             }
                         }
