@@ -66,15 +66,17 @@ ColumnLayout {
     }
 
     function doExternalOpen() {
-        /*
+
         if (selectExternalEncryptDestinationId.currentValue === externalDestType.vsCodeWait) {
-            QmlAppSt.mainqmltype.openExternalEncryptWait()
+            //QmlAppSt.mainqmltype.openExternalEncryptWait()
+            QmlAppSt.mainqmltype.openExternalEncryptNoWait(true)
         } else if (selectExternalEncryptDestinationId.currentValue
                    === externalDestType.fileBrowser) {
-            QmlAppSt.mainqmltype.openExternalEncryptNoWait()
+            //QmlAppSt.mainqmltype.openExternalEncryptNoWait()
+            QmlAppSt.mainqmltype.openExternalEncryptNoWait(false)
         }
-        */
-        QmlAppSt.mainqmltype.openExternalEncryptNoWait()
+
+
     }
 
     function reloadAfterPreviewChanged() {
@@ -330,7 +332,7 @@ ColumnLayout {
             }
         }
         CoreButton {
-            text: "&Open in file browser"
+            text: "&Open"
             enabled: QmlAppSt.hasEffectiveGpgIdFile
             onClicked: {
                 doExternalOpen()
@@ -378,7 +380,7 @@ ColumnLayout {
             model: [
                 {
                     "value": externalDestType.vsCodeWait,
-                    "text": qsTr("code --wait")
+                    "text": qsTr("vsCode")
                 },
                 {
                     "value": externalDestType.fileBrowser,
@@ -389,7 +391,6 @@ ColumnLayout {
                          QmlAppSt.filePath) === -1
                      && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
                      && !QmlAppSt.isBinaryFile
-                     && 1==2
         }
         Item {
             height: 2

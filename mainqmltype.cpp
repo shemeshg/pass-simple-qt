@@ -421,17 +421,24 @@ void MainQmlType::discardChangesEncryptNoWait() {
     }
 }
 
-void MainQmlType::openExternalEncryptNoWait()
+void MainQmlType::openExternalEncryptNoWait(bool alsoOpenVsCode)
 {
     if (passFile->isGpgFile()) {
         runSafeFromException([&]() {
-            std::string subfolderPath
+            auto waObj
                 = passFile->openExternalEncryptNoWait(watchWaitAndNoneWaitRunCmd.get(),
                                                       appSettings.tmpFolderPath().toStdString(),
                                                       appSettings.vscodeExecPath().toStdString(),
                                                       runShellCmd.get());
-            QDesktopServices::openUrl(
-                        QUrl::fromLocalFile(QString::fromStdString(subfolderPath)));
+
+            if (alsoOpenVsCode) {
+                runCmd({appSettings.vscodeExecPath(),
+                        QString::fromStdString(waObj->getFullFilePath().u8string())},
+                       "");
+            } else {
+                QDesktopServices::openUrl(
+                    QUrl::fromLocalFile(QString::fromStdString(waObj->getSubfolderPath())));
+            }
         });
     }
 }

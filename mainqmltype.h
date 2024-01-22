@@ -155,7 +155,7 @@ public:
 
     Q_INVOKABLE void openExternalEncryptWait();
 
-    Q_INVOKABLE void openExternalEncryptNoWait();
+    Q_INVOKABLE void openExternalEncryptNoWait(bool alsoOpenVsCode);
 
     Q_INVOKABLE void openStoreInFileBrowser(QString fullPathFolder);
 
