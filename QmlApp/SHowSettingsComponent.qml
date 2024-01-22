@@ -206,6 +206,7 @@ ScrollView {
             id: vscodeExecPath
             labelText: "<b>Visual Studio Code</b> executable full path:"
             text: QmlAppSt.mainqmltype.appSettingsType.vscodeExecPath
+            visible: false
         }
         SettingsLabelTextField {
             visible: Qt.platform.os === "linux"

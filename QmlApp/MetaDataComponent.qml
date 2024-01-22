@@ -91,9 +91,11 @@ Column {
             }
             Label {
                 text: "<h2>Wait Items</h2>"
+                visible: false
             }
             Repeater {
                 model: QmlAppSt.waitItems
+                visible: false
                 RowLayout {
                     CoreLabel {
                         text: modelData
@@ -107,7 +109,7 @@ Column {
             }
 
             Label {
-                text: "<h2>None Wait Items</h2>"
+                text: "<h2>Opened Items</h2>"
             }
             Repeater {
                 model: QmlAppSt.noneWaitItems
@@ -119,6 +121,35 @@ Column {
                         text: "select"
                         onClicked: QmlAppSt.mainqmltype.setTreeViewSelected(
                                        modelData)
+                    }
+                    CoreButton {
+                        text: "Save and Close"
+                        onClicked: {
+                            QmlAppSt.mainqmltype.closeExternalEncryptNoWait()
+                        }
+                        visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
+                                     QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
+                        && modelData === QmlAppSt.filePath
+                    }
+                    CoreButton {
+                        text: "Show Folder"
+                        onClicked: {
+
+                            QmlAppSt.mainqmltype.showFolderEncryptNoWait()
+                        }
+                        visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
+                                     QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
+                        && modelData === QmlAppSt.filePath
+                    }
+                    CoreButton {
+                        text: "Discard changes"
+                        onClicked: {
+
+                            QmlAppSt.mainqmltype.discardChangesEncryptNoWait()
+                        }
+                        visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
+                                     QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
+                        && modelData === QmlAppSt.filePath
                     }
                 }
             }

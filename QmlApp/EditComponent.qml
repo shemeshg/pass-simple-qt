@@ -66,12 +66,15 @@ ColumnLayout {
     }
 
     function doExternalOpen() {
+        /*
         if (selectExternalEncryptDestinationId.currentValue === externalDestType.vsCodeWait) {
             QmlAppSt.mainqmltype.openExternalEncryptWait()
         } else if (selectExternalEncryptDestinationId.currentValue
                    === externalDestType.fileBrowser) {
             QmlAppSt.mainqmltype.openExternalEncryptNoWait()
         }
+        */
+        QmlAppSt.mainqmltype.openExternalEncryptNoWait()
     }
 
     function reloadAfterPreviewChanged() {
@@ -327,7 +330,7 @@ ColumnLayout {
             }
         }
         CoreButton {
-            text: "&Open"
+            text: "&Open in file browser"
             enabled: QmlAppSt.hasEffectiveGpgIdFile
             onClicked: {
                 doExternalOpen()
@@ -372,10 +375,12 @@ ColumnLayout {
                                        QmlAppSt.mainqmltype.appSettingsType.openWith = currentIndex
                                    }
 
-            model: [{
+            model: [
+                {
                     "value": externalDestType.vsCodeWait,
                     "text": qsTr("code --wait")
-                }, {
+                },
+                {
                     "value": externalDestType.fileBrowser,
                     "text": qsTr("File browser")
                 }]
@@ -384,6 +389,7 @@ ColumnLayout {
                          QmlAppSt.filePath) === -1
                      && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
                      && !QmlAppSt.isBinaryFile
+                     && 1==2
         }
         Item {
             height: 2
