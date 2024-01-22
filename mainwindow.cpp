@@ -355,6 +355,8 @@ MainWindow::MainWindow(QWidget *parent)
                         QTimer::singleShot(0, this, [=] {
                             mainqmltype->setTreeViewSelected(QString::fromStdString(e.fromFilePath));
                         });
+                    } else if (e.functionName == "openExternalEncryptNoWait") {
+                        mainqmltype->openExternalEncryptNoWait(e.doSign);
                     } else if (e.functionName == "encrypt") {
                         mainqmltype->encrypt(QString::fromStdString(e.fromFilePath));
                     } else if (e.functionName == "doSearch") {

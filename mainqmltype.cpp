@@ -425,19 +425,27 @@ void MainQmlType::openExternalEncryptNoWait(bool alsoOpenVsCode)
 {
     if (passFile->isGpgFile()) {
         runSafeFromException([&]() {
-            auto waObj
-                = passFile->openExternalEncryptNoWait(watchWaitAndNoneWaitRunCmd.get(),
-                                                      appSettings.tmpFolderPath().toStdString(),
-                                                      appSettings.vscodeExecPath().toStdString(),
-                                                      runShellCmd.get());
+            try {
+                auto waObj
+                    = passFile->openExternalEncryptNoWait(watchWaitAndNoneWaitRunCmd.get(),
+                                                          appSettings.tmpFolderPath().toStdString(),
+                                                          appSettings.vscodeExecPath().toStdString(),
+                                                          runShellCmd.get());
 
-            if (alsoOpenVsCode) {
-                runCmd({appSettings.vscodeExecPath(),
-                        QString::fromStdString(waObj->getFullFilePath().u8string())},
-                       "");
-            } else {
-                QDesktopServices::openUrl(
-                    QUrl::fromLocalFile(QString::fromStdString(waObj->getSubfolderPath())));
+                if (alsoOpenVsCode) {
+                    runCmd({appSettings.vscodeExecPath(),
+                            QString::fromStdString(waObj->getFullFilePath().u8string())},
+                           "");
+                } else {
+                    QDesktopServices::openUrl(
+                        QUrl::fromLocalFile(QString::fromStdString(waObj->getSubfolderPath())));
+                }
+            } catch (RnpLoginRequestException &rlre) {
+                rlre.functionName = "openExternalEncryptNoWait";
+                rlre.doSign = alsoOpenVsCode;
+                emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+            } catch (...) {
+                throw;
             }
         });
     }
