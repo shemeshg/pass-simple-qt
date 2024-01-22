@@ -438,7 +438,7 @@ void MainQmlType::openExternalEncryptNoWait(bool alsoOpenVsCode)
                            "");
                 } else {
                     QDesktopServices::openUrl(
-                        QUrl::fromLocalFile(QString::fromStdString(waObj->getSubfolderPath())));
+                        QUrl::fromLocalFile(QString::fromStdString(waObj->getSubfolderPath().generic_string())));
                 }
             } catch (RnpLoginRequestException &rlre) {
                 rlre.functionName = "openExternalEncryptNoWait";
