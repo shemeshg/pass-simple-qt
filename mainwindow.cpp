@@ -385,7 +385,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     setQmlSource();
 
+    QTimer::singleShot(0, this, [=]{
     doAppGeometry();
+    });
 
 
     QObject::connect(ui->quickWidget->engine(),
