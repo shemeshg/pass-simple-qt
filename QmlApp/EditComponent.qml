@@ -68,11 +68,9 @@ ColumnLayout {
     function doExternalOpen() {
 
         if (selectExternalEncryptDestinationId.currentValue === externalDestType.vsCodeWait) {
-            //QmlAppSt.mainqmltype.openExternalEncryptWait()
             QmlAppSt.mainqmltype.openExternalEncryptNoWait(true)
         } else if (selectExternalEncryptDestinationId.currentValue
                    === externalDestType.fileBrowser) {
-            //QmlAppSt.mainqmltype.openExternalEncryptNoWait()
             QmlAppSt.mainqmltype.openExternalEncryptNoWait(false)
         }
 
@@ -195,8 +193,7 @@ ColumnLayout {
 
     RowLayout {
         id: isFileOpenedExternalWait
-        visible: QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) > -1
-                 || QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) > -1
+        visible: QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) > -1
         Label {
             text: "File opened externally"
         }
@@ -243,8 +240,7 @@ ColumnLayout {
                 QmlAppSt.mainqmltype.appSettingsType.isShowPreview = isPreviewId.checked
                 reloadAfterPreviewChanged()
             }
-            visible: QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) === -1
-                     && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
+            visible: QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
                      && !QmlAppSt.isBinaryFile
         }
 
@@ -322,8 +318,7 @@ ColumnLayout {
         Shortcut {
             sequence: "Ctrl+O"
             onActivated: {
-                if (editComponentId.visible && !QmlAppSt.isShowPreview
-                        && QmlAppSt.waitItems.indexOf(QmlAppSt.filePath) === -1
+                if (editComponentId.visible && !QmlAppSt.isShowPreview                        
                         && QmlAppSt.noneWaitItems.indexOf(
                             QmlAppSt.filePath) === -1
                         && !QmlAppSt.isBinaryFile) {
@@ -337,9 +332,7 @@ ColumnLayout {
             onClicked: {
                 doExternalOpen()
             }
-            visible: !QmlAppSt.isShowPreview && QmlAppSt.waitItems.indexOf(
-                         QmlAppSt.filePath) === -1
-                     && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
+            visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
                      && !QmlAppSt.isBinaryFile
         }
         CoreButton {
@@ -387,8 +380,7 @@ ColumnLayout {
                     "text": qsTr("File browser")
                 }]
             width: 200
-            visible: !QmlAppSt.isShowPreview && QmlAppSt.waitItems.indexOf(
-                         QmlAppSt.filePath) === -1
+            visible: !QmlAppSt.isShowPreview
                      && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
                      && !QmlAppSt.isBinaryFile
         }

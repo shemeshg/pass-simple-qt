@@ -66,15 +66,12 @@ MainQmlType::MainQmlType(
     passHelper->setPasswordCallback([&](std::string keyid) { return getPasswordFromMap(keyid); });
     passFile = passHelper->getPassFile("");
     watchWaitAndNoneWaitRunCmd->callback = [&]() {
-        QStringList waitString, noneWaitString;
+        QStringList noneWaitString;
 
-        for (auto &itm : watchWaitAndNoneWaitRunCmd->getWaitItemsUids()) {
-            waitString.push_back(QString::fromStdString(itm));
-        }
         for (auto &itm : watchWaitAndNoneWaitRunCmd->getNoneWaitItemsUids()) {
             noneWaitString.push_back(QString::fromStdString(itm));
         }
-        setWaitItems(waitString);
+
         setNoneWaitItems(noneWaitString);
     };
     loadTreeView();
@@ -129,14 +126,6 @@ void MainQmlType::setFilePanSize(const int &filePanSize)
     emit filePanSizeChanged();
 }
 
-void MainQmlType::setWaitItems(const QStringList &waitItems)
-{
-    if (waitItems == m_waitItems)
-        return;
-
-    m_waitItems = waitItems;
-    emit waitItemsChanged();
-}
 
 void MainQmlType::setNoneWaitItems(const QStringList &noneWaitItems)
 {
@@ -371,34 +360,6 @@ void MainQmlType::encryptAsync(QString s, const QJSValue &callback)
         encrypt(s);
         return 0;
     });
-}
-
-void MainQmlType::openExternalEncryptWait()
-{
-    if (passFile->isGpgFile()) {
-        //Validate decryption possible, because on diswoned thread exception
-        // handling will not work.
-        try {
-            passFile->decrypt();
-        } catch (RnpLoginRequestException &rlre) {
-            rlre.functionName = "openExternalEncryptWait";
-            emit loginRequestedRnp(rlre, &loginAndPasswordMap);
-            return;
-        } catch (...) {
-            throw;
-        }
-        //
-        runSafeFromException([&]() {
-            passFile
-                ->openExternalEncryptWaitAsync(m_gpgIdManageType.getEncryptTo(),
-                                               watchWaitAndNoneWaitRunCmd.get(),
-                                               appSettings.tmpFolderPath().toStdString(),
-                                               appSettings.vscodeExecPath().toStdString(),
-                                               appSettings.doSign(),
-                                               appSettings.ctxSigner().split(" ")[0].toStdString(),
-                                               runShellCmd.get());
-        });
-    }
 }
 
 

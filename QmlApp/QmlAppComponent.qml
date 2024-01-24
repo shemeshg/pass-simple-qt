@@ -171,8 +171,7 @@ ColumnLayout {
         clearSystemTrayIconEntries()
         QmlAppSt.isBinaryFile = getIsBinary(QmlAppSt.filePath)
 
-        if (QmlAppSt.isBinaryFile || QmlAppSt.waitItems.indexOf(
-                    QmlAppSt.filePath) > -1 || QmlAppSt.noneWaitItems.indexOf(
+        if (QmlAppSt.isBinaryFile ||  QmlAppSt.noneWaitItems.indexOf(
                     QmlAppSt.filePath) > -1) {
             if (QmlAppSt.isShowPreview) {
                 QmlAppSt.isPreviousShowPreview = true

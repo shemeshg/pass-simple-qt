@@ -60,7 +60,6 @@ class MainQmlType : public JsAsync
     Q_PROPERTY(QString filePath READ filePath WRITE setFilePath NOTIFY filePathChanged)
     Q_PROPERTY(int filePanSize READ filePanSize WRITE setFilePanSize NOTIFY filePanSizeChanged)
     Q_PROPERTY(GpgIdManageType *gpgIdManageType READ gpgIdManageType CONSTANT)
-    Q_PROPERTY(QStringList waitItems READ waitItems WRITE setWaitItems NOTIFY waitItemsChanged)
     Q_PROPERTY(QStringList noneWaitItems READ noneWaitItems WRITE setNoneWaitItems NOTIFY
                noneWaitItemsChanged)
     Q_PROPERTY(int exceptionCounter READ exceptionCounter WRITE setExceptionCounter NOTIFY
@@ -90,9 +89,6 @@ public:
     int filePanSize();
     void setFilePanSize(const int &filePanSize);
 
-    QStringList waitItems() { return m_waitItems; };
-
-    void setWaitItems(const QStringList &waitItems);
     QStringList noneWaitItems() { return m_noneWaitItems; };
 
     void setNoneWaitItems(const QStringList &noneWaitItems);
@@ -152,8 +148,6 @@ public:
 
     Q_INVOKABLE void encryptAsync(QString s,
                                    const QJSValue &callback);
-
-    Q_INVOKABLE void openExternalEncryptWait();
 
     Q_INVOKABLE void openExternalEncryptNoWait(bool alsoOpenVsCode);
 
@@ -246,7 +240,6 @@ public:
 signals:
     void filePathChanged();
     void filePanSizeChanged();
-    void waitItemsChanged();
     void noneWaitItemsChanged();
     void exceptionCounterChanged();
     void exceptionStrChanged();
@@ -272,7 +265,6 @@ private:
     std::unique_ptr<InterfacePassFile> passFile = nullptr;
     GpgIdManageType m_gpgIdManageType;
     std::unique_ptr<InterfaceWatchWaitAndNoneWaitRunCmd> watchWaitAndNoneWaitRunCmd = getInterfaceWatchWaitAndNoneWaitRunCmd();
-    QStringList m_waitItems;
     QStringList m_noneWaitItems;
     int m_exceptionCounter = 0;
     QString m_exceptionStr;

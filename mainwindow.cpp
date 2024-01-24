@@ -373,8 +373,6 @@ MainWindow::MainWindow(QWidget *parent)
                         mainqmltype->encryptUpload(QString::fromStdString(e.fromFilePath),
                                                    QString::fromStdString(e.toFilePath),
                                                    e.doSign);
-                    } else if (e.functionName == "openExternalEncryptWait") {
-                        mainqmltype->openExternalEncryptWait();
                     }
                 }
             });
@@ -573,7 +571,6 @@ void MainWindow::prepareMenu(const QPoint &pos)
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     bool okToClose = true;
-    okToClose = okToClose && mainqmltype->waitItems().count() == 0;
     okToClose = okToClose && mainqmltype->noneWaitItems().count() == 0;
     if (!okToClose){
         QMessageBox msgBox;

@@ -6,7 +6,6 @@ QtObject {
     property string filePath: ""
     property string menubarCommStr: ""
     property int filePanSize: 0
-    property var waitItems: []
     property var noneWaitItems: []
     property int exceptionCounter: 0
     property string exceptionStr: ""

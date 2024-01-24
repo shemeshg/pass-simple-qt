@@ -44,11 +44,6 @@ Item {
         value: mainqmltype.menubarCommStr
     }
 
-    Binding {
-        target: QmlAppSt
-        property: "waitItems"
-        value: mainqmltype.waitItems
-    }
 
     Binding {
         target: QmlAppSt

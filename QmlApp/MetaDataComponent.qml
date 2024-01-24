@@ -89,24 +89,6 @@ Column {
                 coreLabel: "Signed By"
                 coreText: decryptedSignedById
             }
-            Label {
-                text: "<h2>Wait Items</h2>"
-                visible: false
-            }
-            Repeater {
-                model: QmlAppSt.waitItems
-                visible: false
-                RowLayout {
-                    CoreLabel {
-                        text: modelData
-                    }
-                    CoreButton {
-                        text: "select"
-                        onClicked: QmlAppSt.mainqmltype.setTreeViewSelected(
-                                       modelData)
-                    }
-                }
-            }
 
             Label {
                 text: "<h2>Opened Items</h2>"
