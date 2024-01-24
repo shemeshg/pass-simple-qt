@@ -187,6 +187,7 @@ void MainQmlType::setSelectedText(const QString &selectedText)
 void MainQmlType::doSearch(QString rootFolderToSearch,
                            QString FolderToSearch,
                            QString fileRegExStr,
+                           bool contentSearchUsingRegEx,
                            bool isMemCash)
 {
     runSafeFromException([&]() {        
@@ -207,6 +208,7 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
             passHelper->searchDown(rootFolderToSearch.toStdString(),
                                    FolderToSearch.toStdString(),
                                    fileRegExStr.toStdString(),
+                                   contentSearchUsingRegEx,
                                    stdExtentions,
                                    isMemCash,
                                    searchMemCash,
@@ -230,11 +232,16 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
 void MainQmlType::doSearchAsync(QString rootFolderToSearch,
                                 QString FolderToSearch,
                                 QString fileRegExStr,
+                                bool contentSearchUsingRegEx,
                                 bool isMemCash,
                                 const QJSValue &callback)
 {
-    makeAsync<int>(callback,[=]() {
-        doSearch(rootFolderToSearch, FolderToSearch, fileRegExStr, isMemCash);
+    makeAsync<int>(callback, [=]() {
+        doSearch(rootFolderToSearch,
+                 FolderToSearch,
+                 fileRegExStr,
+                 contentSearchUsingRegEx,
+                 isMemCash);
         return 0;
     });
 }

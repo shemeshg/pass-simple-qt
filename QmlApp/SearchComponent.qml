@@ -11,6 +11,7 @@ ColumnLayout {
     property string currentSearchFolder: QmlAppSt.passwordStorePathStr
     property var searchResultModel: []
     property bool regexVisible: false
+    property bool contentSearchUsingRegEx: false
 
     onVisibleChanged: {
         if (visible) {
@@ -30,9 +31,14 @@ ColumnLayout {
         searchStatusLabelId.visible = true
         searchResultModel = []
 
+        let searchContentText = contentSearchUsingRegEx ?
+                 textFieldContentSearch.text : searchTextId.text
+
+
         QmlAppSt.mainqmltype.doSearchAsync(currentSearchFolder,
                                            textFieldFileSearch.text,
-                                           textFieldContentSearch.text,
+                                           searchContentText,
+                                           contentSearchUsingRegEx,
                                            isMemCash.checked, () => {
                                                searchResultModel = QmlAppSt.mainqmltype.searchResult
                                                btnRunSearchId.enabled = true
@@ -144,6 +150,9 @@ ColumnLayout {
                 onAccepted: {
                     doSearchAction()
                 }
+                onTextEdited: {
+                    contentSearchUsingRegEx = false
+                }
             }
         }
 
@@ -161,6 +170,9 @@ ColumnLayout {
                     Layout.fillWidth: true
                     onAccepted: {
                         doSearchAction()
+                    }
+                    onTextEdited: {
+                        contentSearchUsingRegEx = true
                     }
                 }
             }

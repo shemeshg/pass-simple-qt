@@ -128,11 +128,13 @@ public:
     Q_INVOKABLE void doSearch(QString rootFolderToSearch,
                               QString FolderToSearch,
                               QString fileRegExStr,
+                              bool contentSearchUsingRegEx,
                               bool isMemCash);
 
     Q_INVOKABLE void doSearchAsync(QString rootFolderToSearch,
-                              QString FolderToSearch,
-                              QString fileRegExStr,
+                                   QString FolderToSearch,
+                                   QString fileRegExStr,
+                                   bool contentSearchUsingRegEx,
                                    bool isMemCash,
                                    const QJSValue &callback);
 
