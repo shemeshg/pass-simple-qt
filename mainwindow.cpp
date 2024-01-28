@@ -383,6 +383,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     setQmlSource();
 
+    doAppGeometry();
+    // Windows10 bug requires runLater
     QTimer::singleShot(0, this, [=]{
     doAppGeometry();
     });
