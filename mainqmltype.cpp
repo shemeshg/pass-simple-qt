@@ -389,6 +389,18 @@ void MainQmlType::discardChangesEncryptNoWait() {
     }
 }
 
+void MainQmlType::discardAllChangesEncryptNoWait()
+{
+    runSafeFromException([&]() {
+        for (auto &itm : noneWaitItems()) {
+            auto pf = passHelper->getPassFile(itm.toStdString());
+            if (pf->isGpgFile()) {
+                watchWaitAndNoneWaitRunCmd->closeWithoutWaitItem(pf->getFullPath());
+            }
+        }
+    });
+}
+
 void MainQmlType::openExternalEncryptNoWait(bool alsoOpenVsCode)
 {
     if (passFile->isGpgFile()) {
@@ -437,6 +449,20 @@ void MainQmlType::closeExternalEncryptNoWait()
                                                  appSettings.doSign());
         });
     }
+}
+
+void MainQmlType::closeAllExternalEncryptNoWait()
+{
+    runSafeFromException([&]() {
+        for (auto &itm : noneWaitItems()) {
+            auto pf = passHelper->getPassFile(itm.toStdString());
+            if (pf->isGpgFile()) {
+                pf->closeExternalEncryptNoWait(m_gpgIdManageType.getEncryptTo(),
+                                               watchWaitAndNoneWaitRunCmd.get(),
+                                               appSettings.doSign());
+            }
+        }
+    });
 }
 
 QString MainQmlType::getDecrypted()

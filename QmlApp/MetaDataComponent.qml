@@ -90,28 +90,63 @@ Column {
                 coreText: decryptedSignedById
             }
 
-            Label {
-                text: "<h2>Opened Items</h2>"
+            RowLayout {
+                Label {
+                    text: "<h2>Opened Items</h2>"
+                }
+                CoreButton {
+                    text: "Save and Close All"
+                    Layout.alignment: Qt.AlignTop
+                    visible: QmlAppSt.noneWaitItems.length > 0
+                    onClicked: {
+                        QmlAppSt.mainqmltype.closeAllExternalEncryptNoWait()
+                    }
+                }
+                CoreButton {
+                    text: "Discard All"
+                    Layout.alignment: Qt.AlignTop
+                    visible: QmlAppSt.noneWaitItems.length > 0
+                    onClicked: {
+                        QmlAppSt.mainqmltype.discardAllChangesEncryptNoWait()
+                    }
+                }
+            }
+            RowLayout {
+                CoreTextField {
+                    id: txtFilter
+                    placeholderText: "filter"
+                    Layout.fillWidth: true
+                    visible: QmlAppSt.noneWaitItems.length > 0
+                }
             }
             Repeater {
                 model: QmlAppSt.noneWaitItems
                 RowLayout {
+                    visible: modelDataTxt.text.includes(txtFilter.text)
                     CoreLabel {
-                        text: modelData
+                        id: modelDataTxt
+                        text: modelData.replace(QmlAppSt.passwordStorePathStr,
+                                                "").substring(
+                                  1, modelData.replace(
+                                      QmlAppSt.passwordStorePathStr,
+                                      "").length - 4)
                     }
                     CoreButton {
-                        text: "select"
+                        text: "←"
                         onClicked: QmlAppSt.mainqmltype.setTreeViewSelected(
                                        modelData)
+                        hooverText: "Select"
                     }
                     CoreButton {
                         text: "Save and Close"
                         onClicked: {
                             QmlAppSt.mainqmltype.closeExternalEncryptNoWait()
                         }
-                        visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
-                                     QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
-                        && modelData === QmlAppSt.filePath
+                        visible: !QmlAppSt.isShowPreview
+                                 && QmlAppSt.noneWaitItems.indexOf(
+                                     QmlAppSt.filePath) > -1
+                                 && !QmlAppSt.isBinaryFile
+                                 && modelData === QmlAppSt.filePath
                     }
                     CoreButton {
                         text: "Show Folder"
@@ -119,9 +154,11 @@ Column {
 
                             QmlAppSt.mainqmltype.showFolderEncryptNoWait()
                         }
-                        visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
-                                     QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
-                        && modelData === QmlAppSt.filePath
+                        visible: !QmlAppSt.isShowPreview
+                                 && QmlAppSt.noneWaitItems.indexOf(
+                                     QmlAppSt.filePath) > -1
+                                 && !QmlAppSt.isBinaryFile
+                                 && modelData === QmlAppSt.filePath
                     }
                     CoreButton {
                         text: "Discard changes"
@@ -129,9 +166,11 @@ Column {
 
                             QmlAppSt.mainqmltype.discardChangesEncryptNoWait()
                         }
-                        visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
-                                     QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
-                        && modelData === QmlAppSt.filePath
+                        visible: !QmlAppSt.isShowPreview
+                                 && QmlAppSt.noneWaitItems.indexOf(
+                                     QmlAppSt.filePath) > -1
+                                 && !QmlAppSt.isBinaryFile
+                                 && modelData === QmlAppSt.filePath
                     }
                 }
             }

@@ -156,8 +156,10 @@ public:
     Q_INVOKABLE void openStoreInFileBrowser(QString fullPathFolder);
 
     Q_INVOKABLE void closeExternalEncryptNoWait();
+    Q_INVOKABLE void closeAllExternalEncryptNoWait();
     Q_INVOKABLE void showFolderEncryptNoWait();
     Q_INVOKABLE void discardChangesEncryptNoWait();
+    Q_INVOKABLE void discardAllChangesEncryptNoWait();
 
     Q_INVOKABLE QString getDecrypted();
     Q_INVOKABLE void getDecryptedAsync(const QJSValue &callback);
