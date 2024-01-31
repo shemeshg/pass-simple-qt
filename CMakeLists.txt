@@ -199,13 +199,6 @@ if(APPLE)
             macutils/AppKit.h)
 endif()
 
-if(WINDOWS)
-    set(ubuntu_so_files "D:/projects/windows-dll-pass-simple/botan-3.dll"
-            "D:/projects/windows-dll-pass-simple/json-c.dll"
-            "D:/projects/windows-dll-pass-simple/zlib1.dll"
-            "D:/projects/windows-dll-pass-simple/bz2.dll")
- endif()
-
 qt_add_qml_module(pass-simple
     URI MainQml
     VERSION 1.0
@@ -243,7 +236,6 @@ install(TARGETS pass-simple
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(pass-simple)
 endif()
-
 
 
 # Generate the deployment script for the target pass-simple.
