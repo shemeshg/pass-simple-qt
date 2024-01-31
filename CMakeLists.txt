@@ -200,9 +200,10 @@ if(APPLE)
 endif()
 
 if(WINDOWS)
-    set(ubuntu_so_files "${CMAKE_BINARY_DIR}/botan-3.dll"
-            "${CMAKE_BINARY_DIR}/json-c.dll"
-            "${CMAKE_BINARY_DIR}/zlib1.dll")
+    set(ubuntu_so_files "D:/projects/windows-dll-pass-simple/botan-3.dll"
+            "D:/projects/windows-dll-pass-simple/json-c.dll"
+            "D:/projects/windows-dll-pass-simple/zlib1.dll"
+            "D:/projects/windows-dll-pass-simple/bz2.dll")
  endif()
 
 qt_add_qml_module(pass-simple
