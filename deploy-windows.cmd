@@ -14,9 +14,4 @@ cd \
 move deployed pass-simple-windows-x64
 powershell -Command "Compress-Archive -Path r:\pass-simple-windows-x64 -DestinationPath pass-simple-qt-0.163_win_x64.zip"
 rmdir /s/q pass-simple-windows-x64
-REM # ninja install
-REM # copy r:\deployed\*.dll r:\deployed\bin
-REM # cpack -G ZIP
-REM # D:\Qt\6.6.1\msvc2019_64\bin\windeployqt.exe  --qmldir r:/pass-simple-qt pass-simple.exe
-REM # D:\Qt\Tools\CMake_64\bin\cpack.exe -G ZIP .
 
