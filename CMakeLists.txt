@@ -199,6 +199,12 @@ if(APPLE)
             macutils/AppKit.h)
 endif()
 
+if(WINDOWS)
+    set(ubuntu_so_files "${CMAKE_BINARY_DIR}/botan-3.dll"
+            "${CMAKE_BINARY_DIR}/json-c.dll"
+            "${CMAKE_BINARY_DIR}/zlib1.dll")
+ endif()
+
 qt_add_qml_module(pass-simple
     URI MainQml
     VERSION 1.0
@@ -236,6 +242,8 @@ install(TARGETS pass-simple
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(pass-simple)
 endif()
+
+
 
 # Generate the deployment script for the target pass-simple.
 qt_generate_deploy_qml_app_script(
