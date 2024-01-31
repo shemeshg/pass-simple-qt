@@ -383,11 +383,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     setQmlSource();
 
+#if defined(__APPLE__) || defined(__linux__)
     doAppGeometry();
+#else
     // Windows10 bug requires runLater
     QTimer::singleShot(0, this, [=]{
-    doAppGeometry();
+        doAppGeometry();
     });
+#endif
+
+
 
 
     QObject::connect(ui->quickWidget->engine(),
