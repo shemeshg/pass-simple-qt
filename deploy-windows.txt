@@ -1,3 +1,0 @@
-D:\Qt\6.6.1\msvc2019_64\bin\windeployqt.exe  --qmldir r:/pass-simple-qt pass-simple.exe
-D:\Qt\Tools\CMake_64\bin\cpack.exe -G ZIP .
-
