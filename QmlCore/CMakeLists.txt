@@ -9,6 +9,13 @@ if(WIN32)
     list(APPEND OS_DEPENDENT_QML +win32/CoreTextArea.qml)
 endif()
 
+
+find_package(Qt6 REQUIRED COMPONENTS Gui)
+link_libraries(
+ Qt6::Gui
+# hygen target_link_libraries
+)
+
 set_source_files_properties(CoreSystemPalette.qml PROPERTIES
     QT_QML_SINGLETON_TYPE TRUE
 )

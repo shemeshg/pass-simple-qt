@@ -4,6 +4,12 @@ import QtQuick.Layouts
 import QtQuick.Controls
 
 TextArea {
+
+    property bool useMonospaceFont: false
+    QmlCoreType {
+        id: qmlCoreType
+    }
+    font.family: useMonospaceFont ? qmlCoreType.fixedFontSystemName : Qt.application.font
     CoreToolTip {
         id: toolTip
     }
