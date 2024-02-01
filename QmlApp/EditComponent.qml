@@ -73,8 +73,6 @@ ColumnLayout {
                    === externalDestType.fileBrowser) {
             QmlAppSt.mainqmltype.openExternalEncryptNoWait(false)
         }
-
-
     }
 
     function reloadAfterPreviewChanged() {
@@ -112,18 +110,19 @@ ColumnLayout {
             QmlAppSt.mainqmltype.encryptUploadAsync(() => {
                                                         QmlAppSt.doMainUiEnable(
                                                             )
-                                                        setNotifyBodyContentModified(true)
-                                                        urlfileDialogUrlField.currentFiles.forEach(f => {
-                                                                                                       let filename = f.toString(
-                                                                                                           ).replace(
-                                                                                                           /^.*[\\\/]/, '')
-                                                                                                       inField.text = "_files/" + filename
-                                                                                                   })
+                                                        setNotifyBodyContentModified(
+                                                            true)
+                                                        urlfileDialogUrlField.currentFiles.forEach(
+                                                            f => {
+                                                                let filename = f.toString(
+                                                                    ).replace(
+                                                                    /^.*[\\\/]/,
+                                                                    '')
+                                                                inField.text = "_files/" + filename
+                                                            })
                                                     }, QmlAppSt.fullPathFolder,
                                                     urlfileDialogUrlField.currentFiles,
                                                     true)
-
-
         }
         onRejected: {
             QmlAppSt.doMainUiEnable()
@@ -309,7 +308,8 @@ ColumnLayout {
                                                       QmlAppSt.isSaving = false
                                                       QmlAppSt.doMainUiEnable()
                                                       setGitDiffReturnCode()
-                                                      setNotifyBodyContentModified(false)
+                                                      setNotifyBodyContentModified(
+                                                          false)
                                                   })
             }
             visible: QmlAppSt.isShowPreview
@@ -318,7 +318,7 @@ ColumnLayout {
         Shortcut {
             sequence: "Ctrl+O"
             onActivated: {
-                if (editComponentId.visible && !QmlAppSt.isShowPreview                        
+                if (editComponentId.visible && !QmlAppSt.isShowPreview
                         && QmlAppSt.noneWaitItems.indexOf(
                             QmlAppSt.filePath) === -1
                         && !QmlAppSt.isBinaryFile) {
@@ -332,8 +332,8 @@ ColumnLayout {
             onClicked: {
                 doExternalOpen()
             }
-            visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
-                     && !QmlAppSt.isBinaryFile
+            visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
+                         QmlAppSt.filePath) === -1 && !QmlAppSt.isBinaryFile
         }
         CoreButton {
             text: "Save and Close"
@@ -370,19 +370,16 @@ ColumnLayout {
                                        QmlAppSt.mainqmltype.appSettingsType.openWith = currentIndex
                                    }
 
-            model: [
-                {
+            model: [{
                     "value": externalDestType.vsCodeWait,
                     "text": qsTr("vsCode")
-                },
-                {
+                }, {
                     "value": externalDestType.fileBrowser,
                     "text": qsTr("File browser")
                 }]
             width: 200
-            visible: !QmlAppSt.isShowPreview
-                     && QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) === -1
-                     && !QmlAppSt.isBinaryFile
+            visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
+                         QmlAppSt.filePath) === -1 && !QmlAppSt.isBinaryFile
         }
         Item {
             height: 2
@@ -482,6 +479,7 @@ ColumnLayout {
                     Layout.fillHeight: true
                     contentHeight: decryptedTextId.height
                     CoreTextArea {
+                        useMonospaceFont: QmlAppSt.mainqmltype.appSettingsType.useMonospaceFont
                         property bool isKeyPressed: false
                         id: decryptedTextId
                         text: decryptedText

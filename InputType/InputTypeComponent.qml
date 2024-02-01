@@ -74,6 +74,7 @@ ColumnLayout {
             property bool isKeyPressed: false
             Layout.fillWidth: true
             id: textEditComponentId
+            useMonospaceFont: QmlAppSt.mainqmltype.appSettingsType.useMonospaceFont
             visible: (inputType === "textedit" && !showMdId.checked)
                      || (inputType === "texteditMasked"
                          && isTexteditMasked === false && !showMdId.checked)
