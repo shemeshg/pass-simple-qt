@@ -13,6 +13,7 @@ ScrollView {
     contentWidth: columnLayoutHomeId.width - 30
 
     property bool isUseClipboard: QmlAppSt.mainqmltype.appSettingsType.useClipboard
+    property bool isUseMonospaceFont: QmlAppSt.mainqmltype.appSettingsType.useMonospaceFont
     property bool isAllowScreenCapture: QmlAppSt.mainqmltype.appSettingsType.allowScreenCapture
     property bool isUseRnpgp: QmlAppSt.mainqmltype.appSettingsType.useRnpgp
     property bool isPreferYamlView: QmlAppSt.mainqmltype.appSettingsType.preferYamlView
@@ -21,6 +22,8 @@ ScrollView {
     onVisibleChanged: {
         if (visible) {
             isUseClipboard = QmlAppSt.mainqmltype.appSettingsType.useClipboard
+            isUseMonospaceFont = QmlAppSt.mainqmltype.appSettingsType.useMonospaceFont
+            useMonospaceFont.checked = isUseMonospaceFont
             isUseRnpgp = QmlAppSt.mainqmltype.appSettingsType.useRnpgp
             isAllowScreenCapture = QmlAppSt.mainqmltype.appSettingsType.allowScreenCapture
             useClipboard.checked = isUseClipboard
@@ -85,9 +88,7 @@ ScrollView {
             fontSize.text = ""
         }
         QmlAppSt.mainqmltype.submitAppSettingsPasswordStorePath(
-                    passwordStoreId.text
-                    )
-        //
+                    passwordStoreId.text)
         QmlAppSt.mainqmltype.appSettingsType.rnpPassFromStdExec = rnpPassFromStdExec.checked
         QmlAppSt.mainqmltype.appSettingsType.rnpPassStdExecPath = rnpPassStdExecPath.text
         QmlAppSt.mainqmltype.appSettingsType.tmpFolderPath = tmpFolderPath.text
@@ -97,6 +98,7 @@ ScrollView {
         QmlAppSt.mainqmltype.appSettingsType.autoTypeCmd = autoTypeCmd.text
         QmlAppSt.mainqmltype.appSettingsType.binaryExts = binaryExts.text
         QmlAppSt.mainqmltype.appSettingsType.useClipboard = useClipboard.checked
+        QmlAppSt.mainqmltype.appSettingsType.useMonospaceFont = useMonospaceFont.checked
         QmlAppSt.mainqmltype.appSettingsType.allowScreenCapture = allowScreenCapture.checked
         QmlAppSt.mainqmltype.appSettingsType.useRnpgp = useRnpgp.checked
         QmlAppSt.mainqmltype.appSettingsType.doSign = doSign.checked
@@ -105,8 +107,7 @@ ScrollView {
         QmlAppSt.mainqmltype.appSettingsType.commitMsg = commitMsg.text
         QmlAppSt.mainqmltype.appSettingsType.ddListStores = ddListStores.text
         QmlAppSt.mainqmltype.appSettingsType.ctxSigner = ctxSigner.currentText
-        //
-        QmlAppSt.passwordStorePathStr = QmlAppSt.mainqmltype.appSettingsType.passwordStorePath;
+        QmlAppSt.passwordStorePathStr = QmlAppSt.mainqmltype.appSettingsType.passwordStorePath
 
         QmlAppSt.isShowSettings = false
     }
@@ -118,7 +119,6 @@ ScrollView {
 
         Layout.fillWidth: true
         Layout.fillHeight: true
-
 
         SettingsLabelComboBox {
             id: comboLstStores
@@ -213,18 +213,31 @@ ScrollView {
             labelText: "Linux only autotype cmd:"
             text: QmlAppSt.mainqmltype.appSettingsType.autoTypeCmd
         }
-
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 1
+            color: CoreSystemPalette.text
+        }
+        CoreSwitch {
+            id: useMonospaceFont
+            text: qsTr("Use monospace font for TextEdit")
+            checked: isUseMonospaceFont
+        }
         SettingsLabelTextField {
             id: fontSize
             labelText: "Font size (reopen app required):"
             text: QmlAppSt.mainqmltype.appSettingsType.fontSize
         }
-
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 1
+            color: CoreSystemPalette.text
+        }
         CoreSwitch {
             id: preferYamlView
             text: qsTr("Prefer Yaml view if Yaml valid")
             checked: isPreferYamlView
-        }       
+        }
         CoreSwitch {
             id: useClipboard
             text: qsTr("Use clipboard")
@@ -249,7 +262,7 @@ ScrollView {
         }
         CoreSwitch {
             id: useRnpgp
-            enabled:  Qt.platform.os !== "windows"
+            enabled: Qt.platform.os !== "windows"
             text: qsTr("Use Rnpgp")
             checked: isUseRnpgp
         }
@@ -290,6 +303,5 @@ ScrollView {
         }
 
         CorePagePadFooter {}
-
     }
 }

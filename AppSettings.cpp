@@ -24,6 +24,7 @@ AppSettings::AppSettings(QObject *parent)
     m_useClipboard = settings.value("useClipboard", false).toBool();
     m_allowScreenCapture = settings.value("allowScreenCapture", false).toBool();
     m_doSign = settings.value("doSign", false).toBool();
+    m_useMonospaceFont = settings.value("useMonospaceFont", false).toBool();
     m_preferYamlView = settings.value("preferYamlView", true).toBool();
     m_isFindMemCash = settings.value("isFindMemCash", false).toBool();
     m_isFindSlctFrst = settings.value("isFindSlctFrst", false).toBool();
@@ -159,6 +160,15 @@ void AppSettings::setDoSign(const bool doSign)
     m_doSign = doSign;
     settings.setValue("doSign", m_doSign);
     emit doSignChanged();
+}
+
+void AppSettings::setUseMonospaceFont(const bool useMonospaceFont)
+{
+    if (useMonospaceFont == m_useMonospaceFont)
+        return;
+    m_useMonospaceFont = useMonospaceFont;
+    settings.setValue("useMonospaceFont", m_useMonospaceFont);
+    emit useMonospaceFontChanged();
 }
 
 void AppSettings::setPreferYamlView(const bool preferYamlView)

@@ -9,7 +9,7 @@ TextArea {
     QmlCoreType {
         id: qmlCoreType
     }
-    font.family: useMonospaceFont ? qmlCoreType.fixedFontSystemName : Qt.application.font
+    font.family: useMonospaceFont ? qmlCoreType.fixedFontSystemName : font.family
     CoreToolTip {
         id: toolTip
     }

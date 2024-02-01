@@ -30,6 +30,7 @@ class AppSettings : public QObject
     Q_PROPERTY( bool useClipboard READ useClipboard WRITE setUseClipboard NOTIFY useClipboardChanged)
     Q_PROPERTY( bool allowScreenCapture READ allowScreenCapture WRITE setAllowScreenCapture NOTIFY allowScreenCaptureChanged)
     Q_PROPERTY( bool doSign READ doSign WRITE setDoSign NOTIFY doSignChanged)
+    Q_PROPERTY( bool useMonospaceFont READ useMonospaceFont WRITE setUseMonospaceFont NOTIFY useMonospaceFontChanged)
     Q_PROPERTY( bool preferYamlView READ preferYamlView WRITE setPreferYamlView NOTIFY preferYamlViewChanged)
     Q_PROPERTY( bool isFindMemCash READ isFindMemCash WRITE setIsFindMemCash NOTIFY isFindMemCashChanged)
     Q_PROPERTY( bool isFindSlctFrst READ isFindSlctFrst WRITE setIsFindSlctFrst NOTIFY isFindSlctFrstChanged)
@@ -75,6 +76,8 @@ public:
     void setAllowScreenCapture(const bool allowScreenCapture);
     bool doSign() const { return m_doSign; };
     void setDoSign(const bool doSign);
+    bool useMonospaceFont() const { return m_useMonospaceFont; };
+    void setUseMonospaceFont(const bool useMonospaceFont);
     bool preferYamlView() const { return m_preferYamlView; };
     void setPreferYamlView(const bool preferYamlView);
     bool isFindMemCash() const { return m_isFindMemCash; };
@@ -177,6 +180,7 @@ signals:
     void useClipboardChanged();
     void allowScreenCaptureChanged();
     void doSignChanged();
+    void useMonospaceFontChanged();
     void preferYamlViewChanged();
     void isFindMemCashChanged();
     void isFindSlctFrstChanged();
@@ -208,6 +212,7 @@ private:
     bool m_useClipboard;
     bool m_allowScreenCapture;
     bool m_doSign;
+    bool m_useMonospaceFont;
     bool m_preferYamlView;
     bool m_isFindMemCash;
     bool m_isFindSlctFrst;

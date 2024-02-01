@@ -228,6 +228,7 @@ a = [
     Prpt("bool",'useClipboard',"false"),
     Prpt("bool",'allowScreenCapture',"false"),
     Prpt("bool",'doSign',"false"),
+    Prpt("bool",'useMonospaceFont',"false"),
     Prpt("bool",'preferYamlView',"true"),   
 
     Prpt("bool",'isFindMemCash',"false", True),
