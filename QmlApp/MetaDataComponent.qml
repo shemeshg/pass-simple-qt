@@ -120,7 +120,7 @@ Column {
                 }
             }
             Repeater {
-                model: QmlAppSt.noneWaitItems
+                model: QmlAppSt.noneWaitItems.sort()
                 RowLayout {
                     visible: modelDataTxt.text.includes(txtFilter.text)
                     CoreLabel {
