@@ -318,11 +318,15 @@ ColumnLayout {
         Shortcut {
             sequence: "Ctrl+O"
             onActivated: {
-                if (editComponentId.visible && !QmlAppSt.isShowPreview
-                        && QmlAppSt.noneWaitItems.indexOf(
+                if (editComponentId.visible && QmlAppSt.noneWaitItems.indexOf(
                             QmlAppSt.filePath) === -1
                         && !QmlAppSt.isBinaryFile) {
-                    doExternalOpen()
+                    if (!QmlAppSt.isShowPreview) {
+                        doExternalOpen()
+                    } else {
+                        doExternalOpen()
+                        reloadAfterPreviewChanged()
+                    }
                 }
             }
         }
