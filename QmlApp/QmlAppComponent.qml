@@ -79,10 +79,10 @@ ColumnLayout {
                     searchComponentID.clearFields()
                 }
                 if (action === "doSearch") {
-                    searchComponentID.doSearchAction();
+                    searchComponentID.doSearchAction()
                 }
-                if (action === "reEncrypt"){
-                    columnLayoutHomeId.manageGpgIdComponentId.reencryptBtnId.clicked();
+                if (action === "reEncrypt") {
+                    columnLayoutHomeId.manageGpgIdComponentId.reencryptBtnId.clicked()
                 }
             }
             if (QmlAppSt.isGpgFile && action === "downloadFileAct") {
@@ -110,7 +110,8 @@ ColumnLayout {
     }
 
     function getIsBinary(fullPathToFile) {
-        let file = fullPathToFile.substring(1, fullPathToFile.length - 4)
+        let file = fullPathToFile.substring(
+                1, fullPathToFile.length - 4).toLowerCase()
         let extensions = QmlAppSt.mainqmltype.appSettingsType.binaryExts.toLowerCase()
         let initialValue = 0
         let ret = extensions.split("\n").reduce((accumulator, currentValue) => {
@@ -171,7 +172,7 @@ ColumnLayout {
         clearSystemTrayIconEntries()
         QmlAppSt.isBinaryFile = getIsBinary(QmlAppSt.filePath)
 
-        if (QmlAppSt.isBinaryFile ||  QmlAppSt.noneWaitItems.indexOf(
+        if (QmlAppSt.isBinaryFile || QmlAppSt.noneWaitItems.indexOf(
                     QmlAppSt.filePath) > -1) {
             if (QmlAppSt.isShowPreview) {
                 QmlAppSt.isPreviousShowPreview = true
@@ -245,10 +246,9 @@ ColumnLayout {
         delayCaller.start()
     }
 
-
-    function setNotifyBodyContentModified(isBodyContentModified:bool){
-        QmlAppSt.isBodyContentModified = isBodyContentModified;
-        statusLabelId.text = isBodyContentModified ? "*" : "";
+    function setNotifyBodyContentModified(isBodyContentModified: bool) {
+        QmlAppSt.isBodyContentModified = isBodyContentModified
+        statusLabelId.text = isBodyContentModified ? "*" : ""
     }
 
     function notifyStr(str, withTimeout = false, callback = () => {}, clearString = "") {
