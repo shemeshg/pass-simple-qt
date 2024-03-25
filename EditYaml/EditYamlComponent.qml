@@ -272,7 +272,7 @@ ColumnLayout {
                         editYamlType.yamlModel = newArry
                     }
                     icon.name: "Copy"
-                    hooverText: "Copy " + modelData.key + "to OLD_" + modelData.key
+                    hooverText: "Copy " + modelData.key + " to OLD_" + modelData.key
                     icon.source: Qt.resolvedUrl(
                                      "icons/content_copy_FILL0_wght400_GRAD0_opsz24.svg")
                 }
