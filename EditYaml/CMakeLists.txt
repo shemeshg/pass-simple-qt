@@ -24,4 +24,5 @@ qt6_add_qml_module(EditYaml
                 icons/move_down_black_24dp.svg
                 icons/move_up_black_24dp.svg
                 icons/remove_circle_outline_black_24dp.svg
+                icons/content_copy_FILL0_wght400_GRAD0_opsz24.svg
     )

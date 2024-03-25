@@ -134,6 +134,17 @@ ColumnLayout {
         }
     }
 
+    function shouldCopyBeEnabled(key) {
+        if (key.startsWith("OLD_")) {
+            return false
+        }
+        let count = editYamlType.yamlModel.filter(row => {
+                                                      return row.key.includes(
+                                                          "OLD_" + key)
+                                                  }).length
+        return count === 0
+    }
+
     ListView {
         id: yamlModelListViewId
 
@@ -246,6 +257,24 @@ ColumnLayout {
                     hooverText: "Delete"
                     icon.source: Qt.resolvedUrl(
                                      "icons/remove_circle_outline_black_24dp.svg")
+                }
+                CoreButton {
+                    enabled: shouldCopyBeEnabled(modelData.key)
+                    visible: isEditFieldsType
+                    onClicked: {
+                        setNotifyBodyContentModified(true)
+                        let newArry = [...editYamlType.yamlModel]
+
+                        let rowNew = JSON.parse(
+                                JSON.stringify(editYamlType.yamlModel[index]))
+                        rowNew.key = "OLD_" + rowNew.key
+                        newArry.splice(index, 0, rowNew)
+                        editYamlType.yamlModel = newArry
+                    }
+                    icon.name: "Copy"
+                    hooverText: "Copy " + modelData.key + "to OLD_" + modelData.key
+                    icon.source: Qt.resolvedUrl(
+                                     "icons/content_copy_FILL0_wght400_GRAD0_opsz24.svg")
                 }
                 Item {
                     width: 8
