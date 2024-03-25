@@ -12,6 +12,6 @@ call ninja
 D:\Qt\6.6.1\msvc2019_64\bin\windeployqt.exe  --qmldir D:\projects\pass-simple-qt pass-simple.exe
 cd \
 move deployed pass-simple-windows-x64
-powershell -Command "Compress-Archive -Path r:\pass-simple-windows-x64 -DestinationPath pass-simple-qt-0.166_win_x64.zip"
+powershell -Command "Compress-Archive -Path r:\pass-simple-windows-x64 -DestinationPath pass-simple-qt-1.0.1_win_x64.zip"
 REM # rmdir /s/q pass-simple-windows-x64
 
