@@ -204,6 +204,14 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
             }
         }
 
+        QVector<QString> orgIgnoreSearch = appSettings.ignoreSearch().split("\n");
+        QVector<QString> ignoreSearch;
+        for (const auto &elem : orgIgnoreSearch) {
+            if (!elem.isEmpty()) {
+                ignoreSearch.push_back(elem);
+            }
+        }
+
         try {
             passHelper->searchDown(rootFolderToSearch.toStdString(),
                                    FolderToSearch.toStdString(),
@@ -213,7 +221,13 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
                                    isMemCash,
                                    searchMemCash,
                                    [&](std::string path) {
-                                       result_strings.push_back(QString::fromStdString(path));
+                                       QString s = QString::fromStdString(path);
+                                       for (const auto &elem : ignoreSearch) {
+                                           if (s.contains(elem)) {
+                                               return;
+                                           }
+                                       }
+                                       result_strings.push_back(s);
                                    });
 
         } catch (RnpLoginRequestException &rlre) {

@@ -225,6 +225,7 @@ a = [
     Prpt("QString",'commitMsg'),
     Prpt("QString",'ddListStores'),
     Prpt("QString",'binaryExts'),
+    Prpt("QString",'ignoreSearch'),
     Prpt("bool",'useClipboard',"false"),
     Prpt("bool",'allowScreenCapture',"false"),
     Prpt("bool",'doSign',"false"),

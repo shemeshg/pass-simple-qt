@@ -21,6 +21,7 @@ AppSettings::AppSettings(QObject *parent)
     m_commitMsg = settings.value("commitMsg", "").toString();
     m_ddListStores = settings.value("ddListStores", "").toString();
     m_binaryExts = settings.value("binaryExts", "").toString();
+    m_ignoreSearch = settings.value("ignoreSearch", "").toString();
     m_useClipboard = settings.value("useClipboard", false).toBool();
     m_allowScreenCapture = settings.value("allowScreenCapture", false).toBool();
     m_doSign = settings.value("doSign", false).toBool();
@@ -133,6 +134,15 @@ void AppSettings::setBinaryExts(const QString &binaryExts)
     m_binaryExts = binaryExts;
     settings.setValue("binaryExts", m_binaryExts);
     emit binaryExtsChanged();
+}
+
+void AppSettings::setIgnoreSearch(const QString &ignoreSearch)
+{
+    if (ignoreSearch == m_ignoreSearch)
+        return;
+    m_ignoreSearch = ignoreSearch;
+    settings.setValue("ignoreSearch", m_ignoreSearch);
+    emit ignoreSearchChanged();
 }
 
 void AppSettings::setUseClipboard(const bool useClipboard)
@@ -378,6 +388,14 @@ const QString AppSettings::binaryExts() const
         return QString{".zip\n.pdf"};
     }
     return m_binaryExts;
+}
+
+const QString AppSettings::ignoreSearch() const
+{
+    if (m_ignoreSearch.isEmpty()) {
+        return QString{"/_files"};
+    }
+    return m_ignoreSearch;
 }
 
 const QString AppSettings::autoTypeCmd() const

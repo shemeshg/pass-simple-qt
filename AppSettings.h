@@ -27,6 +27,7 @@ class AppSettings : public QObject
     Q_PROPERTY( QString commitMsg READ commitMsg WRITE setCommitMsg NOTIFY commitMsgChanged)
     Q_PROPERTY( QString ddListStores READ ddListStores WRITE setDdListStores NOTIFY ddListStoresChanged)
     Q_PROPERTY( QString binaryExts READ binaryExts WRITE setBinaryExts NOTIFY binaryExtsChanged)
+    Q_PROPERTY( QString ignoreSearch READ ignoreSearch WRITE setIgnoreSearch NOTIFY ignoreSearchChanged)
     Q_PROPERTY( bool useClipboard READ useClipboard WRITE setUseClipboard NOTIFY useClipboardChanged)
     Q_PROPERTY( bool allowScreenCapture READ allowScreenCapture WRITE setAllowScreenCapture NOTIFY allowScreenCaptureChanged)
     Q_PROPERTY( bool doSign READ doSign WRITE setDoSign NOTIFY doSignChanged)
@@ -70,6 +71,8 @@ public:
     void setDdListStores(const QString &ddListStores);
     const QString binaryExts() const;
     void setBinaryExts(const QString &binaryExts);
+    const QString ignoreSearch() const;
+    void setIgnoreSearch(const QString &ignoreSearch);
     bool useClipboard() const { return m_useClipboard; };
     void setUseClipboard(const bool useClipboard);
     bool allowScreenCapture() const { return m_allowScreenCapture; };
@@ -177,6 +180,7 @@ signals:
     void commitMsgChanged();
     void ddListStoresChanged();
     void binaryExtsChanged();
+    void ignoreSearchChanged();
     void useClipboardChanged();
     void allowScreenCaptureChanged();
     void doSignChanged();
@@ -209,6 +213,7 @@ private:
     QString m_commitMsg;
     QString m_ddListStores;
     QString m_binaryExts;
+    QString m_ignoreSearch;
     bool m_useClipboard;
     bool m_allowScreenCapture;
     bool m_doSign;

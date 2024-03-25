@@ -43,6 +43,7 @@ ScrollView {
             fontSize.text = QmlAppSt.mainqmltype.appSettingsType.fontSize
             commitMsg.text = QmlAppSt.mainqmltype.appSettingsType.commitMsg
             binaryExts.text = QmlAppSt.mainqmltype.appSettingsType.binaryExts
+            ignoreSearch.text = QmlAppSt.mainqmltype.appSettingsType.ignoreSearch
             ddListStores.text = QmlAppSt.mainqmltype.appSettingsType.ddListStores
             passwordStoreId.text = QmlAppSt.passwordStorePathStr
             // Refactore showSettings
@@ -97,6 +98,7 @@ ScrollView {
         QmlAppSt.mainqmltype.appSettingsType.vscodeExecPath = vscodeExecPath.text
         QmlAppSt.mainqmltype.appSettingsType.autoTypeCmd = autoTypeCmd.text
         QmlAppSt.mainqmltype.appSettingsType.binaryExts = binaryExts.text
+        QmlAppSt.mainqmltype.appSettingsType.ignoreSearch = ignoreSearch.text
         QmlAppSt.mainqmltype.appSettingsType.useClipboard = useClipboard.checked
         QmlAppSt.mainqmltype.appSettingsType.useMonospaceFont = useMonospaceFont.checked
         QmlAppSt.mainqmltype.appSettingsType.allowScreenCapture = allowScreenCapture.checked
@@ -301,7 +303,11 @@ ScrollView {
             labelText: "Binary extensions:"
             text: QmlAppSt.mainqmltype.appSettingsType.binaryExts
         }
-
+        SettingsLabelTextArea {
+            id: ignoreSearch
+            labelText: "Ignore search:"
+            text: QmlAppSt.mainqmltype.appSettingsType.ignoreSearch
+        }
         CorePagePadFooter {}
     }
 }
