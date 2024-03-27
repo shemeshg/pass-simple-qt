@@ -205,10 +205,10 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
         }
 
         QVector<QString> orgIgnoreSearch = appSettings.ignoreSearch().split("\n");
-        QVector<QString> ignoreSearch;
+        std::vector<std::string> ignoreSearch;
         for (const auto &elem : orgIgnoreSearch) {
             if (!elem.isEmpty()) {
-                ignoreSearch.push_back(elem);
+                ignoreSearch.push_back(elem.toStdString());
             }
         }
 
@@ -218,15 +218,11 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
                                    fileRegExStr.toStdString(),
                                    contentSearchUsingRegEx,
                                    stdExtentions,
+                                   ignoreSearch,
                                    isMemCash,
                                    searchMemCash,
                                    [&](std::string path) {
                                        QString s = QString::fromStdString(path);
-                                       for (const auto &elem : ignoreSearch) {
-                                           if (s.contains(elem)) {
-                                               return;
-                                           }
-                                       }
                                        result_strings.push_back(s);
                                    });
 
