@@ -6,6 +6,7 @@ config.h
 
 # ???
 node_modules/
+build//
 
 # ???
 *~

@@ -806,10 +806,14 @@ void MainQmlType::trayMenuAdd(QString _username, QString _password, QString _fie
 
 void MainQmlType::renameGpgFile(QString filePathFrom, QString filePathTo){
     if (filePathFrom.trimmed() == filePathTo.trimmed()){return;}
-    std::filesystem::copy(filePathFrom.toStdString(),filePathTo.toStdString());
-    emit initFileSystemModel(filePathTo);
-    setFilePath(filePathTo);
-    std::filesystem::remove(filePathFrom.toStdString());
+    try {
+        std::filesystem::rename(filePathFrom.toStdString(), filePathTo.toStdString());
+        emit initFileSystemModel(filePathTo);
+    } catch (std::filesystem::filesystem_error &e) {
+        qDebug() << "Error moving file: " << e.what() << "\n";
+    } catch (...) {
+        qDebug() << "mv failed";
+    }
 }
 
 void MainQmlType::tryRedirectLocalLink(QString link)
