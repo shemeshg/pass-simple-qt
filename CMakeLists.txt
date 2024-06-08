@@ -24,6 +24,8 @@ if(WIN32 OR MSVC OR MSYS OR MINGW)
     set(WINDOWS TRUE)
 endif()
 
+# rnpgp specific
+set(BUILD_TESTING OFF)
 if(MACOSX)
 #    set(CMAKE_OSX_ARCHITECTURES "x86_64" )
 #    include( "/Users/macos/vcpkg/scripts/buildsystems/vcpkg.cmake")
@@ -32,6 +34,7 @@ if(LINUX)
 #    include( "/opt/vcpkg/scripts/buildsystems/vcpkg.cmake")
 endif()
 if(WINDOWS)
+    set(DCRYPTO_BACKEND "botan" )
 include( "D:/vcpkg/scripts/buildsystems/vcpkg.cmake")
 endif()
 
