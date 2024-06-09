@@ -91,6 +91,8 @@ if(MACOSX)
     include(CPack)     
 endif()
 
+
+
 set(QML_IMPORT_PATH ${CMAKE_SOURCE_DIR}/QmlApp
                 ${CMAKE_SOURCE_DIR}/EditYaml
                 ${CMAKE_SOURCE_DIR}/InputType
@@ -136,7 +138,14 @@ if(UNIX)
 endif()
 add_subdirectory(gpgfactory/libpgpfactory)
 
-
+if(WINDOWS)
+      install(FILES
+          D:/Win32Dll/botan-3.dll
+          D:/Win32Dll/bz2d.dll
+          D:/Win32Dll/json-c.dll
+          D:/Win32Dll/zlibd1.dll
+          DESTINATION bin)
+endif()
 
 
 set(TS_FILES ts/pass-simple_en_US.ts)
