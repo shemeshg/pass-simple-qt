@@ -249,7 +249,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
   set (CPACK_RESOURCE_FILE_LICENSE
   "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 
-  set (CPACK_CREATE_DESKTOP_LINKS pass-simple)  
+  set (CPACK_CREATE_DESKTOP_LINKS pass-simple)
 
   set (CPACK_PACKAGE_INSTALL_DIRECTORY "pass-simple")
   set (CPACK_PACKAGE_INSTALL_REGISTRY_KEY "pass-simple")
@@ -260,6 +260,9 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     "pass-simple" ) 
 
   set (CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
+  set(CPACK_NSIS_CREATE_ICONS_EXTRA
+    "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\pass-simple.lnk' '$INSTDIR\\\\bin\\pass-simple.exe' '' '$INSTDIR\\bin\\icon.ico'"
+    )
 
   include(CPack)   
   endif()

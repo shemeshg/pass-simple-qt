@@ -13,6 +13,7 @@ call ninja
 rmdir /s/q R:\WinDll
 mkdir R:\WinDll
 copy R:\deployed\src\rnp\*.dll R:\WinDll
+copy R:\pass-simple-qt\icon.ico R:\WinDll
 
 cpack -G ZIP
 cpack -G NSIS
