@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(pass-simple VERSION 1.0.6 LANGUAGES CXX)
+project(pass-simple VERSION 1.0.7 LANGUAGES CXX)
 
 # include(cmake/CPM.cmake)
 # CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
@@ -234,8 +234,36 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     install(DIRECTORY  
           R:/WinDll/
           DESTINATION bin)
+
+  # set the install/uninstall icon used for the installer itself
+  set (CPACK_NSIS_MUI_ICON
+  "${CMAKE_SOURCE_DIR}/icon.ico")
+  set (CPACK_NSIS_MUI_UNIICON
+  "${CMAKE_SOURCE_DIR}/icon.ico")   
+
+  # set the add/remove programs icon using an installed executable
+  SET(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\pass-simple.exe")
+  
+  set (CPACK_NSIS_PACKAGE_NAME "pass-simple")
+  
+  set (CPACK_RESOURCE_FILE_LICENSE
+  "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+
+  set (CPACK_CREATE_DESKTOP_LINKS pass-simple)  
+
+  set (CPACK_PACKAGE_INSTALL_DIRECTORY "pass-simple")
+  set (CPACK_PACKAGE_INSTALL_REGISTRY_KEY "pass-simple")
+  set (CPACK_PACKAGE_EXECUTABLES "pass-simple" "pass-simple")
+  cpack_add_component(cli DISPLAY_NAME
+  "rnpgp cli" ) 
+  cpack_add_component(development DISPLAY_NAME
+    "pass-simple" ) 
+
+  include(CPack)   
   endif()
 endif()
+
+message("****** YES ${CPACK_NSIS_MUI_ICON}")
 
 install(TARGETS pass-simple
     BUNDLE DESTINATION .

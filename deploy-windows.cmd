@@ -16,8 +16,10 @@ copy r:\deployed\botan*.dll R:\WinDll
 copy r:\deployed\bz*.dll R:\WinDll
 copy r:\deployed\json-c.dll R:\WinDll
 copy r:\deployed\zlib*.dll R:\WinDll
+copy R:\deployed\src\rnp\getopt.dll R:\WinDll
 
 cpack -G ZIP
+cpack -G NSIS
 REM # D:\Qt\6.7.1\msvc2019_64\bin\windeployqt.exe  --qmldir D:\projects\pass-simple-qt pass-simple.exe
 REM # cd \
 REM # move deployed pass-simple-windows-x64
