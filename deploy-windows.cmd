@@ -12,11 +12,7 @@ call ninja
 
 rmdir /s/q R:\WinDll
 mkdir R:\WinDll
-copy r:\deployed\botan*.dll R:\WinDll
-copy r:\deployed\bz*.dll R:\WinDll
-copy r:\deployed\json-c.dll R:\WinDll
-copy r:\deployed\zlib*.dll R:\WinDll
-copy R:\deployed\src\rnp\getopt.dll R:\WinDll
+copy R:\deployed\src\rnp\*.dll R:\WinDll
 
 cpack -G ZIP
 cpack -G NSIS

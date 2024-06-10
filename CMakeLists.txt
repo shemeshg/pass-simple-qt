@@ -259,11 +259,13 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
   cpack_add_component(development DISPLAY_NAME
     "pass-simple" ) 
 
+  set (CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
+
   include(CPack)   
   endif()
 endif()
 
-message("****** YES ${CPACK_NSIS_MUI_ICON}")
+message("****** YES ${CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL}")
 
 install(TARGETS pass-simple
     BUNDLE DESTINATION .
