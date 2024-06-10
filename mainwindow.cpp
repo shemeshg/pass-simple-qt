@@ -148,6 +148,7 @@ void MainWindow::doAppGeometry()
         mainqmltype->toggleFilepan();
     }
 
+    show();
 }
 
 void MainWindow::appendMenuItem(const QString &iconPath, const QString &toolTip,
