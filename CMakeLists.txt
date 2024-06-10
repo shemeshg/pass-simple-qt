@@ -225,8 +225,16 @@ qt_add_qml_module(pass-simple
     QML_FILES Main.qml     
 )
 
+
+
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
   set_property(TARGET pass-simple PROPERTY WIN32_EXECUTABLE true)
+
+  if(WINDOWS)
+    install(DIRECTORY  
+          R:/WinDll/
+          DESTINATION bin)
+  endif()
 endif()
 
 install(TARGETS pass-simple
