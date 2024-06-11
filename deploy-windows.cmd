@@ -1,5 +1,5 @@
 CALL  "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64
-D:
+D: 
 cd D:\projects\pass-simple-qt
 git pull
 cd gpgfactory
