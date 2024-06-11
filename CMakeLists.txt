@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(pass-simple VERSION 1.0.8 LANGUAGES CXX)
+project(pass-simple VERSION 1.0.9 LANGUAGES CXX)
 
 # include(cmake/CPM.cmake)
 # CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
@@ -267,8 +267,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
   include(CPack)   
   endif()
 endif()
-
-message("****** YES ${CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL}")
 
 install(TARGETS pass-simple
     BUNDLE DESTINATION .

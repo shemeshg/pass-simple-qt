@@ -384,14 +384,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     setQmlSource();
 
-#if defined(__APPLE__) || defined(__linux__)
-    doAppGeometry();
-#else
-    // Windows10 bug requires runLater
-    QTimer::singleShot(0, this, [=]{
-        doAppGeometry();
-    });
-#endif
+
+
+
 
 
 
@@ -440,6 +435,8 @@ MainWindow::MainWindow(QWidget *parent)
         SetWindowDisplayAffinity(handle, true ? WDA_EXCLUDEFROMCAPTURE : WDA_NONE);
 #endif
     }
+
+    doAppGeometry();
 }
 
 MainWindow::~MainWindow()
