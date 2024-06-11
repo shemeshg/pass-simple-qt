@@ -10,6 +10,8 @@ ColumnLayout {
     property alias folderDialogUpload: folderDialogUpload
     property string nearestTemplateGpg: ""
 
+    width: parent.width
+
     onVisibleChanged: {
         if (visible) {
             createEmptyFileNameId.forceActiveFocus()
@@ -58,6 +60,7 @@ ColumnLayout {
     id: addComponentId
 
     ColumnLayout {
+
         CoreLabelAndText {
             coreLabel: "Destination folder"
             coreText: QmlAppSt.fullPathFolder
