@@ -242,7 +242,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
   "${CMAKE_SOURCE_DIR}/icon.ico")   
 
   # set the add/remove programs icon using an installed executable
-  SET(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\pass-simple.exe")
+  SET(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\pass-simple.exe")
   
   set (CPACK_NSIS_PACKAGE_NAME "pass-simple")
   
@@ -261,7 +261,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
 
   set (CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
   set(CPACK_NSIS_CREATE_ICONS_EXTRA
-    "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\pass-simple.lnk' '$INSTDIR\\\\bin\\pass-simple.exe' '' '$INSTDIR\\bin\\icon.ico'"
+    "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\pass-simple.lnk' '$INSTDIR\\\\bin\\\\pass-simple.exe' '' '$INSTDIR\\\\bin\\\\icon.ico'"
     )
 
   include(CPack)   
