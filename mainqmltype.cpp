@@ -560,6 +560,7 @@ QString MainQmlType::getFullPathFolder()
 
 void MainQmlType::createEmptyEncryptedFile(QString fullPathFolder, QString fileName,  QString templatePath)
 {
+    fileName = fileName.simplified();
     std::filesystem::path p = fullPathFolder.toStdString();
     fileName = fileName + ".gpg";
     p = p / fileName.toStdString();
@@ -805,6 +806,7 @@ void MainQmlType::trayMenuAdd(QString _username, QString _password, QString _fie
 }
 
 void MainQmlType::renameGpgFile(QString filePathFrom, QString filePathTo){
+    filePathTo = filePathTo.simplified();
     if (filePathFrom.trimmed() == filePathTo.trimmed()){return;}
     try {
         std::filesystem::rename(filePathFrom.toStdString(), filePathTo.toStdString());

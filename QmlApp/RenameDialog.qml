@@ -19,7 +19,8 @@ CoreDialogYesNo {
     onAccepted: {
         QmlAppSt.mainqmltype.renameGpgFile(
                     QmlAppSt.filePath,
-                    QmlAppSt.fullPathFolder + "/" + fieldName.text + ".gpg")
+                    QmlAppSt.fullPathFolder + "/" + fieldName.text.trim(
+                        ) + ".gpg")
     }
     onClosed: {
 
