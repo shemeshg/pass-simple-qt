@@ -72,6 +72,21 @@ Column {
                         gitResponseId = "Pull:\n" + pull + "\nPush:\n" + push
                     }
                 }
+                CoreButton {
+                    text: "fetch"
+                    enabled: QmlAppSt.nearestGit
+                    onClicked: {
+
+                        let fetch = QmlAppSt.mainqmltype.runCmd(
+                                [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "fetch", "origin"],
+                                " 2>&1")
+
+                        let showOrigin = QmlAppSt.mainqmltype.runCmd(
+                                [QmlAppSt.mainqmltype.appSettingsType.gitExecPath, "-C", QmlAppSt.nearestGit, "config", "--get", "remote.origin.url"],
+                                " 2>&1")
+                        gitResponseId = "Origin:\n" + showOrigin + fetch
+                    }
+                }
             }
             RowLayout {
                 CoreTextArea {

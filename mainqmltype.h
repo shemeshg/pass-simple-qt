@@ -49,6 +49,7 @@ private:
         pingProcess.start(program, {arguments});
         pingProcess.waitForFinished(); // sets current thread to sleep and waits for pingProcess end
         QString output(pingProcess.readAllStandardOutput());
+        output = output + pingProcess.readAllStandardError();
         pingProcess.close();
         return output.toStdString();
     }
