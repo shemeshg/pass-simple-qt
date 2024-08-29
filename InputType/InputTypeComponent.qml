@@ -149,11 +149,16 @@ ColumnLayout {
             echoMode: (inputType === "totp"
                        || inputType === "password") ? TextInput.Password : TextInput.Normal
             rightPadding: 8
+            useMonospaceFont: QmlAppSt.mainqmltype.appSettingsType.useMonospaceFont
+                              || (textField.echoMode === TextInput.Normal
+                                  && (inputType === "totp"
+                                      || inputType === "password"))
         }
         CoreTextField {
             text: totpText
             readOnly: true
             visible: inputType === "totp"
+            useMonospaceFont: true
         }
         CoreButton {
             text: "@"
