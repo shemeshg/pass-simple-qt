@@ -108,6 +108,7 @@
     return [NSProcessInfo processInfo].processIdentifier;
 }
 
+/*
 //
 // Activate application by process id
 //
@@ -116,6 +117,7 @@
     NSRunningApplication* app = [NSRunningApplication runningApplicationWithProcessIdentifier:pid];
     return [app activateWithOptions:NSApplicationActivateIgnoringOtherApps];
 }
+*/
 
 //
 // Hide application by process id
@@ -187,6 +189,7 @@
 #endif
 }
 
+/*
 //
 // Check if screen recording is enabled, may show an popup asking for permissions
 //
@@ -213,6 +216,7 @@
 #endif
     return YES;
 }
+*/
 
 - (void) toggleForegroundApp:(bool) foreground
 {
@@ -263,10 +267,12 @@ pid_t AppKit::ownProcessId()
     return [static_cast<id>(self) ownProcessId];
 }
 
+/*
 bool AppKit::activateProcess(pid_t pid)
 {
     return [static_cast<id>(self) activateProcess:pid];
 }
+*/
 
 bool AppKit::hideProcess(pid_t pid)
 {
@@ -294,10 +300,12 @@ bool AppKit::enableAccessibility()
     return [static_cast<id>(self) enableAccessibility];
 }
 
+/*
 bool AppKit::enableScreenRecording()
 {
     return [static_cast<id>(self) enableScreenRecording];
 }
+*/
 
 void AppKit::toggleForegroundApp(bool foreground)
 {
