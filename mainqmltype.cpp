@@ -213,6 +213,7 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
         }
 
         try {
+            std::mutex mtx;
             passHelper->searchDown(rootFolderToSearch.toStdString(),
                                    FolderToSearch.toStdString(),
                                    fileRegExStr.toStdString(),
@@ -223,7 +224,13 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
                                    searchMemCash,
                                    [&](std::string path) {
                                        QString s = QString::fromStdString(path);
-                                       result_strings.push_back(s);
+                                       if (passHelper->useMultiThread()) {
+                                           std::lock_guard<std::mutex> lock(mtx);
+                                           result_strings.push_back(s);
+                                       } else {
+                                           result_strings.push_back(s);
+                                       }
+                                       
                                    });
 
         } catch (RnpLoginRequestException &rlre) {
