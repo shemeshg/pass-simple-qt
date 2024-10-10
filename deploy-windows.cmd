@@ -8,7 +8,7 @@ R:
 cd \
 mkdir deployed
 cd deployed
-call D:\Qt\6.7.1\msvc2019_64\bin\qt-cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=. D:\projects\pass-simple-qt
+call D:\Qt\6.8.0\msvc2019_64\bin\qt-cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=. D:\projects\pass-simple-qt
 call ninja
 
 rmdir /s/q R:\WinDll
