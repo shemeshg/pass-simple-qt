@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(pass-simple VERSION 1.0.14 LANGUAGES CXX)
+project(pass-simple VERSION 1.0.15 LANGUAGES CXX)
 
 # include(cmake/CPM.cmake)
 # CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
