@@ -44,11 +44,6 @@ ColumnLayout {
                                                btnRunSearchId.enabled = true
                                                searchStatusLabelId.visible = false
                                                QmlAppSt.doMainUiEnable()
-                                               if (isSelectFirst.checked
-                                                   && searchResultModel.length > 0) {
-                                                   QmlAppSt.mainqmltype.setTreeViewSelected(
-                                                       searchResultModel[0])
-                                               }
                                            })
     }
 

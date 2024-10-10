@@ -241,6 +241,10 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
         }
         result_strings.sort(Qt::CaseInsensitive);
         setSearchResult(result_strings);
+        //select first
+        if (appSettings.isFindSlctFrst() && result_strings.length() > 0){
+            setTreeViewSelected(searchResult().at(0));
+        }
     });
 
 
