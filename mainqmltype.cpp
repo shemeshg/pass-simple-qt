@@ -4,7 +4,8 @@
 #include <QtConcurrent>
 #include "QtTotp/getTotp.h"
 #include "RunShellCmd.h"
-#include <iostream>
+
+
 
 #if defined(__APPLE__) || defined(__linux__)
 #else
@@ -62,7 +63,10 @@ MainQmlType::MainQmlType(
     , autoTypeTimeout{autoTypeTimeout}
 {
     passHelper = getInterfacePassHelper(appSettings.useRnpgp(),
-                                        appSettings.rnpgpHome().toStdString());
+                                        appSettings.rnpgpHome().toStdString(),
+                                        [=](RnpLoginRequestException &rlre){
+                                            return false;
+                                        });
     passHelper->setPasswordCallback([&](std::string keyid) { return getPasswordFromMap(keyid); });
     passFile = passHelper->getPassFile("");
     watchWaitAndNoneWaitRunCmd->callback = [&]() {
@@ -83,8 +87,8 @@ MainQmlType::MainQmlType(
     connect(&m_gpgIdManageType,
             &GpgIdManageType::loginRequestedRnpG,
             this,
-            [=](const RnpLoginRequestException &e) {
-                emit loginRequestedRnp(e, &loginAndPasswordMap);
+            [=](const RnpLoginRequestException &rlre) {
+                return false;
             });
 }
 QString MainQmlType::filePath()
@@ -104,12 +108,15 @@ void MainQmlType::setFilePath(const QString &filePath)
         m_gpgIdManageType.init(m_filePath.toStdString(),
                                appSettings.passwordStorePath().toStdString(),
                                appSettings.useRnpgp(),
-                               appSettings.rnpgpHome().toStdString());
+                               appSettings.rnpgpHome().toStdString(),
+                               [=](RnpLoginRequestException &rlre){
+                                   return false;
+                               });
     } catch (...) {
         qDebug() << "MainQmlType::setFilePath(const QString &filePath) Just failed \n"; // Block of code to handle errors
     }
 
-    emit filePathChanged();
+    filePathChanged();
 }
 
 int MainQmlType::filePanSize()
@@ -123,7 +130,7 @@ void MainQmlType::setFilePanSize(const int &filePanSize)
         return;
 
     m_filePanSize = filePanSize;
-    emit filePanSizeChanged();
+    filePanSizeChanged();
 }
 
 
@@ -133,7 +140,7 @@ void MainQmlType::setNoneWaitItems(const QStringList &noneWaitItems)
         return;
 
     m_noneWaitItems = noneWaitItems;
-    emit noneWaitItemsChanged();
+    noneWaitItemsChanged();
 }
 
 void MainQmlType::setExceptionCounter(const int &exceptionCounter)
@@ -142,7 +149,7 @@ void MainQmlType::setExceptionCounter(const int &exceptionCounter)
         return;
 
     m_exceptionCounter = exceptionCounter;
-    emit exceptionCounterChanged();
+    exceptionCounterChanged();
 }
 
 void MainQmlType::setExceptionStr(const QString &exceptionStr)
@@ -151,21 +158,21 @@ void MainQmlType::setExceptionStr(const QString &exceptionStr)
         return;
 
     m_exceptionStr = exceptionStr;
-    emit exceptionStrChanged();
+    exceptionStrChanged();
 }
 
 void MainQmlType::setAppSettingsType(AppSettings *appSettingsType)
 {
     appSettings.setPasswordStorePath(appSettingsType->passwordStorePath());
     appSettings.setTmpFolderPath(appSettingsType->tmpFolderPath());
-    emit appSettingsTypeChanged();
+    appSettingsTypeChanged();
     qDebug() << "Yes subbmited";
 }
 
 void MainQmlType::setSearchResult(const QStringList &searchResult)
 {
     m_searchResult = searchResult;
-    emit searchResultChanged();
+    searchResultChanged();
 }
 
 void MainQmlType::setSelectedText(const QString &selectedText)
@@ -181,7 +188,7 @@ void MainQmlType::setSelectedText(const QString &selectedText)
         autoTypeSelected->setVisible(true);
     }
 
-    emit selectedTextChanged();
+    selectedTextChanged();
 }
 
 void MainQmlType::doSearch(QString rootFolderToSearch,
@@ -235,7 +242,7 @@ void MainQmlType::doSearch(QString rootFolderToSearch,
 
         } catch (RnpLoginRequestException &rlre) {
             rlre.functionName = "doSearch";
-            emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+            loginRequestedRnp(rlre, &loginAndPasswordMap);
         } catch (...) {
             throw;
         }
@@ -273,7 +280,10 @@ void MainQmlType::initGpgIdManage()
         m_gpgIdManageType.init(appSettings.passwordStorePath().toStdString(),
                                appSettings.passwordStorePath().toStdString(),
                                appSettings.useRnpgp(),
-                               appSettings.rnpgpHome().toStdString());
+                               appSettings.rnpgpHome().toStdString(),
+                               [=](RnpLoginRequestException &rlre){
+                                   return false;
+                               });
         if (!appSettings.ctxSigner().isEmpty()) {
             passHelper->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});            
         }
@@ -291,12 +301,12 @@ void MainQmlType::submitAppSettingsPasswordStorePath(QString passwordStorePath)
     if (orgStorePath != appSettings.passwordStorePath()){
         setTreeViewSelected(appSettings.passwordStorePath());
     }
-    emit appSettingsTypeChanged();
+    appSettingsTypeChanged();
 }
 
 void MainQmlType::setTreeViewSelected(QString path)
 {
-    emit setTreeviewCurrentIndex(path);
+    setTreeviewCurrentIndex(path);
 }
 
 void MainQmlType::toggleFilepan()
@@ -346,7 +356,10 @@ void MainQmlType::doLogout()
 InterfaceLibgpgfactory *MainQmlType::getPrivatePasswordHelper()
 {
     InterfaceLibgpgfactory *phLocal = getInterfacePassHelper(appSettings.useRnpgp(),
-                                                             appSettings.rnpgpHome().toStdString());
+                                                             appSettings.rnpgpHome().toStdString(),
+                                                             [=](RnpLoginRequestException &rlre){
+                                                                 return false;
+                                                             });
     try {
         if (!appSettings.ctxSigner().isEmpty()) {
             phLocal->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});
@@ -373,7 +386,7 @@ void MainQmlType::encrypt(QString s)
                 } catch (RnpLoginRequestException &rlre) {
                     rlre.functionName = "encrypt";
                     rlre.fromFilePath = s.toStdString();
-                    emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+                    loginRequestedRnp(rlre, &loginAndPasswordMap);
                 } catch (...) {
                     throw;
                 }
@@ -444,7 +457,7 @@ void MainQmlType::openExternalEncryptNoWait(bool alsoOpenVsCode)
             } catch (RnpLoginRequestException &rlre) {
                 rlre.functionName = "openExternalEncryptNoWait";
                 rlre.doSign = alsoOpenVsCode;
-                emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+                loginRequestedRnp(rlre, &loginAndPasswordMap);
             } catch (...) {
                 throw;
             }
@@ -495,7 +508,7 @@ QString MainQmlType::getDecrypted()
                 passFile->decrypt();
             } catch (RnpLoginRequestException &rlre) {
                 rlre.functionName = "getDecrypted";
-                emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+                loginRequestedRnp(rlre, &loginAndPasswordMap);
                 QString rootPath = appSettings.passwordStorePath();
                 setTreeViewSelected(rootPath);
             } catch (...) {
@@ -602,7 +615,7 @@ fields type:
     }
 
     try {
-        emit initFileSystemModel(QString::fromStdString(p.u8string()));
+        initFileSystemModel(QString::fromStdString(p.u8string()));
         setFilePath(QString::fromStdString(p.u8string()));
     } catch (...) {
       qDebug()<<p.c_str()<<" failed";
@@ -632,7 +645,7 @@ void MainQmlType::encryptUploadAsync(const QJSValue &callback, QString  fullPath
 
         if (!toFilesSubFolder) {
             setFilePath(appSettings.passwordStorePath());
-            emit initFileSystemModel(QString::fromStdString(selectFile.u8string()));
+            initFileSystemModel(QString::fromStdString(selectFile.u8string()));
         }
         return 0;
     });
@@ -666,7 +679,7 @@ void MainQmlType::encryptUpload(QString fullPathFolder, QString fileName, bool t
             rlre.fromFilePath = fullPathFolder.toStdString();
             rlre.toFilePath = fileName.toStdString();
             rlre.doSign = toFilesSubFolder;
-            emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+            loginRequestedRnp(rlre, &loginAndPasswordMap);
         } catch (...) {
             throw;
         }
@@ -717,7 +730,7 @@ void MainQmlType::decryptFolderDownload(QString fullPathFolder, QString toFolder
             rlre.functionName = "decryptFolderDownload";
             rlre.fromFilePath = fullPathFolder.toStdString();
             rlre.toFilePath = toFolderName.toStdString();
-            emit loginRequestedRnp(rlre, &loginAndPasswordMap);
+            loginRequestedRnp(rlre, &loginAndPasswordMap);
         } catch (...) {
             throw;
         }
@@ -736,7 +749,7 @@ void MainQmlType::encryptFolderUpload(QString fromFolderName, QString fullPathFo
         } catch (RnpLoginRequestException &rlre) {
             rlre.functionName = "encryptFolderUpload";
             rlre.fromFilePath = fromFolderName.toStdString();
-            rlre.toFilePath = fullPathFolder.toStdString();
+            rlre.toFilePath = fullPathFolder.toStdString();            
             emit loginRequestedRnp(rlre, &loginAndPasswordMap);
         } catch (...) {
             throw;

@@ -39,7 +39,7 @@ public:
     void init(std::string _currentPath,
               std::string _stopPath,
               bool _isRnPgp,
-              std::string _rnpHomePath);
+              std::string _rnpHomePath, std::function<bool (RnpLoginRequestException &e)> rnpPasswdPrompt);
     const std::vector<std::string> &getEncryptTo() const { return m_gpgIdManage->encryptTo; }
 
     /* [[[cog

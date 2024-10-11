@@ -309,6 +309,7 @@ private:
         }
         return pass;
     }
+
 };
 
 #endif // MAINQMLTYPE_H

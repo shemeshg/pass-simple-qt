@@ -5,9 +5,10 @@
 void GpgIdManageType::init(std::string _currentPath,
                            std::string _stopPath,
                            bool _isRnPgp,
-                           std::string _rnpHomePath)
+                           std::string _rnpHomePath,
+                        std::function<bool(RnpLoginRequestException &e)> rnpPasswdPrompt)
 {
-    m_gpgIdManage = std::make_unique<GpgIdManage>(_currentPath, _stopPath, _isRnPgp, _rnpHomePath);
+    m_gpgIdManage = std::make_unique<GpgIdManage>(_currentPath, _stopPath, _isRnPgp, _rnpHomePath, rnpPasswdPrompt);
 }
 
 /* [[[cog
@@ -87,7 +88,9 @@ QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign, QString
         m_gpgIdManage = std::make_unique<GpgIdManage>(m_gpgIdManage->currentPath,
                                                       m_gpgIdManage->stopPath,
                                                       m_gpgIdManage->isRnPgp,
-                                                      m_gpgIdManage->rnpHomePath);
+                                                      m_gpgIdManage->rnpHomePath,
+                                                      m_gpgIdManage->rnpPasswdPrompt
+                                                      );
         try {
             m_gpgIdManage->setSigner(signerStr.toStdString());
         } catch (...) {
