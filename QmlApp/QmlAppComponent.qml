@@ -41,7 +41,7 @@ ColumnLayout {
     }
 
     Shortcut {
-        sequence: "Ctrl+Shift+L"
+        sequence: "Ctrl+;"
         onActivated: {
             QmlAppSt.mainqmltype.doLogout()
         }

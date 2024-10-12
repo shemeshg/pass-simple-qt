@@ -203,7 +203,7 @@ MainWindow::MainWindow(QWidget *parent)
     autoTypeTimeout->setCheckable(true);
     trayIconMenu->addAction(autoTypeTimeout);
 
-    QAction *logoutAction = new QAction(tr("Logout (⇧⌘L)"), this);
+    QAction *logoutAction = new QAction(tr("Logout (⌘;)"), this);
     connect(logoutAction, &QAction::triggered, qApp, [=]() {
         mainqmltype->doLogout();
     });
