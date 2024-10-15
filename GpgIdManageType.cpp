@@ -106,12 +106,13 @@ QString GpgIdManageType::saveChanges(QStringList keysFound, bool doSign, QString
     } catch (RnpLoginRequestException &rlre) {
         rlre.functionName = "reEncrypt";
         emit loginRequestedRnpG(rlre);
+        return "Authentication required";
     } catch (const std::exception &e) {
         qDebug() <<"Error "<< QString(e.what());
         return "Error:\n" + currentFile + "\n" + e.what() + "\n";
     }
     qDebug() << "Finished saveChanges\n";
-    return "";
+    return "Finished successfully";
 }
 
 void GpgIdManageType::saveChangesAsync(QStringList keysFound, bool doSign, QString signerStr, const QJSValue &callback)

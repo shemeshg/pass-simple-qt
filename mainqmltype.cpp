@@ -88,6 +88,7 @@ MainQmlType::MainQmlType(
             &GpgIdManageType::loginRequestedRnpG,
             this,
             [=](const RnpLoginRequestException &rlre) {
+                emit loginRequestedRnp(rlre, &loginAndPasswordMap);
                 return false;
             });
 }
