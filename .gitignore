@@ -80,3 +80,5 @@ CMakeLists.txt.user*
 *.dll
 *.exe
 
+# IDE
+.vscode/
