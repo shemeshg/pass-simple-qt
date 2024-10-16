@@ -6,10 +6,9 @@
 # cmake --build . --parallel
 # cmake --install .
 
-rm -rf /Users/macos/DATA/develop/out
-cd /Users/macos/DATA/develop/
-mkdir out
-cd out
-/Users/macos/DATA/develop/Qt6.8Static/bin/qt-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=. ../pass-simple-qt
+rm -rf /Volumes/RAM_Disk_4G/out
+mkdir /Volumes/RAM_Disk_4G/out
+cd /Volumes/RAM_Disk_4G/out
+/Users/macos/DATA/develop/Qt6.8Static/bin/qt-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=. /Users/macos/DATA/develop/pass-simple-qt
 cmake --build .
 cmake --install .
