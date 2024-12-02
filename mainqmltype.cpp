@@ -67,6 +67,7 @@ MainQmlType::MainQmlType(
                                         [=](RnpLoginRequestException &rlre){
                                             return false;
                                         });
+    passHelper->setUseMultiThread(appSettings.useRnpMultiThread());
     passHelper->setPasswordCallback([&](std::string keyid) { return getPasswordFromMap(keyid); });
     passFile = passHelper->getPassFile("");
     watchWaitAndNoneWaitRunCmd->callback = [&]() {
@@ -361,6 +362,7 @@ InterfaceLibgpgfactory *MainQmlType::getPrivatePasswordHelper()
                                                              [=](RnpLoginRequestException &rlre){
                                                                  return false;
                                                              });
+    phLocal->setUseMultiThread(appSettings.useRnpMultiThread());
     try {
         if (!appSettings.ctxSigner().isEmpty()) {
             phLocal->setCtxSigners({appSettings.ctxSigner().split(" ")[0].toStdString()});

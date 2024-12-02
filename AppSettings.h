@@ -33,6 +33,7 @@ class AppSettings : public QObject
     Q_PROPERTY( bool doSign READ doSign WRITE setDoSign NOTIFY doSignChanged)
     Q_PROPERTY( bool useMonospaceFont READ useMonospaceFont WRITE setUseMonospaceFont NOTIFY useMonospaceFontChanged)
     Q_PROPERTY( bool preferYamlView READ preferYamlView WRITE setPreferYamlView NOTIFY preferYamlViewChanged)
+    Q_PROPERTY( bool useRnpMultiThread READ useRnpMultiThread WRITE setUseRnpMultiThread NOTIFY useRnpMultiThreadChanged)
     Q_PROPERTY( bool isFindMemCash READ isFindMemCash WRITE setIsFindMemCash NOTIFY isFindMemCashChanged)
     Q_PROPERTY( bool isFindSlctFrst READ isFindSlctFrst WRITE setIsFindSlctFrst NOTIFY isFindSlctFrstChanged)
     Q_PROPERTY( bool isShowPreview READ isShowPreview WRITE setIsShowPreview NOTIFY isShowPreviewChanged)
@@ -83,6 +84,8 @@ public:
     void setUseMonospaceFont(const bool useMonospaceFont);
     bool preferYamlView() const { return m_preferYamlView; };
     void setPreferYamlView(const bool preferYamlView);
+    bool useRnpMultiThread() const { return m_useRnpMultiThread; };
+    void setUseRnpMultiThread(const bool useRnpMultiThread);
     bool isFindMemCash() const { return m_isFindMemCash; };
     void setIsFindMemCash(const bool isFindMemCash);
     bool isFindSlctFrst() const { return m_isFindSlctFrst; };
@@ -186,6 +189,7 @@ signals:
     void doSignChanged();
     void useMonospaceFontChanged();
     void preferYamlViewChanged();
+    void useRnpMultiThreadChanged();
     void isFindMemCashChanged();
     void isFindSlctFrstChanged();
     void isShowPreviewChanged();
@@ -219,6 +223,7 @@ private:
     bool m_doSign;
     bool m_useMonospaceFont;
     bool m_preferYamlView;
+    bool m_useRnpMultiThread;
     bool m_isFindMemCash;
     bool m_isFindSlctFrst;
     bool m_isShowPreview;

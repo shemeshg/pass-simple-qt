@@ -13,6 +13,7 @@ ScrollView {
     contentWidth: columnLayoutHomeId.width - 30
 
     property bool isUseClipboard: QmlAppSt.mainqmltype.appSettingsType.useClipboard
+    property bool isUseRnpMultiThread: QmlAppSt.mainqmltype.appSettingsType.useRnpMultiThread
     property bool isUseMonospaceFont: QmlAppSt.mainqmltype.appSettingsType.useMonospaceFont
     property bool isAllowScreenCapture: QmlAppSt.mainqmltype.appSettingsType.allowScreenCapture
     property bool isUseRnpgp: QmlAppSt.mainqmltype.appSettingsType.useRnpgp
@@ -22,11 +23,13 @@ ScrollView {
     onVisibleChanged: {
         if (visible) {
             isUseClipboard = QmlAppSt.mainqmltype.appSettingsType.useClipboard
+            isUseRnpMultiThread = QmlAppSt.mainqmltype.appSettingsType.useRnpMultiThread
             isUseMonospaceFont = QmlAppSt.mainqmltype.appSettingsType.useMonospaceFont
             useMonospaceFont.checked = isUseMonospaceFont
             isUseRnpgp = QmlAppSt.mainqmltype.appSettingsType.useRnpgp
             isAllowScreenCapture = QmlAppSt.mainqmltype.appSettingsType.allowScreenCapture
             useClipboard.checked = isUseClipboard
+            useRnpMultiThread.checked = isUseRnpMultiThread
             isPreferYamlView = QmlAppSt.mainqmltype.appSettingsType.preferYamlView
             preferYamlView.checked = isPreferYamlView
             isDoSign = QmlAppSt.mainqmltype.appSettingsType.doSign
@@ -100,6 +103,7 @@ ScrollView {
         QmlAppSt.mainqmltype.appSettingsType.binaryExts = binaryExts.text
         QmlAppSt.mainqmltype.appSettingsType.ignoreSearch = ignoreSearch.text
         QmlAppSt.mainqmltype.appSettingsType.useClipboard = useClipboard.checked
+        QmlAppSt.mainqmltype.appSettingsType.useRnpMultiThread = useRnpMultiThread.checked
         QmlAppSt.mainqmltype.appSettingsType.useMonospaceFont = useMonospaceFont.checked
         QmlAppSt.mainqmltype.appSettingsType.allowScreenCapture = allowScreenCapture.checked
         QmlAppSt.mainqmltype.appSettingsType.useRnpgp = useRnpgp.checked
@@ -268,6 +272,12 @@ ScrollView {
             text: qsTr("Use Rnpgp")
             checked: isUseRnpgp
         }
+        CoreSwitch {
+            id: useRnpMultiThread
+            text: qsTr("Rnp MultiThread")
+            checked: isUseRnpMultiThread
+        }
+
         Label {
             visible: useRnpgp.checked
             text: "Rnp home folder:"

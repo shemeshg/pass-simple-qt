@@ -27,6 +27,7 @@ AppSettings::AppSettings(QObject *parent)
     m_doSign = settings.value("doSign", false).toBool();
     m_useMonospaceFont = settings.value("useMonospaceFont", false).toBool();
     m_preferYamlView = settings.value("preferYamlView", true).toBool();
+    m_useRnpMultiThread = settings.value("useRnpMultiThread", false).toBool();
     m_isFindMemCash = settings.value("isFindMemCash", false).toBool();
     m_isFindSlctFrst = settings.value("isFindSlctFrst", false).toBool();
     m_isShowPreview = settings.value("isShowPreview", true).toBool();
@@ -188,6 +189,15 @@ void AppSettings::setPreferYamlView(const bool preferYamlView)
     m_preferYamlView = preferYamlView;
     settings.setValue("preferYamlView", m_preferYamlView);
     emit preferYamlViewChanged();
+}
+
+void AppSettings::setUseRnpMultiThread(const bool useRnpMultiThread)
+{
+    if (useRnpMultiThread == m_useRnpMultiThread)
+        return;
+    m_useRnpMultiThread = useRnpMultiThread;
+    settings.setValue("useRnpMultiThread", m_useRnpMultiThread);
+    emit useRnpMultiThreadChanged();
 }
 
 void AppSettings::setIsFindMemCash(const bool isFindMemCash)
