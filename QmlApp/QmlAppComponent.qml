@@ -295,6 +295,8 @@ ColumnLayout {
             icon.source: Qt.resolvedUrl(
                              "icons/account_tree_FILL0_wght400_GRAD0_opsz48.svg")
             hooverText: "<b>⌘T</b> Toggle tree view"
+            icon.color: CoreSystemPalette.buttonText
+            palette.buttonText: CoreSystemPalette.buttonText
         }
         CoreButton {
             onClicked: {
@@ -305,6 +307,8 @@ ColumnLayout {
             icon.source: Qt.resolvedUrl(
                              "icons/store_FILL0_wght400_GRAD0_opsz48.svg")
             hooverText: "Open store in file browser"
+            icon.color: CoreSystemPalette.buttonText
+            palette.buttonText: CoreSystemPalette.buttonText
         }
         Shortcut {
             sequence: "Ctrl+,"
@@ -323,6 +327,8 @@ ColumnLayout {
             icon.source: Qt.resolvedUrl(
                              "icons/settings_FILL0_wght400_GRAD0_opsz48.svg")
             hooverText: "<b>⌘,</b> Settings"
+            icon.color: CoreSystemPalette.buttonText
+            palette.buttonText: CoreSystemPalette.buttonText
         }
         CoreButton {
             onClicked: {
@@ -382,6 +388,8 @@ ColumnLayout {
                              "icons/sync_FILL0_wght400_GRAD0_opsz48.svg")
             hooverText: QmlAppSt.gitDiffReturnCode ? "<b>Pending changes</b><br/><b>⌘Y</b> commit pull push <br/> R.Click for custom msg." : "<b>⌘Y</b> commit pull push <br/> R.Click for custom msg."
             enabled: Boolean(QmlAppSt.nearestGit) && !QmlAppSt.isSaving
+            icon.color: CoreSystemPalette.buttonText
+            palette.buttonText: CoreSystemPalette.buttonText
         }
     }
     RowLayout {

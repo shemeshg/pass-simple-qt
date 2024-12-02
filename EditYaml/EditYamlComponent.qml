@@ -57,6 +57,8 @@ ColumnLayout {
             icon.name: "Add"
             hooverText: "Add"
             icon.source: Qt.resolvedUrl("icons/control_point_black_24dp.svg")
+            icon.color: CoreSystemPalette.buttonText
+            palette.buttonText: CoreSystemPalette.buttonText
         }
         Item {
             height: addDialogButtonId.height + 5
@@ -222,6 +224,8 @@ ColumnLayout {
                     icon.name: "Up"
                     hooverText: "Up"
                     icon.source: Qt.resolvedUrl("icons/move_up_black_24dp.svg")
+                    icon.color: CoreSystemPalette.buttonText
+                    palette.buttonText: CoreSystemPalette.buttonText
                 }
                 CoreButton {
                     visible: isEditFieldsType
@@ -233,6 +237,8 @@ ColumnLayout {
                     hooverText: "Down"
                     icon.source: Qt.resolvedUrl(
                                      "icons/move_down_black_24dp.svg")
+                    icon.color: CoreSystemPalette.buttonText
+                    palette.buttonText: CoreSystemPalette.buttonText
                 }
                 CoreButton {
                     visible: isEditFieldsType
@@ -244,6 +250,8 @@ ColumnLayout {
                     hooverText: "Rename"
                     icon.source: Qt.resolvedUrl(
                                      "icons/edit_FILL0_wght400_GRAD0_opsz48.svg")
+                    icon.color: CoreSystemPalette.buttonText
+                    palette.buttonText: CoreSystemPalette.buttonText
                 }
                 CoreButton {
                     visible: isEditFieldsType
@@ -257,6 +265,8 @@ ColumnLayout {
                     hooverText: "Delete"
                     icon.source: Qt.resolvedUrl(
                                      "icons/remove_circle_outline_black_24dp.svg")
+                    icon.color: CoreSystemPalette.buttonText
+                    palette.buttonText: CoreSystemPalette.buttonText
                 }
                 CoreButton {
                     enabled: shouldCopyBeEnabled(modelData.key)
@@ -277,6 +287,8 @@ ColumnLayout {
                                                      + modelData.key : "Copy already exists"
                     icon.source: Qt.resolvedUrl(
                                      "icons/content_copy_FILL0_wght400_GRAD0_opsz24.svg")
+                    icon.color: CoreSystemPalette.buttonText
+                    palette.buttonText: CoreSystemPalette.buttonText
                 }
                 Item {
                     width: 8

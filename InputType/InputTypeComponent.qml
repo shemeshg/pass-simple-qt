@@ -188,6 +188,8 @@ ColumnLayout {
             hooverText: "Upload file"
             icon.source: Qt.resolvedUrl(
                              "icons/outline_file_upload_black_24dp.png")
+            icon.color: CoreSystemPalette.buttonText
+            palette.buttonText: CoreSystemPalette.buttonText
         }
         CoreButton {
             text: "*"

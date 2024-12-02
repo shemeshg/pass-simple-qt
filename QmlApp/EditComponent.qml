@@ -187,6 +187,8 @@ ColumnLayout {
             hooverText: "Rename"
             icon.source: Qt.resolvedUrl(
                              "icons/edit_FILL0_wght400_GRAD0_opsz48.svg")
+            icon.color: CoreSystemPalette.buttonText
+            palette.buttonText: CoreSystemPalette.buttonText
         }
     }
 
