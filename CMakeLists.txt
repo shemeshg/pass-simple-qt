@@ -35,7 +35,8 @@ if(LINUX)
 endif()
 if(WINDOWS)
     set(DCRYPTO_BACKEND "botan" )
-include( "D:/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    include( "C:/Users/windows/Documents/Projects/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    #include( "D:/vcpkg/scripts/buildsystems/vcpkg.cmake")
 endif()
 
 

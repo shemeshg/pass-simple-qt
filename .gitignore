@@ -82,3 +82,6 @@ CMakeLists.txt.user*
 
 # IDE
 .vscode/
+vcpkg-configuration.json
+vcpkg.json
+vcpkg_installed/
