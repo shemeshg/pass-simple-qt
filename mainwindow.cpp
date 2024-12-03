@@ -16,6 +16,7 @@
 #include <QQmlContext>
 #include <QScroller>
 #include <QSystemTrayIcon>
+#include <QQuickStyle>
 #if defined(__APPLE__)
 #include "macutils/AppKit.h"
 #endif
@@ -760,6 +761,9 @@ void MainWindow::setTreeviewCurrentIndex(QString filePath)
 
 void MainWindow::setQmlSource()
 {
+    #ifdef Q_OS_WIN
+    QQuickStyle::setStyle("Fusion");
+    #endif
     ui->quickWidget->setSource(QUrl("qrc:/qt/qml/MainQml/Main.qml"));
 }
 

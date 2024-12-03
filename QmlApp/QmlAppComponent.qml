@@ -339,6 +339,8 @@ ColumnLayout {
             icon.source: Qt.resolvedUrl(
                              "icons/search_FILL0_wght400_GRAD0_opsz48.svg")
             hooverText: "<b>⌘F</b> find"
+            icon.color: CoreSystemPalette.buttonText
+            palette.buttonText: CoreSystemPalette.buttonText
         }
         Shortcut {
             sequence: StandardKey.Find
