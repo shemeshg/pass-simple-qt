@@ -661,10 +661,10 @@ void MainWindow::initFileSystemModel(QString filePath)
     filesystemModel->setFilter( // QDir::Hidden |
         QDir::NoDotAndDotDot | QDir::AllDirs | QDir::AllEntries);
 
-    QStringList nameFilters;
-    nameFilters << "*.gpg";
-    filesystemModel->setNameFilters(nameFilters);
-    filesystemModel->setNameFilterDisables(false);
+    //QStringList nameFilters;
+    //nameFilters << "*.gpg";
+    //filesystemModel->setNameFilters(nameFilters);
+    //filesystemModel->setNameFilterDisables(false);
 
     ui->treeView->setModel(filesystemModel);
 
