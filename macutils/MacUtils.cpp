@@ -148,6 +148,10 @@ bool MacUtils::isCapslockEnabled()
 #endif
 }
 
+void MacUtils::autoTypeString(QString string){
+    m_appkit->autoTypeString(string.toStdString());
+}
+
 /**
  * Toggle application state between foreground app and UIElement app.
  * Foreground apps have dock icons, UIElement apps do not.

@@ -906,8 +906,9 @@ void MainQmlType::autoType(QString sequence)
 osascript -e 'tell application "System Events" to keystroke "sequence"'
 )V0G0N";
 
-            s = ReplaceAll(s, "sequence", escapeAppleScript(sequence.toStdString()));
-            system(s.c_str());
+            //s = ReplaceAll(s, "sequence", escapeAppleScript(sequence.toStdString()));
+            //system(s.c_str());
+            m_appkit->autoTypeString(sequence.toStdString());
 #else
             std::string str = sequence.toStdString();
             TCHAR* tchar = new TCHAR[str.size() + 1];

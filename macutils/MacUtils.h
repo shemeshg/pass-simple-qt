@@ -65,6 +65,7 @@ public:
     bool canPreventScreenCapture() const override;
     bool setPreventScreenCapture(QWindow* window, bool prevent) const override;
 
+    void autoTypeString(QString string);
 signals:
     void lockDatabases();
 

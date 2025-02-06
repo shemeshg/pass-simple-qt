@@ -232,6 +232,28 @@
     [window setSharingType: state ? NSWindowSharingNone : NSWindowSharingReadOnly];
 }
 
+- (void)autoTypeString:(NSString *)string
+{
+    // Simulate typing each character in the string
+    for (NSUInteger i = 0; i < [string length]; i++) {
+        unichar c = [string characterAtIndex:i];
+        
+        // Create and post the key down event
+        CGEventRef keyDown = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)0, true);
+        CGEventSetFlags(keyDown, kCGEventFlagMaskAlphaShift);
+        CGEventKeyboardSetUnicodeString(keyDown, 1, &c);
+        CGEventPost(kCGAnnotatedSessionEventTap, keyDown);
+        CFRelease(keyDown);
+        
+        // Create and post the key up event
+        CGEventRef keyUp = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)0, false);
+        CGEventSetFlags(keyUp, kCGEventFlagMaskAlphaShift);
+        CGEventKeyboardSetUnicodeString(keyUp, 1, &c);
+        CGEventPost(kCGAnnotatedSessionEventTap, keyUp);
+        CFRelease(keyUp);
+    }  
+}
+
 @end
 
 //
@@ -312,8 +334,18 @@ void AppKit::toggleForegroundApp(bool foreground)
     [static_cast<id>(self) toggleForegroundApp:foreground];
 }
 
+
+
 void AppKit::setWindowSecurity(unsigned long long winId, bool state)
 {
     auto view = reinterpret_cast<NSView *>(winId);
     [static_cast<id>(self) setWindowSecurity:view.window state:state];
 }
+
+
+void AppKit::autoTypeString(const std::string& str)
+{
+    NSString *string = [NSString stringWithUTF8String:str.c_str()];
+    [static_cast<id>(self) autoTypeString:string];
+}
+

@@ -32,15 +32,15 @@
 
 - (pid_t) activeProcessId;
 - (pid_t) ownProcessId;
-- (bool) activateProcess:(pid_t) pid;
+//- (bool) activateProcess:(pid_t) pid;
 - (bool) hideProcess:(pid_t) pid;
 - (bool) isHidden:(pid_t) pid;
 - (bool) isDarkMode;
 - (bool) isStatusBarDark;
 - (void) userSwitchHandler:(NSNotification*) notification;
 - (bool) enableAccessibility;
-- (bool) enableScreenRecording;
+// - (bool) enableScreenRecording;
 - (void) toggleForegroundApp:(bool) foreground;
 - (void) setWindowSecurity:(NSWindow*) window state:(bool) state;
-
+- (void) autoTypeString:(NSString *)string;
 @end

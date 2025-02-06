@@ -85,3 +85,4 @@ CMakeLists.txt.user*
 vcpkg-configuration.json
 vcpkg.json
 vcpkg_installed/
+.qmlls.ini

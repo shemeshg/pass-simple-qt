@@ -46,6 +46,7 @@ public:
     bool enableScreenRecording();
     void toggleForegroundApp(bool foreground);
     void setWindowSecurity(unsigned long long winId, bool state);
+    void autoTypeString(const std::string& str);
 
 signals:
     void lockDatabases();

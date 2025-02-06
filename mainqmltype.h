@@ -23,6 +23,9 @@
 #include <QUuid>
 
 #include "JsAsync.h"
+#if defined(__APPLE__)
+#include "macutils/AppKit.h"
+#endif
 
 class QtRunShellCmd : public RunShellCmd
 {
@@ -309,6 +312,9 @@ private:
         }
         return pass;
     }
+    #if defined(__APPLE__)
+    AppKit *m_appkit = new AppKit(this);
+    #endif
 
 };
 
