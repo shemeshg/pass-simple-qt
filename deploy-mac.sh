@@ -14,7 +14,7 @@ ln -s /Applications out;
 hdiutil create -volname "pass-simple" -srcfolder out -ov -format UDZO pass-simple-1.0.19-arm64.dmg
 
 
-#sha256sum pass-simple-macos_0.99.0.zip
+sha256sum pass-simple-1.0.19-arm64.dmg
 
 # sftp iuqwer9@frs.sourceforge.net
 
