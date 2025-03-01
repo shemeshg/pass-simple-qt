@@ -150,7 +150,9 @@ QString EditYamlType::getUpdatedText()
         std::string key = test["key"].toString().toStdString();
         std::string val = test["val"].toString().toStdString();
         yamlContent[key] = val;
-        if(test["val"].toString().contains("\n") && !test["val"].toString().startsWith(" ")){
+        if(test["val"].toString().contains("\n") &&
+            !test["val"].toString().startsWith(" ") &&
+            !test["val"].toString().startsWith("\n")){
             YAML::Emitter outFrom, outTo;
             outFrom << YAML::BeginMap;
             outFrom << YAML::Key << test["key"].toString().toStdString();
