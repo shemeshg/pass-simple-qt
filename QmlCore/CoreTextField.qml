@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QmlCore
 
 TextField {
+    ContextMenu.menu: null
     property bool useMonospaceFont: false
     QmlCoreType {
         id: qmlCoreType

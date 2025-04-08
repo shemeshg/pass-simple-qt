@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 
 TextArea {
-
+    ContextMenu.menu: null   
     property bool useMonospaceFont: false
     QmlCoreType {
         id: qmlCoreType
