@@ -1,7 +1,7 @@
 #!/bin/sh
 # git tag -a v0.99 -m "commit"
 # git push --tags
-~/Qt/6.8.2/macos/bin/qt-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=. ../pass-simple-qt
+~/Qt/6.9.0/macos/bin/qt-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=. ../pass-simple-qt
 cmake --build .
 cmake --install .
 
