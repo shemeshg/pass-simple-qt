@@ -1,7 +1,7 @@
 #!/bin/sh
 # git tag -a v0.99 -m "commit"
 # git push --tags
-~/Qt/6.9.0/macos/bin/qt-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=. ../pass-simple-qt
+~/Qt/6.9.0/macos/bin/qt-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=. ../pass-simple-qt -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 cmake --build .
 cmake --install .
 
@@ -11,10 +11,10 @@ cpack -G DragNDrop
 
 cp -R "Pass-simple.app" out;
 ln -s /Applications out;
-hdiutil create -volname "pass-simple" -srcfolder out -ov -format UDZO pass-simple-1.0.20-arm64.dmg
+hdiutil create -volname "pass-simple" -srcfolder out -ov -format UDZO pass-simple-1.0.21-arm64.dmg
 
 
-sha256sum pass-simple-1.0.20-arm64.dmg
+sha256sum pass-simple-1.0.21-arm64.dmg
 
 # sftp iuqwer9@frs.sourceforge.net
 
