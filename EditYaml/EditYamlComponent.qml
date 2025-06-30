@@ -110,12 +110,11 @@ ColumnLayout {
 
     CoreDialogYesNo {
         id: addDialog
-        title: "Set new field name"
-
+        title: "Set new field name"        
         CoreTextField {
             id: newFieldName
             focus: true
-            text: ""
+            text: ""            
             width: parent.width
         }
         onAccepted: {
