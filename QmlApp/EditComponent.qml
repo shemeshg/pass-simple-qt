@@ -166,8 +166,7 @@ ColumnLayout {
     }
 
     RowLayout {
-
-        //LayoutMirroring.enabled: titleForDisplay.horizontalAlignment === Text.AlignRight
+        
         CoreLabel {
             id: titleForDisplay
             visible: QmlAppSt.isGpgFile
@@ -197,16 +196,6 @@ ColumnLayout {
         visible: QmlAppSt.noneWaitItems.indexOf(QmlAppSt.filePath) > -1
         Label {
             text: "File opened externally"
-        }
-        onVisibleChanged: {
-            // REMOVE THIS, NO NEED it is already been called and cause
-            // RAISE CONDITION
-            /*
-            if (!isFileOpenedExternalWait.visible && !QmlAppSt.isShowPreview
-                    && QmlAppSt.isPreviousShowPreview) {
-                initOnFileChanged()
-            }
-            */
         }
     }
 
