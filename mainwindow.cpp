@@ -204,6 +204,14 @@ MainWindow::MainWindow(QWidget *parent)
     autoTypeTimeout->setCheckable(true);
     trayIconMenu->addAction(autoTypeTimeout);
 
+    QAction *useClipboard = new QAction(tr("Use clipboard"), this);
+    useClipboard->setCheckable(true);
+    useClipboard->setChecked(appSettings.useClipboard());
+    trayIconMenu->addAction(useClipboard);
+    connect(useClipboard, &QAction::triggered, qApp, [=](bool l) {
+        appSettings.setUseClipboard(l);
+    });
+
     QAction *logoutAction = new QAction(tr("Logout (⌘;)"), this);
     connect(logoutAction, &QAction::triggered, qApp, [=]() {
         mainqmltype->doLogout();
@@ -283,7 +291,9 @@ MainWindow::MainWindow(QWidget *parent)
                                   autoTypeFields,
                                   autoTypeSelected,
                                   autoTypeTimeout,
-                                  ui->quickWidget); // NOLINT
+                                  &appSettings,
+                                  ui->quickWidget
+                                  ); // NOLINT
 
     static bool isQuickWidgetFocus = ui->quickWidget->hasFocus();
     connect(mainqmltype, &MainQmlType::mainUiDisable, this, [=]() {

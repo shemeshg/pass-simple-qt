@@ -85,6 +85,7 @@ public:
                          QMenu *autoTypeFields,
                          QAction *autoTypeSelected,
                         QAction *autoTypeTimeout,
+                        AppSettings *appSettings,
                          QObject *parent = nullptr);
 
     QString filePath();
@@ -102,7 +103,7 @@ public:
     QString exceptionStr() { return m_exceptionStr; };
 
     void setExceptionStr(const QString &exceptionStr);
-    AppSettings *appSettingsType() { return &appSettings; };
+    AppSettings *appSettingsType() { return appSettings; };
 
     void setAppSettingsType(AppSettings *appSettingsType);
     QStringList &searchResult() { return m_searchResult; };
@@ -265,7 +266,7 @@ signals:
     // hygen signals
 
 private:
-    AppSettings appSettings{};
+    AppSettings *appSettings;
     QString m_filePath;
     int m_filePanSize;
     QSplitter *splitter;
