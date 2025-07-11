@@ -199,10 +199,14 @@ ColumnLayout {
             text: "File opened externally"
         }
         onVisibleChanged: {
+            // REMOVE THIS, NO NEED it is already been called and cause
+            // RAISE CONDITION
+            /*
             if (!isFileOpenedExternalWait.visible && !QmlAppSt.isShowPreview
                     && QmlAppSt.isPreviousShowPreview) {
                 initOnFileChanged()
             }
+            */
         }
     }
 
