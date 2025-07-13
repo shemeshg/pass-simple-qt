@@ -118,13 +118,14 @@ ColumnLayout {
             width: parent.width
         }
         onAccepted: {
-            if (!newFieldName.text) {
+            let s = newFieldName.text.trim()
+            if (!s) {
                 return
             }
             let newArry = [...editYamlType.yamlModel]
             newArry.push({
                              "inputType": "textedit",
-                             "key": newFieldName.text,
+                             "key": s,
                              "val": ""
                          })
             editYamlType.yamlModel = newArry
