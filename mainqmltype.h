@@ -313,6 +313,9 @@ private:
         }
         return pass;
     }
+
+    void ensureNoGpgidBadEntries();
+
     #if defined(__APPLE__)
     AppKit *m_appkit = new AppKit(this);
     #endif

@@ -375,6 +375,13 @@ InterfaceLibgpgfactory *MainQmlType::getPrivatePasswordHelper()
     return phLocal;
 }
 
+void MainQmlType::ensureNoGpgidBadEntries() {
+    if (m_gpgIdManageType.getEncryptTo().size() == 0 ||
+        m_gpgIdManageType.keysNotFoundInGpgIdFile().size() > 0){
+        throw std::runtime_error("Fix .gpgid bad entries in Auth tab, and ensure it has one valid entry at least");
+    }
+}
+
 void MainQmlType::encrypt(QString s)
 {
     if (passFile->isGpgFile()) {
@@ -384,7 +391,9 @@ void MainQmlType::encrypt(QString s)
                 InterfaceLibgpgfactory *phLocal = getPrivatePasswordHelper();
                 std::unique_ptr<InterfacePassFile> pfLocal = phLocal->getPassFile(passFile->getFullPath());
 
+
                 try {
+                    ensureNoGpgidBadEntries();
                     pfLocal->encrypt(s.toStdString(),
                                      m_gpgIdManageType.getEncryptTo(), appSettings->doSign());
 
@@ -483,6 +492,7 @@ void MainQmlType::closeExternalEncryptNoWait()
 {
     if (passFile->isGpgFile()) {
         runSafeFromException([&]() {
+            ensureNoGpgidBadEntries();
             passFile->closeExternalEncryptNoWait(m_gpgIdManageType.getEncryptTo(),
                                                  watchWaitAndNoneWaitRunCmd.get(),
                                                  appSettings->doSign());
@@ -493,6 +503,7 @@ void MainQmlType::closeExternalEncryptNoWait()
 void MainQmlType::closeAllExternalEncryptNoWait()
 {
     runSafeFromException([&]() {
+        ensureNoGpgidBadEntries();
         for (auto &itm : noneWaitItems()) {
             auto pf = passHelper->getPassFile(itm.toStdString());
             if (pf->isGpgFile()) {
@@ -596,6 +607,7 @@ void MainQmlType::createEmptyEncryptedFile(QString fullPathFolder, QString fileN
 
     if (templatePath.isEmpty()){
         runSafeFromException([&]() {
+            ensureNoGpgidBadEntries();
             std::string s = R"V0G0N(user: ""
 password: ""
 expire: ""
@@ -662,6 +674,7 @@ void MainQmlType::encryptUpload(QString fullPathFolder, QString fileName, bool t
     const QString sourceName = url.toLocalFile();
 
     runSafeFromException([&]() {
+
         std::filesystem::path source = {sourceName.toStdString()};
         std::filesystem::path dest{fullPathFolder.toStdString()};
         if (toFilesSubFolder) {
@@ -675,6 +688,7 @@ void MainQmlType::encryptUpload(QString fullPathFolder, QString fileName, bool t
         dest = dest / fname;
 
         try {
+            ensureNoGpgidBadEntries();
             passFile->encryptFileToFile(sourceName.toStdString(),
                                         dest.u8string(),
                                         m_gpgIdManageType.getEncryptTo(),
@@ -747,6 +761,7 @@ void MainQmlType::encryptFolderUpload(QString fromFolderName, QString fullPathFo
     const QUrl url(fromFolderName);
     runSafeFromException([&]() {
         try {
+            ensureNoGpgidBadEntries();
             passHelper->encryptFolderToFolder(url.toLocalFile().toStdString(),
                                               fullPathFolder.toStdString(),
                                               m_gpgIdManageType.getEncryptTo(),
