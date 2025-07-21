@@ -8,6 +8,7 @@ CoreDialogYesNo {
         id: fieldName
         text: ""
         width: parent.width
+        focus: true
     }
 
     onOpened: {

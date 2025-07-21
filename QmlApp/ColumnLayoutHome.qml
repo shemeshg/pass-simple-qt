@@ -15,10 +15,6 @@ ColumnLayout {
     id: columnLayoutHomeId
 
     CoreDialogYesNo {
-        id: coreDialogYesNo
-    }
-
-    CoreDialogYesNo {
         id: customCommitMsgSyncDialog
         title: "Custom commit msg"
         width: parent.width * 0.75
