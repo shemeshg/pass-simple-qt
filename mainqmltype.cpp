@@ -899,7 +899,7 @@ void MainQmlType::autoType(QString sequence)
     }
     QTimer::singleShot(timeout, this, [=]{
 #if defined(__linux__)
-        std::string s = appSettings.autoTypeCmd().toStdString();
+        std::string s = appSettings->autoTypeCmd().toStdString();
         s = ReplaceAll(s, "sequence", escapeshellarg(sequence.toStdString()));
         system(s.c_str());
         return;
