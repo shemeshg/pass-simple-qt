@@ -36,7 +36,7 @@ endif()
 if(WINDOWS)
     set(DCRYPTO_BACKEND "botan" )
     #include( "C:/Users/windows/Documents/Projects/vcpkg/scripts/buildsystems/vcpkg.cmake")
-    include( "D:/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    #include( "D:/vcpkg/scripts/buildsystems/vcpkg.cmake")
 endif()
 
 
@@ -233,7 +233,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
 
   if(WINDOWS)
     install(DIRECTORY  
-          R:/WinDll/
+          C:/WinDll/
           DESTINATION bin)
 
   # set the install/uninstall icon used for the installer itself
