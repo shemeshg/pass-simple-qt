@@ -232,8 +232,13 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
   set_property(TARGET pass-simple PROPERTY WIN32_EXECUTABLE true)
 
   if(WINDOWS)
-    install(DIRECTORY  
-          C:/WinDll/
+    install(FILES
+          ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/botan-3.dll
+          ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/bz2.dll
+          ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/getopt.dll
+          ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/json-c.dll
+          ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/zlib1.dll
+          ${CMAKE_CURRENT_SOURCE_DIR}/icon.ico
           DESTINATION bin)
 
   # set the install/uninstall icon used for the installer itself
