@@ -9,9 +9,10 @@ cmake --install .
 #zip -r -y pass-simple-macos_0.99.0.zip ./Pass\ simple.app
 cpack -G DragNDrop
 
+mkdir out
 cp -R "Pass-simple.app" out;
 ln -s /Applications out;
-hdiutil create -volname "pass-simple" -srcfolder out -ov -format UDZO pass-simple-1.0.22-arm64.dmg
+hdiutil create -volname "pass-simple" -srcfolder out -ov -format UDZO pass-simple-1.0.25-arm64.dmg
 
 
 sha256sum pass-simple-1.0.22-arm64.dmg
