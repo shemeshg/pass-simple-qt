@@ -292,7 +292,7 @@ qt_generate_deploy_qml_app_script(
     POST_INCLUDE_FILES
       ${POST_INCLUDE_FILES}
       ${ubuntu_so_files}
-    NO_UNSUPPORTED_PLATFORM_ERROR
+    # NO_UNSUPPORTED_PLATFORM_ERROR
 )
 
 # Call the deployment script on "cmake --install".
