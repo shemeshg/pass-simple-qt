@@ -1,0 +1,44 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+name: Pass simple
+url: 'https://github.com/shemeshg/pass-simple-qt'
+landingURL: 'https://sourceforge.net/projects/pass-simple/'
+releaseDate: '2025-08-01'
+softwareVersion: 1.0.25
+developmentStatus: stable
+softwareType: standalone/desktop
+platforms:
+  - mac
+  - linux
+  - windows
+localisation:
+  localisationReady: false
+description:
+  en:
+    genericName: Pass simple
+    documentation: 'https://shemeshg.github.io/pass-simple-mdbook/'
+    shortDescription: 'Multi-platform GUI for pass, the standard unix password manager'
+    longDescription: >
+      Multi-platform GUI for [pass](https://www.passwordstore.org/), the
+      standard unix password manager
+
+
+      The advantages of `pass simple` include the use of GPGME (native C++,
+      seamless integration with Security cards) or
+      [rnp](https://github.com/rnpgp/rnp) (realtime,multithreading and windows
+      support), as well as support for YAML and Markdown.
+
+
+      Homepage:
+      [https://sourceforge.net/projects/pass-simple/](https://sourceforge.net/projects/pass-simple/)
+
+
+      Github and support:
+      [https://github.com/shemeshg/pass-simple-qt](https://github.com/shemeshg/pass-simple-qt)
+
+
+      Screenshots:
+      [https://github.com/shemeshg/pass-simple-qt/wiki](https://github.com/shemeshg/pass-simple-qt/wiki)
