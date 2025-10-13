@@ -771,8 +771,9 @@ void MainWindow::setTreeviewCurrentIndex(QString filePath)
 
 void MainWindow::setQmlSource()
 {
-    #ifdef Q_OS_WIN
     QQuickStyle::setStyle("Fusion");
+    #ifdef Q_OS_WIN
+    //QQuickStyle::setStyle("Fusion");
     #endif
     ui->quickWidget->setSource(QUrl("qrc:/qt/qml/MainQml/Main.qml"));
 }
