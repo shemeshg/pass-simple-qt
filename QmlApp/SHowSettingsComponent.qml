@@ -274,6 +274,7 @@ ScrollView {
         }
         CoreSwitch {
             id: useRnpMultiThread
+            visible: useRnpgp.checked
             text: qsTr("Rnp MultiThread")
             checked: isUseRnpMultiThread
         }
