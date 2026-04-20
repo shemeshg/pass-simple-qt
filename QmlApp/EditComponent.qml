@@ -277,7 +277,7 @@ ColumnLayout {
         }
 
         Shortcut {
-            sequence: [StandardKey.Save]
+            sequence: "Ctrl+S"
             onActivated: {
                 if (QmlAppSt.isMainUiDisabled) {
                     return
