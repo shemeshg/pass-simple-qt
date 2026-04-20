@@ -215,13 +215,28 @@ ColumnLayout {
     RowLayout {
         visible: QmlAppSt.isShowSettings
         CoreButton {
+            id: settingsBackBtn
             text: "Back"
             onClicked: QmlAppSt.isShowSettings = false
-            hooverText: "<b>⌘,</b> back"
+            hooverText: "<b>⎋</b> back"
+            Shortcut {
+                enabled: QmlAppSt.isShowSettings
+                 sequences: [StandardKey.Cancel]
+                 onActivated: {
+                     settingsBackBtn.click()
+                 }
+             }
         }
         CoreButton {
-            text: "Save"
+            id: settingsSaveBtn
+            hooverText: "<b>⌘⏎</b> Save"
+            text: "save"
             onClicked: showSettingsComponentId.saveSettingsComponent()
+            Shortcut {
+                enabled: QmlAppSt.isShowSettings
+                sequences: ["Ctrl+Return", "Ctrl+Enter"]
+                onActivated: settingsSaveBtn.click()
+            }
         }
     }
 
@@ -343,7 +358,7 @@ ColumnLayout {
             palette.buttonText: CoreSystemPalette.buttonText
         }
         Shortcut {
-            sequence: [StandardKey.Find]
+            sequence: "Ctrl+F"
             onActivated: {
                 if (QmlAppSt.isShowSettings === false
                     && QmlAppSt.isShowLog === false) {

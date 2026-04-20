@@ -49,10 +49,18 @@ ColumnLayout {
 
     RowLayout {
         CoreButton {
+            id: backFindBtn
             text: "Back"
-            hooverText: "<b>⌘F</b> back"
+            hooverText: "<b>⎋</b> back"
             onClicked: QmlAppSt.isShowSearch = false
-        }
+            Shortcut {
+                enabled: QmlAppSt.isShowSearch
+                  sequences: [StandardKey.Cancel]
+                  onActivated: {
+                      backFindBtn.click()
+                  }
+                }
+            }
         CoreButton {
             text: "regex"
             onClicked: {

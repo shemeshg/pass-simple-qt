@@ -91,6 +91,7 @@ ColumnLayout {
     CoreDialogYesNo {
         id: renameDialog
         title: "Set field name"
+        implicitWidth: parent.width
         CoreTextField {
             id: fieldName
             focus: true
@@ -109,6 +110,7 @@ ColumnLayout {
     }
 
     CoreDialogYesNo {
+        implicitWidth: parent.width
         id: addDialog
         title: "Set new field name"        
         CoreTextField {

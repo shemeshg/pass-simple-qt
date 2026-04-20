@@ -12,10 +12,6 @@ CoreDialogYesNo {
     }
 
 
-
-
-
-
     onOpened: {
         fieldName.text = QmlAppSt.filePath.replace(QmlAppSt.fullPathFolder,
                                                    "").substring(
