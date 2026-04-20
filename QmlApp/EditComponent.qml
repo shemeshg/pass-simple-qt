@@ -129,9 +129,13 @@ ColumnLayout {
         }
     }
 
+
     RenameDialog {
         id: renameDialog
+        implicitWidth: parent.width
     }
+
+
 
     FolderDialog {
         id: fileDialogDownload
@@ -273,7 +277,7 @@ ColumnLayout {
         }
 
         Shortcut {
-            sequence: StandardKey.Save
+            sequence: [StandardKey.Save]
             onActivated: {
                 if (QmlAppSt.isMainUiDisabled) {
                     return

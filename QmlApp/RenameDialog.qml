@@ -8,8 +8,13 @@ CoreDialogYesNo {
         id: fieldName
         text: ""
         width: parent.width
-        focus: true
+        focus: true           
     }
+
+
+
+
+
 
     onOpened: {
         fieldName.text = QmlAppSt.filePath.replace(QmlAppSt.fullPathFolder,

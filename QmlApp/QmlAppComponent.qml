@@ -343,7 +343,7 @@ ColumnLayout {
             palette.buttonText: CoreSystemPalette.buttonText
         }
         Shortcut {
-            sequence: StandardKey.Find
+            sequence: [StandardKey.Find]
             onActivated: {
                 if (QmlAppSt.isShowSettings === false
                     && QmlAppSt.isShowLog === false) {
