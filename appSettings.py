@@ -230,8 +230,7 @@ a = [
     Prpt("bool",'allowScreenCapture',"false"),
     Prpt("bool",'doSign',"false"),
     Prpt("bool",'useMonospaceFont',"false"),
-    Prpt("bool",'preferYamlView',"true"),   
-    Prpt("bool",'useRnpMultiThread',"false"),
+    Prpt("bool",'preferYamlView',"true"),       
 
     Prpt("bool",'isFindMemCash',"false", True),
     Prpt("bool",'isFindSlctFrst',"false", True),
