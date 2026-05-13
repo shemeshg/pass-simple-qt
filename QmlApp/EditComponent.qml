@@ -342,6 +342,7 @@ ColumnLayout {
             text: "Save and Close"
             onClicked: {
                 QmlAppSt.mainqmltype.closeExternalEncryptNoWait()
+                reloadAfterPreviewChanged()
             }
             visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
                          QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
@@ -360,6 +361,7 @@ ColumnLayout {
             onClicked: {
 
                 QmlAppSt.mainqmltype.discardChangesEncryptNoWait()
+                reloadAfterPreviewChanged()
             }
             visible: !QmlAppSt.isShowPreview && QmlAppSt.noneWaitItems.indexOf(
                          QmlAppSt.filePath) > -1 && !QmlAppSt.isBinaryFile
