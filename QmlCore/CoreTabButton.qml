@@ -22,9 +22,9 @@ TabButton {
         }
     }
 
-    /*
+
     background: Rectangle {
         color: cidx === idx ? CoreSystemPalette.light : CoreSystemPalette.mid
     }
-    */
+
 }
