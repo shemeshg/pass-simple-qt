@@ -35,10 +35,29 @@ ColumnLayout {
         Layout.fillWidth: true
         width: parent.width
 
+        Shortcut {
+            enabled: toolbarId.visible
+            sequences: ["Ctrl+2"]
+            onActivated: {
+                let count = toolbarId.count
+                toolbarId.currentIndex = (toolbarId.currentIndex + 1) % count
+            }
+        }
+
+        Shortcut {
+            enabled: toolbarId.visible
+            sequences: ["Ctrl+1"]
+            onActivated: {
+                let count = toolbarId.count
+                toolbarId.currentIndex = (toolbarId.currentIndex - 1 + count) % count
+
+            }
+        }
+
         CoreTabButton {
             idx: 0
-            cidx: toolbarId.currentIndex
-            text: qsTr("Edit")
+            cidx: toolbarId.currentIndex            
+            text: qsTr("Edit")        
         }
         CoreTabButton {
             idx: 1
@@ -53,6 +72,7 @@ ColumnLayout {
         CoreTabButton {
             idx: 3
             cidx: toolbarId.currentIndex
+            hooverText: "<b>⌘1</b>← <b>⌘2</b>→"
             text: qsTr("Auth")
         }
     }
