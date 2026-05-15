@@ -58,8 +58,10 @@ template_dict = {
            "QML_DIRS": ["QmlApp","EditYaml","InputType", "DropdownWithList","Datetime", "QmlCore"],
 
            "QT_COMPONENTS": [ "Quick","Widgets","Svg","Concurrent", "QuickControls2", "QuickWidgets"],
-           "add_subdirectory_lib": ["gpgfactory/libpgpfactory"],
-           "add_subdirectory_qt": ["QmlApp","EditYaml","InputType", "DropdownWithList","Datetime", "QmlCore"]
+           "add_subdirectory_lib": ["gpgfactory/libpgpfactory",
+                                    "QmlApp","EditYaml","InputType", "DropdownWithList","Datetime", "QmlCore"
+                                    ],
+           "add_subdirectory_qt": []
            }
 
 template_dict["add_subdirectory_lib_target"] = [os.path.basename(path) for path in template_dict["add_subdirectory_lib"]]

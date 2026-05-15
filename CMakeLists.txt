@@ -9,7 +9,7 @@ project(pass-simple VERSION 1.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT_QML_GENERATE_QMLLS_INI ON)
-
+set(CMAKE_AUTORCC ON)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     # Append -fPIC to the CXXFLAGS only if the system is Linux
@@ -217,12 +217,12 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     Qt6::QuickControls2
     Qt6::QuickWidgets
     libpgpfactory
-    QmlAppplugin
-    EditYamlplugin
-    InputTypeplugin
-    DropdownWithListplugin
-    Datetimeplugin
-    QmlCoreplugin
+    QmlApp
+    EditYaml
+    InputType
+    DropdownWithList
+    Datetime
+    QmlCore
     )
 include(CPack)
 include(GNUInstallDirs)
@@ -255,4 +255,6 @@ endif()
 install(SCRIPT ${deploy_script})
 
 configure_file("${PROJECT_SOURCE_DIR}/config.h.in" "${CMAKE_BINARY_DIR}/config.h")
+# Make config.h.in available
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # [[[end]]]
