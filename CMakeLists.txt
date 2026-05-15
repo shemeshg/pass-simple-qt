@@ -155,7 +155,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
             ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/bz2.dll
             ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/getopt.dll
             ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/json-c.dll
-            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/zlib1.dll
+            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/z.dll
             DESTINATION bin)
     endif()
 
