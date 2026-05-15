@@ -31,25 +31,16 @@ template_dict = {
             ],
 
             "MAIN_QML_SOURCES": [
-                "mainqmltype.h",
-                "mainqmltype.cpp",
-                "GpgIdManageType.h",
-                "GpgIdManageType.cpp",
-                "JsAsync.h",
-                "JsAsync.cpp",
-                "UiGuard.h",
-                "UiGuard.cpp",
-                "appfilesysmodel.h",
+                "mainqmltype.cpp",                
+                "GpgIdManageType.cpp",                
+                "JsAsync.cpp",                
+                "UiGuard.cpp",                
                 "appfilesysmodel.cpp",
                 "AppSettings.cpp",
-                "AppSettings.h",
-                "QtTotp/totp.h",
                 "QtTotp/totp.cpp",
-                "QtTotp/Base32.h",
-                "QtTotp/Base32.cpp",
-                "QtTotp/Clock.h",
+                "QtTotp/Base32.cpp",                
                 "QtTotp/Clock.cpp",
-                "QtTotp/getTotp.h"
+                "QtTotp/getTotp.cpp"
             ],
 
            "CPACK_DEBIAN_PACKAGE_DEPENDS": ["libxcb-cursor-dev","libc6,libstdc++6","libgcc-s1","pass","gnupg2","libgpgme-dev",

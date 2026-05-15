@@ -90,25 +90,16 @@ qt_add_qml_module(${CMAKE_PROJECT_NAME}
     VERSION 1.0
     SOURCES
     ${MAIN_QML_SOURCES_MAC}
-    mainqmltype.h
     mainqmltype.cpp
-    GpgIdManageType.h
     GpgIdManageType.cpp
-    JsAsync.h
     JsAsync.cpp
-    UiGuard.h
     UiGuard.cpp
-    appfilesysmodel.h
     appfilesysmodel.cpp
     AppSettings.cpp
-    AppSettings.h
-    QtTotp/totp.h
     QtTotp/totp.cpp
-    QtTotp/Base32.h
     QtTotp/Base32.cpp
-    QtTotp/Clock.h
     QtTotp/Clock.cpp
-    QtTotp/getTotp.h
+    QtTotp/getTotp.cpp
     QML_FILES
     Main.qml
 )
