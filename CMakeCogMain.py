@@ -10,6 +10,48 @@ template_dict = {
            "APP_CONTACT":"https://github.com/shemeshg",           
            "MAIN_QML_URI": "MainQml",
 
+
+            "PROJECT_SOURCES": [
+                "main.cpp",
+                "mainwindow.cpp",
+                "mainwindow.h",
+                "mainwindow.ui",
+                "about.ui",   
+                "${APP_ICON_RESOURCE_WINDOWS}"
+            ],
+
+            "LINUX_POST_INCLUDE_FILES": [
+                "/lib/x86_64-linux-gnu/librnp.so.0.17.1",
+                "/lib/libbotan-3.so.2.2.0"
+            ],
+
+            "MAIN_QML_SOURCES_MAC": [
+                "macutils/AppKitImpl.mm",
+                "macutils/AppKit.h"
+            ],
+
+            "MAIN_QML_SOURCES": [
+                "mainqmltype.h",
+                "mainqmltype.cpp",
+                "GpgIdManageType.h",
+                "GpgIdManageType.cpp",
+                "JsAsync.h",
+                "JsAsync.cpp",
+                "UiGuard.h",
+                "UiGuard.cpp",
+                "appfilesysmodel.h",
+                "appfilesysmodel.cpp",
+                "AppSettings.cpp",
+                "AppSettings.h",
+                "QtTotp/totp.h",
+                "QtTotp/totp.cpp",
+                "QtTotp/Base32.h",
+                "QtTotp/Base32.cpp",
+                "QtTotp/Clock.h",
+                "QtTotp/Clock.cpp",
+                "QtTotp/getTotp.h"
+            ],
+
            "CPACK_DEBIAN_PACKAGE_DEPENDS": ["libxcb-cursor-dev","libc6,libstdc++6","libgcc-s1","pass","gnupg2","libgpgme-dev",
                                             "libgpgmepp-dev","libbotan-2-dev"],
 

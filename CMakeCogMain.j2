@@ -16,9 +16,12 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS {{QT_COMPONENTS | join(' ')}})
 
 qt_standard_project_setup(REQUIRES 6.5)
 
+# rnpgp specific
+set(BUILD_TESTING OFF)
+# END rnpgp specific
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
+    set(CMAKE_OSX_ARCHITECTURES "arm64")
     set(MACOSX TRUE)
     set(PROJECT_OS "MACOSX")
 endif()
@@ -29,6 +32,14 @@ endif()
 if(WIN32 OR MSVC OR MSYS OR MINGW)
     set(WINDOWS TRUE)
     set(PROJECT_OS "WINDOWS")
+
+    # rnpgp specific
+    set(VCPKG_INSTALLED_DIR "C:/Users/windows/Documents/Projects/rnp/vcpkg_install")
+    set(VCPKG_ROOT "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/vcpkg")
+    set(DCRYPTO_BACKEND "botan" )
+    include( "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    # END rnpgp specific
+
 endif()
 if(MACOSX)
     # Application icon
@@ -48,17 +59,32 @@ list(APPEND QML_DIRS {% for comp in QML_DIRS %} ${CMAKE_CURRENT_SOURCE_DIR}/{{ c
 set(QML_IMPORT_PATH "${QML_DIRS}" CACHE STRING "Import paths for Qt Creator's code model" FORCE)
 
 
-
+set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/rc.qrc")
 qt_add_executable(${CMAKE_PROJECT_NAME}
-    main.cpp 
+    {% for comp in PROJECT_SOURCES -%}
+        {{- comp }}
+    {% endfor %}
     MANUAL_FINALIZATION
-    ${APP_ICON_MACOSX}
+        ${APP_ICON_MACOSX}
 )
 
+
+if(APPLE)
+    set(MAIN_QML_SOURCES_MAC
+    {% for comp in MAIN_QML_SOURCES_MAC -%}
+        {{- comp }}
+    {% endfor -%}
+    )
+endif()
 
 qt_add_qml_module(${CMAKE_PROJECT_NAME}
     URI {{MAIN_QML_URI}}
     VERSION 1.0
+    SOURCES
+    ${MAIN_QML_SOURCES_MAC}
+    {% for comp in MAIN_QML_SOURCES -%}
+        {{- comp }}
+    {% endfor -%}        
     QML_FILES
     Main.qml
 )
@@ -143,6 +169,13 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
 
 endif()
 
+if(UNIX)
+    # LibGpgError bug must include_directories on root, but can be linked in subdirectory
+    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/gpgfactory/libpgpfactory/cmake)
+    find_package(LibGpgError REQUIRED)
+    include_directories(${LibGpgError_INCLUDE_DIRS})
+    # End LibGpgError
+endif()
 
 {% for comp in add_subdirectory_lib -%}
     add_subdirectory({{ comp }})
@@ -174,11 +207,23 @@ install(TARGETS ${CMAKE_PROJECT_NAME}
 
 qt_finalize_executable({{APP_NAME}})
 # Generate the deployment script for the target {{APP_NAME}}.
-qt_generate_deploy_qml_app_script(
-    TARGET {{APP_NAME}}
-    OUTPUT_SCRIPT deploy_script
-    # NO_UNSUPPORTED_PLATFORM_ERROR
-)
+if(LINUX)
+    qt_generate_deploy_qml_app_script(
+        TARGET {{APP_NAME}}
+        OUTPUT_SCRIPT deploy_script
+        POST_INCLUDE_FILES
+        {% for comp in LINUX_POST_INCLUDE_FILES -%}
+            {{ comp }}
+        {% endfor -%}              
+        # NO_UNSUPPORTED_PLATFORM_ERROR
+    )
+else()
+    qt_generate_deploy_qml_app_script(
+        TARGET {{APP_NAME}}
+        OUTPUT_SCRIPT deploy_script
+        # NO_UNSUPPORTED_PLATFORM_ERROR
+    )
+endif()
 
 # Call the deployment script on "cmake --install".
 install(SCRIPT ${deploy_script})
