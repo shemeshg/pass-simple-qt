@@ -136,6 +136,9 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     if(WINDOWS)
       install(FILES
             ${CMAKE_SOURCE_DIR}/icon.ico
+            {% for comp in WINDOWS_INSTALL_DLLS -%}
+                {{ comp }}
+            {% endfor -%}
             DESTINATION bin)
     endif()
 
@@ -166,6 +169,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(CPACK_NSIS_CREATE_ICONS_EXTRA
         "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\{{APP_NAME}}.lnk' '$INSTDIR\\\\bin\\\\{{APP_NAME}}.exe' '' '$INSTDIR\\\\bin\\\\icon.ico'"
     )
+
 
 endif()
 

@@ -43,6 +43,14 @@ template_dict = {
                 "QtTotp/getTotp.cpp"
             ],
 
+            "WINDOWS_INSTALL_DLLS": [
+                "${CMAKE_CURRENT_BINARY_DIR}/src/rnp/botan-3.dll",
+                "${CMAKE_CURRENT_BINARY_DIR}/src/rnp/bz2.dll",
+                "${CMAKE_CURRENT_BINARY_DIR}/src/rnp/getopt.dll",
+                "${CMAKE_CURRENT_BINARY_DIR}/src/rnp/json-c.dll",
+                "${CMAKE_CURRENT_BINARY_DIR}/src/rnp/zlib1.dll"
+            ],
+
            "CPACK_DEBIAN_PACKAGE_DEPENDS": ["libxcb-cursor-dev","libc6,libstdc++6","libgcc-s1","pass","gnupg2","libgpgme-dev",
                                             "libgpgmepp-dev","libbotan-2-dev"],
 

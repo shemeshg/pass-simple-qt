@@ -151,6 +151,11 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     if(WINDOWS)
       install(FILES
             ${CMAKE_SOURCE_DIR}/icon.ico
+            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/botan-3.dll
+            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/bz2.dll
+            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/getopt.dll
+            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/json-c.dll
+            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/zlib1.dll
             DESTINATION bin)
     endif()
 
@@ -181,6 +186,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(CPACK_NSIS_CREATE_ICONS_EXTRA
         "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\pass-simple.lnk' '$INSTDIR\\\\bin\\\\pass-simple.exe' '' '$INSTDIR\\\\bin\\\\icon.ico'"
     )
+
 
 endif()
 
