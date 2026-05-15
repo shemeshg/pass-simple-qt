@@ -12,7 +12,7 @@ cpack -G DragNDrop
 mkdir out
 cp -R "Pass-simple.app" out;
 ln -s /Applications out;
-hdiutil create -volname "pass-simple" -srcfolder out -ov -format UDZO pass-simple-1.0.27.dmg
+hdiutil create -volname "pass-simple" -srcfolder out -ov -format UDZO pass-simple-1.0.28.dmg
 
 
 sha256sum pass-simple-1.0.22-arm64.dmg
