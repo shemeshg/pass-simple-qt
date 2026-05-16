@@ -22,5 +22,7 @@ cd "$script_dir/.."
 cd Datetime
 python3 genQmldirAndCMake.py
 
-
+cd "$script_dir/.."
+cd DropdownWithList
+python3 genQmldirAndCMake.py
 
