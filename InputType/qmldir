@@ -1,8 +1,2 @@
-module InputType
-linktarget InputTypeplugin
-optional plugin InputTypeplugin
-classname InputTypePlugin
-typeinfo InputType.qmltypes
-prefer :/InputType/
-InputTypeComponent 1.0 InputTypeComponent.qml
-
+Module InputType 
+InputTypeComponent 1.0 InputTypeComponent.qml    
