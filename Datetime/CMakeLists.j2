@@ -1,0 +1,29 @@
+find_package(Qt6 REQUIRED COMPONENTS 
+{%- for comp in qt6_required %}
+{{comp}}
+{%- endfor %}
+)
+link_libraries(
+{%- for comp in qt6_required %}
+Qt6::{{comp}}
+{%- endfor %}
+)
+
+{% for comp in qml_singletons -%}
+set_source_files_properties({{comp}} PROPERTIES
+    QT_QML_SINGLETON_TYPE TRUE
+)
+{%- endfor %}
+
+qt6_add_qml_module({{module_name}} 
+        URI {{module_name}} 
+        VERSION 1.0
+        SOURCES
+            {% for comp in cpp_sources -%}
+            {{comp}} 
+            {% endfor %}
+        QML_FILES
+            {% for comp in qml_glob -%}
+            {{ comp.as_posix() }} 
+            {% endfor %}
+        )
