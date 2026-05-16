@@ -17,3 +17,10 @@ cog -r CMakeLists.txt
 cd "$script_dir/.."
 cd QmlCore
 python3 genQmldirAndCMake.py
+
+cd "$script_dir/.."
+cd Datetime
+python3 genQmldirAndCMake.py
+
+
+
