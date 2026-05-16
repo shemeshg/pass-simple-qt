@@ -30,4 +30,10 @@ cd "$script_dir/.."
 cd InputType
 python3 genQmldirAndCMake.py
 
+cd "$script_dir/.."
+cd EditYaml
+python3 genQmldirAndCMake.py
 
+cd "$script_dir/.."
+cd QmlApp
+python3 genQmldirAndCMake.py

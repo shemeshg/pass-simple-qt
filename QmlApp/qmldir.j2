@@ -1,0 +1,5 @@
+Module {{module_name}} 
+{% for comp in qml_glob -%}
+    {%- if comp.name in qml_singletons -%}
+singleton {% endif %}{{ comp.stem }} 1.0 {{ comp.as_posix() }}    
+{% endfor -%}
