@@ -1,1 +1,14 @@
-module QmlCore
+Module QmlCore 
+CoreButton 1.0 CoreButton.qml    
+CoreComboBox 1.0 CoreComboBox.qml    
+CoreDialogYesNo 1.0 CoreDialogYesNo.qml    
+CoreLabel 1.0 CoreLabel.qml    
+CoreLabelAndText 1.0 CoreLabelAndText.qml    
+CorePagePadFooter 1.0 CorePagePadFooter.qml    
+CoreSwitch 1.0 CoreSwitch.qml    
+singleton CoreSystemPalette 1.0 CoreSystemPalette.qml    
+CoreTabButton 1.0 CoreTabButton.qml    
+CoreTextArea 1.0 CoreTextArea.qml    
+CoreTextField 1.0 CoreTextField.qml    
+CoreThinBar 1.0 CoreThinBar.qml    
+CoreToolTip 1.0 CoreToolTip.qml    
