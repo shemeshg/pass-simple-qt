@@ -1,0 +1,16 @@
+Cog was written by Ned Batchelder (ned@nedbatchelder.com).
+
+Contributions have been made by:
+
+Alexander Belchenko
+Anders Hovmöller
+Blake Winton
+Daniel Murdin
+Doug Hellmann
+Hugh Perkins
+Jean-François Giraud
+Panayiotis Gavriil
+Petr Gladkiy
+Phil Kirkpatrick
+Ryan Santos
+Tim Vergenz

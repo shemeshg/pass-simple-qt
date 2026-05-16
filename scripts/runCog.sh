@@ -1,39 +1,36 @@
-#!/bin/zsh
-script_dir=$(dirname $(realpath "$0"))
+#!/usr/bin/env bash
+set -e
 
+# Resolve script directory in a portable way
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+
+# Go to project root
 cd "$script_dir/.."
+
+# Create venv if missing
 if [ ! -d ".venv" ]; then
     python3 -m venv .venv
-    source .venv/bin/activate
-    pip install cogapp
-    pip install Jinja2
+    . .venv/bin/activate
+    pip install cogapp Jinja2
 else
-    source .venv/bin/activate
+    . .venv/bin/activate
 fi
 
-cd "$script_dir/.."
+# Run cog on root CMakeLists
 cog -r CMakeLists.txt
 
-cd "$script_dir/.."
-cd QmlCore
-python3 genQmldirAndCMake.py
+# List of directories that contain generator scripts
+modules=(
+    QmlCore
+    Datetime
+    DropdownWithList
+    InputType
+    EditYaml
+    QmlApp
+)
 
-cd "$script_dir/.."
-cd Datetime
-python3 genQmldirAndCMake.py
-
-cd "$script_dir/.."
-cd DropdownWithList
-python3 genQmldirAndCMake.py
-
-cd "$script_dir/.."
-cd InputType
-python3 genQmldirAndCMake.py
-
-cd "$script_dir/.."
-cd EditYaml
-python3 genQmldirAndCMake.py
-
-cd "$script_dir/.."
-cd QmlApp
-python3 genQmldirAndCMake.py
+# Run generator in each module
+for dir in "${modules[@]}"; do
+    cd "$script_dir/../$dir"
+    python3 genQmldirAndCMake.py
+done

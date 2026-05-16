@@ -235,10 +235,7 @@ if(LINUX)
     qt_generate_deploy_qml_app_script(
         TARGET pass-simple
         OUTPUT_SCRIPT deploy_script
-        POST_INCLUDE_FILES
-        /lib/x86_64-linux-gnu/librnp.so.0.17.1
-        /lib/libbotan-3.so.2.2.0
-        # NO_UNSUPPORTED_PLATFORM_ERROR
+        
     )
 else()
     qt_generate_deploy_qml_app_script(

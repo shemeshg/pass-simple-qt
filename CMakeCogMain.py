@@ -21,8 +21,8 @@ template_dict = {
             ],
 
             "LINUX_POST_INCLUDE_FILES": [
-                "/lib/x86_64-linux-gnu/librnp.so.0.17.1",
-                "/lib/libbotan-3.so.2.2.0"
+               # "/lib/x86_64-linux-gnu/librnp.so.0.17.1",
+               # "/lib/libbotan-3.so.2.2.0"
             ],
 
             "MAIN_QML_SOURCES_MAC": [

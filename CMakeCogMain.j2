@@ -215,11 +215,13 @@ if(LINUX)
     qt_generate_deploy_qml_app_script(
         TARGET {{APP_NAME}}
         OUTPUT_SCRIPT deploy_script
+        {% if LINUX_POST_INCLUDE_FILES %}
         POST_INCLUDE_FILES
         {% for comp in LINUX_POST_INCLUDE_FILES -%}
             {{ comp }}
         {% endfor -%}              
         # NO_UNSUPPORTED_PLATFORM_ERROR
+        {% endif %}
     )
 else()
     qt_generate_deploy_qml_app_script(
