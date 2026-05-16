@@ -87,3 +87,5 @@ vcpkg.json
 vcpkg_installed/
 .qmlls.ini
 **/.cache/
+
+.venv/
