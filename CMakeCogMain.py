@@ -2,7 +2,7 @@ from jinja2 import Environment, FileSystemLoader
 import os
 
 template_dict = {
-           "APP_VER": "1.1.0",
+           "APP_VER": "1.2.0",
            "APP_NAME": "pass-simple",
            "APP_DESCRIPTION": "Pass simple",
            "APP_VENDOR": "shemeshg",
