@@ -10,7 +10,20 @@ void EditYamlType::setText(const QString &text)
     emit textChanged();
 
     setIsYamlValid(true);
-    if (m_text.startsWith("#") || m_text.startsWith("-") || m_text.isEmpty()) {
+
+    bool isMultiYamlDoc = false;
+    const QStringList lines = m_text.split('\n');
+    for (const QString &line : lines) {
+        if (line.startsWith("---")) {
+            isMultiYamlDoc = true;
+        }
+    }
+
+
+
+    if (m_text.startsWith("#") || m_text.startsWith("-") ||
+        isMultiYamlDoc ||
+        m_text.isEmpty()) {
         setIsYamlValid(false);
         setYamlErrorMsg("YAML should not start with # or - or be empty");
         return;
