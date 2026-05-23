@@ -11,21 +11,18 @@ void EditYamlType::setText(const QString &text)
 
     setIsYamlValid(true);
 
-    bool isMultiYamlDoc = false;
+
     const QStringList lines = m_text.split('\n');
-    for (const QString &line : lines) {
-        if (line.startsWith("---")) {
-            isMultiYamlDoc = true;
-        }
-    }
+    bool isMultiYamlDoc = std::any_of(lines.begin(), lines.end(), [](const QString &line) {
+        return line.trimmed() == "---" || line.startsWith("#") ;
+    });
 
 
-
-    if (m_text.startsWith("#") || m_text.startsWith("-") ||
+    if (
         isMultiYamlDoc ||
         m_text.isEmpty()) {
         setIsYamlValid(false);
-        setYamlErrorMsg("YAML should not start with # or - or be empty");
+        setYamlErrorMsg("Files containing YAML comments (#) or multi-document separators (---) \n are not supported and will be considered plain text documents.");
         return;
     }
     setYamlErrorMsg("");
