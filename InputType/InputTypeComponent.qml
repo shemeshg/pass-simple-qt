@@ -5,6 +5,7 @@ import QmlCore
 import Datetime
 import InputType
 import QmlApp
+import QtQuick.Dialogs
 
 ColumnLayout {
     id: columnLayoutId
@@ -31,6 +32,30 @@ ColumnLayout {
             return true
         }
     }
+
+
+    CoreDialogYesNo {
+        id: renameYesNo
+        title: "Set  name"
+        implicitWidth: parent.width
+
+
+        CoreTextField {
+            id: fieldName
+            text: ""
+            width: parent.width
+            focus: true
+        }
+
+        onOpened: {
+            console.log(inputText)
+            fieldName.text = inputText
+        }
+        onAccepted: {
+           console.log("OK")
+        }
+    }
+
 
     InputTypeType {
         id: inputTypeType
@@ -168,14 +193,55 @@ ColumnLayout {
 
         CoreButton {
             visible: inputType === "url" && isValidFileRedirect(textField.text)
-            onClicked: () => {
-                           editComponentId.fileUrlDialogDownload.downloadFrom = textField.text
-                           editComponentId.fileUrlDialogDownload.open()
-                       }
+            MouseArea {
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                anchors.fill: parent
+                onClicked: mouse => {
+                               if (mouse.button === Qt.RightButton) {
+                                    menu.open()
+                               } else if (mouse.button === Qt.LeftButton) {
+
+                                   editComponentId.fileUrlDialogDownload.downloadFrom = textField.text
+                                   editComponentId.fileUrlDialogDownload.open()
+                               }
+                           }
+            }
             icon.name: "Download file"
-            hooverText: "Download file"
+            hooverText: "Download file <br/> R.Click for delelete or rename ref. file"
             icon.source: Qt.resolvedUrl(
                              "icons/outline_file_download_black_24dp.png")
+
+
+            Menu {
+                 id: menu
+
+
+                 MenuItem {
+                     MessageDialog {
+                         id: okCancelId
+                         text: "Confirm"
+                         informativeText: "Delete reference file, and clear input field?"
+                         buttons: MessageDialog.Ok | MessageDialog.Cancel
+
+                         onAccepted: {
+                             console.log("YES")
+
+                         }
+                     }
+                     onClicked: {
+                         okCancelId.open()
+                     }
+
+                     text: "Delete"
+                 }
+                 MenuItem {
+                    onClicked: {
+                        renameYesNo.open()
+                    }
+                    text: "Rename"
+                 }
+             }
+
         }
         CoreButton {
             visible: inputType === "url" && textField.text === ""
