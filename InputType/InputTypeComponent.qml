@@ -5,7 +5,7 @@ import QmlCore
 import Datetime
 import InputType
 import QmlApp
-import QtQuick.Dialogs
+
 
 ColumnLayout {
     id: columnLayoutId
@@ -55,6 +55,26 @@ ColumnLayout {
            console.log("OK")
         }
     }
+
+    CoreDialogYesNo {
+        id: deleteYesNo
+        title: "Set  name"
+        implicitWidth: parent.width
+        implicitHeight: QmlAppSt.mainqmltype.appSettingsType.fontSize * 10
+
+        CoreLabel{
+            text: "Delete reference file, \n" + inputText + "\n and clear input field?"
+            width: parent.width
+        }
+
+        onOpened: {
+            console.log(inputText)
+        }
+        onAccepted: {
+           console.log("OK")
+        }
+    }
+
 
 
     InputTypeType {
@@ -217,19 +237,9 @@ ColumnLayout {
 
 
                  MenuItem {
-                     MessageDialog {
-                         id: okCancelId
-                         text: "Confirm"
-                         informativeText: "Delete reference file, and clear input field?"
-                         buttons: MessageDialog.Ok | MessageDialog.Cancel
 
-                         onAccepted: {
-                             console.log("YES")
-
-                         }
-                     }
                      onClicked: {
-                         okCancelId.open()
+                         deleteYesNo.open()
                      }
 
                      text: "Delete"
