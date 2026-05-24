@@ -634,6 +634,36 @@ fields type:
 
 }
 
+bool MainQmlType::stdFileRename(QString fromPath, QString toPath){
+    try {
+        std::filesystem::path fromPathPath = fromPath.toStdString();
+        std::filesystem::path toPathPath = toPath.toStdString();
+        std::filesystem::rename(fromPathPath, toPathPath);
+    } catch (std::filesystem::filesystem_error &e) {
+        qDebug() << "Error rm file or folder: " << e.what() << "\n";
+        return false;
+    } catch (...) {
+        qDebug() << "rm failed";
+        return false;
+    }
+    return true;
+}
+
+bool MainQmlType::stdFileDelete(QString fromPath){
+    try {
+    std::filesystem::path fileToRemove = fromPath.toStdString();
+    std::filesystem::remove_all(fileToRemove);
+    } catch (std::filesystem::filesystem_error &e) {
+        qDebug() << "Error rm file or folder: " << e.what() << "\n";
+        return false;
+    } catch (...) {
+        qDebug() << "rm failed";
+        return false;
+    }
+    return true;
+
+}
+
 bool MainQmlType::fileExists(QString fullPathFolder, QString fileName)
 {
     std::filesystem::path p = fullPathFolder.toStdString();

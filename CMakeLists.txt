@@ -5,7 +5,7 @@
 # ]]]
 cmake_minimum_required(VERSION 3.16)
 
-project(pass-simple VERSION 1.3.0 LANGUAGES CXX)
+project(pass-simple VERSION 1.4.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT_QML_GENERATE_QMLLS_INI ON)

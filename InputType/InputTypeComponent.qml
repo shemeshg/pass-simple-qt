@@ -6,6 +6,7 @@ import Datetime
 import InputType
 import QmlApp
 
+
 ColumnLayout {
     id: columnLayoutId
     property string inputType: "" //totp,url,text,textedit
@@ -31,6 +32,67 @@ ColumnLayout {
             return true
         }
     }
+
+
+    CoreDialogYesNo {
+        id: renameYesNo
+        title: "Set  name"
+        implicitWidth: parent.width
+        property string orgRefFullPath: "";
+        property string refRelFolder: "";
+
+        CoreTextField {
+            id: fieldName
+            text: ""
+            width: parent.width
+            focus: true
+        }
+
+        onOpened: {
+            let orgRef = inputText;
+            let orgRefAry = orgRef.split('/')
+            let orgFileName = orgRefAry.pop()
+            refRelFolder = orgRefAry.join('/')
+
+            orgRefFullPath = QmlAppSt.fullPathFolder + '/' + orgRef + '.gpg';
+            fieldName.text = orgFileName
+        }
+        onAccepted: {
+            fieldName.text = fieldName.text.replace(/[\/\\]/g, "_");
+
+            let moveFrom = orgRefFullPath
+            let moveTo = orgRefFullPath.split('/').slice(0, -1).join('/') + '/' + fieldName.text + '.gpg'
+
+            let newRefPath = refRelFolder + '/' + fieldName.text
+            if (QmlAppSt.mainqmltype.stdFileRename(moveFrom, moveTo)){
+                inputText = newRefPath;
+            }
+
+        }
+    }
+
+    CoreDialogYesNo {
+        id: deleteYesNo
+        title: "Confirm"
+        implicitWidth: parent.width
+        implicitHeight: QmlAppSt.mainqmltype.appSettingsType.fontSize * 10
+
+        CoreLabel{
+            text: "Delete reference file, \n" + inputText + "\n and clear input field?"
+            width: parent.width
+        }
+
+        onOpened: {
+        }
+        onAccepted: {
+            let orgRefFullPath = QmlAppSt.fullPathFolder + '/' + inputText + '.gpg';
+            if (QmlAppSt.mainqmltype.stdFileDelete(orgRefFullPath)){
+                inputText = "";
+            }
+        }
+    }
+
+
 
     InputTypeType {
         id: inputTypeType
@@ -168,14 +230,45 @@ ColumnLayout {
 
         CoreButton {
             visible: inputType === "url" && isValidFileRedirect(textField.text)
-            onClicked: () => {
-                           editComponentId.fileUrlDialogDownload.downloadFrom = textField.text
-                           editComponentId.fileUrlDialogDownload.open()
-                       }
+            MouseArea {
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                anchors.fill: parent
+                onClicked: mouse => {
+                               if (mouse.button === Qt.RightButton) {
+                                   menu.open()
+                               } else if (mouse.button === Qt.LeftButton) {
+
+                                   editComponentId.fileUrlDialogDownload.downloadFrom = textField.text
+                                   editComponentId.fileUrlDialogDownload.open()
+                               }
+                           }
+            }
             icon.name: "Download file"
-            hooverText: "Download file"
+            hooverText: "Download file <br/> R.Click for delelete or rename ref. file"
             icon.source: Qt.resolvedUrl(
                              "icons/outline_file_download_black_24dp.png")
+
+
+            Menu {
+                id: menu
+
+
+                MenuItem {
+
+                    onClicked: {
+                        deleteYesNo.open()
+                    }
+
+                    text: "Delete"
+                }
+                MenuItem {
+                    onClicked: {
+                        renameYesNo.open()
+                    }
+                    text: "Rename"
+                }
+            }
+
         }
         CoreButton {
             visible: inputType === "url" && textField.text === ""
