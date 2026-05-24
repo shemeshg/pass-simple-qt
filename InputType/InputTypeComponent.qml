@@ -38,7 +38,8 @@ ColumnLayout {
         id: renameYesNo
         title: "Set  name"
         implicitWidth: parent.width
-
+        property string orgRefFullPath: "";
+        property string refRelFolder: "";
 
         CoreTextField {
             id: fieldName
@@ -48,17 +49,31 @@ ColumnLayout {
         }
 
         onOpened: {
-            console.log(inputText)
-            fieldName.text = inputText
+            let orgRef = inputText;
+            let orgRefAry = orgRef.split('/')
+            let orgFileName = orgRefAry.pop()
+            refRelFolder = orgRefAry.join('/')
+
+            orgRefFullPath = QmlAppSt.fullPathFolder + '/' + orgRef + '.gpg';
+            fieldName.text = orgFileName
         }
         onAccepted: {
-           console.log("OK")
+
+            let moveFrom = orgRefFullPath
+            let moveTo = orgRefFullPath.split('/').slice(0, -1).join('/') + '/' + fieldName.text + '.gpg'
+
+            let newRefPath = refRelFolder + '/' + fieldName.text
+            console.log("from: " + moveFrom)
+            console.log("to: " + moveTo)
+            console.log("inputText will be set to " + newRefPath)
+
+
         }
     }
 
     CoreDialogYesNo {
         id: deleteYesNo
-        title: "Set  name"
+        title: "Confirm"
         implicitWidth: parent.width
         implicitHeight: QmlAppSt.mainqmltype.appSettingsType.fontSize * 10
 
@@ -68,10 +83,11 @@ ColumnLayout {
         }
 
         onOpened: {
-            console.log(inputText)
         }
         onAccepted: {
-           console.log("OK")
+            let orgRefFullPath = QmlAppSt.fullPathFolder + '/' + inputText + '.gpg';
+            console.log("delete:" + orgRefFullPath)
+            console.log("set inputText to empty")
         }
     }
 
@@ -218,7 +234,7 @@ ColumnLayout {
                 anchors.fill: parent
                 onClicked: mouse => {
                                if (mouse.button === Qt.RightButton) {
-                                    menu.open()
+                                   menu.open()
                                } else if (mouse.button === Qt.LeftButton) {
 
                                    editComponentId.fileUrlDialogDownload.downloadFrom = textField.text
@@ -233,24 +249,24 @@ ColumnLayout {
 
 
             Menu {
-                 id: menu
+                id: menu
 
 
-                 MenuItem {
+                MenuItem {
 
-                     onClicked: {
-                         deleteYesNo.open()
-                     }
+                    onClicked: {
+                        deleteYesNo.open()
+                    }
 
-                     text: "Delete"
-                 }
-                 MenuItem {
+                    text: "Delete"
+                }
+                MenuItem {
                     onClicked: {
                         renameYesNo.open()
                     }
                     text: "Rename"
-                 }
-             }
+                }
+            }
 
         }
         CoreButton {
