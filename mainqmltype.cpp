@@ -646,6 +646,7 @@ bool MainQmlType::stdFileRename(QString fromPath, QString toPath){
         qDebug() << "rm failed";
         return false;
     }
+    initFileSystemModel(filePath());
     return true;
 }
 
@@ -660,6 +661,7 @@ bool MainQmlType::stdFileDelete(QString fromPath){
         qDebug() << "rm failed";
         return false;
     }
+    initFileSystemModel(filePath());
     return true;
 
 }
