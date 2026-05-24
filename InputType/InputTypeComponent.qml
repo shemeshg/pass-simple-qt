@@ -58,15 +58,15 @@ ColumnLayout {
             fieldName.text = orgFileName
         }
         onAccepted: {
+            fieldName.text = fieldName.text.replace(/[\/\\]/g, "_");
 
             let moveFrom = orgRefFullPath
             let moveTo = orgRefFullPath.split('/').slice(0, -1).join('/') + '/' + fieldName.text + '.gpg'
 
             let newRefPath = refRelFolder + '/' + fieldName.text
-            console.log("from: " + moveFrom)
-            console.log("to: " + moveTo)
-            console.log("inputText will be set to " + newRefPath)
-
+            if (QmlAppSt.mainqmltype.stdFileRename(moveFrom, moveTo)){
+                inputText = newRefPath;
+            }
 
         }
     }
@@ -86,8 +86,9 @@ ColumnLayout {
         }
         onAccepted: {
             let orgRefFullPath = QmlAppSt.fullPathFolder + '/' + inputText + '.gpg';
-            console.log("delete:" + orgRefFullPath)
-            console.log("set inputText to empty")
+            if (QmlAppSt.mainqmltype.stdFileDelete(orgRefFullPath)){
+                inputText = "";
+            }
         }
     }
 

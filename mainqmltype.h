@@ -181,6 +181,10 @@ public:
 
     Q_INVOKABLE void createEmptyEncryptedFile(QString fullPathFolder, QString fileName, QString templatePath);
 
+    Q_INVOKABLE bool stdFileRename(QString fromPath, QString toPath);
+
+    Q_INVOKABLE bool stdFileDelete(QString fromPath);
+
     Q_INVOKABLE bool fileExists(QString fullPathFolder, QString fileName);
 
     Q_INVOKABLE void encryptUpload(QString fullPathFolder, QString fileName, bool toFilesSubFolder=false);
