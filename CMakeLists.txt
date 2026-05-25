@@ -39,10 +39,10 @@ if(WIN32 OR MSVC OR MSYS OR MINGW)
     set(PROJECT_OS "WINDOWS")
 
     # rnpgp specific
-    set(VCPKG_INSTALLED_DIR "C:/Users/windows/Documents/Projects/rnp/vcpkg_install")
-    set(VCPKG_ROOT "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/vcpkg")
+    # set(VCPKG_INSTALLED_DIR "C:/Users/windows/Documents/Projects/rnp/vcpkg_install")
+    # set(VCPKG_ROOT "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/vcpkg")
     set(DCRYPTO_BACKEND "botan" )
-    include( "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    # include( "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/vcpkg/scripts/buildsystems/vcpkg.cmake")
     # END rnpgp specific
 
 endif()
@@ -151,11 +151,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     if(WINDOWS)
       install(FILES
             ${CMAKE_SOURCE_DIR}/icon.ico
-            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/botan-3.dll
-            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/bz2.dll
-            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/getopt.dll
-            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/json-c.dll
-            ${CMAKE_CURRENT_BINARY_DIR}/src/rnp/z.dll
             DESTINATION bin)
     endif()
 
