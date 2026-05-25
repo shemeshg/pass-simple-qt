@@ -149,9 +149,25 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     set_property(TARGET pass-simple PROPERTY WIN32_EXECUTABLE true)
 
     if(WINDOWS)
-      install(FILES
-            ${CMAKE_SOURCE_DIR}/icon.ico
-            DESTINATION bin)
+        if(CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "x64")
+          install(FILES
+                ${CMAKE_SOURCE_DIR}/icon.ico
+                C:/Users/windows/Documents/Projects/rnp/vcpkg_install/x64-windows/bin/botan-3.dll
+                C:/Users/windows/Documents/Projects/rnp/vcpkg_install/x64-windows/bin/bz2.dll
+                C:/Users/windows/Documents/Projects/rnp/vcpkg_install/x64-windows/bin/getopt.dll
+                C:/Users/windows/Documents/Projects/rnp/vcpkg_install/x64-windows/bin/json-c.dll
+                C:/Users/windows/Documents/Projects/rnp/vcpkg_install/x64-windows/bin/z.dll
+                DESTINATION bin)
+        else()
+        install(FILES
+              ${CMAKE_SOURCE_DIR}/icon.ico
+              C:/Users/windows/Documents/Projects/rnp/vcpkg_install/vcpkg/blds/botan/arm64-windows-rel/botan-3.dll
+              C:/Users/windows/Documents/Projects/rnp/vcpkg_install/arm64-windows/bin/bz2.dll
+              C:/Users/windows/Documents/Projects/rnp/vcpkg_install/vcpkg/blds/json-c/arm64-windows-rel/json-c.dll
+              C:/Users/windows/Documents/Projects/rnp/vcpkg_install/arm64-windows/bin/z.dll
+              DESTINATION bin)
+        endif()
+
     endif()
 
     # set the install/uninstall icon used for the installer itself

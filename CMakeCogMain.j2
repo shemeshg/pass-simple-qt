@@ -134,12 +134,22 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     set_property(TARGET {{APP_NAME}} PROPERTY WIN32_EXECUTABLE true)
 
     if(WINDOWS)
-      install(FILES
-            ${CMAKE_SOURCE_DIR}/icon.ico
-            {% for comp in WINDOWS_INSTALL_DLLS -%}
-                {{ comp }}
-            {% endfor -%}
-            DESTINATION bin)
+        if(CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "x64")
+          install(FILES
+                ${CMAKE_SOURCE_DIR}/icon.ico
+                {% for comp in WINDOWS_INSTALL_DLLS_X64 -%}
+                    {{ comp }}
+                {% endfor -%}
+                DESTINATION bin)
+        else()
+        install(FILES
+              ${CMAKE_SOURCE_DIR}/icon.ico
+              {% for comp in WINDOWS_INSTALL_DLLS_ARM64 -%}
+                  {{ comp }}
+              {% endfor -%}
+              DESTINATION bin)
+        endif()
+
     endif()
 
     # set the install/uninstall icon used for the installer itself

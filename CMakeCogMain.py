@@ -43,14 +43,19 @@ template_dict = {
                 "QtTotp/getTotp.cpp"
             ],
 
-            "WINDOWS_INSTALL_DLLS": [
-               # "${CMAKE_CURRENT_BINARY_DIR}/src/rnp/botan-3.dll",
-               # "${CMAKE_CURRENT_BINARY_DIR}/src/rnp/bz2.dll",
-               # "${CMAKE_CURRENT_BINARY_DIR}/src/rnp/getopt.dll",
-               # "${CMAKE_CURRENT_BINARY_DIR}/src/rnp/json-c.dll",
-               # "${CMAKE_CURRENT_BINARY_DIR}/src/rnp/z.dll"
+            "WINDOWS_INSTALL_DLLS_X64": [
+               "C:/Users/windows/Documents/Projects/rnp/vcpkg_install/x64-windows/bin/botan-3.dll",
+               "C:/Users/windows/Documents/Projects/rnp/vcpkg_install/x64-windows/bin/bz2.dll",
+               "C:/Users/windows/Documents/Projects/rnp/vcpkg_install/x64-windows/bin/getopt.dll",
+               "C:/Users/windows/Documents/Projects/rnp/vcpkg_install/x64-windows/bin/json-c.dll",
+               "C:/Users/windows/Documents/Projects/rnp/vcpkg_install/x64-windows/bin/z.dll"
             ],
-
+            "WINDOWS_INSTALL_DLLS_ARM64": [
+               "C:/Users/windows/Documents/Projects/rnp/vcpkg_install/vcpkg/blds/botan/arm64-windows-rel/botan-3.dll",
+               "C:/Users/windows/Documents/Projects/rnp/vcpkg_install/arm64-windows/bin/bz2.dll",
+               "C:/Users/windows/Documents/Projects/rnp/vcpkg_install/vcpkg/blds/json-c/arm64-windows-rel/json-c.dll",
+               "C:/Users/windows/Documents/Projects/rnp/vcpkg_install/arm64-windows/bin/z.dll"
+            ],
            "CPACK_DEBIAN_PACKAGE_DEPENDS": ["libxcb-cursor-dev","libc6,libstdc++6","libgcc-s1","pass","gnupg2","libgpgme-dev",
                                             "libgpgmepp-dev","libbotan-2-dev"],
 
