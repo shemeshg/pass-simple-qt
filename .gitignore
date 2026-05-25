@@ -89,3 +89,4 @@ vcpkg_installed/
 **/.cache/
 
 .venv/
+.vscode/
