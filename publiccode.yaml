@@ -6,8 +6,8 @@ publiccodeYmlVersion: '0.2'
 name: Pass simple
 url: 'https://github.com/shemeshg/pass-simple-qt'
 landingURL: 'https://sourceforge.net/projects/pass-simple/'
-releaseDate: '2025-08-01'
-softwareVersion: 1.0.25
+releaseDate: '2026-10-20'
+softwareVersion: 1.4.0
 developmentStatus: stable
 softwareType: standalone/desktop
 platforms:
