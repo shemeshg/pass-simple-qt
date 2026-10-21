@@ -135,7 +135,7 @@ ColumnLayout {
         }
     }
 
-    function populateDecryptedUiFields() {
+    function populateDecryptedUiFields() {                        
         QmlAppSt.nearestGit = QmlAppSt.mainqmltype.getNearestGit()
         setGitDiffReturnCode()
 

@@ -161,7 +161,6 @@ void MainQmlType::setAppSettingsType(AppSettings *appSettingsType)
     appSettings->setPasswordStorePath(appSettingsType->passwordStorePath());
     appSettings->setTmpFolderPath(appSettingsType->tmpFolderPath());
     appSettingsTypeChanged();
-    qDebug() << "Yes subbmited";
 }
 
 void MainQmlType::setSearchResult(const QStringList &searchResult)
@@ -319,6 +318,7 @@ void MainQmlType::doLogout()
 {
     QClipboard *clipboard = QGuiApplication::clipboard();
     clipboard->clear();
+    setSelectedText("");
     loginAndPasswordMap = {};
 
     setMenubarCommStr("clearSearchFields");
